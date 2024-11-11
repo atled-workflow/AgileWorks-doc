@@ -1,0 +1,951 @@
+openapi: 3.1.0
+info:
+  title: '[AW]R3系 WebAPIテストケース整理'
+  version: 1.0.0
+servers:
+  - url: https://sample.atled.jp/AgileWorks/Broker
+  
+security:
+  - bearerAuth: []
+tags:
+  - name: 組織API
+
+paths:
+  /WebApi/Service?name=org.Org&method=addUser:
+    post:
+      tags:
+        - 組織API
+      summary: ユーザー作成
+      description: |
+        ユーザーの作成を行います。
+      operationId: AddUser
+      requestBody:
+        $ref: "#/components/requestBodies/AddUserRequest"
+      
+      responses:
+        "200":
+          $ref: "#/components/responses/UserResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+
+            
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=org.Org&method=findUser:
+    post:
+      tags:
+        - 組織API
+      summary: ユーザー参照
+      description: |
+        指定されたパラメータのユーザーを参照します。<br>
+        ユーザーの参照には、基準日を指定する必要があります。<br>
+        指定した基準日が適用期間内に含まれるユーザーを参照します。<br>
+        また、columnValueConditionListで検索条件を指定できます。
+      operationId: FindUser
+      requestBody:
+        $ref: "#/components/requestBodies/FindUserRequest"
+      
+      responses:
+        "200":
+          $ref: "#/components/responses/UserResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+            
+ # --------------------------------------------------------------------------------------------------------
+  /Broker/WebApi/{updateUser}:
+    post:
+      tags:
+        - 組織API
+      summary: ユーザー更新
+      description:
+        ユーザーの更新を行います。
+        ユーザーの更新には、ユーザーコード、ログインID、ユーザー名称、更新対象ユーザーのIDを指定する必要があります。
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: string
+              example: >-
+                "{\r\n  \"id\" : {{5.3_user}},\r\n  \"availableDateFrom\" :
+                \"1901-01-01 00:00:00 JST\",\r\n  \"availableDateTo\" :
+                \"2060-12-31 00:00:00 JST\",\r\n  \"code\" :
+                \"autowebapitestUpdate1\",\r\n  \"criterionDate\" : \"2021-02-01
+                00:00:00 JST\",\r\n  \"displayLanguage\" : \"en\",\r\n 
+                \"importCode\" : \"autowebapitestUpdate1\",\r\n 
+                \"isAccountLock\" : true,\r\n  \"isForceChangePassword\" :
+                false,\r\n  \"kana\" : \"\",\r\n  \"localeName\" : \"ja\",\r\n 
+                \"localizedName\" : \"\",\r\n  \"loginId\" :
+                \"autowebapitestUpdate1\",\r\n  \"mailAddress\" :
+                \"autowebapitestUpdate1@example.com\",\r\n  \"name\" :
+                \"autowebapitestUpdate1\",\r\n  \"password\" :
+                \"autowebapitestUpdate1\",\r\n  \"remarks\" :
+                \"autowebapitestUpdate1\",\r\n  \"reserveItems\" : {\r\n   
+                \"reserveItem1\" : \"autowebapitestUpdate\",\r\n   
+                \"reserveItem2\" : \"autowebapitestUpdate1\",\r\n   
+                \"reserveItem3\" : \"autowebapitestUpdate2\",\r\n   
+                \"reserveItem4\" : \"autowebapitestUpdate3\",\r\n   
+                \"reserveItem5\" : \"autowebapitestUpdate4\",\r\n   
+                \"reserveItem6\" : \"autowebapitestUpdate5\",\r\n   
+                \"reserveItem7\" : \"autowebapitestUpdate6\",\r\n   
+                \"reserveItem8\" : \"autowebapitestUpdate7\",\r\n   
+                \"reserveItem9\" : \"autowebapitestUpdate8\",\r\n   
+                \"reserveItem10\" : \"autowebapitestUpdate9\",\r\n   
+                \"reserveItem11\" : \"autowebapitestUpdate10\",\r\n   
+                \"reserveItem12\" : \"autowebapitestUpdate11\",\r\n   
+                \"reserveItem13\" : \"autowebapitestUpdate12\",\r\n   
+                \"reserveItem14\" : \"autowebapitestUpdate13\",\r\n   
+                \"reserveItem15\" : \"autowebapitestUpdate14\",\r\n   
+                \"reserveItem16\" : \"autowebapitestUpdate15\",\r\n   
+                \"reserveItem17\" : \"autowebapitestUpdate16\",\r\n   
+                \"reserveItem18\" : \"autowebapitestUpdate17\",\r\n   
+                \"reserveItem19\" : \"autowebapitestUpdate18\",\r\n   
+                \"reserveItem20\" : \"autowebapitestUpdate19\"\r\n  },\r\n 
+                \"stampName\" : \"autowebapitestUpdate1\",\r\n 
+                \"validityDateFrom\" :  \"1901-01-01 00:00:00 JST\",\r\n 
+                \"validityDateTo\" : \"2060-12-31 00:00:00 JST\"\r\n}"
+      parameters:
+        - name: Host
+          in: header
+          schema:
+            type: string
+          example: '{{host}}'
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/json; charset=UTF-8
+        - name: name
+          in: query
+          schema:
+            type: string
+          example: org.Org
+        - name: method
+          in: query
+          schema:
+            type: string
+          example: updateUser
+        - name: ServerAddress
+          in: path
+          schema:
+            type: string
+          required: true
+        - name: context
+          in: path
+          schema:
+            type: string
+          required: true
+        - name: updateUser
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  //{ServerAddress}/{context}/Broker/WebApi/{deleteUser}:
+    post:
+      tags:
+        - 組織API
+      summary: '5.4.1 : ユーザー削除'
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: string
+              example: >-
+                "{\r\n  \"id\" : {{5.4.1_user}},\r\n  \"criterionDate\" :
+                \"2021-02-05 00:00:00 JST\"\r\n}"
+      parameters:
+        - name: Host
+          in: header
+          schema:
+            type: string
+          example: '{{host}}'
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/json; charset=UTF-8
+        - name: name
+          in: query
+          schema:
+            type: string
+          example: org.Org
+        - name: method
+          in: query
+          schema:
+            type: string
+          example: deleteUser
+        - name: ServerAddress
+          in: path
+          schema:
+            type: string
+          required: true
+        - name: context
+          in: path
+          schema:
+            type: string
+          required: true
+        - name: deleteUser
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  //{ServerAddress}/{context}/Broker/WebApi/{disableUser}:
+    post:
+      tags:
+        - 組織API
+      summary: 5.5.1 :ユーザーの適用終了
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example: "{\r\n  \"availableDateTo\" : \"{{toDay}} 00:00:00 JST\",\r\n  \"id\" : {{5.5.1_user}}\r\n}"
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/json; charset=UTF-8
+        - name: Host
+          in: header
+          schema:
+            type: string
+          example: '{{host}}'
+        - name: name
+          in: query
+          schema:
+            type: string
+          example: org.Org
+        - name: method
+          in: query
+          schema:
+            type: string
+          example: disableUser
+        - name: ServerAddress
+          in: path
+          schema:
+            type: string
+          required: true
+        - name: context
+          in: path
+          schema:
+            type: string
+          required: true
+        - name: disableUser
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+
+
+
+  # --------------------------------------------------------------------------------------------------
+
+# -----------------------------------------------
+# コンポーネントの定義
+# -----------------------------------------------
+
+components:
+
+      
+    # -----------------------------------------------
+    # リクエスト components/requestBodies
+    # -----------------------------------------------
+
+  requestBodies:
+    AddUserRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - code
+              - loginId
+              - name
+              - password
+            allOf:
+              - $ref: "#/components/schemas/AddUserRequest"
+          example:
+            availableDateFrom: 1900-01-01 00:00:00 JST
+            availableDateTo: 2060-12-31 00:00:00 JST
+            code: user01
+            displayLanguage: ja
+            importCode: user01
+            isAccountLock: false
+            isForceChangePassword: true
+            kana: テラサキケイイチ
+            localeName: ja
+            localizedName: ''
+            loginId: user01
+            mailAddress: user01@example.com
+            name: 寺崎啓一
+            password: user01_Pw
+            remarks: 備考
+            reserveItems:
+              reserveItem1: a
+              reserveItem2: b
+              reserveItem3: c
+              reserveItem4: d
+              reserveItem5: e
+              reserveItem6: f
+              reserveItem7: g
+              reserveItem8: h
+              reserveItem9: i
+              reserveItem10: j
+              reserveItem11: k
+              reserveItem12: l
+              reserveItem13: m
+              reserveItem14: n
+              reserveItem15: o
+              reserveItem16: p
+              reserveItem17: q
+              reserveItem18: r
+              reserveItem19: s
+              reserveItem20: t
+            stampName: 寺崎(啓)
+            validityDateFrom: 1900-01-01 00:00:00 JST
+            validityDateTo: 2060-12-31 00:00:00 JST
+              
+    FindUserRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - criterionDate
+            allOf:
+              - $ref: "#/components/schemas/FindUserRequest"
+          example:
+            condition:
+              code: user01
+              loginId: 
+              name: 
+              isAccountLock: false
+              unitCode: 
+              sectionRoleCode:
+              universalRoleCode:
+              reserveItem1: 
+              reserveItem2: 
+              reserveItem3: 
+              reserveItem4: 
+              reserveItem5: 
+              reserveItem6: 
+              reserveItem7: 
+              reserveItem8: 
+              reserveItem9: 
+              reserveItem10: 
+              columnValueConditionList:
+                entries:
+                  - column: ReserveItem1
+                    compareOperatorType: NOT_LIKE
+                    value: A
+                logicalOperator: AND
+              criterionDate: 2024-10-31 00:00:00 JST
+    
+  # -----------------------------------------------
+  # レスポンス components/responses
+  # -----------------------------------------------
+
+  responses:
+    ErrorResponses400:
+      description: "Error response"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error_code:
+                type: integer
+                example: 400
+              error_message:
+                type: string
+                example: "{エラーメッセージ}"
+
+    ErrorResponses401:
+      description: "Error response"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error_code:
+                type: integer
+                example: 401
+              error_message:
+                type: string
+                example: "{エラーメッセージ}"
+
+    ErrorResponses403:
+      description: "Error response"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error_code:
+                type: integer
+                example: 403
+              error_message:
+                type: string
+                example: "{エラーメッセージ}"
+
+    ErrorResponses404:
+      description: "Error response"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error_code:
+                type: integer
+                example: 404
+              error_message:
+                type: string
+                example: "{エラーメッセージ}"
+
+    ErrorResponses500:
+      description: "Error response"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error_code:
+                type: integer
+                example: 500
+              error_message:
+                type: string
+                example: "{エラーメッセージ}"
+              reasons:
+                type: string
+                example: ["{エラーメッセージ}"]
+
+    ErrorResponses500_noReasons:
+      description: "Error response"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error_code:
+                type: integer
+                example: 500
+              error_message:
+                type: string
+                example: "{エラーメッセージ}"
+                
+
+
+    # --------------------------------------------------------------------------------------------------
+
+    UserResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/UserResponse"
+          examples:
+            正常:
+              value:
+                user:
+                  name: 寺崎啓一
+                  id: 999
+                  displayLanguage: ja
+                  localeName: ja
+                  localizedName: ""
+                  password: 
+                  reserveItems:
+                    reserveItem1: a
+                    reserveItem2: b
+                    reserveItem3: c
+                    reserveItem4: d
+                    reserveItem5: e
+                    reserveItem6: f
+                    reserveItem7: g
+                    reserveItem8: h
+                    reserveItem9: i
+                    reserveItem10: j
+                    reserveItem11: k
+                    reserveItem12: l
+                    reserveItem13: m
+                    reserveItem14: n
+                    reserveItem15: o
+                    reserveItem16: p
+                    reserveItem17: q
+                    reserveItem18: r
+                    reserveItem19: s
+                    reserveItem20: t
+                  validityDateTo: 2060-12-31 00:00:00 JST
+                  loginId: user01
+                  code: user01
+                  kana: テラサキケイイチ
+                  availableDateTo: 2060-12-31 00:00:00 JST
+                  criterionDate: 2024-11-08 00:00:00 JST
+                  stampName: 寺崎(啓)
+                  mailAddress: user01@example.com
+                  remarks: 備考
+                  importCode: user01
+                  availableDateFrom: 1900-01-01 00:00:00 JST
+                  validityDateFrom: 1900-01-01 00:00:00 JST
+                  isNeedStampImage: 
+                  isForceChangePassword: true
+                  isAccountLock: false
+                resultStatus: 
+                  messageList: 
+                    entries: []
+                  status: SUCCESS
+                  text: 
+                  code: 
+            パラメータが不正:
+              value:
+                user:
+                  name: 
+                  id: 
+                  displayLanguage: 
+                  localeName: 
+                  localizedName: 
+                  password: 
+                  reserveItems:
+                    reserveItem1: 
+                    reserveItem2: 
+                    reserveItem3: 
+                    reserveItem4: 
+                    reserveItem5: 
+                    reserveItem6: 
+                    reserveItem7: 
+                    reserveItem8: 
+                    reserveItem9: 
+                    reserveItem10: 
+                    reserveItem11: 
+                    reserveItem12: 
+                    reserveItem13: 
+                    reserveItem14: 
+                    reserveItem15: 
+                    reserveItem16: 
+                    reserveItem17: 
+                    reserveItem18: 
+                    reserveItem19: 
+                    reserveItem20: 
+                  validityDateTo: 
+                  loginId: 
+                  code: 
+                  kana: 
+                  availableDateTo: 
+                  criterionDate: 
+                  stampName: 
+                  mailAddress: 
+                  remarks: 
+                  importCode: 
+                  availableDateFrom: 
+                  validityDateFrom: 
+                  isNeedStampImage: 
+                  isForceChangePassword: 
+                  isAccountLock: 
+                resultStatus: 
+                  messageList: 
+                    entries: 
+                      - text: "{エラーメッセージ}"
+                        code: "{エラーコード}"
+                  status: FAIL
+                  text: サービス実行時にエラーが発生しました。
+                  code: AWPCMN0000
+            リクエストが不正:
+              value: 
+               resultStatus: 
+                 messageList: 
+                   entries: []
+                 status: FAIL
+                 text: 公開APIの実行時にエラーが発生しました。
+                 code: APIPAP_W0003
+    
+    FindUserResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/AddUserResponse"
+          examples:
+            正常:
+              value:
+                user:
+                  name: 寺崎啓一
+                  id: 999
+                  displayLanguage: ja
+                  localeName: ja
+                  localizedName: ""
+                  password: 
+                  reserveItems:
+                    reserveItem1: a
+                    reserveItem2: b
+                    reserveItem3: c
+                    reserveItem4: d
+                    reserveItem5: e
+                    reserveItem6: f
+                    reserveItem7: g
+                    reserveItem8: h
+                    reserveItem9: i
+                    reserveItem10: j
+                    reserveItem11: k
+                    reserveItem12: l
+                    reserveItem13: m
+                    reserveItem14: n
+                    reserveItem15: o
+                    reserveItem16: p
+                    reserveItem17: q
+                    reserveItem18: r
+                    reserveItem19: s
+                    reserveItem20: t
+                  validityDateTo: 2060-12-31 00:00:00 JST
+                  loginId: user01
+                  code: user01
+                  kana: テラサキケイイチ
+                  availableDateTo: 2060-12-31 00:00:00 JST
+                  criterionDate: 2024-11-08 00:00:00 JST
+                  stampName: 寺崎(啓)
+                  mailAddress: user01@example.com
+                  remarks: 備考
+                  importCode: user01
+                  availableDateFrom: 1900-01-01 00:00:00 JST
+                  validityDateFrom: 1900-01-01 00:00:00 JST
+                  isNeedStampImage: 
+                  isForceChangePassword: true
+                  isAccountLock: false
+                resultStatus: 
+                  messageList: 
+                    entries: []
+                  status: SUCCESS
+                  text: 
+                  code: 
+            パラメータが不正:
+              value:
+                user:
+                  name: 
+                  id: 
+                  displayLanguage: 
+                  localeName: 
+                  localizedName: 
+                  password: 
+                  reserveItems:
+                    reserveItem1: 
+                    reserveItem2: 
+                    reserveItem3: 
+                    reserveItem4: 
+                    reserveItem5: 
+                    reserveItem6: 
+                    reserveItem7: 
+                    reserveItem8: 
+                    reserveItem9: 
+                    reserveItem10: 
+                    reserveItem11: 
+                    reserveItem12: 
+                    reserveItem13: 
+                    reserveItem14: 
+                    reserveItem15: 
+                    reserveItem16: 
+                    reserveItem17: 
+                    reserveItem18: 
+                    reserveItem19: 
+                    reserveItem20: 
+                  validityDateTo: 
+                  loginId: 
+                  code: 
+                  kana: 
+                  availableDateTo: 
+                  criterionDate: 
+                  stampName: 
+                  mailAddress: 
+                  remarks: 
+                  importCode: 
+                  availableDateFrom: 
+                  validityDateFrom: 
+                  isNeedStampImage: 
+                  isForceChangePassword: 
+                  isAccountLock: 
+                resultStatus: 
+                  messageList: 
+                    entries: 
+                      - text: "{エラーメッセージ}"
+                        code: "{エラーコード}"
+                  status: FAIL
+                  text: サービス実行時にエラーが発生しました。
+                  code: AWPCMN0000
+            リクエストが不正:
+              value: 
+               resultStatus: 
+                 messageList: 
+                   entries: []
+                 status: FAIL
+                 text: 公開APIの実行時にエラーが発生しました。
+                 code: APIPAP_W0003
+  
+  # -----------------------------------------------
+  # スキーマ components/schemas
+  # -----------------------------------------------
+
+  schemas:
+    
+    reserveItems:
+      description: 拡張項目
+      type: object
+      properties:
+        reserveItem1:
+          type: string
+        reserveItem2:
+          type: string
+        reserveItem3:
+          type: string
+        reserveItem4:
+          type: string
+        reserveItem5:
+          type: string
+        reserveItem6:
+          type: string
+        reserveItem7:
+          type: string
+        reserveItem8:
+          type: string
+        reserveItem9:
+          type: string
+        reserveItem10:
+          type: string
+        reserveItem11:
+          type: string
+        reserveItem12:
+          type: string
+        reserveItem13:
+          type: string
+        reserveItem14:
+          type: string
+        reserveItem15:
+          type: string
+        reserveItem16:
+          type: string
+        reserveItem17:
+          type: string
+        reserveItem18:
+          type: string
+        reserveItem19:
+          type: string
+        reserveItem20:
+          type: string
+        
+    AddUserRequest:
+      type: object
+      properties:
+          name:
+            description: ユーザー名称
+            type: string
+          diplayLanguage:
+            description: 表示言語
+            type: string
+          localeName:
+            description: ローカル名称の言語名
+            type: string
+          localizedName:
+            description: ローカル名称
+            type: string
+          password:
+            description: パスワード
+            type: string
+          reserveItems:
+            allOf:
+              - $ref: "#/components/schemas/reserveItems"
+          validityDateTo:
+            description: 履歴終了日
+            type: date
+          loginId:
+            description: ログインID
+            type: string
+          code:
+            description: ユーザーコード
+            type: string
+          kana:
+            description: ユーザー名称カナ
+            type: string
+          availableDateTo:
+            description: 適用終了日
+            type: date
+          criterionDate:
+            description: 基準日
+            type: date
+          stampName:
+            description: 印影
+            type: string
+          mailAddress:
+            description: メールアドレス
+            type: string
+          remarks:
+            description: 備考
+            type: string
+          importCode:
+            description: インポートコード
+            type: string
+          availableDateFrom:
+            description: 適用開始日
+            type: date
+          validityDateFrom:
+            description: 履歴開始日
+            type: date
+          isNeedStampImage:
+            type: string
+          isForceChangePassword:
+            description: 次回ログイン時にパスワード変更を求めるかどうか
+            type: boolean
+          isAccountLock:
+            description: アカウントロックフラグ
+            type: boolean
+            
+    UserResponse:
+      type: object
+      properties:
+        user:
+          description: ユーザー情報
+          type: object
+          properties:
+            id:
+              description: id
+              type: integer
+          allOf:
+            - $ref: "#/components/schemas/AddUserRequest"
+        resultStatus:
+          description: APIの実行結果
+          type: object
+          properties:
+            messageList:
+              description: メッセージ詳細
+              type: object
+              properties:
+                entries:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      text:
+                        description: 結果説明
+                        type: string
+                      code:
+                        description: 結果コード
+                        type: string
+            status:
+              description: 結果ステータス
+              type: string
+            text:
+              description: 結果説明
+              type: string
+            code:
+              description: 結果コード
+              type: string
+
+    FindUserRequest:
+      type: object
+      properties:
+        condition:
+          description: ユーザー検索条件
+          type: object
+          properties:
+            code:
+              description: ユーザーコード
+              type: string
+            loginId:
+              description: ログインID
+              type: string
+            name:
+              description: ユーザー名
+              type: string
+            isAccountLock:
+              description: アカウントロックされているかどうか
+              type: boolean
+            unitCode:
+              description: 所属組織コード
+              type: string
+            sectionRoleCode:
+              description: 所有セクションロールコード
+              type: string
+            universalRoleCode:
+              description: 所有ユニバーサルロールコード
+              type: string
+            reserveItem1:
+              description: 拡張項目1
+              type: string
+            reserveItem2:
+              description: 拡張項目2
+              type: string
+            reserveItem3:
+              description: 拡張項目3
+              type: string
+            reserveItem4:
+              description: 拡張項目4
+              type: string
+            reserveItem5:
+              description: 拡張項目5
+              type: string
+            reserveItem6:
+              description: 拡張項目6
+              type: string
+            reserveItem7:
+              description: 拡張項目7
+              type: string
+            reserveItem8:
+              description: 拡張項目8
+              type: string
+            reserveItem9:
+              description: 拡張項目9
+              type: string
+            reserveItem10:
+              description: 拡張項目10
+              type: string
+            columnValueConditionList:
+              type: object
+              properties:
+                entries:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      column:
+                        description: フィールド値タイプ
+                      compareOperatorType:
+                        description: 比較演算子
+                      value:
+                        description: 値
+                        type: string
+            criterionDate:
+              description: 基準日
+              type: date
+    
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    bearerAuth:
+      type: http
+      scheme: bearer
+    noauthAuth:
+      type: http
+      scheme: noauth
+    oauth2Auth:
+      type: http
+      scheme: oauth2
+
+
