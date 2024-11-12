@@ -28,8 +28,6 @@ paths:
           $ref: "#/components/responses/ErrorResponses400"
         "401":
           $ref: "#/components/responses/ErrorResponses401"
-        "403":
-          $ref: "#/components/responses/ErrorResponses403"
         "404":
           $ref: "#/components/responses/ErrorResponses404"
         "500":
@@ -58,8 +56,6 @@ paths:
           $ref: "#/components/responses/ErrorResponses400"
         "401":
           $ref: "#/components/responses/ErrorResponses401"
-        "403":
-          $ref: "#/components/responses/ErrorResponses403"
         "404":
           $ref: "#/components/responses/ErrorResponses404"
         "500":
@@ -337,8 +333,6 @@ components:
       content:
         application/json:
           schema:
-            required:
-              - criterionDate
             allOf:
               - $ref: "#/components/schemas/FindUserRequest"
           example:
@@ -399,20 +393,6 @@ components:
               error_code:
                 type: integer
                 example: 401
-              error_message:
-                type: string
-                example: "{エラーメッセージ}"
-
-    ErrorResponses403:
-      description: "Error response(Forbidden)"
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              error_code:
-                type: integer
-                example: 403
               error_message:
                 type: string
                 example: "{エラーメッセージ}"
@@ -767,7 +747,9 @@ components:
           isNeedStampImage:
             type: string
           isForceChangePassword:
-            description: 次回ログイン時にパスワード変更を求めるかどうか
+            description: |
+              次回ログイン時にパスワード変更を求めるかどうか<br>
+              *trueの指定は無効
             type: boolean
           isAccountLock:
             description: アカウントロックフラグ
@@ -777,6 +759,8 @@ components:
       type: object
       properties:
         condition:
+          required:
+            - criterionDate
           description: ユーザー検索条件
           type: object
           properties:
