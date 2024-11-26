@@ -17,7 +17,7 @@ paths:
         - 組織API
       summary: ユーザー作成
       description: |
-        ユーザーの作成を行います。
+        ユーザーを作成します。
       operationId: AddUser
       requestBody:
         $ref: "#/components/requestBodies/AddUserRequest"
@@ -51,7 +51,7 @@ paths:
         $ref: "#/components/requestBodies/FindUserRequest"
       responses:
         "200":
-          $ref: "#/components/responses/UserResponses200"
+          $ref: "#/components/responses/FindUserResponses200"
         "400":
           $ref: "#/components/responses/ErrorResponses400"
         "401":
@@ -64,204 +64,1029 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
             
  # --------------------------------------------------------------------------------------------------------
-  /Broker/WebApi/{updateUser}:
+  /WebApi/Service?name=org.Org&method=updateUser:
     post:
       tags:
         - 組織API
       summary: ユーザー更新
       description:
-        ユーザーの更新を行います。
-        ユーザーの更新には、ユーザーコード、ログインID、ユーザー名称、更新対象ユーザーのIDを指定する必要があります。
+        ユーザーを更新します。
+      operationId: UpdateUser
       requestBody:
-        content:
-          '*/*':
-            schema:
-              type: string
-              example: >-
-                "{\r\n  \"id\" : {{5.3_user}},\r\n  \"availableDateFrom\" :
-                \"1901-01-01 00:00:00 JST\",\r\n  \"availableDateTo\" :
-                \"2060-12-31 00:00:00 JST\",\r\n  \"code\" :
-                \"autowebapitestUpdate1\",\r\n  \"criterionDate\" : \"2021-02-01
-                00:00:00 JST\",\r\n  \"displayLanguage\" : \"en\",\r\n 
-                \"importCode\" : \"autowebapitestUpdate1\",\r\n 
-                \"isAccountLock\" : true,\r\n  \"isForceChangePassword\" :
-                false,\r\n  \"kana\" : \"\",\r\n  \"localeName\" : \"ja\",\r\n 
-                \"localizedName\" : \"\",\r\n  \"loginId\" :
-                \"autowebapitestUpdate1\",\r\n  \"mailAddress\" :
-                \"autowebapitestUpdate1@example.com\",\r\n  \"name\" :
-                \"autowebapitestUpdate1\",\r\n  \"password\" :
-                \"autowebapitestUpdate1\",\r\n  \"remarks\" :
-                \"autowebapitestUpdate1\",\r\n  \"reserveItems\" : {\r\n   
-                \"reserveItem1\" : \"autowebapitestUpdate\",\r\n   
-                \"reserveItem2\" : \"autowebapitestUpdate1\",\r\n   
-                \"reserveItem3\" : \"autowebapitestUpdate2\",\r\n   
-                \"reserveItem4\" : \"autowebapitestUpdate3\",\r\n   
-                \"reserveItem5\" : \"autowebapitestUpdate4\",\r\n   
-                \"reserveItem6\" : \"autowebapitestUpdate5\",\r\n   
-                \"reserveItem7\" : \"autowebapitestUpdate6\",\r\n   
-                \"reserveItem8\" : \"autowebapitestUpdate7\",\r\n   
-                \"reserveItem9\" : \"autowebapitestUpdate8\",\r\n   
-                \"reserveItem10\" : \"autowebapitestUpdate9\",\r\n   
-                \"reserveItem11\" : \"autowebapitestUpdate10\",\r\n   
-                \"reserveItem12\" : \"autowebapitestUpdate11\",\r\n   
-                \"reserveItem13\" : \"autowebapitestUpdate12\",\r\n   
-                \"reserveItem14\" : \"autowebapitestUpdate13\",\r\n   
-                \"reserveItem15\" : \"autowebapitestUpdate14\",\r\n   
-                \"reserveItem16\" : \"autowebapitestUpdate15\",\r\n   
-                \"reserveItem17\" : \"autowebapitestUpdate16\",\r\n   
-                \"reserveItem18\" : \"autowebapitestUpdate17\",\r\n   
-                \"reserveItem19\" : \"autowebapitestUpdate18\",\r\n   
-                \"reserveItem20\" : \"autowebapitestUpdate19\"\r\n  },\r\n 
-                \"stampName\" : \"autowebapitestUpdate1\",\r\n 
-                \"validityDateFrom\" :  \"1901-01-01 00:00:00 JST\",\r\n 
-                \"validityDateTo\" : \"2060-12-31 00:00:00 JST\"\r\n}"
-      parameters:
-        - name: Host
-          in: header
-          schema:
-            type: string
-          example: '{{host}}'
-        - name: Content-Type
-          in: header
-          schema:
-            type: string
-          example: application/json; charset=UTF-8
-        - name: name
-          in: query
-          schema:
-            type: string
-          example: org.Org
-        - name: method
-          in: query
-          schema:
-            type: string
-          example: updateUser
-        - name: ServerAddress
-          in: path
-          schema:
-            type: string
-          required: true
-        - name: context
-          in: path
-          schema:
-            type: string
-          required: true
-        - name: updateUser
-          in: path
-          schema:
-            type: string
-          required: true
+        $ref: "#/components/requestBodies/UpdateUserRequest"
       responses:
-        '200':
-          description: Successful response
-          content:
-            application/json: {}
-  //{ServerAddress}/{context}/Broker/WebApi/{deleteUser}:
+        "200":
+          $ref: "#/components/responses/UserResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+          
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=org.Org&method=deleteUser:
     post:
       tags:
         - 組織API
-      summary: '5.4.1 : ユーザー削除'
+      summary: ユーザー削除
+      description:
+        ユーザーを削除します。
+      operationId: DeleteUser
       requestBody:
-        content:
-          '*/*':
-            schema:
-              type: string
-              example: >-
-                "{\r\n  \"id\" : {{5.4.1_user}},\r\n  \"criterionDate\" :
-                \"2021-02-05 00:00:00 JST\"\r\n}"
-      parameters:
-        - name: Host
-          in: header
-          schema:
-            type: string
-          example: '{{host}}'
-        - name: Content-Type
-          in: header
-          schema:
-            type: string
-          example: application/json; charset=UTF-8
-        - name: name
-          in: query
-          schema:
-            type: string
-          example: org.Org
-        - name: method
-          in: query
-          schema:
-            type: string
-          example: deleteUser
-        - name: ServerAddress
-          in: path
-          schema:
-            type: string
-          required: true
-        - name: context
-          in: path
-          schema:
-            type: string
-          required: true
-        - name: deleteUser
-          in: path
-          schema:
-            type: string
-          required: true
+        $ref: "#/components/requestBodies/DeleteUserRequest"
       responses:
-        '200':
-          description: Successful response
-          content:
-            application/json: {}
-  //{ServerAddress}/{context}/Broker/WebApi/{disableUser}:
+        "200":
+          $ref: "#/components/responses/ResultStatusResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+            
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=org.Org&method=disableUser:
     post:
       tags:
         - 組織API
-      summary: 5.5.1 :ユーザーの適用終了
+      summary: ユーザー適用終了
+      description:
+        ユーザーを適用終了します。
+      operationId: DisableUser
       requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              example: "{\r\n  \"availableDateTo\" : \"{{toDay}} 00:00:00 JST\",\r\n  \"id\" : {{5.5.1_user}}\r\n}"
-      parameters:
-        - name: Content-Type
-          in: header
-          schema:
-            type: string
-          example: application/json; charset=UTF-8
-        - name: Host
-          in: header
-          schema:
-            type: string
-          example: '{{host}}'
-        - name: name
-          in: query
-          schema:
-            type: string
-          example: org.Org
-        - name: method
-          in: query
-          schema:
-            type: string
-          example: disableUser
-        - name: ServerAddress
-          in: path
-          schema:
-            type: string
-          required: true
-        - name: context
-          in: path
-          schema:
-            type: string
-          required: true
-        - name: disableUser
-          in: path
-          schema:
-            type: string
-          required: true
+        $ref: "#/components/requestBodies/DisableUserRequest"
       responses:
-        '200':
-          description: Successful response
-          content:
-            application/json: {}
+        "200":
+          $ref: "#/components/responses/DisableUserResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+
+ # --------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=org.Org&method=addUnit:
+    post:
+      tags:
+        - 組織API
+      summary: 組織作成
+      description:
+        組織を作成します。
+      operationId: addUnit
+      requestBody:
+        $ref: "#/components/requestBodies/AddUnitRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/UnitResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=org.Org&method=findUnit:
+    post:
+      tags:
+        - 組織API
+      summary: 組織参照
+      description:
+        組織を参照します。
+      operationId: findUnit
+      requestBody:
+        $ref: "#/components/requestBodies/FindUnitRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/FindUnitResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+  
+  # --------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=org.Org&method=updateUnit:
+    post:
+      tags:
+        - 組織API
+      summary: 組織更新
+      description:
+        組織を更新します。
+      operationId: updateUnit
+      requestBody:
+        $ref: "#/components/requestBodies/UpdateUnitRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/UnitResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+  
+  # --------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=org.Org&method=deleteUnit:
+    post:
+      tags:
+        - 組織API
+      summary: 組織削除
+      description:
+        組織を削除します。
+      operationId: deleteUnit
+      requestBody:
+        $ref: "#/components/requestBodies/DeleteUnitRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/ResultStatusResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+  # --------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=org.Org&method=disableUnit:
+    post:
+      tags:
+        - 組織API
+      summary: 組織適用終了
+      description:
+        組織を適用終了します。
+      operationId: disableUnit
+      requestBody:
+        $ref: "#/components/requestBodies/DisableUnitRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/DisableUnitResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+  # --------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=org.Org&method=addSectionRole:
+    post:
+      tags:
+        - 組織API
+      summary: セクションロール作成
+      description:
+        セクションロールを作成します。
+      operationId: addSectionRole
+      requestBody:
+        $ref: "#/components/requestBodies/AddSectionRoleRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/SectionRoleResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+  # --------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=org.Org&method=findSectionRole:
+    post:
+      tags:
+        - 組織API
+      summary: セクションロール参照
+      description:
+        セクションロールを参照します。
+      operationId: findSectionRole
+      requestBody:
+        $ref: "#/components/requestBodies/FindSectionRoleRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/FindSectionRoleResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+  # --------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=org.Org&method=updateSectionRole:
+    post:
+      tags:
+        - 組織API
+      summary: セクションロール更新
+      description:
+        セクションロールを更新します。
+      operationId: updateSectionRole
+      requestBody:
+        $ref: "#/components/requestBodies/UpdateSectionRoleRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/SectionRoleResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+  # --------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=org.Org&method=deleteSectionRole:
+    post:
+      tags:
+        - 組織API
+      summary: セクションロール削除
+      description:
+        セクションロールを削除します。
+      operationId: deleteSectionRole
+      requestBody:
+        $ref: "#/components/requestBodies/DeleteSectionRoleRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/ResultStatusResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+  # --------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=org.Org&method=addSectionRoleGroup:
+    post:
+      tags:
+        - 組織API
+      summary: セクションロールグループ作成
+      description:
+        セクションロールグループを作成します。
+      operationId: addSectionRoleGroup
+      requestBody:
+        $ref: "#/components/requestBodies/AddSectionRoleGroupRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/SectionRoleGroupResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+  # --------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=org.Org&method=findSectionRoleGroup:
+    post:
+      tags:
+        - 組織API
+      summary: セクションロールグループ参照
+      description:
+        セクションロールグループを参照します。
+      operationId: findSectionRoleGroup
+      requestBody:
+        $ref: "#/components/requestBodies/FindSectionRoleGroupRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/FindSectionRoleGroupResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+  # --------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=org.Org&method=updateSectionRoleGroup:
+    post:
+      tags:
+        - 組織API
+      summary: セクションロールグループ更新
+      description:
+        セクションロールグループを更新します。
+      operationId: updateSectionRoleGroup
+      requestBody:
+        $ref: "#/components/requestBodies/UpdateSectionRoleGroupRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/SectionRoleGroupResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+  # --------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=org.Org&method=deleteSectionRoleGroup:
+    post:
+      tags:
+        - 組織API
+      summary: セクションロールグループ削除
+      description:
+        セクションロールグループを削除します。
+      operationId: deleteSectionRoleGroup
+      requestBody:
+        $ref: "#/components/requestBodies/DeleteSectionRoleGroupRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/ResultStatusResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+  # --------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=org.Org&method=addUnitAppointment:
+    post:
+      tags:
+        - 組織API
+      summary: 組織所属作成
+      description:
+        組織所属を作成します。
+      operationId: addUnitAppointment
+      requestBody:
+        $ref: "#/components/requestBodies/AddUnitAppointmentRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/UnitAppointmentResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+  # --------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=org.Org&method=findUnitAppointment:
+    post:
+      tags:
+        - 組織API
+      summary: 組織所属参照
+      description:
+        組織所属を参照します。
+      operationId: findUnitAppointment
+      requestBody:
+        $ref: "#/components/requestBodies/FindUnitAppointmentRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/FindUnitAppointmentResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+  # --------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=org.Org&method=updateUnitAppointment:
+    post:
+      tags:
+        - 組織API
+      summary: 組織所属更新
+      description:
+        組織所属を更新します。
+      operationId: updateUnitAppointment
+      requestBody:
+        $ref: "#/components/requestBodies/UpdateUnitAppointmentRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/UnitAppointmentResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+  # --------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=org.Org&method=deleteUnitAppointment:
+    post:
+      tags:
+        - 組織API
+      summary: 組織所属削除
+      description:
+        組織所属を削除します。
+      operationId: deleteUnitAppointment
+      requestBody:
+        $ref: "#/components/requestBodies/DeleteUnitAppointmentRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/ResultStatusResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+  # --------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=org.Org&method=disableUnitAppointment:
+    post:
+      tags:
+        - 組織API
+      summary: 組織所属適用終了
+      description:
+        組織所属を適用終了します。
+      operationId: disableUnitAppointment
+      requestBody:
+        $ref: "#/components/requestBodies/DisableUnitAppointmentRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/DisableUnitAppointmentResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+  # --------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=org.Org&method=addProxyApplyAppointment:
+    post:
+      tags:
+        - 組織API
+      summary: 代理申請作成
+      description:
+        代理申請を作成します。
+      operationId: addProxyApplyAppointment
+      requestBody:
+        $ref: "#/components/requestBodies/AddProxyApplyAppointmentRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/ProxyApplyAppointmentResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+  # --------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=org.Org&method=findProxyApplyAppointment:
+    post:
+      tags:
+        - 組織API
+      summary: 代理申請参照
+      description:
+        代理申請を参照します。
+      operationId: findProxyApplyAppointment
+      requestBody:
+        $ref: "#/components/requestBodies/FindProxyApplyAppointmentRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/FindProxyApplyAppointmentResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+  # --------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=org.Org&method=updateProxyApplyAppointment:
+    post:
+      tags:
+        - 組織API
+      summary: 代理申請更新
+      description:
+        代理申請を更新します。
+      operationId: updateProxyApplyAppointment
+      requestBody:
+        $ref: "#/components/requestBodies/UpdateProxyApplyAppointmentRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/ProxyApplyAppointmentResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+  # --------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=org.Org&method=deleteProxyApplyAppointment:
+    post:
+      tags:
+        - 組織API
+      summary: 代理申請削除
+      description:
+        代理申請を削除します。
+      operationId: deleteProxyApplyAppointment
+      requestBody:
+        $ref: "#/components/requestBodies/DeleteProxyApplyAppointmentRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/ResultStatusResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+  # --------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=org.Org&method=disableProxyApplyAppointment:
+    post:
+      tags:
+        - 組織API
+      summary: 代理申請適用終了
+      description:
+        代理申請を適用終了します。
+      operationId: disableProxyApplyAppointment
+      requestBody:
+        $ref: "#/components/requestBodies/DisableProxyApplyAppointmentRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/DisableProxyApplyAppointmentResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+  # --------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=org.Org&method=addProxyAppointment:
+    post:
+      tags:
+        - 組織API
+      summary: 代理承認作成
+      description:
+        代理承認を作成します。
+      operationId: addProxyAppointment
+      requestBody:
+        $ref: "#/components/requestBodies/AddProxyAppointmentRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/ProxyAppointmentResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+  # --------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=org.Org&method=findProxyAppointment:
+    post:
+      tags:
+        - 組織API
+      summary: 代理承認参照
+      description:
+        代理承認を参照します。
+      operationId: findProxyAppointment
+      requestBody:
+        $ref: "#/components/requestBodies/FindProxyAppointmentRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/FindProxyAppointmentResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+  # --------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=org.Org&method=updateProxyAppointment:
+    post:
+      tags:
+        - 組織API
+      summary: 代理承認更新
+      description:
+        代理申請を更新します。
+      operationId: updateProxyAppointment
+      requestBody:
+        $ref: "#/components/requestBodies/UpdateProxyAppointmentRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/ProxyAppointmentResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+  # --------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=org.Org&method=deleteProxyAppointment:
+    post:
+      tags:
+        - 組織API
+      summary: 代理承認削除
+      description:
+        代理承認を削除します。
+      operationId: deleteProxyAppointment
+      requestBody:
+        $ref: "#/components/requestBodies/DeleteProxyAppointmentRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/ResultStatusResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+  # --------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=org.Org&method=disableProxyAppointment:
+    post:
+      tags:
+        - 組織API
+      summary: 代理承認適用終了
+      description:
+        代理承認を適用終了します。
+      operationId: disableProxyAppointment
+      requestBody:
+        $ref: "#/components/requestBodies/DisableProxyAppointmentRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/DisableProxyAppointmentResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+  # --------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=org.Org&method=addDelegationAppointment:
+    post:
+      tags:
+        - 組織API
+      summary: 権限委譲作成
+      description:
+        権限委譲を作成します。
+      operationId: addDelegationAppointment
+      requestBody:
+        $ref: "#/components/requestBodies/AddDelegationAppointmentRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/DelegationAppointmentResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+  # --------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=org.Org&method=findDelegationAppointment:
+    post:
+      tags:
+        - 組織API
+      summary: 権限委譲参照
+      description:
+        権限委譲を参照します。
+      operationId: findDelegationAppointment
+      requestBody:
+        $ref: "#/components/requestBodies/FindDelegationAppointmentRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/FindDelegationAppointmentResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+  # --------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=org.Org&method=updateDelegationAppointment:
+    post:
+      tags:
+        - 組織API
+      summary: 権限委譲更新
+      description:
+        権限委譲を更新します。
+      operationId: updateDelegationAppointment
+      requestBody:
+        $ref: "#/components/requestBodies/UpdateDelegationAppointmentRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/DelegationAppointmentResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+  # --------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=org.Org&method=deleteDelegationAppointment:
+    post:
+      tags:
+        - 組織API
+      summary: 権限委譲削除
+      description:
+        権限委譲を削除します。
+      operationId: deleteDelegationAppointment
+      requestBody:
+        $ref: "#/components/requestBodies/DeleteDelegationAppointmentRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/ResultStatusResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+  # --------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=org.Org&method=disableDelegationAppointment:
+    post:
+      tags:
+        - 組織API
+      summary: 権限委譲適用終了
+      description:
+        権限委譲を適用終了します。
+      operationId: disableDelegationAppointment
+      requestBody:
+        $ref: "#/components/requestBodies/DisableDelegationAppointmentRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/DisableDelegationAppointmentResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+  # --------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=org.Org&method=addDeprivationAppointment:
+    post:
+      tags:
+        - 組織API
+      summary: 引上げ権限作成
+      description:
+        引上げ権限を作成します。
+      operationId: addDeprivationAppointment
+      requestBody:
+        $ref: "#/components/requestBodies/AddDeprivationAppointmentRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/DeprivationAppointmentResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+  # --------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=org.Org&method=findDeprivationAppointment:
+    post:
+      tags:
+        - 組織API
+      summary: 引上げ権限参照
+      description:
+        引上げ権限を参照します。
+      operationId: findDeprivationAppointment
+      requestBody:
+        $ref: "#/components/requestBodies/FindDeprivationAppointmentRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/FindDeprivationAppointmentResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+  # --------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=org.Org&method=updateDeprivationAppointment:
+    post:
+      tags:
+        - 組織API
+      summary: 引上げ権限更新
+      description:
+        引上げ権限を更新します。
+      operationId: updateDeprivationAppointment
+      requestBody:
+        $ref: "#/components/requestBodies/UpdateDeprivationAppointmentRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/DeprivationAppointmentResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=org.Org&method=deleteDeprivationAppointment:
+    post:
+      tags:
+        - 組織API
+      summary: 引上げ権限削除
+      description:
+        引上げ権限を削除します。
+      operationId: deleteDeprivationAppointment
+      requestBody:
+        $ref: "#/components/requestBodies/DeleteDeprivationAppointmentRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/ResultStatusResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+  # --------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=org.Org&method=disableDeprivationAppointment:
+    post:
+      tags:
+        - 組織API
+      summary: 引上げ権限適用終了
+      description:
+        引上げ権限を適用終了します。
+      operationId: disableDeprivationAppointment
+      requestBody:
+        $ref: "#/components/requestBodies/DisableDeprivationAppointmentRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/DisableDeprivationAppointmentResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
  
  # --------------------------------------------------------------------------------------------------
 
@@ -362,7 +1187,962 @@ components:
                 logicalOperator: AND
               criterionDate: 2024-10-31 00:00:00 JST
     
+    UpdateUserRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - code
+              - id
+              - loginId
+              - name
+            type: object
+            properties:
+              id:
+                description: |
+                  更新対象ユーザーのID<br>
+                  *「ユーザー作成API」または「ユーザー参照API」で取得した値を指定
+                type: integer
+              criterionDate:
+                description: 基準日
+                type: string
+            allOf:
+              - $ref: "#/components/schemas/AddUserRequest"
+          example:
+            id: 999
+            availableDateFrom: 1900-01-01 00:00:00 JST
+            availableDateTo: 2060-12-31 00:00:00 JST
+            code: user01
+            criterionDate: 2024-10-31 00:00:00 JST
+            displayLanguage: ja
+            importCode: user01
+            isAccountLock: false
+            isForceChangePassword: true
+            kana: テラサキケイイチ
+            localeName: ja
+            localizedName: ''
+            loginId: user01
+            mailAddress: user01@example.com
+            name: 寺崎啓一
+            password: user01_Pw
+            remarks: 備考
+            reserveItems:
+              reserveItem1: a
+              reserveItem2: b
+              reserveItem3: c
+              reserveItem4: d
+              reserveItem5: e
+              reserveItem6: f
+              reserveItem7: g
+              reserveItem8: h
+              reserveItem9: i
+              reserveItem10: j
+              reserveItem11: k
+              reserveItem12: l
+              reserveItem13: m
+              reserveItem14: n
+              reserveItem15: o
+              reserveItem16: p
+              reserveItem17: q
+              reserveItem18: r
+              reserveItem19: s
+              reserveItem20: t
+            stampName: 寺崎(啓)
+            validityDateFrom: 1900-01-01 00:00:00 JST
+            validityDateTo: 2060-12-31 00:00:00 JST
     
+    DeleteUserRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - id
+            type: object
+            properties:
+              id:
+                description: |
+                  削除対象ユーザーのID<br>
+                  *「ユーザー作成API」または「ユーザー参照API」で取得した値を指定
+                type: integer
+                example: 999
+              criterionDate:
+                description: 削除用基準日
+                type: date
+                example: 2024-10-31 00:00:00 JST
+    
+    DisableUserRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - id
+            type: object
+            properties:
+              id:
+                description: |
+                  適用終了対象ユーザーのID<br>
+                  *「ユーザー作成API」または「ユーザー参照API」で取得した値を指定
+                type: integer
+                example: 999
+              availableDateTo:
+                description: 適用終了日
+                type: date
+                example: 2024-12-31 00:00:00 JST
+    
+    AddUnitRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - code
+              - name
+            allOf:
+              - $ref: "#/components/schemas/AddUnitRequest"
+          example:
+            code: unit02
+            importCode: unit02
+            parentCode: unit01
+            name: 組織2
+            localizedName: 組織2
+            localeName: auto
+            officialName: 組織2正式名称
+            kana: ソシキ2セイシキメイショウ
+            remarks: 備考
+            validityDateFrom: 1900-01-01 00:00:00 JST
+            validityDateTo: 2060-12-31 00:00:00 JST
+            availableDateFrom: 1900-01-01 00:00:00 JST
+            availableDateTo: 2060-12-31 00:00:00 JST
+            reserveItems:
+              reserveItem1: item1
+              reserveItem2: item2
+              reserveItem3: item3
+              reserveItem4: item4
+              reserveItem5: item5
+              reserveItem6: item6
+              reserveItem7: item7
+              reserveItem8: item8
+              reserveItem9: item9
+              reserveItem10: item10
+              reserveItem11: item11
+              reserveItem12: item12
+              reserveItem13: item13
+              reserveItem14: item14
+              reserveItem15: item15
+              reserveItem16: item16
+              reserveItem17: item17
+              reserveItem18: item18
+              reserveItem19: item19
+              reserveItem20: item20
+    
+    FindUnitRequest:
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/FindUnitRequest"
+          example:
+            condition:
+              code: unit02
+              name: 
+              parentCode: 
+              importCode: 
+              columnValueConditionList:
+                entries:
+                  - column: NAME
+                    compareOperatorType: LIKE
+                    value: 組織
+                  - column: AvailableDateFrom
+                    compareOperatorType: LESS_EQUAL
+                    value: 2020-01-01 00:00:00 JST
+                logicalOperator: AND
+              criterionDate: 2024-10-31 00:00:00 JST
+    
+    UpdateUnitRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - id
+              - code
+              - parentCode
+              - name
+              - validityDateFrom
+            type: object
+            properties:
+              id:
+                description: |
+                  更新対象組織のID<br>
+                  *「組織作成API」または「組織参照API」で取得した値を指定
+                type: integer
+            allOf:
+              - $ref: "#/components/schemas/AddUnitRequest"
+          example:
+            id: 999
+            code: unit02
+            importCode: unit02
+            parentCode: unit01
+            name: 組織2
+            localizedName: 組織2
+            localeName: auto
+            officialName: 組織2正式名称
+            kana: ソシキ2セイシキメイショウ
+            remarks: 備考
+            validityDateFrom: 1900-01-01 00:00:00 JST
+            validityDateTo: 2060-12-31 00:00:00 JST
+            availableDateFrom: 1900-01-01 00:00:00 JST
+            availableDateTo: 2060-12-31 00:00:00 JST
+            reserveItems:
+              reserveItem1: item1
+              reserveItem2: item2
+              reserveItem3: item3
+              reserveItem4: item4
+              reserveItem5: item5
+              reserveItem6: item6
+              reserveItem7: item7
+              reserveItem8: item8
+              reserveItem9: item9
+              reserveItem10: item10
+              reserveItem11: item11
+              reserveItem12: item12
+              reserveItem13: item13
+              reserveItem14: item14
+              reserveItem15: item15
+              reserveItem16: item16
+              reserveItem17: item17
+              reserveItem18: item18
+              reserveItem19: item19
+              reserveItem20: item20
+    
+    DeleteUnitRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - id
+              - code
+            type: object
+            properties:
+              id:
+                description: |
+                  削除対象組織のID<br>
+                  *「組織作成API」または「組織参照API」で取得した値を指定
+                type: integer
+                example: 999
+              code:
+                description: 削除対象組織のコード
+                type: string
+                example: unit02
+              criterionDate:
+                description: |
+                  基準日<br>
+                  *nullの場合は現在日
+                type: date
+                example: 2024-10-31 00:00:00 JST
+    
+    DisableUnitRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - id
+            type: object
+            properties:
+              id:
+                description: |
+                  適用終了対象組織のID<br>
+                  *「組織作成API」または「組織参照API」で取得した値を指定
+                type: integer
+                example: 999
+              availableDateTo:
+                description: |
+                  適用終了日<br>
+                  *null の場合は 2060/12/31
+                type: date
+                example: 2024-12-31 00:00:00 JST
+    
+    AddSectionRoleRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - code
+              - name
+            allOf:
+              - $ref: "#/components/schemas/AddSectionRoleRequest"
+          example:
+            code: srole01
+            importCode: srole01
+            name: 課長
+            explanation: 備考
+            folderCode: 
+            rank: 1
+    
+    FindSectionRoleRequest:
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/FindSectionRoleRequest"
+          example:
+            condition:
+              code: srole01
+              name: 
+              userCode: 
+              unitCode: 
+              columnValueConditionList:
+                entries:
+                  - column: RANK
+                    compareOperatorType: GREATER_THAN
+                    value: 0
+                logicalOperator: AND
+              criterionDate: 2024-10-31 00:00:00 JST
+    
+    UpdateSectionRoleRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - id
+              - code
+              - name
+            type: object
+            properties:
+              id:
+                description: |
+                  更新対象セクションロールのID<br>
+                  *「セクションロール作成API」または「セクションロール参照API」で取得した値を指定
+                type: integer
+            allOf:
+              - $ref: "#/components/schemas/AddSectionRoleRequest"
+          example:
+            id: 999
+            code: srole01
+            importCode: srole01
+            name: 課長
+            explanation: 備考
+            folderCode: 
+            rank: 1
+    
+    DeleteSectionRoleRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - id
+            type: object
+            properties:
+              id:
+                description: |
+                  削除対象セクションロールのID<br>
+                  *「セクションロール作成API」または「セクションロール参照API」で取得した値を指定
+                type: integer
+                example: 999
+    
+    AddSectionRoleGroupRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - code
+              - name
+            allOf:
+              - $ref: "#/components/schemas/AddSectionRoleGroupRequest"
+          example:
+            code: srolegroup01
+            name: 取締役
+            sortNo: 1
+            explanation: 説明
+            roleCodeList:
+              entries:
+                - code: srole01
+                - code: srole02
+    
+    FindSectionRoleGroupRequest:
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/FindSectionRoleGroupRequest"
+          example:
+            condition:
+              code: srole01
+              name: 
+              roleCode: 
+              columnValueConditionList:
+                entries:
+                  - column: SectionRoleCode
+                    compareOperatorType: EQUAL
+                    value: srole01
+                logicalOperator: AND
+    
+    UpdateSectionRoleGroupRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - id
+              - code
+              - name
+            type: object
+            properties:
+              id:
+                description: |
+                  更新対象セクションロールグループのID<br>
+                  *「セクションロールグループ作成API」または「セクションロールグループ参照API」で取得した値を指定
+                type: integer
+            allOf:
+              - $ref: "#/components/schemas/AddSectionRoleGroupRequest"
+          example:
+            id: 999
+            code: srolegroup01
+            name: 取締役
+            sortNo: 1
+            explanation: 説明
+            roleCodeList:
+              entries:
+                - code: srole01
+                - code: srole02
+    
+    DeleteSectionRoleGroupRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - id
+            type: object
+            properties:
+              id:
+                description: |
+                  削除対象セクションロールグループのID<br>
+                  *「セクションロールグループ作成API」または「セクションロールグループ参照API」で取得した値を指定
+                type: integer
+                example: 999
+    
+    AddUnitAppointmentRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - unitCode
+              - userCode
+            allOf:
+              - $ref: "#/components/schemas/AddUnitAppointmentRequest"
+          example:
+            unitCode: unit01
+            userCode: user01
+            sectionRoleCode: srole01
+            availableDateFrom: 1900-01-01 00:00:00 JST
+            avalableDateTo: 2060-12-31 00:00:00 JST
+            criterionDate: 2024-10-31 00:00:00 JST
+    
+    FindUnitAppointmentRequest:
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/FindUnitAppointmentRequest"
+          example:
+            condition:
+              userCode: user01
+              unitCode: unit01 
+              unitDirection: ESCALATE
+              sectionRoleCode: srole01 
+              isMainUnit: false
+              columnValueConditionList:
+                entries:
+                  - column: UserName
+                    compareOperatorType: LIKE
+                    value: 寺崎
+                logicalOperator: AND
+              criterionDate: 2024-10-31 00:00:00 JST
+    
+    UpdateUnitAppointmentRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - id
+              - unitCode
+              - userCode
+            allOf:
+              - $ref: "#/components/schemas/UpdateUnitAppointmentRequest"
+          example:
+            id: 999
+            unitCode: unit01
+            userCode: user01
+            sectionRoleCode: srole01
+            availableDateFrom: 1900-01-01 00:00:00 JST
+            avalableDateTo: 2060-12-31 00:00:00 JST
+            criterionDate: 2024-10-31 00:00:00 JST
+    
+    DeleteUnitAppointmentRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - id
+            type: object
+            properties:
+              id:
+                description: |
+                  削除対象組織所属のID<br>
+                  *「組織所属作成API」または「組織所属参照API」で取得した値を指定
+                type: integer
+                example: 999
+              criterionDate:
+                description: |
+                  削除用基準日<br>
+                  *null の場合は現在日
+                type: date
+                example: 2024-10-31 00:00:00 JST
+    
+    DisableUnitAppointmentRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - id
+            type: object
+            properties:
+              id:
+                description: |
+                  適用終了対象組織所属のID<br>
+                  *「組織所属作成API」または「組織所属参照API」で取得した値を指定
+                type: integer
+                example: 999
+              availableDateTo:
+                description: |
+                  適用終了日<br>
+                  *null の場合は適用終了日を組織の適用終了日とユーザーの適用終了日のうち早い方の日付に設定
+                type: date
+                example: 2024-12-31 00:00:00 JST
+    
+    AddProxyApplyAppointmentRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - principalUserCode
+              - proxyUserCode
+            allOf:
+              - $ref: "#/components/schemas/AddProxyApplyAppointmentRequest"
+          example:
+            principalUserCode: user01
+            principalUnitCode: unit01
+            proxyUserCode: user02
+            targetFormList:
+              entries:
+                - formCode: form01
+            targetRuleList:
+              entries:
+                - ruleCode: rule01
+            isDisplayCreateMenu: true
+            availableDateFrom: 1900-01-01 00:00:00 JST
+            avalableDateTo: 2060-12-31 00:00:00 JST
+            criterionDate: 2024-10-31 00:00:00 JST
+    
+    FindProxyApplyAppointmentRequest:
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/FindProxyApplyAppointmentRequest"
+          example:
+            condition:
+              principalUnitCode: unit01
+              principalUserCode: user01
+              proxyUserCode: user02
+              targetFormCode: form01
+              targetRuleCode: rule01
+              criterionDate: 2024-10-31 00:00:00 JST
+              isDisplayCreateMenu: true
+    
+    UpdateProxyApplyAppointmentRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - id
+              - principalUserCode
+              - proxyUserCode
+            type: object
+            properties:
+              id:
+                description: |
+                  更新対象代理申請のID<br>
+                  *「代理申請作成API」または「代理申請参照API」で取得した値を指定
+                type: integer
+            allOf:
+              - $ref: "#/components/schemas/AddProxyApplyAppointmentRequest"
+          example:
+            id: 999
+            principalUserCode: user01
+            principalUnitCode: unit01
+            proxyUserCode: user02
+            targetFormList:
+              entries:
+                - formCode: form01
+            targetRuleList:
+              entries:
+                - ruleCode: rule01
+            isDisplayCreateMenu: true
+            availableDateFrom: 1900-01-01 00:00:00 JST
+            avalableDateTo: 2060-12-31 00:00:00 JST
+            criterionDate: 2024-10-31 00:00:00 JST
+    
+    DeleteProxyApplyAppointmentRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - id
+            type: object
+            properties:
+              id:
+                description: |
+                  削除対象代理申請のID<br>
+                  *「代理申請作成API」または「代理申請参照API」で取得した値を指定
+                type: integer
+                example: 999
+    
+    DisableProxyApplyAppointmentRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - id
+            type: object
+            properties:
+              id:
+                description: |
+                  適用終了対象代理申請のID<br>
+                  *「代理申請作成API」または「代理申請参照API」で取得した値を指定
+                type: integer
+                example: 999
+              availableDateTo:
+                description: |
+                  適用終了日<br>
+                  *null の場合は 2060/12/31 に設定
+                type: date
+                example: 2024-12-31 00:00:00 JST
+    
+    AddProxyAppointmentRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - principalUserCode
+              - proxyUserCode
+            allOf:
+              - $ref: "#/components/schemas/AddProxyAppointmentRequest"
+          example:
+            principalUserCode: user01
+            principalUnitCode: unit01
+            proxyUserCode: user02
+            targetFormList:
+              entries:
+                - formCode: form01
+            targetRuleList:
+              entries:
+                - ruleCode: rule01
+            isSendNotification: true
+            isDisplayTodoMenu: true
+            availableDateFrom: 1900-01-01 00:00:00 JST
+            avalableDateTo: 2060-12-31 00:00:00 JST
+            criterionDate: 2024-10-31 00:00:00 JST
+    
+    FindProxyAppointmentRequest:
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/FindProxyAppointmentRequest"
+          example:
+            condition:
+              principalUnitCode: unit01
+              principalUserCode: user01
+              proxyUserCode: user02
+              targetFormCode: form01
+              targetRuleCode: rule01
+              criterionDate: 2024-10-31 00:00:00 JST
+              isSendNotification: true
+              isDisplayTodoMenu: true
+    
+    UpdateProxyAppointmentRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - id
+              - principalUserCode
+              - proxyUserCode
+            type: object
+            properties:
+              id:
+                description: |
+                  更新対象代理承認のID<br>
+                  *「代理申請作成API」または「代理申請承認API」で取得した値を指定
+                type: integer
+            allOf:
+              - $ref: "#/components/schemas/AddProxyAppointmentRequest"
+          example:
+            id: 999
+            principalUserCode: user01
+            principalUnitCode: unit01
+            proxyUserCode: user02
+            targetFormList:
+              entries:
+                - formCode: form01
+            targetRuleList:
+              entries:
+                - ruleCode: rule01
+            isSendNotification: true
+            isDisplayTodoMenu: true
+            availableDateFrom: 1900-01-01 00:00:00 JST
+            avalableDateTo: 2060-12-31 00:00:00 JST
+            criterionDate: 2024-10-31 00:00:00 JST
+    
+    DeleteProxyAppointmentRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - id
+            type: object
+            properties:
+              id:
+                description: |
+                  削除対象代理承認のID<br>
+                  *「代理申請作成API」または「代理申請承認API」で取得した値を指定
+                type: integer
+                example: 999
+    
+    DisableProxyAppointmentRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - id
+            type: object
+            properties:
+              id:
+                description: |
+                  適用終了対象代理承認のID<br>
+                  *「代理承認作成API」または「代理承認参照API」で取得した値を指定
+                type: integer
+                example: 999
+              availableDateTo:
+                description: |
+                  適用終了日<br>
+                  *null の場合は 2060/12/31 に設定
+                type: date
+                example: 2024-12-31 00:00:00 JST
+    
+    AddDelegationAppointmentRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - fromUserCode
+              - toUserCode
+            allOf:
+              - $ref: "#/components/schemas/AddDelegationAppointmentRequest"
+          example:
+            fromUserCode: user01
+            fromUnitCode: unit01
+            toUserCode: user02
+            targetFormList:
+              entries:
+                - formCode: form01
+            targetRuleList:
+              entries:
+                - ruleCode: rule01
+            availableDateFrom: 1900-01-01 00:00:00 JST
+            avalableDateTo: 2060-12-31 00:00:00 JST
+            targetUnitPolicy: FROM
+            criterionDate: 2024-10-31 00:00:00 JST
+    
+    FindDelegationAppointmentRequest:
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/FindDelegationAppointmentRequest"
+          example:
+            condition:
+              fromUnitCode: unit01
+              fromUserCode: user01
+              toUserCode: user02
+              targetFormCode: form01
+              targetRuleCode: rule01
+              criterionDate: 2024-10-31 00:00:00 JST
+    
+    UpdateDelegationAppointmentRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - id
+              - fromUserCode
+              - toUserCode
+            type: object
+            properties:
+              id:
+                description: |
+                  更新対象権限委譲のID<br>
+                  *「権限委譲作成API」または「権限委譲承認API」で取得した値を指定
+                type: integer
+            allOf:
+              - $ref: "#/components/schemas/AddDelegationAppointmentRequest"
+          example:
+            id: 999
+            fromUserCode: user01
+            fromUnitCode: unit01
+            toUserCode: user02
+            targetFormList:
+              entries:
+                - formCode: form01
+            targetRuleList:
+              entries:
+                - ruleCode: rule01
+            availableDateFrom: 1900-01-01 00:00:00 JST
+            avalableDateTo: 2060-12-31 00:00:00 JST
+            targetUnitPolicy: FROM
+            criterionDate: 2024-10-31 00:00:00 JST
+    
+    DeleteDelegationAppointmentRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - id
+            type: object
+            properties:
+              id:
+                description: |
+                  削除対象権限委譲のID<br>
+                  *「権限委譲作成API」または「権限委譲承認API」で取得した値を指定
+                type: integer
+                example: 999
+    
+    DisableDelegationAppointmentRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - id
+            type: object
+            properties:
+              id:
+                description: |
+                  適用終了対象権限委譲のID<br>
+                  *「権限委譲作成API」または「権限委譲参照API」で取得した値を指定
+                type: integer
+                example: 999
+              availableDateTo:
+                description: |
+                  適用終了日<br>
+                  *null の場合は 2060/12/31 に設定
+                type: date
+                example: 2024-12-31 00:00:00 JST
+    
+    AddDeprivationAppointmentRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - userCode
+            allOf:
+              - $ref: "#/components/schemas/AddDeprivationAppointmentRequest"
+          example:
+            userCode: user01
+            targetFormList:
+              entries:
+                - formCode: form01
+            targetRuleList:
+              entries:
+                - ruleCode: rule01
+            availableDateFrom: 1900-01-01 00:00:00 JST
+            avalableDateTo: 2060-12-31 00:00:00 JST
+            criterionDate: 2024-10-31 00:00:00 JST
+    
+    FindDeprivationAppointmentRequest:
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/FindDeprivationAppointmentRequest"
+          example:
+            condition:
+              userCode: user01
+              targetFormCode: form01
+              targetRuleCode: rule01
+              criterionDate: 2024-10-31 00:00:00 JST
+    
+    UpdateDeprivationAppointmentRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - id
+              - userCode
+            type: object
+            properties:
+              id:
+                description: |
+                  更新対象引上げ権限のID<br>
+                  *「引上げ権限作成API」または「引上げ権限承認API」で取得した値を指定
+                type: integer
+            allOf:
+              - $ref: "#/components/schemas/AddDeprivationAppointmentRequest"
+          example:
+            id: 999
+            userCode: user01
+            targetFormList:
+              entries:
+                - formCode: form01
+            targetRuleList:
+              entries:
+                - ruleCode: rule01
+            availableDateFrom: 1900-01-01 00:00:00 JST
+            avalableDateTo: 2060-12-31 00:00:00 JST
+            criterionDate: 2024-10-31 00:00:00 JST
+    
+    DeleteDeprivationAppointmentRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - id
+            type: object
+            properties:
+              id:
+                description: |
+                  削除対象引上げ権限のID<br>
+                  *「引上げ権限作成API」または「引上げ権限承認API」で取得した値を指定
+                type: integer
+                example: 999
+    
+    DisableDeprivationAppointmentRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - id
+            type: object
+            properties:
+              id:
+                description: |
+                  適用終了対象引上げ権限のID<br>
+                  *「引上げ権限作成API」または「引上げ権限参照API」で取得した値を指定
+                type: integer
+                example: 999
+              availableDateTo:
+                description: |
+                  適用終了日<br>
+                  *null の場合は 2060/12/31 に設定
+                type: date
+                example: 2024-12-31 00:00:00 JST
     
   # -----------------------------------------------
   # レスポンス components/responses
@@ -596,8 +2376,1557 @@ components:
                    entries: []
                  text: 公開APIの実行時にエラーが発生しました。
                  code: APIPAP_W0003
-  
     
+    FindUserResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/FindUserResponse"
+          examples:
+            正常:
+              value:
+                userList:
+                  entries:
+                    - name: 寺崎啓一
+                      id: 999
+                      displayLanguage: ja
+                      localeName: ja
+                      localizedName: ""
+                      password: 
+                      reserveItems:
+                        reserveItem1: a
+                        reserveItem2: b
+                        reserveItem3: c
+                        reserveItem4: d
+                        reserveItem5: e
+                        reserveItem6: f
+                        reserveItem7: g
+                        reserveItem8: h
+                        reserveItem9: i
+                        reserveItem10: j
+                        reserveItem11: k
+                        reserveItem12: l
+                        reserveItem13: m
+                        reserveItem14: n
+                        reserveItem15: o
+                        reserveItem16: p
+                        reserveItem17: q
+                        reserveItem18: r
+                        reserveItem19: s
+                        reserveItem20: t
+                      validityDateTo: 2060-12-31 00:00:00 JST
+                      loginId: user01
+                      code: user01
+                      kana: テラサキケイイチ
+                      availableDateTo: 2060-12-31 00:00:00 JST
+                      criterionDate: 2024-10-31 00:00:00 JST
+                      stampName: 寺崎(啓)
+                      mailAddress: user01@example.com
+                      remarks: 備考
+                      importCode: user01
+                      availableDateFrom: 1900-01-01 00:00:00 JST
+                      validityDateFrom: 1900-01-01 00:00:00 JST
+                      isNeedStampImage: 
+                      isForceChangePassword: true
+                      isAccountLock: false
+                resultStatus: 
+                  status: SUCCESS
+                  messageList: 
+                    entries: []
+                  text: 
+                  code: 
+            パラメータが不正:
+              value:
+                userList:
+                  entries: []
+                resultStatus: 
+                  status: FAIL
+                  messageList: 
+                    entries: 
+                      - text: "{エラーメッセージ}"
+                        code: "{エラーコード}"
+                  text: サービス実行時にエラーが発生しました。
+                  code: AWPCMN0000
+            リクエストが不正:
+              value: 
+               resultStatus: 
+                 status: FAIL
+                 messageList: 
+                   entries: []
+                 text: 公開APIの実行時にエラーが発生しました。
+                 code: APIPAP_W0003
+    
+    DisableUserResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/UserResponse"
+          examples:
+            正常:
+              value:
+                user:
+                  name: 寺崎啓一
+                  id: 999
+                  displayLanguage: ja
+                  localeName: ja
+                  localizedName: ""
+                  password: 
+                  reserveItems:
+                    reserveItem1: a
+                    reserveItem2: b
+                    reserveItem3: c
+                    reserveItem4: d
+                    reserveItem5: e
+                    reserveItem6: f
+                    reserveItem7: g
+                    reserveItem8: h
+                    reserveItem9: i
+                    reserveItem10: j
+                    reserveItem11: k
+                    reserveItem12: l
+                    reserveItem13: m
+                    reserveItem14: n
+                    reserveItem15: o
+                    reserveItem16: p
+                    reserveItem17: q
+                    reserveItem18: r
+                    reserveItem19: s
+                    reserveItem20: t
+                  validityDateTo: 2024-12-31 00:00:00 JST
+                  loginId: user01
+                  code: user01
+                  kana: テラサキケイイチ
+                  availableDateTo: 2024-12-31 00:00:00 JST
+                  criterionDate: 2024-10-31 00:00:00 JST
+                  stampName: 寺崎(啓)
+                  mailAddress: user01@example.com
+                  remarks: 備考
+                  importCode: user01
+                  availableDateFrom: 1900-01-01 00:00:00 JST
+                  validityDateFrom: 1900-01-01 00:00:00 JST
+                  isNeedStampImage: 
+                  isForceChangePassword: true
+                  isAccountLock: false
+                resultStatus: 
+                  status: SUCCESS
+                  messageList: 
+                    entries: []
+                  text: 
+                  code: 
+            パラメータが不正:
+              value:
+                user:
+                  name: 
+                  id: 
+                  displayLanguage: 
+                  localeName: 
+                  localizedName: 
+                  password: 
+                  reserveItems:
+                    reserveItem1: 
+                    reserveItem2: 
+                    reserveItem3: 
+                    reserveItem4: 
+                    reserveItem5: 
+                    reserveItem6: 
+                    reserveItem7: 
+                    reserveItem8: 
+                    reserveItem9: 
+                    reserveItem10: 
+                    reserveItem11: 
+                    reserveItem12: 
+                    reserveItem13: 
+                    reserveItem14: 
+                    reserveItem15: 
+                    reserveItem16: 
+                    reserveItem17: 
+                    reserveItem18: 
+                    reserveItem19: 
+                    reserveItem20: 
+                  validityDateTo: 
+                  loginId: 
+                  code: 
+                  kana: 
+                  availableDateTo: 
+                  criterionDate: 
+                  stampName: 
+                  mailAddress: 
+                  remarks: 
+                  importCode: 
+                  availableDateFrom: 
+                  validityDateFrom: 
+                  isNeedStampImage: 
+                  isForceChangePassword: 
+                  isAccountLock: 
+                resultStatus: 
+                  status: FAIL
+                  messageList: 
+                    entries: 
+                      - text: "{エラーメッセージ}"
+                        code: "{エラーコード}"
+                  text: サービス実行時にエラーが発生しました。
+                  code: AWPCMN0000
+            リクエストが不正:
+              value: 
+               resultStatus: 
+                 status: FAIL
+                 messageList: 
+                   entries: []
+                 text: 公開APIの実行時にエラーが発生しました。
+                 code: APIPAP_W0003
+    
+    UnitResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/UnitResponse"
+          examples:
+            正常:
+              value:
+                unit:
+                  name: 組織2
+                  id: 999
+                  localeName: auto
+                  localizedName: 組織2
+                  officialName: 組織2正式名称
+                  kana: ソシキ2セイシキメイショウ
+                  code: unit02
+                  reserveItems:
+                    reserveItem1: item1
+                    reserveItem2: item2
+                    reserveItem3: item3
+                    reserveItem4: item4
+                    reserveItem5: item5
+                    reserveItem6: item6
+                    reserveItem7: item7
+                    reserveItem8: item8
+                    reserveItem9: item9
+                    reserveItem10: item10
+                    reserveItem11: item11
+                    reserveItem12: item12
+                    reserveItem13: item13
+                    reserveItem14: item14
+                    reserveItem15: item15
+                    reserveItem16: item16
+                    reserveItem17: item17
+                    reserveItem18: item18
+                    reserveItem19: item19
+                    reserveItem20: item20
+                  availableDateTo: 2060-12-31 00:00:00 JST
+                  validityDateTo: 2060-12-31 00:00:00 JST
+                  criterionDate: 1900-01-01 00:00:00 JST
+                  remarks: 備考
+                  importCode: unit02
+                  parentCode: unit01
+                  validityDateFrom: 1900-01-01 00:00:00 JST
+                  availableDateFrom: 1900-01-01 00:00:00 JST
+                resultStatus: 
+                  status: SUCCESS
+                  messageList: 
+                    entries: []
+                  text: 
+                  code: 
+            パラメータが不正:
+              value:
+                unit:
+                  name: 
+                  id: 
+                  localeName: 
+                  localizedName: 
+                  officialName: 
+                  kana: 
+                  code: 
+                  reserveItems:
+                    reserveItem1: 
+                    reserveItem2: 
+                    reserveItem3: 
+                    reserveItem4: 
+                    reserveItem5: 
+                    reserveItem6: 
+                    reserveItem7: 
+                    reserveItem8: 
+                    reserveItem9: 
+                    reserveItem10: 
+                    reserveItem11: 
+                    reserveItem12: 
+                    reserveItem13: 
+                    reserveItem14: 
+                    reserveItem15: 
+                    reserveItem16: 
+                    reserveItem17: 
+                    reserveItem18: 
+                    reserveItem19: 
+                    reserveItem20: 
+                  availableDateTo: 
+                  validityDateTo: 
+                  criterionDate: 
+                  remarks: 
+                  importCode: 
+                  parentCode: 
+                  validityDateFrom: 
+                  availableDateFrom: 
+                resultStatus: 
+                  status: FAIL
+                  messageList: 
+                    entries: 
+                      - text: "{エラーメッセージ}"
+                        code: "{エラーコード}"
+                  text: サービス実行時にエラーが発生しました。
+                  code: AWPCMN0000
+            リクエストが不正:
+              value: 
+               resultStatus: 
+                 status: FAIL
+                 messageList: 
+                   entries: []
+                 text: 公開APIの実行時にエラーが発生しました。
+                 code: APIPAP_W0003
+    
+    FindUnitResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/FindUnitResponse"
+          examples:
+            正常:
+              value:
+                unitList:
+                  entries:
+                    - name: 組織2
+                      id: 999
+                      localeName: auto
+                      localizedName: 組織2
+                      officialName: 組織2正式名称
+                      kana: ソシキ2セイシキメイショウ
+                      code: unit02
+                      reserveItems:
+                        reserveItem1: item1
+                        reserveItem2: item2
+                        reserveItem3: item3
+                        reserveItem4: item4
+                        reserveItem5: item5
+                        reserveItem6: item6
+                        reserveItem7: item7
+                        reserveItem8: item8
+                        reserveItem9: item9
+                        reserveItem10: item10
+                        reserveItem11: item11
+                        reserveItem12: item12
+                        reserveItem13: item13
+                        reserveItem14: item14
+                        reserveItem15: item15
+                        reserveItem16: item16
+                        reserveItem17: item17
+                        reserveItem18: item18
+                        reserveItem19: item19
+                        reserveItem20: item20
+                      availableDateTo: 2060-12-31 00:00:00 JST
+                      validityDateTo: 2060-12-31 00:00:00 JST
+                      criterionDate: 1900-01-01 00:00:00 JST
+                      remarks: 備考
+                      importCode: unit02
+                      parentCode: unit01
+                      validityDateFrom: 1900-01-01 00:00:00 JST
+                      availableDateFrom: 1900-01-01 00:00:00 JST
+                  resultStatus: 
+                    status: SUCCESS
+                    messageList: 
+                      entries: []
+                    text: 
+                    code: 
+            パラメータが不正:
+              value:
+                unitList:
+                  entries: []
+                resultStatus: 
+                  status: FAIL
+                  messageList: 
+                    entries: 
+                      - text: "{エラーメッセージ}"
+                        code: "{エラーコード}"
+                  text: サービス実行時にエラーが発生しました。
+                  code: AWPCMN0000
+            リクエストが不正:
+              value: 
+               resultStatus: 
+                 status: FAIL
+                 messageList: 
+                   entries: []
+                 text: 公開APIの実行時にエラーが発生しました。
+                 code: APIPAP_W0003
+    
+    DisableUnitResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/UnitResponse"
+          examples:
+            正常:
+              value:
+                unit:
+                  name: 組織2
+                  id: 999
+                  localeName: auto
+                  localizedName: 組織2
+                  officialName: 組織2正式名称
+                  kana: ソシキ2セイシキメイショウ
+                  code: unit02
+                  reserveItems:
+                    reserveItem1: item1
+                    reserveItem2: item2
+                    reserveItem3: item3
+                    reserveItem4: item4
+                    reserveItem5: item5
+                    reserveItem6: item6
+                    reserveItem7: item7
+                    reserveItem8: item8
+                    reserveItem9: item9
+                    reserveItem10: item10
+                    reserveItem11: item11
+                    reserveItem12: item12
+                    reserveItem13: item13
+                    reserveItem14: item14
+                    reserveItem15: item15
+                    reserveItem16: item16
+                    reserveItem17: item17
+                    reserveItem18: item18
+                    reserveItem19: item19
+                    reserveItem20: item20
+                  availableDateTo: 2024-12-31 00:00:00 JST
+                  validityDateTo: 2024-12-31 00:00:00 JST
+                  criterionDate: 1900-01-01 00:00:00 JST
+                  remarks: 備考
+                  importCode: unit02
+                  parentCode: unit01
+                  validityDateFrom: 1900-01-01 00:00:00 JST
+                  availableDateFrom: 1900-01-01 00:00:00 JST
+                resultStatus: 
+                  status: SUCCESS
+                  messageList: 
+                    entries: []
+                  text: 
+                  code: 
+            パラメータが不正:
+              value:
+                unit:
+                  name: 
+                  id: 
+                  localeName: 
+                  localizedName: 
+                  officialName: 
+                  kana: 
+                  code: 
+                  reserveItems:
+                    reserveItem1: 
+                    reserveItem2: 
+                    reserveItem3: 
+                    reserveItem4: 
+                    reserveItem5: 
+                    reserveItem6: 
+                    reserveItem7: 
+                    reserveItem8: 
+                    reserveItem9: 
+                    reserveItem10: 
+                    reserveItem11: 
+                    reserveItem12: 
+                    reserveItem13: 
+                    reserveItem14: 
+                    reserveItem15: 
+                    reserveItem16: 
+                    reserveItem17: 
+                    reserveItem18: 
+                    reserveItem19: 
+                    reserveItem20: 
+                  availableDateTo: 
+                  validityDateTo: 
+                  criterionDate: 
+                  remarks: 
+                  importCode: 
+                  parentCode: 
+                  validityDateFrom: 
+                  availableDateFrom: 
+                resultStatus: 
+                  status: FAIL
+                  messageList: 
+                    entries: 
+                      - text: "{エラーメッセージ}"
+                        code: "{エラーコード}"
+                  text: サービス実行時にエラーが発生しました。
+                  code: AWPCMN0000
+            リクエストが不正:
+              value: 
+               resultStatus: 
+                 status: FAIL
+                 messageList: 
+                   entries: []
+                 text: 公開APIの実行時にエラーが発生しました。
+                 code: APIPAP_W0003
+    
+    SectionRoleResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/SectionRoleResponse"
+          examples:
+            正常:
+              value:
+                sectionRole:
+                  rank: 1
+                  name: 課長
+                  explanation: 備考
+                  code: srole01
+                  importCode: srole01
+                  folderCode: 
+                  id: 999
+                resultStatus: 
+                  status: SUCCESS
+                  messageList: 
+                    entries: []
+                  text: 
+                  code: 
+            パラメータが不正:
+              value:
+                sectionRole:
+                  rank: 
+                  name: 
+                  explanation: 
+                  code: 
+                  importCode: 
+                  folderCode: 
+                  id: 
+                resultStatus: 
+                  status: FAIL
+                  messageList: 
+                    entries: 
+                      - text: "{エラーメッセージ}"
+                        code: "{エラーコード}"
+                  text: サービス実行時にエラーが発生しました。
+                  code: AWPCMN0000
+            リクエストが不正:
+              value: 
+               resultStatus: 
+                 status: FAIL
+                 messageList: 
+                   entries: []
+                 text: 公開APIの実行時にエラーが発生しました。
+                 code: APIPAP_W0003
+    
+    FindSectionRoleResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/FindSectionRoleResponse"
+          examples:
+            正常:
+              value:
+                sectionRoleList:
+                  entries:
+                    - rank: 1
+                      name: 課長
+                      explanation: 備考
+                      code: srole01
+                      importCode: srole01
+                      folderCode: 
+                      id: 999
+                resultStatus: 
+                  status: SUCCESS
+                  messageList: 
+                    entries: []
+                  text: 
+                  code: 
+            パラメータが不正:
+              value:
+                sectionRoleList:
+                  entries: [] 
+                resultStatus: 
+                  status: FAIL
+                  messageList: 
+                    entries: 
+                      - text: "{エラーメッセージ}"
+                        code: "{エラーコード}"
+                  text: サービス実行時にエラーが発生しました。
+                  code: AWPCMN0000
+            リクエストが不正:
+              value: 
+               resultStatus: 
+                 status: FAIL
+                 messageList: 
+                   entries: []
+                 text: 公開APIの実行時にエラーが発生しました。
+                 code: APIPAP_W0003
+    
+    SectionRoleGroupResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/SectionRoleGroupResponse"
+          examples:
+            正常:
+              value:
+                sectionRoleGroup:
+                  name: 取締役
+                  id: 999
+                  explanation: 説明
+                  code: srolegroup01
+                  sortNo: 1
+                  roleCodeList:
+                    entries:
+                      - code: srole01
+                      - code: srole02 
+                resultStatus: 
+                  status: SUCCESS
+                  messageList: 
+                    entries: []
+                  text: 
+                  code: 
+            パラメータが不正:
+              value:
+                sectionRoleGroup:
+                  name: 
+                  id: 
+                  explanation: 
+                  code: 
+                  roleCodeList:
+                    entries: []
+                resultStatus: 
+                  status: FAIL
+                  messageList: 
+                    entries: 
+                      - text: "{エラーメッセージ}"
+                        code: "{エラーコード}"
+                  text: サービス実行時にエラーが発生しました。
+                  code: AWPCMN0000
+            リクエストが不正:
+              value: 
+               resultStatus: 
+                 status: FAIL
+                 messageList: 
+                   entries: []
+                 text: 公開APIの実行時にエラーが発生しました。
+                 code: APIPAP_W0003
+    
+    FindSectionRoleGroupResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/FindSectionRoleGroupResponse"
+          examples:
+            正常:
+              value:
+                sectionRoleGroupList:
+                  entries:
+                    - name: 取締役
+                      id: 999
+                      explanation: 説明
+                      code: srolegroup01
+                      sortNo: 1
+                      roleCodeList:
+                        entries:
+                          - code: srole01
+                          - code: srole02
+                resultStatus: 
+                  status: SUCCESS
+                  messageList: 
+                    entries: []
+                  text: 
+                  code: 
+            パラメータが不正:
+              value:
+                sectionRoleGroupList:
+                  entries: [] 
+                resultStatus: 
+                  status: FAIL
+                  messageList: 
+                    entries: 
+                      - text: "{エラーメッセージ}"
+                        code: "{エラーコード}"
+                  text: サービス実行時にエラーが発生しました。
+                  code: AWPCMN0000
+            リクエストが不正:
+              value: 
+               resultStatus: 
+                 status: FAIL
+                 messageList: 
+                   entries: []
+                 text: 公開APIの実行時にエラーが発生しました。
+                 code: APIPAP_W0003
+    
+    UnitAppointmentResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/UnitAppointmentResponse"
+          examples:
+            正常:
+              value:
+                unitAppointment:
+                  id: 999
+                  userCode: user01
+                  unitCode: unit01
+                  sectionRoleCode: srole01
+                  availableDateFrom: 1900-01-01 00:00:00 JST
+                  availableDateTo: 2060-12-31 00:00:00 JST
+                  sortNo: 
+                  criterionDate: 
+                resultStatus: 
+                  status: SUCCESS
+                  messageList: 
+                    entries: []
+                  text: 
+                  code: 
+            パラメータが不正:
+              value:
+                unitAppointment:
+                  id: 
+                  userCode: 
+                  unitCode: 
+                  sectionRoleCode: 
+                  availableDateFrom: 
+                  availableDateTo: 
+                  sortNo: 
+                  criterionDate: 
+                resultStatus: 
+                  status: FAIL
+                  messageList: 
+                    entries: 
+                      - text: "{エラーメッセージ}"
+                        code: "{エラーコード}"
+                  text: サービス実行時にエラーが発生しました。
+                  code: AWPCMN0000
+            リクエストが不正:
+              value: 
+               resultStatus: 
+                 status: FAIL
+                 messageList: 
+                   entries: []
+                 text: 公開APIの実行時にエラーが発生しました。
+                 code: APIPAP_W0003
+    
+    FindUnitAppointmentResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/FindUnitAppointmentResponse"
+          examples:
+            正常:
+              value:
+                unitAppointmentList:
+                  entries:
+                    - id: 999
+                      userCode: user01
+                      unitCode: unit01
+                      sectionRoleCode: srolegroup01
+                      availableDateFrom: 1900-01-01 00:00:00 JST
+                      availableDateTo: 2060-12-31 00:00:00 JST
+                      sortNo: 1
+                      criterionDate: 
+                resultStatus: 
+                  status: SUCCESS
+                  messageList: 
+                    entries: []
+                  text: 
+                  code: 
+            パラメータが不正:
+              value:
+                unitAppointmentList:
+                  entries: [] 
+                resultStatus: 
+                  status: FAIL
+                  messageList: 
+                    entries: 
+                      - text: "{エラーメッセージ}"
+                        code: "{エラーコード}"
+                  text: サービス実行時にエラーが発生しました。
+                  code: AWPCMN0000
+            リクエストが不正:
+              value: 
+               resultStatus: 
+                 status: FAIL
+                 messageList: 
+                   entries: []
+                 text: 公開APIの実行時にエラーが発生しました。
+                 code: APIPAP_W0003
+    
+    DisableUnitAppointmentResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/UnitAppointmentResponse"
+          examples:
+            正常:
+              value:
+                unitAppointment:
+                  id: 999
+                  userCode: user01
+                  unitCode: unit01
+                  sectionRoleCode: srole01
+                  availableDateFrom: 1900-01-01 00:00:00 JST
+                  availableDateTo: 2024-12-31 00:00:00 JST
+                  sortNo: 
+                  criterionDate: 
+                resultStatus: 
+                  status: SUCCESS
+                  messageList: 
+                    entries: []
+                  text: 
+                  code: 
+            パラメータが不正:
+              value:
+                unitAppointment:
+                  id: 
+                  userCode: 
+                  unitCode: 
+                  sectionRoleCode: 
+                  availableDateFrom: 
+                  availableDateTo: 
+                  sortNo: 
+                  criterionDate: 
+                resultStatus: 
+                  status: FAIL
+                  messageList: 
+                    entries: 
+                      - text: "{エラーメッセージ}"
+                        code: "{エラーコード}"
+                  text: サービス実行時にエラーが発生しました。
+                  code: AWPCMN0000
+            リクエストが不正:
+              value: 
+               resultStatus: 
+                 status: FAIL
+                 messageList: 
+                   entries: []
+                 text: 公開APIの実行時にエラーが発生しました。
+                 code: APIPAP_W0003
+    
+    ProxyApplyAppointmentResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/ProxyApplyAppointmentResponse"
+          examples:
+            正常:
+              value:
+                proxyApplicationAppointment:
+                  id: 999
+                  targetFormList:
+                    entries:
+                      - formCode: form01
+                  targetRuleList:
+                    entries:
+                      - ruleCode: rule01
+                  isDisplayCreateMenu: true
+                  availableDateFrom: 1900-01-01 00:00:00 JST
+                  principalUnitCode: unit01
+                  principalUserCode: user01
+                  proxyUserCode: user02
+                  availableDateTo: 2060-12-31 00:00:00 JST
+                  criterionDate: 1900-01-01 00:00:00 JST
+                resultStatus: 
+                  status: SUCCESS
+                  messageList: 
+                    entries: []
+                  text: 
+                  code: 
+            パラメータが不正:
+              value:
+                proxyApplicationAppointment:
+                  id: 
+                  targetFormList:
+                    entries: []
+                  targetRuleList:
+                    entries: []
+                  isDisplayCreateMenu: 
+                  availableDateFrom: 
+                  principalUnitCode: 
+                  principalUserCode: 
+                  proxyUserCode: 
+                  availableDateTo: 
+                  criterionDate: 
+                resultStatus: 
+                  status: FAIL
+                  messageList: 
+                    entries: 
+                      - text: "{エラーメッセージ}"
+                        code: "{エラーコード}"
+                  text: サービス実行時にエラーが発生しました。
+                  code: AWPCMN0000
+            リクエストが不正:
+              value: 
+               resultStatus: 
+                 status: FAIL
+                 messageList: 
+                   entries: []
+                 text: 公開APIの実行時にエラーが発生しました。
+                 code: APIPAP_W0003
+    
+    FindProxyApplyAppointmentResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/FindProxyApplyAppointmentResponse"
+          examples:
+            正常:
+              value:
+                proxyApplicationAppointmentList:
+                  entries:
+                    - id: 999
+                      targetFormList:
+                        entries:
+                          - formCode: form01
+                      targetRuleList:
+                        entries:
+                          - ruleCode: rule01
+                      isDisplayCreateMenu: true
+                      availableDateFrom: 1900-01-01 00:00:00 JST
+                      principalUnitCode: unit01
+                      principalUserCode: user01
+                      proxyUserCode: user01
+                      availableDateTo: 2060-12-31 00:00:00 JST
+                      criterionDate: 1900-01-01 00:00:00 JST
+                resultStatus: 
+                  status: SUCCESS
+                  messageList: 
+                    entries: []
+                  text: 
+                  code: 
+            パラメータが不正:
+              value:
+                proxyApplicationAppointmentList:
+                  entries: [] 
+                resultStatus: 
+                  status: FAIL
+                  messageList: 
+                    entries: 
+                      - text: "{エラーメッセージ}"
+                        code: "{エラーコード}"
+                  text: サービス実行時にエラーが発生しました。
+                  code: AWPCMN0000
+            リクエストが不正:
+              value: 
+               resultStatus: 
+                 status: FAIL
+                 messageList: 
+                   entries: []
+                 text: 公開APIの実行時にエラーが発生しました。
+                 code: APIPAP_W0003
+    
+    DisableProxyApplyAppointmentResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/ProxyApplyAppointmentResponse"
+          examples:
+            正常:
+              value:
+                proxyApplicationAppointment:
+                  id: 999
+                  targetFormList:
+                    entries:
+                      - formCode: form01
+                  targetRuleList:
+                    entries:
+                      - ruleCode: rule01
+                  isDisplayCreateMenu: true
+                  availableDateFrom: 1900-01-01 00:00:00 JST
+                  principalUnitCode: unit01
+                  principalUserCode: user01
+                  proxyUserCode: user02
+                  availableDateTo: 2024-12-31 00:00:00 JST
+                  criterionDate: 1900-01-01 00:00:00 JST
+                resultStatus: 
+                  status: SUCCESS
+                  messageList: 
+                    entries: []
+                  text: 
+                  code: 
+            パラメータが不正:
+              value:
+                proxyApplicationAppointment:
+                  id: 
+                  targetFormList:
+                    entries: []
+                  targetRuleList:
+                    entries: []
+                  isDisplayCreateMenu: 
+                  availableDateFrom: 
+                  principalUnitCode: 
+                  principalUserCode: 
+                  proxyUserCode: 
+                  availableDateTo: 
+                  criterionDate: 
+                resultStatus: 
+                  status: FAIL
+                  messageList: 
+                    entries: 
+                      - text: "{エラーメッセージ}"
+                        code: "{エラーコード}"
+                  text: サービス実行時にエラーが発生しました。
+                  code: AWPCMN0000
+            リクエストが不正:
+              value: 
+               resultStatus: 
+                 status: FAIL
+                 messageList: 
+                   entries: []
+                 text: 公開APIの実行時にエラーが発生しました。
+                 code: APIPAP_W0003
+    
+    ProxyAppointmentResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/ProxyAppointmentResponse"
+          examples:
+            正常:
+              value:
+                proxyAppointment:
+                  id: 999
+                  targetFormList:
+                    entries:
+                      - formCode: form01
+                  targetRuleList:
+                    entries:
+                      - ruleCode: rule01
+                  availableDateTo: 2060-12-31 00:00:00 JST
+                  isDisplayTodoMenu: true
+                  principalUnitCode: unit01
+                  principalUserCode: user01
+                  isSendNotification: true
+                  proxyUserCode: user02
+                  availableDateFrom: 1900-01-01 00:00:00 JST
+                  criterionDate: 1900-01-01 00:00:00 JST
+                resultStatus: 
+                  status: SUCCESS
+                  messageList: 
+                    entries: []
+                  text: 
+                  code: 
+            パラメータが不正:
+              value:
+                proxyAppointment:
+                  id: 
+                  targetFormList:
+                    entries: []
+                  targetRuleList:
+                    entries: []
+                  availableDateFrom: 
+                  isDisplayTodoMenu: 
+                  principalUnitCode: 
+                  principalUserCode: 
+                  isSendNotification: 
+                  proxyUserCode: 
+                  availableDateTo: 
+                  criterionDate: 
+                resultStatus: 
+                  status: FAIL
+                  messageList: 
+                    entries: 
+                      - text: "{エラーメッセージ}"
+                        code: "{エラーコード}"
+                  text: サービス実行時にエラーが発生しました。
+                  code: AWPCMN0000
+            リクエストが不正:
+              value: 
+               resultStatus: 
+                 status: FAIL
+                 messageList: 
+                   entries: []
+                 text: 公開APIの実行時にエラーが発生しました。
+                 code: APIPAP_W0003
+    
+    FindProxyAppointmentResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/FindProxyAppointmentResponse"
+          examples:
+            正常:
+              value:
+                proxyAppointmentList:
+                  entries:
+                    - id: 999
+                      targetFormList:
+                        entries:
+                          - formCode: form01
+                      targetRuleList:
+                        entries:
+                          - ruleCode: rule01
+                      availableDateTo: 2060-12-31 00:00:00 JST
+                      isDisplayTodoMenu: true
+                      isSendNotification: true
+                      principalUnitCode: unit01
+                      principalUserCode: user01
+                      availableDateFrom: 1900-01-01 00:00:00 JST
+                      criterionDate: 1900-01-01 00:00:00 JST
+                      proxyUserCode: user01
+                resultStatus: 
+                  status: SUCCESS
+                  messageList: 
+                    entries: []
+                  text: 
+                  code: 
+            パラメータが不正:
+              value:
+                proxyAppointmentList:
+                  entries: [] 
+                resultStatus: 
+                  status: FAIL
+                  messageList: 
+                    entries: 
+                      - text: "{エラーメッセージ}"
+                        code: "{エラーコード}"
+                  text: サービス実行時にエラーが発生しました。
+                  code: AWPCMN0000
+            リクエストが不正:
+              value: 
+               resultStatus: 
+                 status: FAIL
+                 messageList: 
+                   entries: []
+                 text: 公開APIの実行時にエラーが発生しました。
+                 code: APIPAP_W0003
+    
+    DisableProxyAppointmentResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/ProxyAppointmentResponse"
+          examples:
+            正常:
+              value:
+                proxyAppointment:
+                  id: 999
+                  targetFormList:
+                    entries:
+                      - formCode: form01
+                  targetRuleList:
+                    entries:
+                      - ruleCode: rule01
+                  availableDateTo: 2024-12-31 00:00:00 JST
+                  isDisplayTodoMenu: true
+                  principalUnitCode: unit01
+                  principalUserCode: user01
+                  isSendNotification: true
+                  proxyUserCode: user02
+                  availableDateFrom: 1900-01-01 00:00:00 JST
+                  criterionDate: 1900-01-01 00:00:00 JST
+                resultStatus: 
+                  status: SUCCESS
+                  messageList: 
+                    entries: []
+                  text: 
+                  code: 
+            パラメータが不正:
+              value:
+                proxyAppointment:
+                  id: 
+                  targetFormList:
+                    entries: []
+                  targetRuleList:
+                    entries: []
+                  availableDateFrom: 
+                  isDisplayTodoMenu: 
+                  principalUnitCode: 
+                  principalUserCode: 
+                  isSendNotification: 
+                  proxyUserCode: 
+                  availableDateTo: 
+                  criterionDate: 
+                resultStatus: 
+                  status: FAIL
+                  messageList: 
+                    entries: 
+                      - text: "{エラーメッセージ}"
+                        code: "{エラーコード}"
+                  text: サービス実行時にエラーが発生しました。
+                  code: AWPCMN0000
+            リクエストが不正:
+              value: 
+               resultStatus: 
+                 status: FAIL
+                 messageList: 
+                   entries: []
+                 text: 公開APIの実行時にエラーが発生しました。
+                 code: APIPAP_W0003
+    
+    DelegationAppointmentResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/DelegationAppointmentResponse"
+          examples:
+            正常:
+              value:
+                delegationAppointment:
+                  id: 999
+                  targetFormList:
+                    entries:
+                      - formCode: form01
+                  targetRuleList:
+                    entries:
+                      - ruleCode: rule01
+                  availableDateTo: 2060-12-31 00:00:00 JST
+                  availableDateFrom: 1900-01-01 00:00:00 JST
+                  criterionDate: 1900-01-01 00:00:00 JST
+                  fromUserCode: user01
+                  toUserCode: user02
+                  fromUnitCode: unit01
+                  taskUnitPolicy: FROM
+                resultStatus: 
+                  status: SUCCESS
+                  messageList: 
+                    entries: []
+                  text: 
+                  code: 
+            パラメータが不正:
+              value:
+                delegationAppointment:
+                  id: 
+                  targetFormList:
+                    entries: []
+                  targetRuleList:
+                    entries: []
+                  availableDateTo: 
+                  availableDateFrom: 
+                  criterionDate: 
+                  fromUserCode: 
+                  toUserCode: 
+                  fromUnitCode: 
+                  taskUnitPolicy: 
+                resultStatus: 
+                  status: FAIL
+                  messageList: 
+                    entries: 
+                      - text: "{エラーメッセージ}"
+                        code: "{エラーコード}"
+                  text: サービス実行時にエラーが発生しました。
+                  code: AWPCMN0000
+            リクエストが不正:
+              value: 
+               resultStatus: 
+                 status: FAIL
+                 messageList: 
+                   entries: []
+                 text: 公開APIの実行時にエラーが発生しました。
+                 code: APIPAP_W0003
+    
+    FindDelegationAppointmentResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/FindDelegationAppointmentResponse"
+          examples:
+            正常:
+              value:
+                delegationAppointmentList:
+                  entries:
+                    - id: 999
+                      targetFormList:
+                        entries:
+                          - formCode: form01
+                      targetRuleList:
+                        entries:
+                          - ruleCode: rule01
+                      availableDateTo: 2060-12-31 00:00:00 JST
+                      availableDateFrom: 1900-01-01 00:00:00 JST
+                      criterionDate: 1900-01-01 00:00:00 JST
+                      fromUserCode: user01
+                      toUserCode: user01
+                      fromUnitCode: unit01
+                      taskUnitPolicy: FROM
+                resultStatus: 
+                  status: SUCCESS
+                  messageList: 
+                    entries: []
+                  text: 
+                  code: 
+            パラメータが不正:
+              value:
+                delegationAppointmentList:
+                  entries: [] 
+                resultStatus: 
+                  status: FAIL
+                  messageList: 
+                    entries: 
+                      - text: "{エラーメッセージ}"
+                        code: "{エラーコード}"
+                  text: サービス実行時にエラーが発生しました。
+                  code: AWPCMN0000
+            リクエストが不正:
+              value: 
+               resultStatus: 
+                 status: FAIL
+                 messageList: 
+                   entries: []
+                 text: 公開APIの実行時にエラーが発生しました。
+                 code: APIPAP_W0003
+    
+    DisableDelegationAppointmentResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/DelegationAppointmentResponse"
+          examples:
+            正常:
+              value:
+                delegationAppointment:
+                  id: 999
+                  targetFormList:
+                    entries:
+                      - formCode: form01
+                  targetRuleList:
+                    entries:
+                      - ruleCode: rule01
+                  availableDateTo: 2024-12-31 00:00:00 JST
+                  availableDateFrom: 1900-01-01 00:00:00 JST
+                  criterionDate: 1900-01-01 00:00:00 JST
+                  fromUserCode: user01
+                  toUserCode: user02
+                  fromUnitCode: unit01
+                  taskUnitPolicy: FROM
+                resultStatus: 
+                  status: SUCCESS
+                  messageList: 
+                    entries: []
+                  text: 
+                  code: 
+            パラメータが不正:
+              value:
+                delegationAppointment:
+                  id: 
+                  targetFormList:
+                    entries: []
+                  targetRuleList:
+                    entries: []
+                  availableDateTo: 
+                  availableDateFrom: 
+                  criterionDate: 
+                  fromUserCode: 
+                  toUserCode: 
+                  fromUnitCode: 
+                  taskUnitPolicy: 
+                resultStatus: 
+                  status: FAIL
+                  messageList: 
+                    entries: 
+                      - text: "{エラーメッセージ}"
+                        code: "{エラーコード}"
+                  text: サービス実行時にエラーが発生しました。
+                  code: AWPCMN0000
+            リクエストが不正:
+              value: 
+               resultStatus: 
+                 status: FAIL
+                 messageList: 
+                   entries: []
+                 text: 公開APIの実行時にエラーが発生しました。
+                 code: APIPAP_W0003
+    
+    DeprivationAppointmentResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/DeprivationAppointmentResponse"
+          examples:
+            正常:
+              value:
+                deprivationAppointment:
+                  id: 999
+                  targetFormList:
+                    entries:
+                      - formCode: form01
+                  targetRuleList:
+                    entries:
+                      - ruleCode: rule01
+                  availableDateTo: 2060-12-31 00:00:00 JST
+                  userCode: user01
+                  availableDateFrom: 1900-01-01 00:00:00 JST
+                  criterionDate: 1900-01-01 00:00:00 JST
+                resultStatus: 
+                  status: SUCCESS
+                  messageList: 
+                    entries: []
+                  text: 
+                  code: 
+            パラメータが不正:
+              value:
+                deprivationAppointment:
+                  id: 
+                  targetFormList:
+                    entries: []
+                  targetRuleList:
+                    entries: []
+                  availableDateTo: 
+                  userCode: 
+                  availableDateFrom: 
+                  criterionDate: 
+                resultStatus: 
+                  status: FAIL
+                  messageList: 
+                    entries: 
+                      - text: "{エラーメッセージ}"
+                        code: "{エラーコード}"
+                  text: サービス実行時にエラーが発生しました。
+                  code: AWPCMN0000
+            リクエストが不正:
+              value: 
+               resultStatus: 
+                 status: FAIL
+                 messageList: 
+                   entries: []
+                 text: 公開APIの実行時にエラーが発生しました。
+                 code: APIPAP_W0003
+    
+    FindDeprivationAppointmentResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/FindDeprivationAppointmentResponse"
+          examples:
+            正常:
+              value:
+                deprivationAppointmentList:
+                  entries:
+                    - id: 999
+                      availableDateTo: 2060-12-31 00:00:00 JST
+                      criterionDate: 1900-01-01 00:00:00 JST
+                      userCode: user01
+                      availableDateFrom: 1900-01-01 00:00:00 JST
+                      targetFormList:
+                        entries:
+                          - formCode: form01
+                      targetRuleList:
+                        entries:
+                          - ruleCode: rule01
+                resultStatus: 
+                  status: SUCCESS
+                  messageList: 
+                    entries: []
+                  text: 
+                  code: 
+            パラメータが不正:
+              value:
+                deprivationAppointmentList:
+                  entries: [] 
+                resultStatus: 
+                  status: FAIL
+                  messageList: 
+                    entries: 
+                      - text: "{エラーメッセージ}"
+                        code: "{エラーコード}"
+                  text: サービス実行時にエラーが発生しました。
+                  code: AWPCMN0000
+            リクエストが不正:
+              value: 
+               resultStatus: 
+                 status: FAIL
+                 messageList: 
+                   entries: []
+                 text: 公開APIの実行時にエラーが発生しました。
+                 code: APIPAP_W0003
+    
+    DisableDeprivationAppointmentResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/DeprivationAppointmentResponse"
+          examples:
+            正常:
+              value:
+                deprivationAppointment:
+                  id: 999
+                  targetFormList:
+                    entries:
+                      - formCode: form01
+                  targetRuleList:
+                    entries:
+                      - ruleCode: rule01
+                  availableDateTo: 2024-12-31 00:00:00 JST
+                  userCode: user01
+                  availableDateFrom: 1900-01-01 00:00:00 JST
+                  criterionDate: 1900-01-01 00:00:00 JST
+                resultStatus: 
+                  status: SUCCESS
+                  messageList: 
+                    entries: []
+                  text: 
+                  code: 
+            パラメータが不正:
+              value:
+                deprivationAppointment:
+                  id: 
+                  targetFormList:
+                    entries: []
+                  targetRuleList:
+                    entries: []
+                  availableDateTo: 
+                  userCode: 
+                  availableDateFrom: 
+                  criterionDate: 
+                resultStatus: 
+                  status: FAIL
+                  messageList: 
+                    entries: 
+                      - text: "{エラーメッセージ}"
+                        code: "{エラーコード}"
+                  text: サービス実行時にエラーが発生しました。
+                  code: AWPCMN0000
+            リクエストが不正:
+              value: 
+               resultStatus: 
+                 status: FAIL
+                 messageList: 
+                   entries: []
+                 text: 公開APIの実行時にエラーが発生しました。
+                 code: APIPAP_W0003
     
   # -----------------------------------------------
   # スキーマ components/schemas
@@ -649,7 +3978,27 @@ components:
           type: string
         reserveItem20:
           type: string
-          
+    
+    compareOperatorType:
+      description: |
+        比較演算子<br>
+        指定可能な値<br>
+        |パラメータ|説明|
+        |----|----|
+        |EQUAL|～と等しい|
+        |LESS_THAN|～より小さい|
+        |LESS_EQUAL|～以下|
+        |GREATER_THAN|～より大きい|
+        |GREATER_EQUAL|～以上|
+        |NOT_EQUAL|～と異なる|
+        |LIKE|～を含む|
+        |NOT_LIKE|～を含まない|
+        |START_WITH|～から始まる|
+        |END_WITH|～で終わる|
+        |BETWEEN|～と～の間|
+        |EMPTY|未入力|
+        |NOT_EMPTY|入力されている|
+    
     resultStatus:
       description: APIの実行結果
       type: object
@@ -683,84 +4032,81 @@ components:
     AddUserRequest:
       type: object
       properties:
-          name:
-            description: ユーザー名称
-            type: string
-          diplayLanguage:
-            description: |
-              表示言語<br>
-              以下のいずれかを指定<br>
-              auto：ブラウザ設定に従う<br>
-              ja：日本語<br>
-              en：英語<br>
-              zh_CN：中文（簡体）<br>
-              zh_TW：中文（繁体）
-            type: string
-          localeName:
-            description: ローカル名称の言語名
-            type: string
-          localizedName:
-            description: ローカル名称
-            type: string
-          password:
-            description: パスワード
-            type: string
-          reserveItems:
-            allOf:
-              - $ref: "#/components/schemas/reserveItems"
-          validityDateTo:
-            description: 履歴終了日
-            type: date
-          loginId:
-            description: ログインID
-            type: string
-          code:
-            description: ユーザーコード
-            type: string
-          kana:
-            description: ユーザー名称カナ
-            type: string
-          availableDateTo:
-            description: 適用終了日
-            type: date
-          criterionDate:
-            description: 基準日
-            type: date
-          stampName:
-            description: 印影
-            type: string
-          mailAddress:
-            description: メールアドレス
-            type: string
-          remarks:
-            description: 備考
-            type: string
-          importCode:
-            description: インポートコード
-            type: string
-          availableDateFrom:
-            description: 適用開始日
-            type: date
-          validityDateFrom:
-            description: 履歴開始日
-            type: date
-          isNeedStampImage:
-            type: string
-          isForceChangePassword:
-            description: |
-              次回ログイン時にパスワード変更を求めるかどうか<br>
-              *trueの指定は無効
-            type: boolean
-          isAccountLock:
-            description: アカウントロックフラグ
-            type: boolean
+        name:
+          description: ユーザー名称
+          type: string
+        diplayLanguage:
+          description: |
+            表示言語<br>
+            以下のいずれかを指定<br>
+            auto：ブラウザ設定に従う<br>
+            ja：日本語<br>
+            en：英語<br>
+            zh_CN：中文（簡体）<br>
+            zh_TW：中文（繁体）
+          type: string
+        localeName:
+          description: ローカル名称の言語名
+          type: string
+        localizedName:
+          description: ローカル名称
+          type: string
+        password:
+          description: パスワード
+          type: string
+        reserveItems:
+          allOf:
+            - $ref: "#/components/schemas/reserveItems"
+        validityDateTo:
+          description: 履歴終了日
+          type: date
+        loginId:
+          description: ログインID
+          type: string
+        code:
+          description: ユーザーコード
+          type: string
+        kana:
+          description: ユーザー名称カナ
+          type: string
+        availableDateTo:
+          description: 適用終了日
+          type: date
+        stampName:
+          description: 印影
+          type: string
+        mailAddress:
+          description: メールアドレス
+          type: string
+        remarks:
+          description: 備考
+          type: string
+        importCode:
+          description: インポートコード
+          type: string
+        availableDateFrom:
+          description: 適用開始日
+          type: date
+        validityDateFrom:
+          description: 履歴開始日
+          type: date
+        isNeedStampImage:
+          type: string
+        isForceChangePassword:
+          description: |
+            次回ログイン時にパスワード変更を求めるかどうか<br>
+            *true の指定は無効
+          type: boolean
+        isAccountLock:
+          description: アカウントロックフラグ
+          type: boolean
             
     FindUserRequest:
       type: object
       properties:
         condition:
           required:
-            - criterionDate
+              - criterionDate
           description: ユーザー検索条件
           type: object
           properties:
@@ -829,6 +4175,7 @@ components:
                           フィールド値タイプ<br>
                           指定可能な値<br>
                           |パラメータ|説明|
+                          |----|----|
                           |Code|コード|
                           |ImportId|インポートコード|
                           |Name|名称|
@@ -843,36 +4190,712 @@ components:
                           |AvailableDateTo|運用終了日|
                           |ReserveItem1～10|拡張項目1～10|
                       compareOperatorType:
-                        description: |
-                          比較演算子<br>
-                          指定可能な値<br>
-                          |パラメータ|説明|
-                          |EQUAL|～と等しい|
-                          |LESS_THAN|～より小さい|
-                          |LESS_EQUAL|～以下|
-                          |GREATER_THAN|～より大きい|
-                          |GREATER_EQUAL|～以上|
-                          |NOT_EQUAL|～と異なる|
-                          |LIKE|～を含む|
-                          |NOT_LIKE|～を含まない|
-                          |START_WITH|～から始まる|
-                          |END_WITH|～で終わる|
-                          |BETWEEN|～と～の間|
-                          |EMPTY|未入力|
-                          |NOT_EMPTY|入力されている|
+                        allOf:
+                          - $ref: "#/components/schemas/compareOperatorType"
                       value:
                         description: 値
                         type: string
                 logicalOperator: 
                   description: |
                     任意検索全体のAND / OR<br>
-                    AND または OR を指定
+                    *AND または OR を指定
                   type: string
             criterionDate:
               description: 基準日
               type: date
     
+    AddUnitRequest:
+      type: object
+      properties:
+        code:
+          description: 組織コード
+          type: string
+        importCode:
+          description: インポートコード
+          type: string
+        parentCode:
+          description: |
+            親組織コード<br>
+            *ルート組織直下に組織を追加する場合は null
+          type: string
+        name:
+          description: 組織名称
+          type: string
+        localizedName:
+          description: ローカル名称
+          type: string
+        localeName:
+          description: ローカル名
+          type: string
+        officialName:
+          description: 組織正式名称
+          type: string
+        kana:
+          description: 組織名称カナ
+          type: string
+        remarks:
+          description: 備考
+          type: string
+        validityDateFrom:
+          description: 履歴開始日
+          type: date
+        validityDateTo:
+          description: 履歴終了日
+          type: date
+        availableDateFrom:
+          description: 適用開始日
+          type: date
+        availableDateTo:
+          description: 適用終了日
+          type: date
+        reserveItems:
+          allOf:
+            - $ref: "#/components/schemas/reserveItems"
     
+    FindUnitRequest:
+      type: object
+      properties:
+        condition:
+          description: 組織検索条件
+          type: object
+          properties:
+            code:
+              description: 組織コード
+              type: string
+            name:
+              description: 組織名称
+              type: string
+            parentCode:
+              description: 親組織コード
+              type: string
+            importCode:
+              description: インポート組織コード
+              type: string
+            columnValueConditionList:
+              description: 任意検索条件一覧
+              type: object
+              properties:
+                entries:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      column:
+                        description: |
+                          フィールド値タイプ<br>
+                          指定可能な値<br>
+                          |パラメータ|説明|
+                          |----|----|
+                          |Code|コード|
+                          |ImportId|インポートコード|
+                          |Name|名称|
+                          |LocalizedName|ローカル名称|
+                          |LocaleName|ロケール名|
+                          |Kana|カナ|
+                          |LoginId|ログインID|
+                          |MailAddress|メールアドレス|
+                          |StampName|印影名|
+                          |Remarks|備考|
+                          |AvailableDateFrom|運用開始日|
+                          |AvailableDateTo|運用終了日|
+                          |ReserveItem1～10|拡張項目1～10|
+                      compareOperatorType:
+                        allOf:
+                          - $ref: "#/components/schemas/compareOperatorType"
+                      value:
+                        description: 値
+                        type: string
+                logicalOperator: 
+                  description: |
+                    任意検索全体のAND / OR<br>
+                    *AND または OR を指定
+                  type: string
+            criterionDate:
+              description: 基準日
+              type: date
+    
+    AddSectionRoleRequest:
+      type: object
+      properties:
+        code:
+          description: セクションロールコード
+          type: string
+        importCode:
+          description: インポートコード
+          type: string
+        name:
+          description: ロール名称
+          type: string
+        explanation:
+          description: 備考
+          type: string
+        folderCode:
+          description: |
+            セクションロールフォルダ<br>
+            *セクションロールフォルダ直下に作成する場合はnullを指定
+          type: string
+        rank:
+          description: ランク
+          type: integer
+    
+    FindSectionRoleRequest:
+      type: object
+      properties:
+        condition:
+          description: セクションロール検索条件
+          type: object
+          properties:
+            code:
+              description: セクションロールコード
+              type: string
+            name:
+              description: セクションロール名称
+              type: string
+            userCode:
+              description: ユーザーコード
+              type: string
+            unitCode:
+              description: 組織コード
+              type: string
+            columnValueConditionList:
+              description: 任意検索条件一覧
+              type: object
+              properties:
+                entries:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      column:
+                        description: |
+                          フィールド値タイプ<br>
+                          指定可能な値<br>
+                          |パラメータ|説明|
+                          |----|----|
+                          |Code|コード|
+                          |ImportId|インポートコード|
+                          |Name|名称|
+                          |Rank|ランク|
+                      compareOperatorType:
+                        allOf:
+                          - $ref: "#/components/schemas/compareOperatorType"
+                      value:
+                        description: 値
+                        type: string
+                logicalOperator: 
+                  description: |
+                    任意検索全体のAND / OR<br>
+                    *AND または OR を指定
+                  type: string
+            criterionDate:
+              description: 基準日
+              type: date
+    
+    AddSectionRoleGroupRequest:
+      type: object
+      properties:
+        code:
+          description: セクションロールグループコード
+          type: string
+        name:
+          description: セッションロールグループ名称
+          type: string
+        sortNo:
+          description: ソート順序
+          type: string
+        explanation:
+          description: 説明
+          type: string
+        roleCodeList:
+          description: 所属しているセクションロールコードのリスト
+          properties:
+            entries:
+              description: セクションロールコード情報
+              type: array
+              items:
+                type: object
+                properties:
+                  code:
+                    description: セクションロールコード
+                    type: string
+    
+    FindSectionRoleGroupRequest:
+      type: object
+      properties:
+        condition:
+          description: セクションロールグループ検索条件
+          type: object
+          properties:
+            code:
+              description: セクションロールグループコード
+              type: string
+            name:
+              description: セクションロールグループ名称
+              type: string
+            roleCode:
+              description: セクションロールコード
+              type: string
+            columnValueConditionList:
+              description: 任意検索条件一覧
+              type: object
+              properties:
+                entries:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      column:
+                        description: |
+                          フィールド値タイプ<br>
+                          指定可能な値<br>
+                          |パラメータ|説明|
+                          |----|----|
+                          |Code|コード|
+                          |Name|名称|
+                          |SectionRoleCode|セクションロールコード|
+                      compareOperatorType:
+                        allOf:
+                          - $ref: "#/components/schemas/compareOperatorType"
+                      value:
+                        description: 値
+                        type: string
+                logicalOperator: 
+                  description: |
+                    任意検索全体のAND / OR<br>
+                    *AND または OR を指定
+                  type: string
+    
+    AddUnitAppointmentRequest:
+      type: object
+      properties:
+        unitCode:
+          description: 組織コード
+          type: string
+        userCode:
+          description: ユーザーコード
+          type: string
+        sectionRoleCode:
+          description: セクションロールコード
+          type: string
+        availableDateFrom:
+          description: 適用開始日
+          type: date
+        availableDateTo:
+          description: 適用終了日
+          type: date
+        criterionDate:
+          description: 基準日
+          type: date
+    
+    FindUnitAppointmentRequest:
+      type: object
+      properties:
+        condition:
+          description: 組織所属検索条件
+          type: object
+          properties:
+            userCode:
+              description: ユーザーコード
+              type: string
+            unitCode:
+              description: |
+                組織コード<br>
+                *unitDirection と共に指定
+              type: string
+            unitDirection:
+              description: |
+                組織の検索種別<br>
+                *unitCode と共に指定<br>
+                *省略時は該当組織のみ<br>
+                指定可能な値<br>
+                |パラメータ|説明|
+                |----|----|
+                |ABSOLUTE|対象組織のみ|
+                |ESCALATE|対象組織と、組織の上位にある 全ての組織 or 所属を返す|
+                |CASCADE|対象組織と、対称組織の配下にある 全ての組織 or 所属を返す|
+            columnValueConditionList:
+              description: 任意検索条件一覧
+              type: object
+              properties:
+                entries:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      column:
+                        description: |
+                          フィールド値タイプ<br>
+                          指定可能な値<br>
+                          |パラメータ|説明|
+                          |----|----|
+                          |UnitCode|組織コード|
+                          |UnitName|インポートコード|
+                          |UnitOfficialName|名称|
+                          |UnitValidityDateFrom|ローカル名称|
+                          |UnitValidityDateTo|ロケール名|
+                          |UnitAvailableDateFrom|カナ|
+                          |UnitAvailableDateTo|ログインID|
+                          |UserCode|メールアドレス|
+                          |UserName|印影名|
+                          |UserKana|備考|
+                          |UserLoginId|運用開始日|
+                          |UserMailAddress|運用終了日|
+                          |UserStampName|説明|
+                          |UserAvailableDateFrom|コード|
+                          |UserAvailableDateTo|インポートコード|
+                          |RoleCode|名称|
+                          |RoleName|ローカル名称|
+                          |RoleRank|ロケール名|
+                          |ValidityDateFrom|カナ|
+                          |ValidityDateTo|ログインID|
+                          |UnitReserveItem1～10|組織拡張項目1～10|
+                          |UserReserveItem1～10|ユーザー拡張項目1～10|
+                      compareOperatorType:
+                        allOf:
+                          - $ref: "#/components/schemas/compareOperatorType"
+                      value:
+                        description: 値
+                        type: string
+                logicalOperator: 
+                  description: |
+                    任意検索全体のAND / OR<br>
+                    *AND または OR を指定
+                  type: string
+            criterionDate:
+              description: 基準日
+              type: date
+    
+    UpdateUnitAppointmentRequest:
+      type: object
+      properties:
+        id:
+          description: |
+            更新対象組織所属のID<br>
+            *「組織所属作成API」または「組織所属参照API」で取得した値を指定
+          type: integer
+        unitCode:
+          description: 組織コード
+          type: string
+        userCode:
+          description: ユーザーコード
+          type: string
+        sectionRoleCode:
+          description: |
+            セクションロールコード<br>
+            *指定しない場合は null
+          type: string
+        availableDateFrom:
+          description: 適用開始日
+          type: date
+        availableDateTo:
+          description: 適用終了日
+          type: date
+        criterionDate:
+          description: 基準日
+          type: date
+    
+    AddProxyApplyAppointmentRequest:
+      type: object
+      properties:
+        principalUserCode:
+          description: 被代理ユーザーコード
+          type: string
+        principalUnitCode:
+          description: 被代理組織コード
+          type: string
+        proxyUserCode:
+          description: 代理ユーザーコード
+          type: string
+        targetFormList:
+          description: 対象フォーム一覧
+          properties:
+            entries:
+              description: フォームコードのリスト
+              type: array
+              items:
+                type: object
+                properties:
+                  formCode:
+                    description: フォームコード
+                    type: string
+        targetRuleList:
+          description: 対象回付ルール一覧
+          properties:
+            entries:
+              description: 回付ルールコードのリスト
+              type: array
+              items:
+                type: object
+                properties:
+                  ruleCode:
+                    description: 回付ルールコード
+                    type: string
+        isDisplayCreateMenu:
+          description: 書類作成画面に表示するかどうか
+          type: boolean
+        availableDateFrom:
+          description: 適用開始日
+          type: date
+        availableDateTo:
+          description: 適用終了日
+          type: date
+        criterionDate:
+          description: 基準日
+          type: date
+    
+    FindProxyApplyAppointmentRequest:
+      type: object
+      properties:
+        condition:
+          description: 代理申請検索条件
+          type: object
+          properties:
+            principalUserCode:
+              description: 被代理ユーザーコード
+              type: string
+            principalUnitCode:
+              description: 被代理組織コード
+              type: string
+            proxyUserCode:
+              description: 代理ユーザーコード
+              type: string
+            targetFormCode:
+              description: 対象フォームコード
+              type: string
+            targetRuleCode:
+              description: 対象回付ルールコード
+              type: string
+            criterionDate:
+              description: 基準日
+              type: date
+            isDisplayCreateMenu:
+              description: 書類作成画面に表示するかどうか
+              type: boolean
+    
+    AddProxyAppointmentRequest:
+      type: object
+      properties:
+        principalUserCode:
+          description: 被代理ユーザーコード
+          type: string
+        principalUnitCode:
+          description: 被代理組織コード
+          type: string
+        proxyUserCode:
+          description: 代理ユーザーコード
+          type: string
+        targetFormList:
+          description: 対象フォーム一覧
+          properties:
+            entries:
+              description: フォームコードのリスト
+              type: array
+              items:
+                type: object
+                properties:
+                  formCode:
+                    description: フォームコード
+                    type: string
+        targetRuleList:
+          description: 対象回付ルール一覧
+          properties:
+            entries:
+              description: 回付ルールコードのリスト
+              type: array
+              items:
+                type: object
+                properties:
+                  ruleCode:
+                    description: 回付ルールコード
+                    type: string
+        isSendNotification:
+          description: 代理承認依頼を通知するかどうか
+          type: boolean
+        isDisplayTodoMenu:
+          description: 処理待ち画面に表示するかどうか
+          type: boolean
+        availableDateFrom:
+          description: 適用開始日
+          type: date
+        availableDateTo:
+          description: 適用終了日
+          type: date
+        criterionDate:
+          description: 基準日
+          type: date
+    
+    FindProxyAppointmentRequest:
+      type: object
+      properties:
+        condition:
+          description: 代理承認検索条件
+          type: object
+          properties:
+            principalUnitCode:
+              description: 被代理組織コード
+              type: string
+            principalUserCode:
+              description: 被代理ユーザーコード
+              type: string
+            proxyUserCode:
+              description: 代理ユーザーコード
+              type: string
+            targetFormCode:
+              description: 対象フォームコード
+              type: string
+            targetRuleCode:
+              description: 対象回付ルールコード
+              type: string
+            criterionDate:
+              description: 基準日
+              type: date
+            isSendNotification:
+              description: 代理承認依頼を通知するかどうか
+              type: boolean
+            isDisplayTodoMenu:
+              description: 処理待ち画面に表示するかどうか
+              type: boolean
+    
+    AddDelegationAppointmentRequest:
+      type: object
+      properties:
+        fromUserCode:
+          description: 委譲元ユーザーコード
+          type: string
+        fromUnitCode:
+          description: 委譲元組織コード
+          type: string
+        toUserCode:
+          description: 委譲先ユーザーコード
+          type: string
+        targetFormList:
+          description: 対象フォーム一覧
+          properties:
+            entries:
+              description: フォームコードのリスト
+              type: array
+              items:
+                type: object
+                properties:
+                  formCode:
+                    description: フォームコード
+                    type: string
+        targetRuleList:
+          description: 対象回付ルール一覧
+          properties:
+            entries:
+              description: 回付ルールコードのリスト
+              type: array
+              items:
+                type: object
+                properties:
+                  ruleCode:
+                    description: 回付ルールコード
+                    type: string
+        availableDateFrom:
+          description: 適用開始日
+          type: date
+        availableDateTo:
+          description: 適用終了日
+          type: date
+        taskUnitPolicy:
+          description: |
+            権限委譲時に処理者情報にセットされる組織情報の決定ポリシー<br>
+            指定可能な値<br>
+            |パラメータ|説明|
+            |----|----|
+            |FROM|委譲前の組織を維持|
+            |TO|委譲後のユーザーの主務組織|
+            |BLANK|表示しない|
+        criterionDate:
+          description: 基準日
+          type: date
+    
+    FindDelegationAppointmentRequest:
+      type: object
+      properties:
+        condition:
+          description: 権限委譲検索条件
+          type: object
+          properties:
+            fromUnitCode:
+              description: 権限委譲元組織コード
+              type: string
+            fromUserCode:
+              description: 権限委譲元ユーザーコード
+              type: string
+            toUserCode:
+              description: 権限委譲先ユーザーコード
+              type: string
+            targetFormCode:
+              description: 対象フォームコード
+              type: string
+            targetRuleCode:
+              description: 対象回付ルールコード
+              type: string
+            criterionDate:
+              description: 基準日
+              type: date
+    
+    AddDeprivationAppointmentRequest:
+      type: object
+      properties:
+        userCode:
+          description: ユーザーコード
+          type: string
+        targetFormList:
+          description: 対象フォーム一覧
+          properties:
+            entries:
+              description: フォームコードのリスト
+              type: array
+              items:
+                type: object
+                properties:
+                  formCode:
+                    description: フォームコード
+                    type: string
+        targetRuleList:
+          description: 対象回付ルール一覧
+          properties:
+            entries:
+              description: 回付ルールコードのリスト
+              type: array
+              items:
+                type: object
+                properties:
+                  ruleCode:
+                    description: 回付ルールコード
+                    type: string
+        availableDateFrom:
+          description: 適用開始日
+          type: date
+        availableDateTo:
+          description: 適用終了日
+          type: date
+        criterionDate:
+          description: 基準日
+          type: date
+    
+    FindDeprivationAppointmentRequest:
+      type: object
+      properties:
+        condition:
+          description: 引上げ権限検索条件
+          type: object
+          properties:
+            userCode:
+              description: ユーザーコード
+              type: string
+            targetFormCode:
+              description: 対象フォームコード
+              type: string
+            targetRuleCode:
+              description: 対象回付ルールコード
+              type: string
+            criterionDate:
+              description: 基準日
+              type: date
     
     UserResponse:
       type: object
@@ -893,7 +4916,345 @@ components:
           allOf:
             - $ref: "#/components/schemas/resultStatus"
     
+    FindUserResponse:
+      type: object
+      properties:
+        userList:
+          description: ユーザー情報一覧
+          type: object
+          properties:
+            entries:
+              description: セクションロール情報
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    description: ユーザーのid
+                    type: integer
+                  criterionDate:
+                    description: 基準日
+                    type: date
+                allOf:
+                  - $ref: "#/components/schemas/AddUserRequest"
+        resultStatus:
+          allOf:
+            - $ref: "#/components/schemas/resultStatus"
     
+    UnitResponse:
+      type: object
+      properties:
+        unit:
+          description: 組織情報
+          type: object
+          properties:
+            id:
+              description: 組織のid
+              type: integer
+            criterionDate:
+              description: 基準日
+              type: date
+          allOf:
+            - $ref: "#/components/schemas/AddUnitRequest"
+        resultStatus:
+          allOf:
+            - $ref: "#/components/schemas/resultStatus"
+    
+    FindUnitResponse:
+      type: object
+      properties:
+        unitList:
+          description: 組織情報一覧
+          type: object
+          properties:
+            entries:
+              description: 組織情報
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    description: 組織のid
+                    type: integer
+                  criterionDate:
+                    description: 基準日
+                    type: date
+                allOf:
+                  - $ref: "#/components/schemas/AddUnitRequest"
+        resultStatus:
+          allOf:
+            - $ref: "#/components/schemas/resultStatus"
+    
+    SectionRoleResponse:
+      type: object
+      properties:
+        sectionRole:
+          description: セクションロール情報
+          type: object
+          properties:
+            id:
+              description: セクションロールのid
+              type: integer
+          allOf:
+            - $ref: "#/components/schemas/AddSectionRoleRequest"
+        resultStatus:
+          allOf:
+            - $ref: "#/components/schemas/resultStatus"
+    
+    FindSectionRoleResponse:
+      type: object
+      properties:
+        sectionRoleList:
+          description: セクションロール情報一覧
+          type: object
+          properties:
+            entries:
+              description: セクションロール情報
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    description: セクションロールのid
+                    type: integer
+                allOf:
+                  - $ref: "#/components/schemas/AddSectionRoleRequest"
+        resultStatus:
+          allOf:
+            - $ref: "#/components/schemas/resultStatus"
+    
+    SectionRoleGroupResponse:
+      type: object
+      properties:
+        sectionRoleGroup:
+          description: セクションロールグループ情報
+          type: object
+          properties:
+            id:
+              description: セクションロールグループのid
+              type: integer
+          allOf:
+            - $ref: "#/components/schemas/AddSectionRoleGroupRequest"
+        resultStatus:
+          allOf:
+            - $ref: "#/components/schemas/resultStatus"
+    
+    FindSectionRoleGroupResponse:
+      type: object
+      properties:
+        sectionRoleGroupList:
+          description: セクションロールグループ情報一覧
+          type: object
+          properties:
+            entries:
+              description: セクションロールグループ情報
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    description: セクションロールグループのid
+                    type: integer
+                allOf:
+                  - $ref: "#/components/schemas/AddSectionRoleGroupRequest"
+        resultStatus:
+          allOf:
+            - $ref: "#/components/schemas/resultStatus"
+    
+    UnitAppointmentResponse:
+      type: object
+      properties:
+        unitAppointment:
+          description: 組織所属情報
+          type: object
+          properties:
+            id:
+              description: 組織所属のid
+              type: integer
+            sortNo:
+              description: 組織所属の並び順序
+          allOf:
+            - $ref: "#/components/schemas/AddUnitAppointmentRequest"
+        resultStatus:
+          allOf:
+            - $ref: "#/components/schemas/resultStatus"
+    
+    FindUnitAppointmentResponse:
+      type: object
+      properties:
+        unitAppointmentList:
+          description: 組織所属情報一覧
+          type: object
+          properties:
+            entries:
+              description: 組織所属情報
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    description: 組織所属のid
+                    type: integer
+                  sortNo:
+                    description: 組織所属の並び順序
+                    type: string
+                allOf:
+                  - $ref: "#/components/schemas/AddUnitAppointmentRequest"
+        resultStatus:
+          allOf:
+            - $ref: "#/components/schemas/resultStatus"
+    
+    ProxyApplyAppointmentResponse:
+      type: object
+      properties:
+        proxyApplicationAppointment:
+          description: 代理申請情報
+          type: object
+          properties:
+            id:
+              description: 代理申請のid
+              type: integer
+          allOf:
+            - $ref: "#/components/schemas/AddProxyApplyAppointmentRequest"
+        resultStatus:
+          allOf:
+            - $ref: "#/components/schemas/resultStatus"
+    
+    FindProxyApplyAppointmentResponse:
+      type: object
+      properties:
+        proxyApplicationAppointmentList:
+          description: 代理申請情報一覧
+          type: object
+          properties:
+            entries:
+              description: 代理申請情報
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    description: 代理申請のid
+                    type: integer
+                allOf:
+                  - $ref: "#/components/schemas/AddProxyApplyAppointmentRequest"
+        resultStatus:
+          allOf:
+            - $ref: "#/components/schemas/resultStatus"
+    
+    ProxyAppointmentResponse:
+      type: object
+      properties:
+        proxyAppointment:
+          description: 代理承認情報
+          type: object
+          properties:
+            id:
+              description: 代理承認のid
+              type: integer
+          allOf:
+            - $ref: "#/components/schemas/AddProxyAppointmentRequest"
+        resultStatus:
+          allOf:
+            - $ref: "#/components/schemas/resultStatus"
+    
+    FindProxyAppointmentResponse:
+      type: object
+      properties:
+        proxyAppointmentList:
+          description: 代理承認情報一覧
+          type: object
+          properties:
+            entries:
+              description: 代理承認情報
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    description: 代理承認のid
+                    type: integer
+                allOf:
+                  - $ref: "#/components/schemas/AddProxyAppointmentRequest"
+        resultStatus:
+          allOf:
+            - $ref: "#/components/schemas/resultStatus"
+    
+    DelegationAppointmentResponse:
+      type: object
+      properties:
+        delegationAppointment:
+          description: 権限委譲情報
+          type: object
+          properties:
+            id:
+              description: 権限委譲のid
+              type: integer
+          allOf:
+            - $ref: "#/components/schemas/AddDelegationAppointmentRequest"
+        resultStatus:
+          allOf:
+            - $ref: "#/components/schemas/resultStatus"
+    
+    FindDelegationAppointmentResponse:
+      type: object
+      properties:
+        delegationAppointmentList:
+          description: 権限委譲情報一覧
+          type: object
+          properties:
+            entries:
+              description: 権限委譲情報
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    description: 権限委譲のid
+                    type: integer
+                allOf:
+                  - $ref: "#/components/schemas/AddDelegationAppointmentRequest"
+        resultStatus:
+          allOf:
+            - $ref: "#/components/schemas/resultStatus"
+    
+    DeprivationAppointmentResponse:
+      type: object
+      properties:
+        deprivationAppointment:
+          description: 引上げ権限情報
+          type: object
+          properties:
+            id:
+              description: 引上げ権限のid
+              type: integer
+          allOf:
+            - $ref: "#/components/schemas/AddDeprivationAppointmentRequest"
+        resultStatus:
+          allOf:
+            - $ref: "#/components/schemas/resultStatus"
+    
+    FindDeprivationAppointmentResponse:
+      type: object
+      properties:
+        deprivationAppointmentList:
+          description: 引上げ権限情報一覧
+          type: object
+          properties:
+            entries:
+              description: 引上げ権限情報
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    description: 引上げ権限のid
+                    type: integer
+                allOf:
+                  - $ref: "#/components/schemas/AddDeprivationAppointmentRequest"
+        resultStatus:
+          allOf:
+            - $ref: "#/components/schemas/resultStatus"
     
   securitySchemes:
     basicAuth:
