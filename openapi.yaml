@@ -2369,13 +2369,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              value: 
-               resultStatus: 
-                 status: FAIL
-                 messageList: 
-                   entries: []
-                 text: 公開APIの実行時にエラーが発生しました。
-                 code: APIPAP_W0003
+              $ref: "#/components/examples/response"
     
     FindUserResponses200:
       description: Successful response
@@ -2450,13 +2444,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              value: 
-               resultStatus: 
-                 status: FAIL
-                 messageList: 
-                   entries: []
-                 text: 公開APIの実行時にエラーが発生しました。
-                 code: APIPAP_W0003
+              $ref: "#/components/examples/response"
     
     DisableUserResponses200:
       description: Successful response
@@ -2571,13 +2559,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              value: 
-               resultStatus: 
-                 status: FAIL
-                 messageList: 
-                   entries: []
-                 text: 公開APIの実行時にエラーが発生しました。
-                 code: APIPAP_W0003
+              $ref: "#/components/examples/response"
     
     UnitResponses200:
       description: Successful response
@@ -2680,13 +2662,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              value: 
-               resultStatus: 
-                 status: FAIL
-                 messageList: 
-                   entries: []
-                 text: 公開APIの実行時にエラーが発生しました。
-                 code: APIPAP_W0003
+              $ref: "#/components/examples/response"
     
     FindUnitResponses200:
       description: Successful response
@@ -2755,13 +2731,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              value: 
-               resultStatus: 
-                 status: FAIL
-                 messageList: 
-                   entries: []
-                 text: 公開APIの実行時にエラーが発生しました。
-                 code: APIPAP_W0003
+              $ref: "#/components/examples/response"
     
     DisableUnitResponses200:
       description: Successful response
@@ -2864,13 +2834,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              value: 
-               resultStatus: 
-                 status: FAIL
-                 messageList: 
-                   entries: []
-                 text: 公開APIの実行時にエラーが発生しました。
-                 code: APIPAP_W0003
+              $ref: "#/components/examples/response"
     
     SectionRoleResponses200:
       description: Successful response
@@ -2915,13 +2879,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              value: 
-               resultStatus: 
-                 status: FAIL
-                 messageList: 
-                   entries: []
-                 text: 公開APIの実行時にエラーが発生しました。
-                 code: APIPAP_W0003
+              $ref: "#/components/examples/response"
     
     FindSectionRoleResponses200:
       description: Successful response
@@ -2961,13 +2919,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              value: 
-               resultStatus: 
-                 status: FAIL
-                 messageList: 
-                   entries: []
-                 text: 公開APIの実行時にエラーが発生しました。
-                 code: APIPAP_W0003
+              $ref: "#/components/examples/response"
     
     SectionRoleGroupResponses200:
       description: Successful response
@@ -3013,13 +2965,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              value: 
-               resultStatus: 
-                 status: FAIL
-                 messageList: 
-                   entries: []
-                 text: 公開APIの実行時にエラーが発生しました。
-                 code: APIPAP_W0003
+              $ref: "#/components/examples/response"
     
     FindSectionRoleGroupResponses200:
       description: Successful response
@@ -3061,13 +3007,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              value: 
-               resultStatus: 
-                 status: FAIL
-                 messageList: 
-                   entries: []
-                 text: 公開APIの実行時にエラーが発生しました。
-                 code: APIPAP_W0003
+              $ref: "#/components/examples/response"
     
     UnitAppointmentResponses200:
       description: Successful response
@@ -3114,13 +3054,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              value: 
-               resultStatus: 
-                 status: FAIL
-                 messageList: 
-                   entries: []
-                 text: 公開APIの実行時にエラーが発生しました。
-                 code: APIPAP_W0003
+              $ref: "#/components/examples/response"
     
     FindUnitAppointmentResponses200:
       description: Successful response
@@ -3161,13 +3095,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              value: 
-               resultStatus: 
-                 status: FAIL
-                 messageList: 
-                   entries: []
-                 text: 公開APIの実行時にエラーが発生しました。
-                 code: APIPAP_W0003
+              $ref: "#/components/examples/response"
     
     DisableUnitAppointmentResponses200:
       description: Successful response
@@ -3214,13 +3142,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              value: 
-               resultStatus: 
-                 status: FAIL
-                 messageList: 
-                   entries: []
-                 text: 公開APIの実行時にエラーが発生しました。
-                 code: APIPAP_W0003
+              $ref: "#/components/examples/response"
     
     ProxyApplyAppointmentResponses200:
       description: Successful response
@@ -3277,13 +3199,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              value: 
-               resultStatus: 
-                 status: FAIL
-                 messageList: 
-                   entries: []
-                 text: 公開APIの実行時にエラーが発生しました。
-                 code: APIPAP_W0003
+              $ref: "#/components/examples/response"
     
     FindProxyApplyAppointmentResponses200:
       description: Successful response
@@ -3330,13 +3246,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              value: 
-               resultStatus: 
-                 status: FAIL
-                 messageList: 
-                   entries: []
-                 text: 公開APIの実行時にエラーが発生しました。
-                 code: APIPAP_W0003
+              $ref: "#/components/examples/response"
     
     DisableProxyApplyAppointmentResponses200:
       description: Successful response
@@ -3393,13 +3303,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              value: 
-               resultStatus: 
-                 status: FAIL
-                 messageList: 
-                   entries: []
-                 text: 公開APIの実行時にエラーが発生しました。
-                 code: APIPAP_W0003
+              $ref: "#/components/examples/response"
     
     ProxyAppointmentResponses200:
       description: Successful response
@@ -3458,13 +3362,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              value: 
-               resultStatus: 
-                 status: FAIL
-                 messageList: 
-                   entries: []
-                 text: 公開APIの実行時にエラーが発生しました。
-                 code: APIPAP_W0003
+              $ref: "#/components/examples/response"
     
     FindProxyAppointmentResponses200:
       description: Successful response
@@ -3512,13 +3410,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              value: 
-               resultStatus: 
-                 status: FAIL
-                 messageList: 
-                   entries: []
-                 text: 公開APIの実行時にエラーが発生しました。
-                 code: APIPAP_W0003
+              $ref: "#/components/examples/response"
     
     DisableProxyAppointmentResponses200:
       description: Successful response
@@ -3577,13 +3469,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              value: 
-               resultStatus: 
-                 status: FAIL
-                 messageList: 
-                   entries: []
-                 text: 公開APIの実行時にエラーが発生しました。
-                 code: APIPAP_W0003
+              $ref: "#/components/examples/response"
     
     DelegationAppointmentResponses200:
       description: Successful response
@@ -3640,13 +3526,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              value: 
-               resultStatus: 
-                 status: FAIL
-                 messageList: 
-                   entries: []
-                 text: 公開APIの実行時にエラーが発生しました。
-                 code: APIPAP_W0003
+              $ref: "#/components/examples/response"
     
     FindDelegationAppointmentResponses200:
       description: Successful response
@@ -3693,13 +3573,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              value: 
-               resultStatus: 
-                 status: FAIL
-                 messageList: 
-                   entries: []
-                 text: 公開APIの実行時にエラーが発生しました。
-                 code: APIPAP_W0003
+              $ref: "#/components/examples/response"
     
     DisableDelegationAppointmentResponses200:
       description: Successful response
@@ -3756,13 +3630,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              value: 
-               resultStatus: 
-                 status: FAIL
-                 messageList: 
-                   entries: []
-                 text: 公開APIの実行時にエラーが発生しました。
-                 code: APIPAP_W0003
+              $ref: "#/components/examples/response"
     
     DeprivationAppointmentResponses200:
       description: Successful response
@@ -3813,13 +3681,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              value: 
-               resultStatus: 
-                 status: FAIL
-                 messageList: 
-                   entries: []
-                 text: 公開APIの実行時にエラーが発生しました。
-                 code: APIPAP_W0003
+              $ref: "#/components/examples/response"
     
     FindDeprivationAppointmentResponses200:
       description: Successful response
@@ -3863,13 +3725,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              value: 
-               resultStatus: 
-                 status: FAIL
-                 messageList: 
-                   entries: []
-                 text: 公開APIの実行時にエラーが発生しました。
-                 code: APIPAP_W0003
+              $ref: "#/components/examples/response"
     
     DisableDeprivationAppointmentResponses200:
       description: Successful response
@@ -3920,13 +3776,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              value: 
-               resultStatus: 
-                 status: FAIL
-                 messageList: 
-                   entries: []
-                 text: 公開APIの実行時にエラーが発生しました。
-                 code: APIPAP_W0003
+              $ref: "#/components/examples/response"
     
   # -----------------------------------------------
   # スキーマ components/schemas
@@ -5270,4 +5120,18 @@ components:
       type: http
       scheme: oauth2
 
+  # -----------------------------------------------
+  # 例 components/examples
+  # -----------------------------------------------
+
+  examples:
+    
+    response_errorRequest:
+      value: 
+        resultStatus: 
+          status: FAIL
+          messageList: 
+            entries: []
+          text: 公開APIの実行時にエラーが発生しました。
+          code: APIPAP_W0003
 
