@@ -1881,7 +1881,7 @@ components:
               id:
                 description: |
                   更新対象代理承認のID<br>
-                  *「代理申請作成API」または「代理申請承認API」で取得した値を指定
+                  *「代理承認作成API」または「代理承認参照API」で取得した値を指定
                 type: integer
             allOf:
               - $ref: "#/components/schemas/AddProxyAppointmentRequest"
@@ -1913,7 +1913,7 @@ components:
               id:
                 description: |
                   削除対象代理承認のID<br>
-                  *「代理申請作成API」または「代理申請承認API」で取得した値を指定
+                  *「代理承認作成API」または「代理承認参照API」で取得した値を指定
                 type: integer
                 example: 999
     
@@ -1990,7 +1990,7 @@ components:
               id:
                 description: |
                   更新対象権限委譲のID<br>
-                  *「権限委譲作成API」または「権限委譲承認API」で取得した値を指定
+                  *「権限委譲作成API」または「権限委譲参照API」で取得した値を指定
                 type: integer
             allOf:
               - $ref: "#/components/schemas/AddDelegationAppointmentRequest"
@@ -2021,7 +2021,7 @@ components:
               id:
                 description: |
                   削除対象権限委譲のID<br>
-                  *「権限委譲作成API」または「権限委譲承認API」で取得した値を指定
+                  *「権限委譲作成API」または「権限委譲参照API」で取得した値を指定
                 type: integer
                 example: 999
     
@@ -2091,7 +2091,7 @@ components:
               id:
                 description: |
                   更新対象引上げ権限のID<br>
-                  *「引上げ権限作成API」または「引上げ権限承認API」で取得した値を指定
+                  *「引上げ権限作成API」または「引上げ権限参照API」で取得した値を指定
                 type: integer
             allOf:
               - $ref: "#/components/schemas/AddDeprivationAppointmentRequest"
@@ -2119,7 +2119,7 @@ components:
               id:
                 description: |
                   削除対象引上げ権限のID<br>
-                  *「引上げ権限作成API」または「引上げ権限承認API」で取得した値を指定
+                  *「引上げ権限作成API」または「引上げ権限参照API」で取得した値を指定
                 type: integer
                 example: 999
     
@@ -2369,7 +2369,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response"
+              $ref: "#/components/examples/response_errorRequest"
     
     FindUserResponses200:
       description: Successful response
@@ -2444,7 +2444,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response"
+              $ref: "#/components/examples/response_errorRequest"
     
     DisableUserResponses200:
       description: Successful response
@@ -2559,7 +2559,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response"
+              $ref: "#/components/examples/response_errorRequest"
     
     UnitResponses200:
       description: Successful response
@@ -2662,7 +2662,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response"
+              $ref: "#/components/examples/response_errorRequest"
     
     FindUnitResponses200:
       description: Successful response
@@ -2731,7 +2731,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response"
+              $ref: "#/components/examples/response_errorRequest"
     
     DisableUnitResponses200:
       description: Successful response
@@ -2834,7 +2834,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response"
+              $ref: "#/components/examples/response_errorRequest"
     
     SectionRoleResponses200:
       description: Successful response
@@ -2879,7 +2879,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response"
+              $ref: "#/components/examples/response_errorRequest"
     
     FindSectionRoleResponses200:
       description: Successful response
@@ -2919,7 +2919,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response"
+              $ref: "#/components/examples/response_errorRequest"
     
     SectionRoleGroupResponses200:
       description: Successful response
@@ -2965,7 +2965,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response"
+              $ref: "#/components/examples/response_errorRequest"
     
     FindSectionRoleGroupResponses200:
       description: Successful response
@@ -3007,7 +3007,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response"
+              $ref: "#/components/examples/response_errorRequest"
     
     UnitAppointmentResponses200:
       description: Successful response
@@ -3054,7 +3054,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response"
+              $ref: "#/components/examples/response_errorRequest"
     
     FindUnitAppointmentResponses200:
       description: Successful response
@@ -3095,7 +3095,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response"
+              $ref: "#/components/examples/response_errorRequest"
     
     DisableUnitAppointmentResponses200:
       description: Successful response
@@ -3142,7 +3142,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response"
+              $ref: "#/components/examples/response_errorRequest"
     
     ProxyApplyAppointmentResponses200:
       description: Successful response
@@ -3199,7 +3199,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response"
+              $ref: "#/components/examples/response_errorRequest"
     
     FindProxyApplyAppointmentResponses200:
       description: Successful response
@@ -3246,7 +3246,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response"
+              $ref: "#/components/examples/response_errorRequest"
     
     DisableProxyApplyAppointmentResponses200:
       description: Successful response
@@ -3303,7 +3303,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response"
+              $ref: "#/components/examples/response_errorRequest"
     
     ProxyAppointmentResponses200:
       description: Successful response
@@ -3362,7 +3362,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response"
+              $ref: "#/components/examples/response_errorRequest"
     
     FindProxyAppointmentResponses200:
       description: Successful response
@@ -3410,7 +3410,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response"
+              $ref: "#/components/examples/response_errorRequest"
     
     DisableProxyAppointmentResponses200:
       description: Successful response
@@ -3469,7 +3469,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response"
+              $ref: "#/components/examples/response_errorRequest"
     
     DelegationAppointmentResponses200:
       description: Successful response
@@ -3526,7 +3526,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response"
+              $ref: "#/components/examples/response_errorRequest"
     
     FindDelegationAppointmentResponses200:
       description: Successful response
@@ -3573,7 +3573,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response"
+              $ref: "#/components/examples/response_errorRequest"
     
     DisableDelegationAppointmentResponses200:
       description: Successful response
@@ -3630,7 +3630,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response"
+              $ref: "#/components/examples/response_errorRequest"
     
     DeprivationAppointmentResponses200:
       description: Successful response
@@ -3681,7 +3681,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response"
+              $ref: "#/components/examples/response_errorRequest"
     
     FindDeprivationAppointmentResponses200:
       description: Successful response
@@ -3725,7 +3725,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response"
+              $ref: "#/components/examples/response_errorRequest"
     
     DisableDeprivationAppointmentResponses200:
       description: Successful response
@@ -3776,7 +3776,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response"
+              $ref: "#/components/examples/response_errorRequest"
     
   # -----------------------------------------------
   # スキーマ components/schemas
