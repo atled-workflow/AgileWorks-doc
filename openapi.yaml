@@ -770,7 +770,7 @@ paths:
         - 組織API
       summary: 代理承認更新
       description:
-        代理申請を更新します。
+        代理承認を更新します。
       operationId: updateProxyAppointment
       requestBody:
         $ref: "#/components/requestBodies/UpdateProxyAppointmentRequest"
