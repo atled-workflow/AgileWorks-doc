@@ -1088,6 +1088,456 @@ paths:
         "503":
           $ref: "#/components/responses/ErrorResponses503"
  
+  # --------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=org.Org&method=addPrivateRole:
+    post:
+      tags:
+        - 組織API
+      summary: プライベートロール作成
+      description:
+        プライベートロールを作成します。
+      operationId: addPrivateRole
+      requestBody:
+        $ref: "#/components/requestBodies/AddPrivateRoleRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/PrivateRoleResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+  # --------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=org.Org&method=findPrivateRole:
+    post:
+      tags:
+        - 組織API
+      summary: プライベートロール参照
+      description:
+        プライベートロールを参照します。
+      operationId: findPrivateRole
+      requestBody:
+        $ref: "#/components/requestBodies/FindPrivateRoleRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/FindPrivateRoleResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+  # --------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=org.Org&method=updatePrivateRole:
+    post:
+      tags:
+        - 組織API
+      summary: プライベートロール更新
+      description:
+        プライベートロールを更新します。
+      operationId: updatePrivateRole
+      requestBody:
+        $ref: "#/components/requestBodies/UpdatePrivateRoleRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/PrivateRoleResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=org.Org&method=deletePrivateRole:
+    post:
+      tags:
+        - 組織API
+      summary: プライベートロール削除
+      description:
+        プライベートロールを削除します。
+      operationId: deletePrivateRole
+      requestBody:
+        $ref: "#/components/requestBodies/DeletePrivateRoleRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/ResultStatusResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+  # --------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=org.Org&method=addPrivateRoleAppointment:
+    post:
+      tags:
+        - 組織API
+      summary: プライベートロール所属作成
+      description:
+        プライベートロール所属を作成します。
+      operationId: addPrivateRoleAppointment
+      requestBody:
+        $ref: "#/components/requestBodies/AddPrivateRoleAppointmentRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/PrivateRoleAppointmentResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+  # --------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=org.Org&method=findPrivateRoleAppointment:
+    post:
+      tags:
+        - 組織API
+      summary: プライベートロール所属参照
+      description:
+        プライベートロール所属を参照します。
+      operationId: findPrivateRoleAppointment
+      requestBody:
+        $ref: "#/components/requestBodies/FindPrivateRoleAppointmentRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/FindPrivateRoleAppointmentResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+  # --------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=org.Org&method=updatePrivateRoleAppointment:
+    post:
+      tags:
+        - 組織API
+      summary: プライベートロール所属更新
+      description:
+        プライベートロール所属を更新します。
+      operationId: updatePrivateRoleAppointment
+      requestBody:
+        $ref: "#/components/requestBodies/UpdatePrivateRoleAppointmentRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/PrivateRoleAppointmentResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=org.Org&method=deletePrivateRoleAppointment:
+    post:
+      tags:
+        - 組織API
+      summary: プライベートロール所属削除
+      description:
+        プライベートロール所属を削除します。
+      operationId: deletePrivateRoleAppointment
+      requestBody:
+        $ref: "#/components/requestBodies/DeletePrivateRoleAppointmentRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/ResultStatusResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+  # --------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=org.Org&method=disablePrivateRoleAppointment:
+    post:
+      tags:
+        - 組織API
+      summary: プライベートロール所属適用終了
+      description:
+        プライベートロール所属を適用終了します。
+      operationId: disablePrivateRoleAppointment
+      requestBody:
+        $ref: "#/components/requestBodies/DisablePrivateRoleAppointmentRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/DisablePrivateRoleAppointmentResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=org.Org&method=addUniversalRole:
+    post:
+      tags:
+        - 組織API
+      summary: ユニバーサルロール作成
+      description:
+        ユニバーサルロールを作成します。
+      operationId: addUniversalRole
+      requestBody:
+        $ref: "#/components/requestBodies/AddUniversalRoleRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/UniversalRoleResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+  # --------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=org.Org&method=findUniversalRole:
+    post:
+      tags:
+        - 組織API
+      summary: ユニバーサルロール参照
+      description:
+        ユニバーサルロールを参照します。
+      operationId: findUniversalRole
+      requestBody:
+        $ref: "#/components/requestBodies/FindUniversalRoleRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/FindUniversalRoleResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+  # --------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=org.Org&method=updateUniversalRole:
+    post:
+      tags:
+        - 組織API
+      summary: ユニバーサルロール更新
+      description:
+        ユニバーサルロールを更新します。
+      operationId: updateUniversalRole
+      requestBody:
+        $ref: "#/components/requestBodies/UpdateUniversalRoleRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/UniversalRoleResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=org.Org&method=deleteUniversalRole:
+    post:
+      tags:
+        - 組織API
+      summary: ユニバーサルロール削除
+      description:
+        ユニバーサルロールを削除します。
+      operationId: deleteUniversalRole
+      requestBody:
+        $ref: "#/components/requestBodies/DeleteUniversalRoleRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/ResultStatusResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+  # --------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=org.Org&method=addUniversalRoleAppointment:
+    post:
+      tags:
+        - 組織API
+      summary: ユニバーサルロール所属作成
+      description:
+        ユニバーサルロール所属を作成します。
+      operationId: addUniversalRoleAppointment
+      requestBody:
+        $ref: "#/components/requestBodies/AddUniversalRoleAppointmentRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/UniversalRoleAppointmentResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+  # --------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=org.Org&method=findUniversalRoleAppointment:
+    post:
+      tags:
+        - 組織API
+      summary: ユニバーサルロール所属参照
+      description:
+        ユニバーサル所属を参照します。
+      operationId: findUniversalRoleAppointment
+      requestBody:
+        $ref: "#/components/requestBodies/FindUniversalRoleAppointmentRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/FindUniversalRoleAppointmentResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+  # --------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=org.Org&method=updateUniversalRoleAppointment:
+    post:
+      tags:
+        - 組織API
+      summary: ユニバーサルロール所属更新
+      description:
+        ユニバーサルロール所属を更新します。
+      operationId: updateUniversalRoleAppointment
+      requestBody:
+        $ref: "#/components/requestBodies/UpdateUniversalRoleAppointmentRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/UniversalRoleAppointmentResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=org.Org&method=deleteUniversalRoleAppointment:
+    post:
+      tags:
+        - 組織API
+      summary: ユニバーサルロール所属削除
+      description:
+        ユニバーサルロール所属を削除します。
+      operationId: deleteUniversalRoleAppointment
+      requestBody:
+        $ref: "#/components/requestBodies/DeleteUniversalRoleAppointmentRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/ResultStatusResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+  # --------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=org.Org&method=disableUniversalRoleAppointment:
+    post:
+      tags:
+        - 組織API
+      summary: ユニバーサルロール所属適用終了
+      description:
+        ユニバーサルロール所属を適用終了します。
+      operationId: disableUniversalRoleAppointment
+      requestBody:
+        $ref: "#/components/requestBodies/DisableUniversalRoleAppointmentRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/DisableUniversalRoleAppointmentResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
  # --------------------------------------------------------------------------------------------------
 
 # -----------------------------------------------
@@ -1267,7 +1717,8 @@ components:
                 example: 999
               criterionDate:
                 description: 削除用基準日
-                type: date
+                type: string
+                pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
                 example: 2024-10-31 00:00:00 JST
     
     DisableUserRequest:
@@ -1286,7 +1737,8 @@ components:
                 example: 999
               availableDateTo:
                 description: 適用終了日
-                type: date
+                type: string
+                pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
                 example: 2024-12-31 00:00:00 JST
     
     AddUnitRequest:
@@ -1436,7 +1888,8 @@ components:
                 description: |
                   基準日<br>
                   *nullの場合は現在日
-                type: date
+                type: string
+                pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
                 example: 2024-10-31 00:00:00 JST
     
     DisableUnitRequest:
@@ -1457,7 +1910,8 @@ components:
                 description: |
                   適用終了日<br>
                   *null の場合は 2060/12/31
-                type: date
+                type: string
+                pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
                 example: 2024-12-31 00:00:00 JST
     
     AddSectionRoleRequest:
@@ -1693,7 +2147,8 @@ components:
                 description: |
                   削除用基準日<br>
                   *null の場合は現在日
-                type: date
+                type: string
+                pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
                 example: 2024-10-31 00:00:00 JST
     
     DisableUnitAppointmentRequest:
@@ -1714,7 +2169,8 @@ components:
                 description: |
                   適用終了日<br>
                   *null の場合は適用終了日を組織の適用終了日とユーザーの適用終了日のうち早い方の日付に設定
-                type: date
+                type: string
+                pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
                 example: 2024-12-31 00:00:00 JST
     
     AddProxyApplyAppointmentRequest:
@@ -1823,7 +2279,8 @@ components:
                 description: |
                   適用終了日<br>
                   *null の場合は 2060/12/31 に設定
-                type: date
+                type: string
+                pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
                 example: 2024-12-31 00:00:00 JST
     
     AddProxyAppointmentRequest:
@@ -1935,7 +2392,8 @@ components:
                 description: |
                   適用終了日<br>
                   *null の場合は 2060/12/31 に設定
-                type: date
+                type: string
+                pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
                 example: 2024-12-31 00:00:00 JST
     
     AddDelegationAppointmentRequest:
@@ -2043,7 +2501,8 @@ components:
                 description: |
                   適用終了日<br>
                   *null の場合は 2060/12/31 に設定
-                type: date
+                type: string
+                pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
                 example: 2024-12-31 00:00:00 JST
     
     AddDeprivationAppointmentRequest:
@@ -2141,7 +2600,422 @@ components:
                 description: |
                   適用終了日<br>
                   *null の場合は 2060/12/31 に設定
-                type: date
+                type: string
+                pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
+                example: 2024-12-31 00:00:00 JST
+    
+    AddPrivateRoleRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - code
+              - name
+              - folderCode
+            allOf:
+              - $ref: "#/components/schemas/AddPrivateRoleRequest"
+          example:
+            code: prole01
+            importCode: prole01
+            name: プライベートロール
+            explanation: プライベートロール
+            folderCode: proleFolder
+            isWarnIfCandidateNotAssigned: false
+            candidateList:
+              entries:
+                - type: USER
+                  userCode: user01
+                - type: ROLE
+                  roleCode: srole01
+                  roletype: SECTION
+            guidance:
+              subject: 件名
+              text: 本文
+    
+    FindPrivateRoleRequest:
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/FindPrivateRoleRequest"
+          example:
+            condition:
+              code: prole01
+              name: プライベートロール
+              columnValueConditionList: 
+                entries:
+                  - column: Name
+                    compareOperator: LIKE
+                    value: プライベート
+                logicalOperator: AND
+    
+    UpdatePrivateRoleRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - id
+              - code
+              - name
+              - folderCode
+            type: object
+            properties:
+              id:
+                description: |
+                  更新対象プライベートロールのID<br>
+                  *「プライベートロール作成API」または「プライベートロール参照API」で取得した値を指定
+                type: integer
+            allOf:
+              - $ref: "#/components/schemas/AddPrivateRoleRequest"
+          example:
+            id: 999
+            code: prole01
+            importCode: prole01
+            name: プライベートロール
+            explanation: プライベートロール
+            folderCode: proleFolder
+            isWarnIfCandidateNotAssigned: false
+            candidateList:
+              entries:
+                - type: USER
+                  userCode: user01
+                - type: ROLE
+                  roleCode: srole01
+                  roletype: SECTION
+            guidance:
+              subject: 件名
+              text: 本文
+    
+    DeletePrivateRoleRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - id
+            type: object
+            properties:
+              id:
+                description: |
+                  削除対象プライベートロールのID<br>
+                  *「プライベートロール作成API」または「プライベートロール参照API」で取得した値を指定
+                type: integer
+                example: 999
+    
+    AddPrivateRoleAppointmentRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - userCode
+              - privateRoleCode
+              - candidateCode
+            allOf:
+              - $ref: "#/components/schemas/AddPrivateRoleAppointmentRequest"
+          example:
+            userCode: user01
+            privateRoleCode: prole01
+            candidateCode: user02
+            availableDateFrom: 1900-01-01 00:00:00 JST
+            availableDateTo: 2060-12-31 00:00:00 JST
+            criterionDate: 2024-10-31 00:00:00 JST
+    
+    FindPrivateRoleAppointmentRequest:
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/FindPrivateRoleAppointmentRequest"
+          example:
+            condition:
+              userCode: user01
+              roleCode: prole01
+              candidateCode: user02
+              columnValueConditionList:
+                entries:
+                  - column: CandidateCode
+                    compareOperator: LIKE
+                    value: u
+                logicalOperator: AND
+              criterionDate: 2024-10-31 00:00:00 JST
+    
+    UpdatePrivateRoleAppointmentRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - id
+              - userCode
+              - privateRoleCode
+              - candidateCode
+            type: object
+            properties:
+              id:
+                description: |
+                  更新対象プライベートロール所属のID<br>
+                  *「プライベートロール所属作成API」または「プライベートロール所属参照API」で取得した値を指定
+                type: integer
+              userCode:
+                description: |
+                  ユーザーコード<br>
+                  *変更不可
+                type: string
+              privateRoleCode:
+                description: |
+                  プライベートロールコード<br>
+                  *変更不可
+                type: string
+              candidateCode:
+                description: |
+                  候補者のユーザーコード<br>
+                  *変更不可
+                type: string
+              availableDateFrom:
+                description: 適用開始日
+                type: string
+                pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
+              availableDateTo:
+                description: 適用終了日
+                type: string
+                pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
+              criterionDate:
+                description: 基準日
+                type: string
+                pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
+          example:
+            id: 999
+            userCode: user01
+            privateRoleCode: prole01
+            candidateCode: user02
+            availableDateFrom: 1900-01-01 00:00:00 JST
+            availableDateTo: 2060-12-31 00:00:00 JST
+            criterionDate: 2024-10-31 00:00:00 JST
+    
+    DeletePrivateRoleAppointmentRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - id
+            type: object
+            properties:
+              id:
+                description: |
+                  削除対象プライベートロール所属のID<br>
+                  *「プライベートロール所属作成API」または「プライベートロール所属参照API」で取得した値を指定
+                type: integer
+                example: 999
+    
+    DisablePrivateRoleAppointmentRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - id
+            type: object
+            properties:
+              id:
+                description: |
+                  適用終了対象プライベートロール所属のID<br>
+                  *「プライベートロール所属作成API」または「プライベートロール所属参照API」で取得した値を指定
+                type: integer
+                example: 999
+              availableDateTo:
+                description: |
+                  適用終了日<br>
+                  *null の場合は 2060/12/31 に設定
+                type: string
+                pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
+                example: 2024-12-31 00:00:00 JST
+    
+    AddUniversalRoleRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - code
+              - name
+              - folderCode
+            allOf:
+              - $ref: "#/components/schemas/AddUniversalRoleRequest"
+          example:
+            code: urole01
+            importCode: urole01
+            name: ユニバーサルロール
+            explanation: ユニバーサルロール
+            folderCode: 
+    
+    FindUniversalRoleRequest:
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/FindUniversalRoleRequest"
+          example:
+            condition:
+              code: urole01
+              name: ユニバーサルロール
+              columnValueConditionList: 
+                entries:
+                  - column: Name
+                    ompareOperator: LIKE
+                    value: ユニバーサル
+                logicalOperator: AND
+    
+    UpdateUniversalRoleRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - id
+              - code
+              - name
+              - folderCode
+            type: object
+            properties:
+              id:
+                description: |
+                  更新対象ユニバーサルロールのID<br>
+                  *「ユニバーサルロール作成API」または「ユニバーサルロール参照API」で取得した値を指定
+                type: integer
+            allOf:
+              - $ref: "#/components/schemas/AddUniversalRoleRequest"
+          example:
+            id: 999
+            code: urole01
+            importCode: urole01
+            name: ユニバーサルロール
+            explanation: ユニバーサルロール
+            folderCode: 
+    
+    DeleteUniversalRoleRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - id
+            type: object
+            properties:
+              id:
+                description: |
+                  削除対象ユニバーサルロールのID<br>
+                  *「ユニバーサルロール作成API」または「ユニバーサルロール参照API」で取得した値を指定
+                type: integer
+                example: 999
+    
+    AddUniversalRoleAppointmentRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - userCode
+              - universalRoleCode
+            allOf:
+              - $ref: "#/components/schemas/AddUniversalRoleAppointmentRequest"
+          example:
+            userCode: user01
+            universalRoleCode: urole01
+            availableDateFrom: 1900-01-01 00:00:00 JST
+            availableDateTo: 2060-12-31 00:00:00 JST
+            criterionDate: 2024-10-31 00:00:00 JST
+    
+    FindUniversalRoleAppointmentRequest:
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/FindUniversalRoleAppointmentRequest"
+          example:
+            condition:
+              userCode: user01
+              roleCode: urole01
+              columnValueConditionList:
+                entries:
+                  - column: UserName
+                    ompareOperator: LIKE
+                    value: u
+                logicalOperator: AND
+              criterionDate: 2024-10-31 00:00:00 JST
+    
+    UpdateUniversalRoleAppointmentRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - id
+              - userCode
+              - universalRoleCode
+            type: object
+            properties:
+              id:
+                description: |
+                  更新対象ユニバーサルロール所属のID<br>
+                  *「ユニバーサルロール所属作成API」または「ユニバーサルロール所属参照API」で取得した値を指定
+                type: integer
+              userCode:
+                description: |
+                  ユーザーコード<br>
+                  *変更不可
+                type: string
+              universalRoleCode:
+                description: |
+                  ユニバーサルロールコード<br>
+                  *変更不可
+                type: string
+              availableDateFrom:
+                description: 適用開始日
+                type: string
+                pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
+              availableDateTo:
+                description: 適用終了日
+                type: string
+                pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
+              criterionDate:
+                description: 基準日
+                type: string
+                pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
+          example:
+            id: 999
+            userCode: user01
+            universalRoleCode: urole01
+            availableDateFrom: 1900-01-01 00:00:00 JST
+            availableDateTo: 2060-12-31 00:00:00 JST
+            criterionDate: 2024-10-31 00:00:00 JST
+    
+    DeleteUniversalRoleAppointmentRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - id
+            type: object
+            properties:
+              id:
+                description: |
+                  削除対象ユニバーサルロール所属のID<br>
+                  *「ユニバーサルロール所属作成API」または「ユニバーサルロール所属参照API」で取得した値を指定
+                type: integer
+                example: 999
+    
+    DisableUniversalRoleAppointmentRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - id
+            type: object
+            properties:
+              id:
+                description: |
+                  適用終了対象ユニバーサルロール所属のID<br>
+                  *「ユニバーサルロール所属作成API」または「ユニバーサルロール所属参照API」で取得した値を指定
+                type: integer
+                example: 999
+              availableDateTo:
+                description: |
+                  適用終了日<br>
+                  *null の場合は 2060/12/31 に設定
+                type: string
+                pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
                 example: 2024-12-31 00:00:00 JST
     
   # -----------------------------------------------
@@ -3778,6 +4652,468 @@ components:
             リクエストが不正:
               $ref: "#/components/examples/response_errorRequest"
     
+    PrivateRoleResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/PrivateRoleResponse"
+          examples:
+            正常:
+              value:
+                privateRole:
+                  candidateList:
+                    entries:
+                      - type: USER
+                        roleGroupCode: 
+                        userCode: user01
+                        roleCode: 
+                        unitCode: 
+                        roleType: 
+                        criterionDate: 2024-10-31 00:00:00 JST
+                      - type: ROLE
+                        roleGroupCode: 
+                        userCode: 
+                        roleCode: srole01
+                        unitCode: 
+                        roleType: SECTION
+                        criterionDate: 2024-10-31 00:00:00 JST
+                  guidance:
+                    text: 本文
+                    subject: 件名
+                  isWarnIfCandidateNotAssigned: 
+                  name: プライベートロール
+                  explanation: プライベートロール
+                  code: prole01
+                  folderCode: proleFolder
+                  importCode: prole01
+                  id: 999
+                resultStatus: 
+                  status: SUCCESS
+                  messageList: 
+                    entries: []
+                  text: 
+                  code: 
+            パラメータが不正:
+              value:
+                privateRole:
+                  candidateList:
+                    entries: []
+                  guidance:
+                    text: 
+                    subject: 
+                  isWarnIfCandidateNotAssigned: 
+                  name: 
+                  explanation: 
+                  code: 
+                  folderCode: 
+                  importCode: 
+                  id: 
+                resultStatus: 
+                  status: FAIL
+                  messageList: 
+                    entries: 
+                      - text: "{エラーメッセージ}"
+                        code: "{エラーコード}"
+                  text: サービス実行時にエラーが発生しました。
+                  code: AWPCMN0000
+            リクエストが不正:
+              $ref: "#/components/examples/response_errorRequest"
+    
+    FindPrivateRoleResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/FindPrivateRoleResponse"
+          examples:
+            正常:
+              value:
+                privateRoleList:
+                  entries:
+                    candidateList:
+                      entries:
+                        - type: USER
+                          roleGroupCode: 
+                          userCode: user01
+                          roleCode: 
+                          unitCode: 
+                          roleType: 
+                          criterionDate: 2024-10-31 00:00:00 JST
+                        - type: ROLE
+                          roleGroupCode: 
+                          userCode: 
+                          roleCode: srole01
+                          unitCode: 
+                          roleType: SECTION
+                          criterionDate: 2024-10-31 00:00:00 JST
+                    guidance:
+                      text: 本文
+                      subject: 件名
+                    isWarnIfCandidateNotAssigned: 
+                    name: プライベートロール
+                    explanation: プライベートロール
+                    code: prole01
+                    folderCode: proleFolder
+                    importCode: prole01
+                    id: 999
+                resultStatus: 
+                  status: SUCCESS
+                  messageList: 
+                    entries: []
+                  text: 
+                  code: 
+            該当するプライベートロールがない:
+              value:
+                privateRoleList:
+                  entries: [] 
+                resultStatus: 
+                  status: SUCCESS
+                  messageList: 
+                    entries: []
+                  text: 
+                  code: 
+            リクエストが不正:
+              $ref: "#/components/examples/response_errorRequest"
+    
+    PrivateRoleAppointmentResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/PrivateRoleAppointmentResponse"
+          examples:
+            正常:
+              value:
+                privateRoleAppointment:
+                  id: 999
+                  criterionDate: 1900-01-01 00:00:00 JST
+                  userCode: user01
+                  availableDateTo: 2060-12-31 00:00:00 JST
+                  privateRoleCode: prole01
+                  availableDateFrom: 1900-01-01 00:00:00 JST
+                  candidateCode: user02
+                resultStatus: 
+                  status: SUCCESS
+                  messageList: 
+                    entries: []
+                  text: 
+                  code: 
+            パラメータが不正:
+              value:
+                privateRoleAppointment:
+                  id: 
+                  criterionDate: 
+                  userCode: 
+                  availableDateTo: 
+                  privateRoleCode: 
+                  availableDateFrom: 
+                  candidateCode: 
+                resultStatus: 
+                  status: FAIL
+                  messageList: 
+                    entries: 
+                      - text: "{エラーメッセージ}"
+                        code: "{エラーコード}"
+                  text: サービス実行時にエラーが発生しました。
+                  code: AWPCMN0000
+            リクエストが不正:
+              $ref: "#/components/examples/response_errorRequest"
+    
+    FindPrivateRoleAppointmentResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/FindPrivateRoleAppointmentResponse"
+          examples:
+            正常:
+              value:
+                privateRoleAppointmentList:
+                  entries:
+                    - id: 999
+                      criterionDate: 1900-01-01 00:00:00 JST
+                      userCode: user01
+                      availableDateTo: 2060-12-31 00:00:00 JST
+                      privateRoleCode: prole01
+                      availableDateFrom: 1900-01-01 00:00:00 JST
+                      candidateCode: user02
+                resultStatus: 
+                  status: SUCCESS
+                  messageList: 
+                    entries: []
+                  text: 
+                  code: 
+            パラメータが不正:
+              value:
+                privateRoleAppointmentList:
+                  entries: [] 
+                resultStatus: 
+                  status: FAIL
+                  messageList: 
+                    entries: 
+                      - text: "{エラーメッセージ}"
+                        code: "{エラーコード}"
+                  text: サービス実行時にエラーが発生しました。
+                  code: AWPCMN0000
+            リクエストが不正:
+              $ref: "#/components/examples/response_errorRequest"
+    
+    DisablePrivateRoleAppointmentResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/PrivateRoleAppointmentResponse"
+          examples:
+            正常:
+              value:
+                privateRoleAppointment:
+                  id: 999
+                  criterionDate: 1900-01-01 00:00:00 JST
+                  userCode: user01
+                  availableDateTo: 2024-12-31 00:00:00 JST
+                  privateRoleCode: prole01
+                  availableDateFrom: 1900-01-01 00:00:00 JST
+                  candidateCode: user02
+                resultStatus: 
+                  status: SUCCESS
+                  messageList: 
+                    entries: []
+                  text: 
+                  code: 
+            パラメータが不正:
+              value:
+                privateRoleAppointment:
+                  id: 
+                  criterionDate: 
+                  userCode: 
+                  availableDateTo: 
+                  privateRoleCode: 
+                  availableDateFrom: 
+                  candidateCode: 
+                resultStatus: 
+                  status: FAIL
+                  messageList: 
+                    entries: 
+                      - text: "{エラーメッセージ}"
+                        code: "{エラーコード}"
+                  text: サービス実行時にエラーが発生しました。
+                  code: AWPCMN0000
+            リクエストが不正:
+              $ref: "#/components/examples/response_errorRequest"
+    
+    UniversalRoleResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/UniversalRoleResponse"
+          examples:
+            正常:
+              value:
+                universalRole: 
+                  name: ユニバーサルロール
+                  explanation: ユニバーサルロール
+                  code: urole01
+                  folderCode: 
+                  importCode: urole01
+                  id: 999
+                resultStatus: 
+                  status: SUCCESS
+                  messageList: 
+                    entries: []
+                  text: 
+                  code: 
+            パラメータが不正:
+              value:
+                universalRole: 
+                  name: 
+                  explanation: 
+                  code: 
+                  folderCode: 
+                  importCode: 
+                  id: 
+                resultStatus: 
+                  status: FAIL
+                  messageList: 
+                    entries: 
+                      - text: "{エラーメッセージ}"
+                        code: "{エラーコード}"
+                  text: サービス実行時にエラーが発生しました。
+                  code: AWPCMN0000
+            リクエストが不正:
+              $ref: "#/components/examples/response_errorRequest"
+    
+    FindUniversalRoleResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/FindUniversalRoleResponse"
+          examples:
+            正常:
+              value:
+                universalRoleList:
+                  entries:
+                    - name: ユニバーサルロール
+                      explanation: ユニバーサルロール
+                      code: urole01
+                      folderCode: 
+                      importCode: urole01
+                      id: 999
+                resultStatus: 
+                  status: SUCCESS
+                  messageList: 
+                    entries: []
+                  text: 
+                  code: 
+            該当するプライベートロールがない:
+              value:
+                universalRoleList:
+                  entries: [] 
+                resultStatus: 
+                  status: SUCCESS
+                  messageList: 
+                    entries: []
+                  text: 
+                  code: 
+            リクエストが不正:
+              $ref: "#/components/examples/response_errorRequest"
+    
+    UniversalRoleAppointmentResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/UniversalRoleAppointmentResponse"
+          examples:
+            正常:
+              value:
+                universalRoleAppointment:
+                  id: 999
+                  universalRoleCode: urole01
+                  availableDateFrom: 1900-01-01 00:00:00 JST
+                  userCode: user01
+                  availableDateTo: 2060-12-31 00:00:00 JST
+                  criterionDate: 1900-01-01 00:00:00 JST
+                resultStatus: 
+                  status: SUCCESS
+                  messageList: 
+                    entries: []
+                  text: 
+                  code: 
+            パラメータが不正:
+              value:
+                universalRoleAppointment:
+                  id: 
+                  universalRoleCode: 
+                  availableDateFrom: 
+                  userCode: 
+                  availableDateTo: 
+                  criterionDate: 
+                resultStatus: 
+                  status: FAIL
+                  messageList: 
+                    entries: 
+                      - text: "{エラーメッセージ}"
+                        code: "{エラーコード}"
+                  text: サービス実行時にエラーが発生しました。
+                  code: AWPCMN0000
+            リクエストが不正:
+              $ref: "#/components/examples/response_errorRequest"
+    
+    FindUniversalRoleAppointmentResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/FindUniversalRoleAppointmentResponse"
+          examples:
+            正常:
+              value:
+                universalRoleAppointmentList:
+                  entries:
+                    - id: 999
+                      criterionDate: 1900-01-01 00:00:00 JST
+                      userCode: user01
+                      availableDateTo: 2060-12-31 00:00:00 JST
+                      privateRoleCode: prole01
+                      availableDateFrom: 1900-01-01 00:00:00 JST
+                      candidateCode: user02
+                resultStatus: 
+                  status: SUCCESS
+                  messageList: 
+                    entries: []
+                  text: 
+                  code: 
+            パラメータが不正:
+              value:
+                privateRoleAppointmentList:
+                  entries: [] 
+                resultStatus: 
+                  status: FAIL
+                  messageList: 
+                    entries: 
+                      - text: "{エラーメッセージ}"
+                        code: "{エラーコード}"
+                  text: サービス実行時にエラーが発生しました。
+                  code: AWPCMN0000
+            リクエストが不正:
+              $ref: "#/components/examples/response_errorRequest"
+    
+    DisableUniversalRoleAppointmentResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/UniversalRoleAppointmentResponse"
+          examples:
+            正常:
+              value:
+                universalRoleAppointment:
+                  id: 999
+                  universalRoleCode: urole01
+                  availableDateFrom: 1900-01-01 00:00:00 JST
+                  userCode: user01
+                  availableDateTo: 2024-12-31 00:00:00 JST
+                  criterionDate: 1900-01-01 00:00:00 JST
+                resultStatus: 
+                  status: SUCCESS
+                  messageList: 
+                    entries: []
+                  text: 
+                  code: 
+            パラメータが不正:
+              value:
+                universalRoleAppointment:
+                  id: 
+                  universalRoleCode: 
+                  availableDateFrom: 
+                  userCode: 
+                  availableDateTo: 
+                  criterionDate: 
+                resultStatus: 
+                  status: FAIL
+                  messageList: 
+                    entries: 
+                      - text: "{エラーメッセージ}"
+                        code: "{エラーコード}"
+                  text: サービス実行時にエラーが発生しました。
+                  code: AWPCMN0000
+            リクエストが不正:
+              $ref: "#/components/examples/response_errorRequest"
+    
   # -----------------------------------------------
   # スキーマ components/schemas
   # -----------------------------------------------
@@ -3909,7 +5245,8 @@ components:
             - $ref: "#/components/schemas/reserveItems"
         validityDateTo:
           description: 履歴終了日
-          type: date
+          type: string
+          pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
         loginId:
           description: ログインID
           type: string
@@ -3921,7 +5258,8 @@ components:
           type: string
         availableDateTo:
           description: 適用終了日
-          type: date
+          type: string
+          pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
         stampName:
           description: 印影
           type: string
@@ -3936,10 +5274,12 @@ components:
           type: string
         availableDateFrom:
           description: 適用開始日
-          type: date
+          type: string
+          pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
         validityDateFrom:
           description: 履歴開始日
-          type: date
+          type: string
+          pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
         isNeedStampImage:
           type: string
         isForceChangePassword:
@@ -4052,7 +5392,8 @@ components:
                   type: string
             criterionDate:
               description: 基準日
-              type: date
+              type: string
+              pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
     
     AddUnitRequest:
       type: object
@@ -4088,16 +5429,20 @@ components:
           type: string
         validityDateFrom:
           description: 履歴開始日
-          type: date
+          type: string
+          pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
         validityDateTo:
           description: 履歴終了日
-          type: date
+          type: string
+          pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
         availableDateFrom:
           description: 適用開始日
-          type: date
+          type: string
+          pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
         availableDateTo:
           description: 適用終了日
-          type: date
+          type: string
+          pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
         reserveItems:
           allOf:
             - $ref: "#/components/schemas/reserveItems"
@@ -4162,7 +5507,8 @@ components:
                   type: string
             criterionDate:
               description: 基準日
-              type: date
+              type: string
+              pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
     
     AddSectionRoleRequest:
       type: object
@@ -4239,7 +5585,8 @@ components:
                   type: string
             criterionDate:
               description: 基準日
-              type: date
+              type: string
+              pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
     
     AddSectionRoleGroupRequest:
       type: object
@@ -4329,13 +5676,16 @@ components:
           type: string
         availableDateFrom:
           description: 適用開始日
-          type: date
+          type: string
+          pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
         availableDateTo:
           description: 適用終了日
-          type: date
+          type: string
+          pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
         criterionDate:
           description: 基準日
-          type: date
+          type: string
+          pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
     
     FindUnitAppointmentRequest:
       type: object
@@ -4413,7 +5763,8 @@ components:
                   type: string
             criterionDate:
               description: 基準日
-              type: date
+              type: string
+              pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
     
     UpdateUnitAppointmentRequest:
       type: object
@@ -4436,13 +5787,16 @@ components:
           type: string
         availableDateFrom:
           description: 適用開始日
-          type: date
+          type: string
+          pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
         availableDateTo:
           description: 適用終了日
-          type: date
+          type: string
+          pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
         criterionDate:
           description: 基準日
-          type: date
+          type: string
+          pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
     
     AddProxyApplyAppointmentRequest:
       type: object
@@ -4485,13 +5839,16 @@ components:
           type: boolean
         availableDateFrom:
           description: 適用開始日
-          type: date
+          type: string
+          pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
         availableDateTo:
           description: 適用終了日
-          type: date
+          type: string
+          pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
         criterionDate:
           description: 基準日
-          type: date
+          type: string
+          pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
     
     FindProxyApplyAppointmentRequest:
       type: object
@@ -4517,7 +5874,8 @@ components:
               type: string
             criterionDate:
               description: 基準日
-              type: date
+              type: string
+              pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
             isDisplayCreateMenu:
               description: 書類作成画面に表示するかどうか
               type: boolean
@@ -4566,13 +5924,16 @@ components:
           type: boolean
         availableDateFrom:
           description: 適用開始日
-          type: date
+          type: string
+          pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
         availableDateTo:
           description: 適用終了日
-          type: date
+          type: string
+          pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
         criterionDate:
           description: 基準日
-          type: date
+          type: string
+          pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
     
     FindProxyAppointmentRequest:
       type: object
@@ -4598,7 +5959,8 @@ components:
               type: string
             criterionDate:
               description: 基準日
-              type: date
+              type: string
+              pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
             isSendNotification:
               description: 代理承認依頼を通知するかどうか
               type: boolean
@@ -4644,10 +6006,12 @@ components:
                     type: string
         availableDateFrom:
           description: 適用開始日
-          type: date
+          type: string
+          pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
         availableDateTo:
           description: 適用終了日
-          type: date
+          type: string
+          pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
         taskUnitPolicy:
           description: |
             権限委譲時に処理者情報にセットされる組織情報の決定ポリシー<br>
@@ -4659,7 +6023,8 @@ components:
             |BLANK|表示しない|
         criterionDate:
           description: 基準日
-          type: date
+          type: string
+          pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
     
     FindDelegationAppointmentRequest:
       type: object
@@ -4685,7 +6050,8 @@ components:
               type: string
             criterionDate:
               description: 基準日
-              type: date
+              type: string
+              pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
     
     AddDeprivationAppointmentRequest:
       type: object
@@ -4719,13 +6085,16 @@ components:
                     type: string
         availableDateFrom:
           description: 適用開始日
-          type: date
+          type: string
+          pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
         availableDateTo:
           description: 適用終了日
-          type: date
+          type: string
+          pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
         criterionDate:
           description: 基準日
-          type: date
+          type: string
+          pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
     
     FindDeprivationAppointmentRequest:
       type: object
@@ -4745,7 +6114,397 @@ components:
               type: string
             criterionDate:
               description: 基準日
-              type: date
+              type: string
+              pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
+    
+    AddPrivateRoleRequest:
+      type: object
+      properties:
+        code:
+          description: プライベートロールコード
+          type: string
+        importCode:
+          description: インポートコード
+          type: string
+        name:
+          description: プライベートロール名称
+          type: string
+        explanation:
+          description: 説明
+          type: string
+        folderCode:
+          description: プライベートロールフォルダコード
+          type: string
+        isWarnIfCandidateNotAssigned:
+          description: 対象ユーザー未指定時に警告表示するかどうか
+          type: boolean
+        candidateList:
+          description: プライベートロール候補者リスト
+          properties:
+            entries:
+              description: プライベートロール候補者のリスト
+              type: array
+              items:
+                type: object
+                properties:
+                  type:
+                    description: |
+                      候補選出タイプ<br>
+                      指定可能な値<br>
+                      |パラメータ|説明|
+                      |----|----|
+                      |USER|ユーザー指定|
+                      |UNIT|組織指定|
+                      |UNIT_ESCALATE|組織指定（上位含める）|
+                      |UNIT_CASCADE|組織指定（下位含める）|
+                      |ROLE|ロール指定|
+                      |ROLE_GROUP|ロールグループ指定|
+                      |OWNER_UNIT|設定ユーザー所属組織|
+                      |OWNER_ESCALATE|設定ユーザー所属上位組織|
+                      |OWNER_CASCADE|設定ユーザー所属下位組織|
+                  userCode:
+                    description: ユーザーコード
+                    type: string
+                  unitCode:
+                    description: 組織コード
+                    type: string
+                  roleCode:
+                    description: ロールコード
+                    type: string
+                  roleType:
+                    description: |
+                      ロールタイプ<br>
+                      指定可能な値<br>
+                      |パラメータ|説明|
+                      |----|----|
+                      |SECTION|セクションロール|
+                      |UNIVERSAL|ユニバーサルロール|
+                      |PRIVATE|プライベートロール|
+                  roleGroupCode:
+                    description: ロールグループコード
+                    type: string
+                  criterionDate:
+                    description: 基準日
+                    type: string
+                    pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
+        guidance:
+          description: ユーザーサイトの説明文
+          type: object
+          properties:
+            subject:
+              description: 件名
+              type: string
+            text:
+              description: 内容
+              type: string
+    
+    FindPrivateRoleRequest:
+      type: object
+      properties:
+        condition:
+          description: プライベートロール検索条件
+          type: object
+          properties:
+            code:
+              description: プライベートロールコード
+              type: string
+            name:
+              description: プライベートロール名称
+              type: string
+            columnValueConditionList:
+              description: 任意検索条件一覧
+              type: object
+              properties:
+                entries:
+                  description: 任意検索条件
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      column:
+                        description: |
+                          フィールド値タイプ<br>
+                          指定可能な値<br>
+                          |パラメータ|説明|
+                          |----|----|
+                          |Code|コード|
+                          |Name|名称|
+                      compareOperatorType:
+                        allOf:
+                          - $ref: "#/components/schemas/compareOperatorType"
+                      value:
+                        description: 値
+                        type: string
+                logicalOperator:
+                  description: |
+                    任意検索全体の AND / OR<br>
+                    *AND または OR を指定
+    
+    AddPrivateRoleAppointmentRequest:
+      type: object
+      properties:
+        userCode:
+          description: ユーザーコード
+          type: string
+        privateRoleCode:
+          description: プライベートロールコード
+          type: string
+        candidateCode:
+          description: 候補者のユーザーコード
+          type: string
+        availableDateFrom:
+          description: 適用開始日
+          type: string
+          pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
+        availableDateto:
+          description: 適用終了日
+          type: string
+          pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
+        criterionDate:
+          description: 基準日
+          type: string
+          pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
+    
+    FindPrivateRoleAppointmentRequest:
+      type: object
+      properties:
+        condition:
+          description: プライベートロール所属検索条件
+          type: object
+          properties:
+            userCode:
+              description: ユーザーコード
+              type: string
+            roleCode:
+              description: プライベートロールコード
+              type: string
+            candidateCode:
+              description: 候補者のユーザーコード
+              type: string
+            columnValueConditionList:
+              description: 任意検索条件一覧
+              type: object
+              properties:
+                entries:
+                  description: 任意検索条件
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      column:
+                        description: |
+                          フィールド値タイプ<br>
+                          指定可能な値<br>
+                          |パラメータ|説明|
+                          |----|----|
+                          |ValidityDateFrom|プライベートロール所属履歴開始日|
+                          |ValidityDateTo|プライベートロール所属履歴終了日|
+                          |RoleCode|プライベートロールコード|
+                          |RoleName|プライベートロール名称|
+                          |UserCode|ユーザーコード|
+                          |UserImportCode|ユーザーインポートコード|
+                          |UserName|ユーザー名称|
+                          |UserKana|ユーザーカナ|
+                          |UserLoginId|ユーザーログインID|
+                          |UserMailAddress|ユーザーメールアドレス|
+                          |UserStampName|ユーザーの印影上の表示名称|
+                          |UserAvailableDateFrom|ユーザー運用開始日|
+                          |UserAvailableDateTo|ユーザー運用終了日|
+                          |UserReserveItem1|ユーザーの拡張項目１|
+                          |UserReserveItem2|ユーザーの拡張項目２|
+                          |UserReserveItem3|ユーザーの拡張項目３|
+                          |UserReserveItem4|ユーザーの拡張項目４|
+                          |UserReserveItem5|ユーザーの拡張項目５|
+                          |UserReserveItem6|ユーザーの拡張項目６|
+                          |UserReserveItem7|ユーザーの拡張項目７|
+                          |UserReserveItem8|ユーザーの拡張項目８|
+                          |UserReserveItem9|ユーザーの拡張項目９|
+                          |UserReserveItem10|ユーザーの拡張項目１０|
+                          |CandidateCode|候補者のユーザーコード|
+                          |CandidateImportCode|候補者インポートコード|
+                          |CandidateName|候補者のユーザー名称|
+                          |CandidateKana|候補者カナ|
+                          |CandidateLoginId|候補者ログインID|
+                          |CandidateMailAddress|候補者メールアドレス|
+                          |CandidateStampName|候補者の印影上の表示名称|
+                          |CandidateAvailableDateFrom|候補者運用開始日|
+                          |CandidateAvailableDateTo|候補者運用終了日|
+                          |CandidateReserveItem1|候補者のユーザー拡張項目１|
+                          |CandidateReserveItem2|候補者のユーザー拡張項目２|
+                          |CandidateReserveItem3|候補者のユーザー拡張項目３|
+                          |CandidateReserveItem4|候補者のユーザー拡張項目４|
+                          |CandidateReserveItem5|候補者のユーザー拡張項目５|
+                          |CandidateReserveItem6|候補者のユーザー拡張項目６|
+                          |CandidateReserveItem7|候補者のユーザー拡張項目７|
+                          |CandidateReserveItem8|候補者のユーザー拡張項目８|
+                          |CandidateReserveItem9|候補者のユーザー拡張項目９|
+                          |CandidateReserveItem10|候補者のユーザー拡張項目１０|
+                      compareOperatorType:
+                        allOf:
+                          - $ref: "#/components/schemas/compareOperatorType"
+                      value:
+                        description: 値
+                        type: string
+                logicalOperator:
+                  description: |
+                    任意検索全体の AND / OR<br>
+                    *AND または OR を指定
+            criterionDate:
+              description: 基準日
+              type: string
+              pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
+    
+    AddUniversalRoleRequest:
+      type: object
+      properties:
+        code:
+          description: ユニバーサルロールコード
+          type: string
+        importCode:
+          description: インポートコード
+          type: string
+        name:
+          description: ユニバーサルロール名称
+          type: string
+        explanation:
+          description: 説明
+          type: string
+        folderCode:
+          description: ユニバーサルロールフォルダコード
+          type: string
+    
+    FindUniversalRoleRequest:
+      type: object
+      properties:
+        condition:
+          description: ユニバーサルロール検索条件
+          type: object
+          properties:
+            code:
+              description: ユニバーサルロールコード
+              type: string
+            name:
+              description: ユニバーサルロール名称
+              type: string
+            columnValueConditionList:
+              description: 任意検索条件一覧
+              type: object
+              properties:
+                entries:
+                  description: 任意検索条件
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      column:
+                        description: |
+                          フィールド値タイプ<br>
+                          指定可能な値<br>
+                          |パラメータ|説明|
+                          |----|----|
+                          |Code|コード|
+                          |ImportId|インポートコード|
+                          |Name|名称|
+                          |Rank|ランク|
+                      compareOperatorType:
+                        allOf:
+                          - $ref: "#/components/schemas/compareOperatorType"
+                      value:
+                        description: 値
+                        type: string
+                logicalOperator:
+                  description: |
+                    任意検索全体の AND / OR<br>
+                    *AND または OR を指定
+    
+    AddUniversalRoleAppointmentRequest:
+      type: object
+      properties:
+        userCode:
+          description: ユーザーコード
+          type: string
+        criterionDate:
+          description: 基準日
+          type: string
+          pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
+        universalRoleCode:
+          description: ユニバーサルロールコード
+          type: string
+        availableDateFrom:
+          description: 適用開始日
+          type: string
+          pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
+        availableDateto:
+          description: 適用終了日
+          type: string
+          pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
+    
+    FindUniversalRoleAppointmentRequest:
+      type: object
+      properties:
+        condition:
+          description: ユニバーサルロール所属検索条件
+          type: object
+          properties:
+            userCode:
+              description: ユーザーコード
+              type: string
+            roleCode:
+              description: ユニバーサルロールコード
+              type: string
+            columnValueConditionList:
+              description: 任意検索条件一覧
+              type: object
+              properties:
+                entries:
+                  description: 任意検索条件
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      column:
+                        description: |
+                          フィールド値タイプ<br>
+                          指定可能な値<br>
+                          |パラメータ|説明|
+                          |----|----|
+                          |ValidityDateFrom|ユニバーサルロール所属履歴開始日|
+                          |ValidityDateTo|ユニバーサルロール所属履歴終了日|
+                          |RoleCode|ユニバーサルロールコード|
+                          |RoleName|ユニバーサルロール名称|
+                          |UserCode|ユーザーコード|
+                          |UserImportCode|ユーザーインポートコード|
+                          |UserName|ユーザー名称|
+                          |UserKana|ユーザーカナ|
+                          |UserLoginId|ユーザーログインID|
+                          |UserMailAddress|ユーザーメールアドレス|
+                          |UserStampName|ユーザーの印影上の表示名称|
+                          |UserAvailableDateFrom|ユーザー運用開始日|
+                          |UserAvailableDateTo|ユーザー運用終了日|
+                          |UserReserveItem1|ユーザーの拡張項目１|
+                          |UserReserveItem2|ユーザーの拡張項目２|
+                          |UserReserveItem3|ユーザーの拡張項目３|
+                          |UserReserveItem4|ユーザーの拡張項目４|
+                          |UserReserveItem5|ユーザーの拡張項目５|
+                          |UserReserveItem6|ユーザーの拡張項目６|
+                          |UserReserveItem7|ユーザーの拡張項目７|
+                          |UserReserveItem8|ユーザーの拡張項目８|
+                          |UserReserveItem9|ユーザーの拡張項目９|
+                          |UserReserveItem10|ユーザーの拡張項目１０|
+                      compareOperatorType:
+                        allOf:
+                          - $ref: "#/components/schemas/compareOperatorType"
+                      value:
+                        description: 値
+                        type: string
+                logicalOperator:
+                  description: |
+                    任意検索全体の AND / OR<br>
+                    *AND または OR を指定
+            criterionDate:
+              description: 検索基準日
+              type: string
+              pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
     
     UserResponse:
       type: object
@@ -4759,7 +6518,8 @@ components:
               type: integer
             criterionDate:
               description: 基準日
-              type: date
+              type: string
+              pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
           allOf:
             - $ref: "#/components/schemas/AddUserRequest"
         resultStatus:
@@ -4784,7 +6544,8 @@ components:
                     type: integer
                   criterionDate:
                     description: 基準日
-                    type: date
+                    type: string
+                    pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
                 allOf:
                   - $ref: "#/components/schemas/AddUserRequest"
         resultStatus:
@@ -4803,7 +6564,8 @@ components:
               type: integer
             criterionDate:
               description: 基準日
-              type: date
+              type: string
+              pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
           allOf:
             - $ref: "#/components/schemas/AddUnitRequest"
         resultStatus:
@@ -4828,7 +6590,8 @@ components:
                     type: integer
                   criterionDate:
                     description: 基準日
-                    type: date
+                    type: string
+                    pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
                 allOf:
                   - $ref: "#/components/schemas/AddUnitRequest"
         resultStatus:
@@ -5102,6 +6865,158 @@ components:
                     type: integer
                 allOf:
                   - $ref: "#/components/schemas/AddDeprivationAppointmentRequest"
+        resultStatus:
+          allOf:
+            - $ref: "#/components/schemas/resultStatus"
+    
+    PrivateRoleResponse:
+      type: object
+      properties:
+        privateRole:
+          description: プライベートロール情報
+          type: object
+          properties:
+            id:
+              description: プライベートロールのid
+              type: integer
+          allOf:
+            - $ref: "#/components/schemas/AddPrivateRoleRequest"
+        resultStatus:
+          allOf:
+            - $ref: "#/components/schemas/resultStatus"
+    
+    FindPrivateRoleResponse:
+      type: object
+      properties:
+        privateRoleList:
+          description: プライベートロール一覧
+          type: object
+          properties:
+            entries:
+              description: プライベートロール情報
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    description: プライベートロールのid
+                    type: integer
+                allOf:
+                  - $ref: "#/components/schemas/AddPrivateRoleRequest"
+        resultStatus:
+          allOf:
+            - $ref: "#/components/schemas/resultStatus"
+    
+    PrivateRoleAppointmentResponse:
+      type: object
+      properties:
+        privateRoleAppointment:
+          description: プライベートロール所属情報
+          type: object
+          properties:
+            id:
+              description: プライベートロール所属のid
+              type: integer
+          allOf:
+            - $ref: "#/components/schemas/AddPrivateRoleAppointmentRequest"
+        resultStatus:
+          allOf:
+            - $ref: "#/components/schemas/resultStatus"
+    
+    FindPrivateRoleAppointmentResponse:
+      type: object
+      properties:
+        privateRoleAppointmentList:
+          description: プライベートロール所属一覧
+          type: object
+          properties:
+            entries:
+              description: プライベートロール所属情報
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    description: プライベートロール所属のid
+                    type: integer
+                allOf:
+                  - $ref: "#/components/schemas/AddPrivateRoleAppointmentRequest"
+        resultStatus:
+          allOf:
+            - $ref: "#/components/schemas/resultStatus"
+    
+    UniversalRoleResponse:
+      type: object
+      properties:
+        universalRole:
+          description: ユニバーサルロール情報
+          type: object
+          properties:
+            id:
+              description: ユニバーサルロールのid
+              type: integer
+          allOf:
+            - $ref: "#/components/schemas/AddUniversalRoleRequest"
+        resultStatus:
+          allOf:
+            - $ref: "#/components/schemas/resultStatus"
+    
+    FindUniversalRoleResponse:
+      type: object
+      properties:
+        universalRoleList:
+          description: ユニバーサルロール一覧
+          type: object
+          properties:
+            entries:
+              description: ユニバーサルロール情報
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    description: ユニバーサルロールのid
+                    type: integer
+                allOf:
+                  - $ref: "#/components/schemas/AddUniversalRoleRequest"
+        resultStatus:
+          allOf:
+            - $ref: "#/components/schemas/resultStatus"
+    
+    UniversalRoleAppointmentResponse:
+      type: object
+      properties:
+        universalRoleAppointment:
+          description: ユニバーサルロール所属情報
+          type: object
+          properties:
+            id:
+              description: ユニバーサルロール所属のid
+              type: integer
+          allOf:
+            - $ref: "#/components/schemas/AddUniversalRoleAppointmentRequest"
+        resultStatus:
+          allOf:
+            - $ref: "#/components/schemas/resultStatus"
+    
+    FindUniversalRoleAppointmentResponse:
+      type: object
+      properties:
+        universalRoleAppointmentList:
+          description: ユニバーサルロール所属一覧
+          type: object
+          properties:
+            entries:
+              description: ユニバーサルロール所属情報
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    description: ユニバーロール所属のid
+                    type: integer
+                allOf:
+                  - $ref: "#/components/schemas/AddUniversalRoleAppointmentRequest"
         resultStatus:
           allOf:
             - $ref: "#/components/schemas/resultStatus"
