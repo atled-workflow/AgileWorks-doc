@@ -6196,7 +6196,7 @@ components:
               type: string
             text:
               description: 内容
-              type: stirng
+              type: string
     
     FindPrivateRoleRequest:
       type: object
