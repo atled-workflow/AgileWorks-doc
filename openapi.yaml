@@ -8,9 +8,990 @@ servers:
 security:
   - bearerAuth: []
 tags:
+  - name: 共通
+  - name: 書類API
+  - name: ワークフローAPI
   - name: 組織API
 
 paths:
+  /WebApi/Model?name={model_name}.{model_model}:
+    get:
+      tags:
+        - 共通
+      summary: モデルオブジェクト取得
+      description: 
+        指定のモデルオブジェクトを初期化した状態で取得します。
+      operationId: model
+      parameters:
+        - $ref: "#/components/parameters/model_name"
+        - $ref: "#/components/parameters/model_model"
+      responses:
+        "200":
+          description: 詳細は各サービス実行APIのリクエストボディを参照してください。
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+            
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name={service_name}.{service_service}&method={service_method}:
+    post:
+      tags:
+        - 共通
+      summary: サービス実行
+      description: 
+        AgileWorksの各サービスを実行します。
+      operationId: service
+      parameters:
+        - $ref: "#/components/parameters/service_name"
+        - $ref: "#/components/parameters/service_service"
+        - $ref: "#/components/parameters/service_method"
+      responses:
+        "200":
+          description: すべてのサービス実行APIは共通でcommon.ResponseModel型のフィールドがレスポンスボディに含まれます。
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/resultStatus"
+              example:
+                value:
+                  resultStatus: 
+                    status: SUCCESS
+                    messageList: 
+                      entries: []
+                    text: 
+                    code: 
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+            
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Download?s={download_s}:
+    get:
+      tags:
+        - 共通
+      summary: ダウンロード
+      description: 
+        AgileWorks上にアップロードされている各ファイルをダウンロードします。
+      operationId: download
+      parameters:
+        - $ref: "#/components/parameters/download_s"
+      responses:
+        "200":
+          description: |
+            取得したファイル名は、Content-Disposition レスポンスヘッダに以下の形式で格納されます。<br>
+            ・ファイル名が全て ASCII 文字で構成される場合<br>
+            attachment;filename="<ファイル名>"<br>
+            ・ファイル名に ASCII 以外の文字を含む場合<br>
+            attachment;filename="<URL エンコードされたファイル名>"
+          content:
+            application/octet-stream:
+              example:
+                "ファイルの内容（バイナリデータ）" 
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=doc.Doc&method=getDocHeader:
+    post:
+      tags:
+        - 書類API
+      summary: 書類情報取得
+      description: 
+        書類の各情報を取得します。
+      operationId: getDocHeader
+      requestBody:
+        $ref: "#/components/requestBodies/docId"
+      responses:
+        "200":
+          $ref: "#/components/responses/GetDocHeaderResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+            
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=doc.Doc&method=getDoc:
+    post:
+      tags:
+        - 書類API
+      summary: 書類データ取得
+      description: 
+        書類データを取得します。
+      operationId: getDoc
+      requestBody:
+        $ref: "#/components/requestBodies/docId"
+      responses:
+        "200":
+          $ref: "#/components/responses/DocResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+          
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=doc.Doc&method=prepareDocRequest:
+    post:
+      tags:
+        - 書類API
+      summary: 新規書類データ作成
+      description: 
+        初期状態の書類データを作成します。
+      operationId: prepareDocRequest
+      requestBody:
+        $ref: "#/components/requestBodies/PrepareDocRequestRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/DocResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=doc.Doc&method=addDoc:
+    post:
+      tags:
+        - 書類API
+      summary: 新規書類データ保存
+      description: 
+        新規に作成した書類データを保存します。<br>
+        「新規書類データ作成API」で取得したdocの値を雛形として、書類の各フィールドに値をセットし、本APIにより書類データの保存を行います。<br>
+        本APIで保存した書類データを画面から参照できるようにするには、さらに、「下書き保存API」あるいは「書類作成 / 申請API」を実行する必要があります。
+      operationId: addDoc
+      requestBody:
+        $ref: "#/components/requestBodies/AddDocRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/DocResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=doc.Doc&method=updateDoc:
+    post:
+      tags:
+        - 書類API
+      summary: 書類データ更新
+      description: 
+        初期状態の書類データを作成します。<br>
+        「書類データ取得API」または「新規書類データ保存API」で取得したdocに対し、フィールドの値を変更し、本APIにより書類データを更新することができます。
+      operationId: updateDoc
+      requestBody:
+        $ref: "#/components/requestBodies/UpdateDocRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/DocResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=doc.Doc&method=hardDeleteDoc:
+    post:
+      tags:
+        - 書類API
+      summary: 書類物理削除
+      description: 
+        論理削除済みの書類を物理削除します。<br>
+        論理削除を行う場合は「書類論理削除API」を参照してください。
+      operationId: hardDeleteDoc
+      requestBody:
+        $ref: "#/components/requestBodies/docId"
+      responses:
+        "200":
+          $ref: "#/components/responses/ResultStatusResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=doc.Doc&method=selectDoc:
+    post:
+      tags:
+        - 書類API
+      summary: 書類検索
+      description: 
+        指定した条件に合致する書類の一覧を取得します。
+      operationId: selectDoc
+      requestBody:
+        $ref: "#/components/requestBodies/SelectDocRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/SelectDocResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=doc.Doc&method=getDocPdf:
+    post:
+      tags:
+        - 書類API
+      summary: 書類PDFファイル取得
+      description: 
+        書類のPDFファイルを生成し、ダウンロードします。
+      operationId: getDocPdf
+      requestBody:
+        $ref: "#/components/requestBodies/GetDocPdfRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/GetDocPdfResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=doc.Doc&method=listDocComment:
+    post:
+      tags:
+        - 書類API
+      summary: 書類コメント一覧取得
+      description: 
+        書類のコメント一覧を取得します。
+      operationId: listDocComment
+      requestBody:
+        $ref: "#/components/requestBodies/docId"
+      responses:
+        "200":
+          $ref: "#/components/responses/ListDocCommentResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=doc.Doc&method=addDocComment:
+    post:
+      tags:
+        - 書類API
+      summary: 書類メモ追加
+      description: 
+        書類のメモを追加します。
+      operationId: addDocComment
+      requestBody:
+        $ref: "#/components/requestBodies/AddDocCommentRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/AddDocCommentResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=doc.Doc&method=deleteDocComment:
+    post:
+      tags:
+        - 書類API
+      summary: 書類コメント / メモ削除
+      description: 
+        書類のコメント / メモを削除します。
+      operationId: deleteDocComment
+      requestBody:
+        $ref: "#/components/requestBodies/DeleteDocCommentRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/ResultStatusResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=doc.Doc&method=addDocAttachment:
+    post:
+      tags:
+        - 書類API
+      summary: 書類添付情報追加
+      description: 
+        書類の添付情報を追加します。
+      operationId: addDocAttachement
+      requestBody:
+        $ref: "#/components/requestBodies/AddDocAttachmentRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/DocAttachmentResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=doc.Doc&method=updateDocAttachment:
+    post:
+      tags:
+        - 書類API
+      summary: 書類添付情報更新
+      description: 
+        書類の添付情報を更新します。
+      operationId: updateDocAttachement
+      requestBody:
+        $ref: "#/components/requestBodies/UpdateDocAttachmentRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/DocAttachmentResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=doc.Doc&method=listDocAttachment:
+    post:
+      tags:
+        - 書類API
+      summary: 書類添付情報一覧取得
+      description: 
+        書類の添付情報一覧を取得します。
+      operationId: listDocAttachement
+      requestBody:
+        $ref: "#/components/requestBodies/docId"
+      responses:
+        "200":
+          $ref: "#/components/responses/ListDocAttachmentResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=doc.Doc&method=deleteDocAttachment:
+    post:
+      tags:
+        - 書類API
+      summary: 書類添付情報削除
+      description: 
+        書類の添付情報を削除します。
+      operationId: deleteDocAttachement
+      requestBody:
+        $ref: "#/components/requestBodies/DeleteDocAttachmentRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/ResultStatusResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=doc.Doc&method=getDocReferencee:
+    post:
+      tags:
+        - 書類API
+      summary: 参照元関連書類情報取得
+      description: 
+        参照元の関連書類情報を取得します。
+      operationId: getDocReferencee
+      requestBody:
+        $ref: "#/components/requestBodies/docId2"
+      responses:
+        "200":
+          $ref: "#/components/responses/GetDocHeaderResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=doc.Doc&method=listDocReferencer:
+    post:
+      tags:
+        - 書類API
+      summary: 参照先関連書類情報一覧取得
+      description: 
+        参照先の関連書類情報の一覧を取得します。
+      operationId: listDocReferencer
+      requestBody:
+        $ref: "#/components/requestBodies/docId"
+      responses:
+        "200":
+          $ref: "#/components/responses/ListDocReferencerResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=doc.Doc&method=addDocReference:
+    post:
+      tags:
+        - 書類API
+      summary: 関連書類追加
+      description: 
+        書類の関連付けを追加します。
+      operationId: addDocReference
+      requestBody:
+        $ref: "#/components/requestBodies/DocReferenceRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/ResultStatusResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=doc.Doc&method=deleteDocReference:
+    post:
+      tags:
+        - 書類API
+      summary: 関連書類削除
+      description: 
+        書類の関連付けを削除します。
+      operationId: deleteDocReference
+      requestBody:
+        $ref: "#/components/requestBodies/DocReferenceRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/ResultStatusResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=doc.Doc&method=openDoc:
+    post:
+      tags:
+        - 書類API
+      summary: 書類表示
+      description: 
+        書類を表示するHTMLをダウンロードします。
+      operationId: openDoc
+      requestBody:
+        $ref: "#/components/requestBodies/OpenDocRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/TextHtmlResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=workflow.Workflow&method=countWorkflowMessage:
+    post:
+      tags:
+        - ワークフローAPI
+      summary: 回付情報件数取得
+      description: |
+        回付情報の件数を取得します。
+      operationId: countWorkflowMessage
+      requestBody:
+        $ref: "#/components/requestBodies/CountWorkflowMessageRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/CountWorkflowMessageResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=workflow.Workflow&method=countListWorkflowMessage:
+    post:
+      tags:
+        - ワークフローAPI
+      summary: 回付情報件数一覧取得
+      description: |
+        回付情報の件数の一覧を取得します。
+      operationId: countListWorkflowMessage
+      requestBody:
+        $ref: "#/components/requestBodies/CountListWorkflowMessageRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/CountListWorkflowMessageResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=workflow.Workflow&method=selectWorkflowMessage:
+    post:
+      tags:
+        - ワークフローAPI
+      summary: 回付情報検索
+      description: |
+        回付情報の一覧を検索します。
+      operationId: selectWorkflowMessage
+      requestBody:
+        $ref: "#/components/requestBodies/SelectWorkflowMessageRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/SelectWorkflowMessageResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=workflow.Workflow&method=draft:
+    post:
+      tags:
+        - ワークフローAPI
+      summary: 書類下書き保存
+      description: |
+        書類を下書き保存します。
+      operationId: draft
+      requestBody:
+        $ref: "#/components/requestBodies/DraftRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/ResultStatusResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=workflow.Workflow&method=start:
+    post:
+      tags:
+        - ワークフローAPI
+      summary: 書類作成/申請
+      description: |
+        書類を作成または申請します。
+      operationId: start
+      requestBody:
+        $ref: "#/components/requestBodies/StartRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/ResultStatusResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=workflow.Workflow&method=approve:
+    post:
+      tags:
+        - ワークフローAPI
+      summary: 書類承認
+      description: |
+        書類を承認します。
+      operationId: approve
+      requestBody:
+        $ref: "#/components/requestBodies/ApproveRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/ResultStatusResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=workflow.Workflow&method=delete:
+    post:
+      tags:
+        - ワークフローAPI
+      summary: 書類論理削除
+      description: |
+        書類を論理削除します。
+      operationId: delete
+      requestBody:
+        $ref: "#/components/requestBodies/DeleteRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/ResultStatusResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=workflow.Workflow&method=remand:
+    post:
+      tags:
+        - ワークフローAPI
+      summary: 書類差戻し
+      description: |
+        書類を差戻します。
+      operationId: remand
+      requestBody:
+        $ref: "#/components/requestBodies/RemandRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/ResultStatusResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=workflow.Workflow&method=retract:
+    post:
+      tags:
+        - ワークフローAPI
+      summary: 書類引戻し
+      description: |
+        書類を引戻します。
+      operationId: retract
+      requestBody:
+        $ref: "#/components/requestBodies/RetractRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/ResultStatusResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=workflow.Workflow&method=reject:
+    post:
+      tags:
+        - ワークフローAPI
+      summary: 書類却下
+      description: |
+        書類を却下します。
+      operationId: reject
+      requestBody:
+        $ref: "#/components/requestBodies/RejectRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/ResultStatusResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=workflow.Workflow&method=getWorkflowInfo:
+    post:
+      tags:
+        - ワークフローAPI
+      summary: 回付情報取得
+      description: |
+        回付情報を取得します。
+      operationId: getWorkflowInfo
+      requestBody:
+        $ref: "#/components/requestBodies/docId"
+      responses:
+        "200":
+          $ref: "#/components/responses/GetWorkflowInfoResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=workflow.Workflow&method=findWorkflowTask:
+    post:
+      tags:
+        - ワークフローAPI
+      summary: 回付情報タスク検索
+      description: |
+        回付情報タスクを検索します。
+      operationId: findWorkflowTask
+      requestBody:
+        $ref: "#/components/requestBodies/FindWorkflowTaskRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/FindWorkflowTaskResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=workflow.Workflow&method=listWorkflowJournal:
+    post:
+      tags:
+        - ワークフローAPI
+      summary: 回付履歴一覧取得
+      description: |
+        回付履歴の一覧を取得します。
+      operationId: listWorkflowJournal
+      requestBody:
+        $ref: "#/components/requestBodies/docId"
+      responses:
+        "200":
+          $ref: "#/components/responses/ListWorkflowJournalResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=workflow.Workflow&method=listElectJournal:
+    post:
+      tags:
+        - ワークフローAPI
+      summary: 処理者変更履歴一覧取得
+      description: |
+        処理者変更履歴の一覧を取得します。
+      operationId: listElectJournal
+      requestBody:
+        $ref: "#/components/requestBodies/docId"
+      responses:
+        "200":
+          $ref: "#/components/responses/ListElectJournalResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=workflow.Workflow&method=listShareJournal:
+    post:
+      tags:
+        - ワークフローAPI
+      summary: 共有履歴一覧取得
+      description: |
+        共有履歴の一覧を取得します。
+      operationId: listShareJournal
+      requestBody:
+        $ref: "#/components/requestBodies/docId"
+      responses:
+        "200":
+          $ref: "#/components/responses/ListShareJournalResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------------
   /WebApi/Service?name=org.Org&method=addUser:
     post:
       tags:
@@ -1552,6 +2533,570 @@ components:
     # -----------------------------------------------
 
   requestBodies:
+    docId:
+      content:
+        application/json:
+          schema:
+            description: 書類ID
+            type: integer
+            example: 999
+    
+    docId2:
+      content:
+        application/json:
+          schema:
+            description: 書類ID
+            type: integer
+            example: 998
+    
+    PrepareDocRequestRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - applyUnitCode
+              - applyUserCode
+              - formCode
+              - ruleCode
+            allOf:
+              - $ref: "#/components/schemas/PrepareDocRequestRequest"
+          example:
+            applyUnitCode: unit01
+            applyUserCode: user01
+            stepCode: 
+            referenceDocId: 
+            formCode: form01
+            ruleCode: rule01
+            criterionDate: 2024-10-31 00:00:00 JST
+    
+    AddDocRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - publicFormId
+              - docData
+              - formCode
+            allOf:
+              - $ref: "#/components/schemas/AddDocRequest"
+          example:
+            publicFormId: 222
+            docData:
+              entryList:
+                entries:
+                  - fieldType: TEXTFIELD
+                    fieldId: textfield1
+                    dataType: STRING
+                    dataValue:
+                      entryList:
+                        entries: []
+                      value: 
+                    name: 文字フィールド１
+                  - fieldType: INTEGERFIELD
+                    fieldId: integerfield1
+                    dataType: INT
+                    dataValue:
+                      entryList:
+                        entries: []
+                      value: 
+                    name: 整数フィールド１
+            id: 
+            formCode: form01
+            criterionDate: 2024-10-31 00:00:00 JST
+            adminNo: 
+            listNames:
+              listName1: 
+              listName2: 
+              listName3: 
+              listName4: 
+              listName5: 
+              listName6: 
+              listName7: 
+              listName8: 
+              listName9: 
+              listName10: 
+              listName11: 
+              listName12: 
+              listName13: 
+              listName14: 
+              listName15: 
+              listName16: 
+              listName17: 
+              listName18: 
+              listName19: 
+              listName20: 
+            version: 
+            owner:
+              code: 
+              type: 
+    
+    UpdateDocRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - publicFormId
+              - docData
+              - id
+              - formCode
+              - criterionDate
+              - adminNo
+              - listNames
+              - version
+              - owner
+            allOf:
+              - $ref: "#/components/schemas/UpdateDocRequest"
+          example:
+            publicFormId: 222
+            docData:
+              entryList:
+                entries:
+                  - fieldType: TEXTFIELD
+                    fieldId: textfield1
+                    dataType: STRING
+                    dataValue:
+                      entryList:
+                        entries: []
+                      value: update
+                    name: 文字フィールド１
+                  - fieldType: INTEGERFIELD
+                    fieldId: integerfield1
+                    dataType: INT
+                    dataValue:
+                      entryList:
+                        entries: []
+                      value: 11
+                    name: 整数フィールド１
+            id: 999
+            formCode: form01
+            criterionDate: 2024-10-31 00:00:00 JST
+            adminNo: 
+            listNames:
+              listName1: 
+              listName2: 
+              listName3: 
+              listName4: 
+              listName5: 
+              listName6: 
+              listName7: 
+              listName8: 
+              listName9: 
+              listName10: 
+              listName11: 
+              listName12: 
+              listName13: 
+              listName14: 
+              listName15: 
+              listName16: 
+              listName17: 
+              listName18: 
+              listName19: 
+              listName20: 
+            version: 1.0.0
+            owner:
+              code: 
+              type: 
+    
+    SelectDocRequest:
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/SelectDocRequest"
+          example:
+            docView: 
+              formCode: form01
+              columnList:
+                entries:
+                  - type: DOC_ID
+                  - type: FIELD
+                    fieldId: textfield1
+            condition:
+              fieldValueConditionList:
+                entries:
+                  - type: FIELD
+                    fieldId: textfield
+                    compareOperatorType: LIKE
+                    value: t
+              relativeConditionList:
+                entries: []
+              logicalOperatirType: AND
+              workflowState: ACTIVE
+              dateCondition:
+                from: 2024-10-31 00:00:00 JST
+                type: APPLY
+              formCode: form01
+    
+    GetDocPdfRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - instructionList
+            allOf:
+              - $ref: "#/components/schemas/GetDocPdfRequest"
+          example:
+            instructionList:
+              entries:
+                - docId: 999
+                  isInsertTrail: true
+    
+    AddDocCommentRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - docId
+              - comment
+              - operationInfo
+            allOf:
+              - $ref: "#/components/schemas/AddDocCommentRequest"
+          example:
+            docId: 999
+            comment: comment
+            operationInfo:
+              registrant:
+                userCode: user01
+    
+    DeleteDocCommentRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - id
+            type: object
+            properties:
+              id:
+                description: |
+                  コメントID<br>
+                  *「書類メモ追加API」または「書類コメント/メモ一覧取得API」で取得したコメントのIDを指定
+                type: integer
+                example: 9999
+    
+    AddDocAttachmentRequest:
+      description: 添付書類タイプがファイルの場合、アップロードファイルは multipart/form-data の２つ目に設定します。
+      content:
+        application/json:
+          schema:
+            required:
+              - docId
+              - type
+            allOf:
+              - $ref: "#/components/schemas/AddDocAttachmentRequest"
+          example:
+            docId: 999
+            type: URL
+            name: urlname
+            url: https://atled.jp/AgileWorks/Broker/Picus
+        multipart/form-data:
+          example:
+            docId: 999
+            type: FILE
+            explanation: 説明
+    
+    UpdateDocAttachmentRequest:
+      description: 添付書類タイプがファイルの場合、アップロードファイルは multipart/form-data の２つ目に設定します。
+      content:
+        application/json:
+          schema:
+            required:
+              - id
+              - docId
+              - type
+            allOf:
+              - $ref: "#/components/schemas/UpdateDocAttachmentRequest"
+          example:
+            id: 9999
+            docId: 999
+            type: URL
+            name: urlname
+            url: https://atled.jp/AgileWorks/Broker/Picus
+        multipart/form-data:
+          example:
+            id: 9999
+            docId: 999
+            type: FILE
+            explanation: 説明
+    
+    DeleteDocAttachmentRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - id
+            type: object
+            properties:
+              id:
+                description: |
+                  添付ID<br>
+                  *「書類添付情報一覧取得API」で取得した書類添付IDを指定
+                type: integer
+                example: 9999
+    
+    DocReferenceRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - docId
+              - refDocId
+            type: object
+            properties:
+              docId:
+                description: 書類ID(参照先関連書類ID)
+                type: integer
+                example: 999
+              refDocId:
+                description: 関連書類ID(参照元関連書類ID)
+                type: integer
+                example: 998
+    
+    OpenDocRequest:
+      content:
+        application/json:
+          schema:
+            description: |
+              いずれかを必ず指定する。<br>
+              両方指定された場合、書類IDを優先する。
+            type: object
+            properties:
+              docId:
+                description: 書類ID
+                type: integer
+                example: 999
+              adminNo:
+                description: 書類管理番号
+                type: string
+                example: 100
+    
+    CountWorkflowMessageRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - condition
+            type: object
+            properties:
+              condition:
+                description: 回付情報件数の取得条件
+                allOf:
+                  - $ref: "#/components/schemas/WorkflowMessageRequest"
+          example:
+            condition:
+              userCode: user01
+              workflowMessageType: APPROVE_REQUEST
+    
+    CountListWorkflowMessageRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - conditionList
+            type: object
+            properties:
+              conditionList:
+                description: 回付情報件数の取得条件のリスト
+                type: object
+                required:
+                  - entries
+                properties:
+                  entries:
+                    description: 回付情報件数の取得条件
+                    allOf:
+                      - $ref: "#/components/schemas/WorkflowMessageRequest"
+          example:
+            conditionList:
+              entries:
+                - userCode: user01
+                  workflowMessageType: APPROVE_REQUEST
+                - userCode: user01
+                  workflowMessageType: CONFIRM_REQUEST
+    
+    SelectWorkflowMessageRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - condition
+            type: object
+            properties:
+              condition:
+                description: 回付情報の検索条件
+                type: object
+                properties:
+                  formCode:
+                    description: フォームコード
+                    type: string
+                allOf:
+                  - $ref: "#/components/schemas/WorkflowMessageRequest"
+          example:
+            conditionList:
+              entries:
+                - userCode: user01
+                  workflowMessageType: APPROVE_REQUEST
+                - userCode: user01
+                  workflowMessageType: CONFIRM_REQUEST
+    
+    DraftRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - docId
+              - applyUnitCode
+              - applyUserCode
+              - formCode
+              - ruleCode
+            allOf:
+              - $ref: "#/components/schemas/DraftRequest"
+          example:
+            docId: 999
+            criterionDate: 2024-10-31 00:00:00 JST
+            applyUnitCode: unit01
+            applyUserCode: user01
+            formCode: form01
+            ruleCode: rule01
+    
+    StartRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - docId
+              - applyUnitCode
+              - applyUserCode
+              - formCode
+              - ruleCode
+            type: object
+            properties:
+              operateUserCode:
+                description: 処理者ユーザーコード
+                type: string
+              comment:
+                description: コメント
+                type: string
+            allOf:
+              - $ref: "#/components/schemas/DraftRequest"
+          example:
+            docId: 999
+            criterionDate: 2024-10-31 00:00:00 JST
+            applyUnitCode: unit01
+            applyUserCode: user01
+            operateUserCode: user01
+            formCode: form01
+            ruleCode: rule01
+            comment: 申請
+    
+    ApproveRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - docId
+              - ruleStepCode
+            allOf:
+              - $ref: "#/components/schemas/ApproveRequest"
+          example:
+            docId: 999
+            operatorCode: user002
+            ruleStepCode: STEP3
+            comment: 承認
+    
+    DeleteRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - id
+            type: object
+            properties:
+              id:
+                description: 書類ID
+                type: integer
+                example: 999
+    
+    RemandRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - docId
+              - ruleStepCode
+              - comment
+              - remandRuleStepCode
+            allOf:
+              - $ref: "#/components/schemas/RemandRequest"
+          example:
+            docId: 999
+            operatorCode: user002
+            ruleStepCode: STEP3
+            comment: 差戻し
+            remandRuleStepCode: STEP2
+    
+    RetractRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - docId
+              - ruleStepCode
+            allOf:
+              - $ref: "#/components/schemas/RetractRequest"
+          example:
+            docId: 999
+            operatorCode: user001
+            ruleStepCode: STEP2
+    
+    RejectRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - docId
+              - ruleStepCode
+              - comment
+            allOf:
+              - $ref: "#/components/schemas/RejectRequest"
+          example:
+            docId: 999
+            operatorCode: user002
+            ruleStepCode: STEP3
+            comment: 却下
+    
+    FindWorkflowTaskRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - condition
+            type: object
+            properties:
+              condition:
+                description: 回付情報タスクの検索条件
+                type: object
+                properties:
+                  docId:
+                    description: 書類ID
+                    type: integer
+                  ruleStepCode:
+                    description: ステップコード
+                    type: string
+                  ruleStepType:
+                    description: |
+                      ステップ種別<br>
+                      指定可能な値<br>
+                      |パラメータ|説明|
+                      |CREATE|作成ステップ|
+                      |APPLY|申請ステップ|
+                      |APPROVE|承認ステップ|
+                      |CONFIRM|報告ステップ|
+                      |READ|閲覧ステップ|
+          example:
+            condition:
+              docId: 999
+              ruleStepCode: STEP1
+              ruleStepType: APPLY
+    
     AddUserRequest:
       content:
         application/json:
@@ -3130,6 +4675,1399 @@ components:
 
     # --------------------------------------------------------------------------------------------------
 
+    GetDocHeaderResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/GetDocHeaderResponse"
+          examples:
+            正常:
+              value:
+                docHeader:
+                  owner:
+                    type: "UNIT"
+                    code: unit01
+                  id: 999
+                  version: 1.0.0
+                  listNames:
+                    listNames1: 
+                    listNames2: 
+                    listNames3: 
+                    listNames4: 
+                    listNames5: 
+                    listNames6: 
+                    listNames7: 
+                    listNames8: 
+                    listNames9: 
+                    listNames10: 
+                    listNames11: 
+                    listNames12: 
+                    listNames13: 
+                    listNames14: 
+                    listNames15: 
+                    listNames16: 
+                    listNames17: 
+                    listNames18: 
+                    listNames19: 
+                    listNames20: 
+                  formCode: form01
+                  criterionDate: 2024-10-31 00:00:00 JST
+                  adminNo: 
+                resultStatus: 
+                  status: SUCCESS
+                  messageList: 
+                    entries: []
+                  text: 
+                  code: 
+            パラメータが不正:
+              value:
+                docHeader:
+                  owner:
+                    type: 
+                    code: 
+                  id: 
+                  version: 
+                  listNames:
+                    listNames1: 
+                    listNames2: 
+                    listNames3: 
+                    listNames4: 
+                    listNames5: 
+                    listNames6: 
+                    listNames7: 
+                    listNames8: 
+                    listNames9: 
+                    listNames10: 
+                    listNames11: 
+                    listNames12: 
+                    listNames13: 
+                    listNames14: 
+                    listNames15: 
+                    listNames16: 
+                    listNames17: 
+                    listNames18: 
+                    listNames19: 
+                    listNames20: 
+                  formCode: 
+                  criterionDate: 
+                  adminNo: 
+                resultStatus: 
+                  status: FAIL
+                  messageList: 
+                    entries: 
+                      - text: 指定された書類は存在しません。
+                        code: AWPDOC0004
+                  text: サービス実行時にエラーが発生しました。
+                  code: AWPCMN0000
+            リクエストが不正:
+              $ref: "#/components/examples/response_errorRequest"
+    
+    DocResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/DocResponse"
+          examples:
+            正常:
+              value:
+                doc:
+                  docData:
+                    entryList:
+                      entries:
+                        - name: 文字フィールド1
+                          fieldType: TEXTFIELD
+                          fieldId: textfield1
+                          dataType: STRING
+                          dataValue:
+                            value: update
+                            entryList:
+                              entries: []
+                        - name: 整数フィールド1
+                          fieldType: INTEGERFIELD
+                          fieldId: integerfield1
+                          dataType: INT
+                          dataValue:
+                            value: 11
+                            entryList:
+                              entries: []
+                    publicFormId: 222
+                    owner:
+                      type: UNIT
+                      code: unit01
+                    id: 999
+                    version: 1.0.0
+                    listNames:
+                      listNames1: 
+                      listNames2: 
+                      listNames3: 
+                      listNames4: 
+                      listNames5: 
+                      listNames6: 
+                      listNames7: 
+                      listNames8: 
+                      listNames9: 
+                      listNames10: 
+                      listNames11: 
+                      listNames12: 
+                      listNames13: 
+                      listNames14: 
+                      listNames15: 
+                      listNames16: 
+                      listNames17: 
+                      listNames18: 
+                      listNames19: 
+                      listNames20: 
+                    formCode: form01
+                    criterionDate: 2024-10-31 00:00:00 JST
+                    adminNo: 
+                resultStatus: 
+                  status: SUCCESS
+                  messageList: 
+                    entries: []
+                  text: 
+                  code: 
+            パラメータが不正:
+              value:
+                doc:
+                  docData:
+                    entryList:
+                      entries: []
+                  publicFormId: 
+                  owner:
+                    type: 
+                    code: 
+                  id: 
+                  version: 
+                  listNames:
+                    listNames1: 
+                    listNames2: 
+                    listNames3: 
+                    listNames4: 
+                    listNames5: 
+                    listNames6: 
+                    listNames7: 
+                    listNames8: 
+                    listNames9: 
+                    listNames10: 
+                    listNames11: 
+                    listNames12: 
+                    listNames13: 
+                    listNames14: 
+                    listNames15: 
+                    listNames16: 
+                    listNames17: 
+                    listNames18: 
+                    listNames19: 
+                    listNames20: 
+                  formCode: 
+                  criterionDate: 
+                  adminNo: 
+                resultStatus: 
+                  status: FAIL
+                  messageList: 
+                    entries: 
+                      - text: "{エラーメッセージ}"
+                        code: "{エラーコード}"
+                  text: サービス実行時にエラーが発生しました。
+                  code: AWPCMN0000
+            リクエストが不正:
+              $ref: "#/components/examples/response_errorRequest"
+    
+    AddDocResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/DocResponse"
+          examples:
+            正常:
+              value:
+                doc:
+                  docData:
+                    entryList:
+                      entries:
+                        - name: 文字フィールド1
+                          fieldType: TEXTFIELD
+                          fieldId: textfield1
+                          dataType: STRING
+                          dataValue:
+                            value: 
+                            entryList:
+                              entries: []
+                        - name: 整数フィールド1
+                          fieldType: INTEGERFIELD
+                          fieldId: integerfield1
+                          dataType: INT
+                          dataValue:
+                            value: 
+                            entryList:
+                              entries: []
+                    publicFormId: 222
+                    owner:
+                      type: 
+                      code: 
+                    id: 999
+                    version: 0.0.0
+                    listNames:
+                      listNames1: 
+                      listNames2: 
+                      listNames3: 
+                      listNames4: 
+                      listNames5: 
+                      listNames6: 
+                      listNames7: 
+                      listNames8: 
+                      listNames9: 
+                      listNames10: 
+                      listNames11: 
+                      listNames12: 
+                      listNames13: 
+                      listNames14: 
+                      listNames15: 
+                      listNames16: 
+                      listNames17: 
+                      listNames18: 
+                      listNames19: 
+                      listNames20: 
+                    formCode: form01
+                    criterionDate: 
+                    adminNo: 
+                resultStatus: 
+                  status: SUCCESS
+                  messageList: 
+                    entries: []
+                  text: 
+                  code: 
+            パラメータ / リクエストが不正:
+              $ref: "#/components/examples/response_errorRequest"
+    
+    SelectDocResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/SelectDocResponse"
+          examples:
+            正常:
+              value:
+                resultSet:
+                  recordList:
+                    entries:
+                      - index: 
+                        entryList:
+                          entries:
+                            - name: 
+                              value: 11
+                            - name: textfield1
+                              value: update
+                      - index: 
+                        entryList:
+                          entries:
+                            - name:
+                              value: 12
+                            - name: textfield1
+                              value: delete
+                  fieldList:
+                    entries:
+                      - name: DOC_ID
+                        type: LONG
+                      - name: textfield1
+                        type: STRING
+                resultStatus: 
+                  status: SUCCESS
+                  messageList: 
+                    entries: []
+                  text: 
+                  code: 
+            パラメータが不正:
+              value:
+                resultSet:
+                  recordList:
+                    entries: []
+                  fieldList:
+                    entries: []
+                resultStatus: 
+                  status: FAIL
+                  messageList: 
+                    entries: 
+                      - text: "{エラーメッセージ}"
+                        code: "{エラーコード}"
+                  text: サービス実行時にエラーが発生しました。
+                  code: AWPCMN0000
+            リクエストが不正:
+              $ref: "#/components/examples/response_errorRequest"
+    
+    GetDocPdfResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            description: |
+              PDFファイルの内容<br>
+              *バイナリデータ
+          examples:
+            正常:
+              value:
+                "{PDFファイルの内容(バイナリデータ)}"
+            パラメータが不正:
+              value:
+                docPdf:
+                  file:
+                    name: 
+                    key:
+                    id: 
+                    size: 
+                    contentType: 
+                resultStatus: 
+                  status: FAIL
+                  messageList: 
+                    entries: 
+                      - text: "{エラーメッセージ}"
+                        code: "{エラーコード}"
+                  text: サービス実行時にエラーが発生しました。
+                  code: AWPCMN0000
+            リクエストが不正:
+              $ref: "#/components/examples/response_errorRequest"
+    
+    ListDocCommentResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/ListDocCommentResponse"
+          examples:
+            正常:
+              value:
+                docCommentList:
+                  entries:
+                    - id: 9999
+                      comment: comment
+                      ruleStepHeader:
+                        name: 申請
+                        type: APPLY
+                        index: 1
+                        code: STEP1
+                      effectorType: 
+                      operatorInfo:
+                        registrationDate: 2024-10-31 00:00:00 JST
+                        modifyDate: 2024-10-31 12:00:00 JST
+                        registrantOfShared:
+                          userName: 
+                          unitName: 
+                          unitCode: 
+                          roleName: 
+                          userCode: 
+                          roleCode: 
+                        modifierOfShared:
+                          userName: 
+                          unitName: 
+                          unitCode: 
+                          roleName: 
+                          userCode: 
+                          roleCode: 
+                        modifier:
+                          userName: ユーザー01
+                          unitName: 組織01
+                          unitCode: unit01
+                          roleName: 
+                          userCode: user01
+                          roleCode: 
+                        registrant:
+                          userName: ユーザー01
+                          unitName: 組織01
+                          unitCode: unit01
+                          roleName: 
+                          userCode: user01
+                          roleCode: 
+                      docId: 999
+                resultStatus: 
+                  status: SUCCESS
+                  messageList: 
+                    entries: []
+                  text: 
+                  code: 
+            パラメータが不正:
+              value:
+                docCommentList:
+                  entries: [] 
+                resultStatus: 
+                  status: SUCCESS
+                  messageList: 
+                    entries: []
+                  text: 
+                  code: 
+            リクエストが不正:
+              $ref: "#/components/examples/response_errorRequest"
+    
+    AddDocCommentResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/AddDocCommentResponse"
+          examples:
+            正常:
+              value:
+                docComment:
+                  id: 9999
+                  comment: comment
+                  ruleStepHeader:
+                    name: 申請
+                    type: APPLY
+                    index: 1
+                    code: STEP1
+                  effectorType: 
+                  operatorInfo:
+                    registrationDate: 2024-10-31 00:00:00 JST
+                    modifyDate: 2024-10-31 12:00:00 JST
+                    registrantOfShared:
+                      userName: 
+                      unitName: 
+                      unitCode: 
+                      roleName: 
+                      userCode: 
+                      roleCode: 
+                    modifierOfShared:
+                      userName: 
+                      unitName: 
+                      unitCode: 
+                      roleName: 
+                      userCode: 
+                      roleCode: 
+                    modifier:
+                      userName: ユーザー01
+                      unitName: 組織01
+                      unitCode: unit01
+                      roleName: 
+                      userCode: user01
+                      roleCode: 
+                    registrant:
+                      userName: ユーザー01
+                      unitName: 組織01
+                      unitCode: unit01
+                      roleName: 
+                      userCode: user01
+                      roleCode: 
+                  docId: 999
+                resultStatus: 
+                  status: SUCCESS
+                  messageList: 
+                    entries: []
+                  text: 
+                  code: 
+            パラメータが不正:
+              value:
+                docComment:
+                  id: 
+                  comment: 
+                  ruleStepHeader:
+                    name: 
+                    type: 
+                    index: 
+                    code: 
+                  effectorType: 
+                  operatorInfo:
+                    registrationDate: 
+                    modifyDate: 
+                    registrantOfShared:
+                      userName: 
+                      unitName: 
+                      unitCode: 
+                      roleName: 
+                      userCode: 
+                      roleCode: 
+                    modifierOfShared:
+                      userName: 
+                      unitName: 
+                      unitCode: 
+                      roleName: 
+                      userCode: 
+                      roleCode: 
+                    modifier:
+                      userName: 
+                      unitName: 
+                      unitCode: 
+                      roleName: 
+                      userCode: 
+                      roleCode: 
+                    registrant: 
+                      userName: 
+                      unitName: 
+                      unitCode: 
+                      roleName: 
+                      userCode: 
+                      roleCode: 
+                  docId: 
+                resultStatus: 
+                  status: SUCCESS
+                  messageList: 
+                    entries: []
+                  text: 
+                  code: 
+            リクエストが不正:
+              $ref: "#/components/examples/response_errorRequest"
+    
+    DocAttachmentResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/DocAttachmentResponse"
+          examples:
+            正常:
+              value:
+                docAttachment:
+                  name: 見積書
+                  id: 9999
+                  type: URL
+                  size: 
+                  path: 
+                  explanation: 
+                  ruleStepHeader:
+                    name: 
+                    type: 
+                    index: 
+                    code: 
+                  storageFile:
+                    name: 
+                    key: 
+                    id: 
+                    size: 
+                    contentType: 
+                  url: https://ateled.jp/AgileWorks/Broker/Picus
+                  operationInfo:
+                    registrationDate: 2024-10-31 00:00:00 JST
+                    modifyDate: 2024-10-31 00:00:00 JST
+                    registrantOfShared:
+                      userName: 
+                      unitName: 
+                      unitCode: 
+                      roleName: 
+                      userCode: 
+                      roleCode: 
+                    modifierOfShared:
+                      userName: 
+                      unitName: 
+                      unitCode: 
+                      roleName: 
+                      userCode: 
+                      roleCode: 
+                    modifier:
+                      userName: 
+                      unitName: 
+                      unitCode: 
+                      roleName: 
+                      userCode: 
+                      roleCode: 
+                    registrant: 
+                      userName: 
+                      unitName: 
+                      unitCode: 
+                      roleName: 
+                      userCode: 
+                      roleCode: 
+                  docId: 999
+                resultStatus: 
+                  status: SUCCESS
+                  messageList: 
+                    entries: []
+                  text: 
+                  code: 
+            パラメータが不正:
+              value:
+                docAttachment:
+                  name: 見積書
+                  id: 
+                  type: 
+                  size: 
+                  path: 
+                  explanation: 
+                  ruleStepHeader:
+                    name: 
+                    type: 
+                    index: 
+                    code: 
+                  storageFile:
+                    name: 
+                    key: 
+                    id: 
+                    size: 
+                    contentType: 
+                  url: 
+                  operationInfo:
+                    registrationDate: 
+                    modifyDate: 
+                    registrantOfShared:
+                      userName: 
+                      unitName: 
+                      unitCode: 
+                      roleName: 
+                      userCode: 
+                      roleCode: 
+                    modifierOfShared:
+                      userName: 
+                      unitName: 
+                      unitCode: 
+                      roleName: 
+                      userCode: 
+                      roleCode: 
+                    modifier:
+                      userName: 
+                      unitName: 
+                      unitCode: 
+                      roleName: 
+                      userCode: 
+                      roleCode: 
+                    registrant: 
+                      userName: 
+                      unitName: 
+                      unitCode: 
+                      roleName: 
+                      userCode: 
+                      roleCode: 
+                  docId: 
+                resultStatus: 
+                  status: SUCCESS
+                  messageList: 
+                    entries: []
+                  text: 
+                  code: 
+            リクエストが不正:
+              $ref: "#/components/examples/response_errorRequest"
+    
+    ListDocAttachmentResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/ListDocAttachmentResponse"
+          examples:
+            正常:
+              value:
+                docAttachmentList:
+                  entries:
+                    - name: 見積書
+                      id: 9999
+                      type: URL
+                      size: 
+                      path: 
+                      explanation: 
+                      ruleStepHeader:
+                        name: 
+                        type: 
+                        index: 
+                        code: 
+                      storageFile:
+                        name: 
+                        key: 
+                        id: 
+                        size: 
+                        contentType: 
+                      url: https://ateled.jp/AgileWorks/Broker/Picus
+                      operationInfo:
+                        registrationDate: 2024-10-31 00:00:00 JST
+                        modifyDate: 2024-10-31 00:00:00 JST
+                        registrantOfShared:
+                          userName: 
+                          unitName: 
+                          unitCode: 
+                          roleName: 
+                          userCode: 
+                          roleCode: 
+                        modifierOfShared:
+                          userName: 
+                          unitName: 
+                          unitCode: 
+                          roleName: 
+                          userCode: 
+                          roleCode: 
+                        modifier:
+                          userName: 
+                          unitName: 
+                          unitCode: 
+                          roleName: 
+                          userCode: 
+                          roleCode: 
+                        registrant: 
+                          userName: 
+                          unitName: 
+                          unitCode: 
+                          roleName: 
+                          userCode: 
+                          roleCode: 
+                      docId: 999
+                resultStatus: 
+                  status: SUCCESS
+                  messageList: 
+                    entries: []
+                  text: 
+                  code: 
+            パラメータが不正:
+              value:
+                docAttachmentList:
+                  entries: []
+                resultStatus: 
+                  status: SUCCESS
+                  messageList: 
+                    entries: []
+                  text: 
+                  code: 
+            リクエストが不正:
+              $ref: "#/components/examples/response_errorRequest"
+    
+    ListDocReferencerResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/ListDocReferencerResponse"
+          examples:
+            正常:
+              value:
+                docHeaderList:
+                  entries:
+                    owner:
+                      type: "UNIT"
+                      code: unit01
+                    id: 998
+                    version: 1.0.1
+                    listNames:
+                      listNames1: 
+                      listNames2: 
+                      listNames3: 
+                      listNames4: 
+                      listNames5: 
+                      listNames6: 
+                      listNames7: 
+                      listNames8: 
+                      listNames9: 
+                      listNames10: 
+                      listNames11: 
+                      listNames12: 
+                      listNames13: 
+                      listNames14: 
+                      listNames15: 
+                      listNames16: 
+                      listNames17: 
+                      listNames18: 
+                      listNames19: 
+                      listNames20: 
+                    formCode: form01
+                    criterionDate: 2024-10-31 00:00:00 JST
+                    adminNo: 
+                resultStatus: 
+                  status: SUCCESS
+                  messageList: 
+                    entries: []
+                  text: 
+                  code: 
+            パラメータが不正:
+              value:
+                docHeaderList:
+                  entries:
+                    owner:
+                      type: 
+                      code: 
+                    id: 
+                    version: 
+                    listNames:
+                      listNames1: 
+                      listNames2: 
+                      listNames3: 
+                      listNames4: 
+                      listNames5: 
+                      listNames6: 
+                      listNames7: 
+                      listNames8: 
+                      listNames9: 
+                      listNames10: 
+                      listNames11: 
+                      listNames12: 
+                      listNames13: 
+                      listNames14: 
+                      listNames15: 
+                      listNames16: 
+                      listNames17: 
+                      listNames18: 
+                      listNames19: 
+                      listNames20: 
+                    formCode: 
+                    criterionDate: 
+                    adminNo: 
+                resultStatus: 
+                  status: FAIL
+                  messageList: 
+                    entries: 
+                      - text: "{エラーメッセージ}"
+                        code: "{エラーコード}"
+                  text: サービス実行時にエラーが発生しました。
+                  code: AWPCMN0000
+            リクエストが不正:
+              $ref: "#/components/examples/response_errorRequest"
+    
+    TextHtmlResponses200:
+      description: Successful response
+      content:
+        text/html: {}
+        application/json:
+          examples:
+            リクエストが不正:
+              value:
+                html: 
+                resultStatus: 
+                  status: FAIL
+                  messageList: 
+                    entries: 
+                      - text: "{エラーメッセージ}"
+                        code: "{エラーコード}"
+                  text: サービス実行時にエラーが発生しました。
+                  code: AWPCMN0000
+            存在しないパラメータを指定:
+              $ref: "#/components/examples/response_errorRequest"
+    
+    CountWorkflowMessageResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              count:
+                description: 指定した回付情報の件数
+                type: integer
+              resultStatus:
+                allOf:
+                  - $ref: "#/components/schemas/resultStatus"
+          examples:
+            正常:
+              value:
+                count: 1
+                resultStatus: 
+                  status: SUCCESS
+                  messageList: 
+                    entries: []
+                  text: 
+                  code: 
+            パラメータが不正:
+              value:
+                count: 
+                resultStatus: 
+                  status: FAIL
+                  messageList: 
+                    entries: 
+                      - text: "{エラーメッセージ}"
+                        code: "{エラーコード}"
+                  text: サービス実行時にエラーが発生しました。
+                  code: AWPCMN0000
+            リクエストが不正:
+              $ref: "#/components/examples/response_errorRequest"
+    
+    CountListWorkflowMessageResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              countList:
+                description: 指定した回付情報の件数の一覧
+                type: object
+                properties:
+                  entries:
+                    description: 書類情報
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        count:
+                          description: 指定した回付情報の件数
+                          type: integer
+              resultStatus:
+                allOf:
+                  - $ref: "#/components/schemas/resultStatus"
+          examples:
+            正常:
+              value:
+                countList:
+                  entries:
+                    - count: 1
+                    - count: 2
+                resultStatus: 
+                  status: SUCCESS
+                  messageList: 
+                    entries: []
+                  text: 
+                  code: 
+            パラメータが不正:
+              value:
+                countList:
+                  entries: []
+                resultStatus: 
+                  status: FAIL
+                  messageList: 
+                    entries: 
+                      - text: "{エラーメッセージ}"
+                        code: "{エラーコード}"
+                  text: サービス実行時にエラーが発生しました。
+                  code: AWPCMN0000
+            リクエストが不正:
+              $ref: "#/components/examples/response_errorRequest"
+    
+    SelectWorkflowMessageResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/SelectWorkflowMessageResponse"
+          examples:
+            正常:
+              value:
+                resultSet:
+                  fieldList:
+                    entries:
+                      - name: APPLY_UNIT_NAME
+                        type: STRING
+                      - name: APPLY_USER_NAME
+                        type: STRING
+                      - name: APPLY_DATE
+                        type: DATETIME
+                      - name: DOC_LISTNAME3
+                        type: STRING
+                      - name: FORM_NAME
+                        type: STRING
+                      - name: RULE_NAME
+                        type: STRING
+                      - name: FLOW_CURRENTSTEP_NAME
+                        type: TEXT
+                      - name: FLOW_STATUS
+                        type: STRING
+                      - name: DOC_ADMIN_NO
+                        type: STRING
+                      - name: DOC_ID
+                        type: LONG
+                      - name: DOC_EXIST_COMMENT
+                        type: BOOLEAN
+                      - name: DOC_EXIST_ATTACHMENT
+                        type: BOOLEAN
+                  recordList:
+                    entries:
+                      - index: 
+                        entryList:
+                          entries:
+                            - name: ApplyUnitName
+                              value: 組織
+                            - name: ApplyUserName
+                              value: user01
+                            - name: ApplyDate
+                              value: 2024-10-31 00:00:00 JST
+                            - name: DocListName3
+                              value: 
+                            - name: FormName
+                              value: フォーム
+                            - name: RuleName
+                              value: ルール
+                            - name: FlowCurrentStepName
+                              value: 承認
+                            - name: FlowStatus
+                              value: 回付中
+                            - name: DocAdminNo
+                              value: 
+                            - name: DocId
+                              value: 999
+                            - name: DocExistComment
+                              value: true
+                            - name: DocExistAttachment
+                              value: false
+                resultStatus: 
+                  status: SUCCESS
+                  messageList: 
+                    entries: []
+                  text: 
+                  code: 
+            パラメータが不正:
+              value:
+                resultSet:
+                  fieldList:
+                    entries: []
+                  recordList:
+                    entries: []
+                  status: FAIL
+                  messageList: 
+                    entries: 
+                      - text: "{エラーメッセージ}"
+                        code: "{エラーコード}"
+                  text: サービス実行時にエラーが発生しました。
+                  code: AWPCMN0000
+            リクエストが不正:
+              $ref: "#/components/examples/response_errorRequest"
+    
+    GetWorkflowInfoResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/GetWorkflowInfoResponse"
+          examples:
+            正常:
+              value:
+                workflowInfo:
+                  createOperator:
+                    userName: 
+                    userCode: 
+                    roleCode: 
+                    unitCode: 
+                    unitName: 
+                    roleName: 
+                  currentRulesStepHeaderList:
+                    entries:
+                      - name: 承認
+                        type: APPROVE
+                        index: 2
+                        code: STEP2
+                  applyOperator:
+                    userName: ユーザー１
+                    userCode: user01
+                    roleCode: 
+                    unitCode: unit01
+                    unitName: 組織１
+                    roleName: 
+                  formName: フォーム
+                  criterionDate: 2024-10-31 00:00:00 JST
+                  createDate: 2024-10-30 12:00:00 JST
+                  lastOperator:
+                    userName: ユーザー１
+                    userCode: user01
+                    roleCode: 
+                    unitCode: unit01
+                    unitName: 組織１
+                    roleName: 
+                  docId: 999
+                  approvedDate: 
+                  applyDate: 2024-10-30 13:00:00 JST
+                  formCode: form01
+                  workflowState: ACTIVE
+                  proxyApplyOperator:
+                    userName: 
+                    userCode: 
+                    roleCode: 
+                    unitCode: 
+                    unitName: 
+                    roleName: 
+                  ruleCode: rule01
+                  ruleName: ルール１
+                  lastOperateDate: 2024-10-30 13:00:00 JST 
+                resultStatus: 
+                  status: SUCCESS
+                  messageList: 
+                    entries: []
+                  text: 
+                  code: 
+            パラメータが不正:
+              value:
+                workflowInfo:
+                  createOperator:
+                    userName: 
+                    userCode: 
+                    roleCode: 
+                    unitCode: 
+                    unitName: 
+                    roleName: 
+                  currentRulesStepHeaderList:
+                    entries: []
+                  applyOperator:
+                    userName: 
+                    userCode: 
+                    roleCode: 
+                    unitCode: 
+                    unitName: 
+                    roleName: 
+                  formName: 
+                  criterionDate: 
+                  createDate: 
+                  lastOperator:
+                    userName: 
+                    userCode: 
+                    roleCode: 
+                    unitCode: 
+                    unitName: 
+                    roleName: 
+                  docId: 
+                  approvedDate: 
+                  applyDate: 
+                  formCode: 
+                  workflowState: 
+                  proxyApplyOperator:
+                    userName: 
+                    userCode: 
+                    roleCode: 
+                    unitCode: 
+                    unitName: 
+                    roleName: 
+                  ruleCode: 
+                  ruleName: 
+                  lastOperateDate:  
+                resultStatus: 
+                  status: FAIL
+                  messageList: 
+                    entries: 
+                      - text: "{エラーメッセージ}"
+                        code: "{エラーコード}"
+                  text: サービス実行時にエラーが発生しました。
+                  code: AWPCMN0000
+            リクエストが不正:
+              $ref: "#/components/examples/response_errorRequest"
+    
+    FindWorkflowTaskResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/FindWorkflowTaskResponse"
+          examples:
+            正常:
+              value:
+                workflowTaskList:
+                  entries:
+                    - state: DONE
+                      reserveItems:
+                        reserveItem1: 
+                        reserveItem2: 
+                        reserveItem3: 
+                        reserveItem4: 
+                        reserveItem5: 
+                        reserveItem6: 
+                        reserveItem7: 
+                        reserveItem8: 
+                        reserveItem9: 
+                        reserveItem10: 
+                      operator:
+                        userName: ユーザー１
+                        userCode: user01
+                        roleCode: 
+                        unitCode: unit01
+                        unitName: 組織１
+                        roleName: 
+                      ruleEffector:
+                        name: 申請
+                        type: APPLY
+                      isProxy: false
+                      effectDate: 2024-10-31 00:00:00 JST
+                      deprivedRuleStepHeader:
+                        name: 
+                        type: 
+                        index: 
+                        code: 
+                      ruleStepHeader:
+                        name: 申請
+                        type: APPLY
+                        index: 1
+                        code: STEP1
+                resultStatus: 
+                  status: SUCCESS
+                  messageList: 
+                    entries: []
+                  text: 
+                  code: 
+            パラメータが不正:
+              value:
+                workflowTaskList:
+                  entries: []
+                resultStatus: 
+                  status: FAIL
+                  messageList: 
+                    entries: 
+                      - text: "{エラーメッセージ}"
+                        code: "{エラーコード}"
+                  text: サービス実行時にエラーが発生しました。
+                  code: AWPCMN0000
+            リクエストが不正:
+              $ref: "#/components/examples/response_errorRequest"
+    
+    ListWorkflowJournalResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/ListWorkflowJournalResponse"
+          examples:
+            正常:
+              value:
+                workflowJournalList:
+                  entries:
+                    - comment: 
+                      createDate: 2024-10-31 00:00:00 JST
+                      leadTime: 9999
+                      docId: 999
+                      operator:
+                        userName: ユーザー1
+                        userCode: user01
+                        roleCode: 
+                        unitCode: unit01
+                        unitName: 組織１
+                        roleName: 
+                      ruleEffector:
+                        name: 申請
+                        type: APPLY
+                      ruleStepHeader:
+                        name: 申請
+                        type: APPLY
+                        index: 1
+                        code: STEP1
+                resultStatus: 
+                  status: SUCCESS
+                  messageList: 
+                    entries: []
+                  text: 
+                  code: 
+            パラメータが不正:
+              value:
+                workflowJournalList:
+                  entries: []
+                resultStatus: 
+                  status: FAIL
+                  messageList: 
+                    entries: 
+                      - text: "{エラーメッセージ}"
+                        code: "{エラーコード}"
+                  text: サービス実行時にエラーが発生しました。
+                  code: AWPCMN0000
+            リクエストが不正:
+              $ref: "#/components/examples/response_errorRequest"
+    
+    ListElectJournalResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/ListElectJournalResponse"
+          examples:
+            正常:
+              value:
+                electJournalList:
+                  entries:
+                    - createDate: 2024-10-31 00:00:00 JST
+                      addedOperator:
+                        userName: ユーザー1
+                        userCode: user01
+                        roleCode: 
+                        unitCode: unit01
+                        unitName: 組織１
+                        roleName: 
+                      actionType: ADD
+                      eventType: ADMIN_SELECT
+                      docId: 999
+                      deletedOperator:
+                        userName: 
+                        userCode: 
+                        roleCode: 
+                        unitCode: 
+                        unitName: 
+                        roleName: 
+                      ruleStepHeader:
+                        name: 承認
+                        type: APPROVE
+                        index: 2
+                        code: STEP2
+                resultStatus: 
+                  status: SUCCESS
+                  messageList: 
+                    entries: []
+                  text: 
+                  code: 
+            パラメータが不正:
+              value:
+                electJournalList:
+                  entries: []
+                resultStatus: 
+                  status: FAIL
+                  messageList: 
+                    entries: 
+                      - text: "{エラーメッセージ}"
+                        code: "{エラーコード}"
+                  text: サービス実行時にエラーが発生しました。
+                  code: AWPCMN0000
+            リクエストが不正:
+              $ref: "#/components/examples/response_errorRequest"
+    
+    ListShareJournalResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/ListShareJournalResponse"
+          examples:
+            正常:
+              value:
+                shareJournalList:
+                  entries:
+                    - createDate: 2024-10-31 00:00:00 JST
+                      addedOperator:
+                        userName: ユーザー2
+                        userCode: user02
+                        roleCode: 
+                        unitCode: 
+                        unitName: 
+                        roleName: 
+                      actionType: ADD
+                      docId: 999
+                      deletedOperator:
+                        userName: 
+                        userCode: 
+                        roleCode: 
+                        unitCode: 
+                        unitName: 
+                        roleName: 
+                      sharedOperator:
+                        userName: ユーザー1
+                        userCode: user01
+                        roleCode: 
+                        unitCode: unit01
+                        unitName: 組織１
+                        roleName: 
+                      workflowShareOperatorType: RECIVER
+                      ruleStepHeader:
+                        name: 承認
+                        type: APPROVE
+                        index: 2
+                        code: STEP2
+                resultStatus: 
+                  status: SUCCESS
+                  messageList: 
+                    entries: []
+                  text: 
+                  code: 
+            パラメータが不正:
+              value:
+                electJournalList:
+                  entries: []
+                resultStatus: 
+                  status: FAIL
+                  messageList: 
+                    entries: 
+                      - text: "{エラーメッセージ}"
+                        code: "{エラーコード}"
+                  text: サービス実行時にエラーが発生しました。
+                  code: AWPCMN0000
+            リクエストが不正:
+              $ref: "#/components/examples/response_errorRequest"
+    
     UserResponses200:
       description: Successful response
       content:
@@ -5120,6 +8058,51 @@ components:
 
   schemas:
     
+    listNames:
+      description: 件名項目
+      type: object
+      properties:
+        listNames1:
+          type: string
+        listNames2:
+          type: string
+        listNames3:
+          type: string
+        listNames4:
+          type: string
+        listNames5:
+          type: string
+        listNames6:
+          type: string
+        listNames7:
+          type: string
+        listNames8:
+          type: string
+        listNames9:
+          type: string
+        listNames10:
+          type: string
+        listNames11:
+          type: string
+        listNames12:
+          type: string
+        listNames13:
+          type: string
+        listNames14:
+          type: string
+        listNames15:
+          type: string
+        listNames16:
+          type: string
+        listNames17:
+          type: string
+        listNames18:
+          type: string
+        listNames19:
+          type: string
+        listNames20:
+          type: string
+    
     reserveItems:
       description: 拡張項目
       type: object
@@ -5185,6 +8168,20 @@ components:
         |EMPTY|未入力|
         |NOT_EMPTY|入力されている|
     
+    enumDataType:
+      description: |
+        データ型<br>
+        |パラメータ|説明|
+        |----|----|
+        |BOOLEAN|真偽値|
+        |DATE|日付|
+        |DATETIME|日時|
+        |DECIMAL|整数|
+        |INT|整数値(int)|
+        |LONG|整数値(long)|
+        |STRING|文字列|
+        |TEXT|テキスト|
+    
     resultStatus:
       description: APIの実行結果
       type: object
@@ -5214,7 +8211,696 @@ components:
           description: 結果コード
           type: string
     
-        
+    PrepareDocRequestRequest:
+      type: object
+      properties:
+        applyUnitCode:
+          description: 申請組織コード
+          type: string
+        applyUserCode:
+          description: 申請ユーザーコード
+          type: string
+        stepCode:
+          description: |
+            ステップコード<br>
+            *nullを指定
+          type: string
+        referenceDocId:
+          description: 参照元書類ID
+          type: integer
+        formCode:
+          description: フォームコード
+          type: string
+        ruleCode:
+          description: 回付ルールコード
+          type: string
+        criterionDate:
+          description: 基準日
+          type: string
+          pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
+    
+    AddDocRequest:
+      type: object
+      properties:
+        publicFormId:
+          description: |
+            公開フォームID<br>
+            *「新規書類データ作成API」で取得した値を指定
+          type: string
+        docData:
+          description: |
+            書類データ<br>
+            *「新規書類データ作成API」で取得した値に対し、任意の値を指定
+          type: object
+          required:
+            - entryList
+          properties:
+            entryList:
+              description: 各フィールドのデータ
+              type: object
+              properties:
+                entries:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                      - name
+                      - fieldType
+                      - fieldId
+                      - dataType
+                    properties:
+                      name:
+                        description: |
+                          フィールド名<br>
+                          *「新規書類データ作成API」で取得した値を指定
+                        type: string
+                      fieldType:
+                        description: |
+                          フィールドタイプ<br>
+                          *「新規書類データ作成API」で取得した値を指定
+                        type: string
+                      fieldId:
+                        description: |
+                          フィールドID<br>
+                          *「新規書類データ作成API」で取得した値を指定
+                        type: string
+                      dataType:
+                        description: |
+                          データタイプ<br>
+                          *「新規書類データ作成API」で取得した値を指定
+                        type: string
+                      dataValue:
+                        description: |
+                          フィールドの値<br>
+                          *任意の値を指定
+                        type: object
+                        properties:
+                          value:
+                            description: |
+                              フィールドの値<br>
+                              *任意の値を指定<br>
+                              *通常フィールドの場合のみ
+                          entryList:
+                            description: |
+                              表明細フィールドのリスト<br>
+                              *任意の値を指定<br>
+                              *表明細フィールドの場合のみ
+        id:
+          description: |
+            書類ID<br>
+            *nullを指定
+          type: integer
+        formCode:
+          description: |
+            フォームコード<br>
+            *「新規書類データ作成API」で取得した値を指定
+        criterionDate:
+          description: 基準日
+          type: string
+          pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
+        adminNo:
+          description: |
+            書類管理番号<br>
+            *nullを指定
+          type: string
+        listNames:
+          description: |
+            件名項目<br>
+            *「新規書類データ作成API」で取得した値を指定
+          type: object
+        version:
+          description: |
+            書類バージョン<br>
+            *nullを指定
+          type: string
+        owner:
+          description: |
+            書類オーナー<br>
+            *nullを指定
+          type: object
+    
+    UpdateDocRequest:
+      type: object
+      properties:
+        publicFormId:
+          description: |
+            公開フォームID<br>
+            *「書類データ取得API」または「新規書類データ保存API」で取得した値を指定
+          type: string
+        docData:
+          description: |
+            書類データ<br>
+            *「書類データ取得API」または「新規書類データ保存API」で取得した値に対し、任意の値を指定
+          type: object
+          required:
+            - entryList
+          properties:
+            entryList:
+              description: 各フィールドのデータ
+              type: object
+              properties:
+                entries:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                      - name
+                      - fieldType
+                      - fieldId
+                      - dataType
+                    properties:
+                      name:
+                        description: |
+                          フィールド名<br>
+                          *「書類データ取得API」または「新規書類データ保存API」で取得した値を指定
+                        type: string
+                      fieldType:
+                        description: |
+                          フィールドタイプ<br>
+                          *「書類データ取得API」または「新規書類データ保存API」で取得した値を指定
+                        type: string
+                      fieldId:
+                        description: |
+                          フィールドID<br>
+                          *「書類データ取得API」または「新規書類データ保存API」で取得した値を指定
+                        type: string
+                      dataType:
+                        description: |
+                          データタイプ<br>
+                          *「書類データ取得API」または「新規書類データ保存API」で取得した値を指定
+                        type: string
+                      dataValue:
+                        description: |
+                          フィールドの値<br>
+                          *任意の値を指定
+                        type: object
+                        properties:
+                          value:
+                            description: |
+                              フィールドの値<br>
+                              *任意の値を指定<br>
+                              *通常フィールドの場合のみ
+                          entryList:
+                            description: |
+                              表明細フィールドのリスト<br>
+                              *任意の値を指定<br>
+                              *表明細フィールドの場合のみ
+        id:
+          description: |
+            書類ID<br>
+            *「書類データ取得API」または「新規書類データ保存API」で取得した値を指定
+          type: integer
+        formCode:
+          description: |
+            フォームコード<br>
+            **「書類データ取得API」または「新規書類データ保存API」で取得した値を指定
+        criterionDate:
+          description: 基準日
+          type: string
+          pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
+        adminNo:
+          description: |
+            書類管理番号<br>
+            *「書類データ取得API」または「新規書類データ保存API」で取得した値を指定
+          type: string
+        listNames:
+          description: |
+            件名項目<br>
+            *「書類データ取得API」または「新規書類データ保存API」で取得した値を指定
+          type: object
+        version:
+          description: |
+            書類バージョン<br>
+            *「書類データ取得API」または「新規書類データ保存API」で取得した値を指定
+          type: string
+        owner:
+          description: |
+            書類オーナー<br>
+            *「書類データ取得API」または「新規書類データ保存API」で取得した値を指定
+          type: object
+    
+    SelectDocRequest:
+      type: object
+      properties:
+        docView:
+          description: 一覧のビュー定義
+          type: object
+          properties:
+            formCode:
+              description: フォームコード
+              type: string
+            groupFormFieldId:
+              description: 表明細フィールドID
+              type: string
+            columnList:
+              description: 列項目リスト
+              type: object
+              properties:
+                entries:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      type: 
+                        description: |
+                          列項目タイプ<br>
+                          指定可能な値<br>
+                          |パラメータ|値|
+                          |----|----|
+                          |FIELD|書類のフィールド|
+                          |GROUP_FIELD|書類の表明細フィールド|
+                          |DOC_ID|書類ID|
+                          |DOC_ADMIN_NO|書類管理番号|
+                          |DOC_LISTNAME1～20|件名項目１～２０|
+                          |DOC_FULL_VERSION|書類バージョン|
+                          |DOC_EXIST_ATTACHMENT|添付有無|
+                          |DOC_EXIST_COMMENT|コメント有無|
+                          |DOC_REFERENCE_STATUS|関連書類有無|
+                          |FORM_CODE|フォームコード|
+                          |FORM_NAME|フォーム名|
+                          |FORM_STATUS|フォームバージョン|
+                          |RULE_CODE|回付ルールコード|
+                          |RULE_NAME|回付ルール名|
+                          |FLOW_STATUS|書類状態|
+                          |FLOW_CURRENTSTEP_NAME|現在のステップ|
+                          |FLOW_CRITERION_DATE|基準日|
+                          |FLOW_FIX_DATE|承認完了日時|
+                          |CREATOR_UNIT_CODE|作成者組織コード|
+                          |CREATOR_UNIT_NAME|作成者組織名|
+                          |CREATOR_ROLE_CODE|作成者ロールコード|
+                          |CREATOR_ROLE_NAME|作成者ロール名|
+                          |CREATOR_USER_CODE|作成者コード|
+                          |CREATOR_USER_NAME|作成者名|
+                          |CREATE_DATE|作成日時|
+                          |APPLY_UNIT_CODE|申請者組織コード|
+                          |APPLY_UNIT_NAME|申請者組織名|
+                          |APPLY_ROLE_CODE|申請者ロールコード|
+                          |APPLY_ROLE_NAME|申請者ロール名|
+                          |APPLY_USER_CODE|申請者コード|
+                          |APPLY_USER_NAME|申請者名|
+                          |APPLY_DATE|申請日時|
+                          |LASTOPERATOR_UNIT_CODE|最終処理者組織コード|
+                          |LASTOPERATOR_UNIT_NAME|最終処理者組織名|
+                          |LASTOPERATOR_ROLE_CODE|最終処理者ロールコード|
+                          |LASTOPERATOR_ROLE_NAME|最終処理者ロール名|
+                          |LASTOPERATOR_USER_CODE|最終処理者コード|
+                          |LASTOPERATOR_USER_NAME|最終処理者名|
+                          |LASTOPERATOR_DATE|最終処理日時|
+                      fieldId:
+                        description: フィールドID
+                        type: string
+        condition:
+          description: 書類の検索条件
+          type: object
+          properties:
+            criterionDate:
+              description: 基準日
+              type: string
+              pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
+            userCode:
+              description: ユーザーコード
+              type: string
+            docid:
+              description: 書類ID
+              type: integer
+            adminNo:
+              description: 書類管理番号
+              type: string
+            formCode:
+              description: フォームコード
+              type: string
+            ruleCode:
+              description: 回付ルールコード
+              type: string
+            ruleStepCode:
+              description: 回付ルールステップコード
+              type: string
+            workflowState:
+              description: |
+                書類状態<br>
+                指定可能な値<br>
+                |パラメータ|説明|
+                |----|----|
+                |PREPARE|下書き|
+                |ACTIVE|回付中|
+                |APPROVED|承認完了|
+                |REJECTED|却下|
+                |CANCELED|取り下げ|
+                |DELETED|削除|
+            listNameKeyword:
+              description: 件名キーワード
+              type: string
+            dateCondition:
+              description: 日付条件
+              type: object
+              properties:
+                type:
+                  description: |
+                    日付タイプ<br>
+                    指定可能な値<br>
+                    |パラメータ|説明|
+                    |----|----|
+                    |APPLY|申請日|
+                    |CRITERION|基準日|
+                    |APPROVED|承認完了日|
+                    |REGISTRATION|作成日|
+                    |MODIFY|最終適用終了日|
+                rangeType:
+                  description: |
+                    日付範囲タイプ<br>
+                    指定可能な値<br>
+                    |パラメータ|説明|
+                    |----|----|
+                    |ABSOLUTE_DATE|日付指定|
+                    |RELATIVE_DAY|日付指定(日)|
+                    |RELATIVE_MONTH|日付指定(月)|
+                from:
+                  description: 日付指定の開始日
+                  type: string
+                  pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
+                to:
+                  description: 日付指定の終了日
+                  type: string
+                  pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
+                dayFrom:
+                  description: |
+                    日付指定(日)の開始日数<br>
+                    *0～9999
+                  type: integer
+                dayTo:
+                  description: |
+                    日付指定(日)の終了日数<br>
+                    *0～9999
+                  type: integer
+                monthFrom:
+                  description: |
+                    日付指定(月)の開始月数<br>
+                    *0～999
+                  type: integer
+                monthTo:
+                  description: |
+                    日付指定(月)の終了月数<br>
+                    *0～999
+                  type: integer
+                monthDayFrom:
+                  description: |
+                    日付指定(月)の開始日<br>
+                    *1～31<br>
+                    *存在しない日の場合は月末に丸められます
+                  type: integer
+                monthDayTo:
+                  description: |
+                    日付指定(月)の終了日<br>
+                    *1～31<br>
+                    *存在しない日の場合は月末に丸められます
+            relativeConditionList:
+              description: ユーザー関連条件リスト
+            logicalOperatorType:
+              description: |
+                フィールド値条件全体の AND / OR<br>
+                *AND または OR を指定
+              type: string
+            fieldValueConditionList:
+              description: フィールド値条件リスト
+              type: object
+              properties:
+                type:
+                  description: |
+                    フィールド値タイプ<br>
+                    指定可能な値<br>
+                    |パラメータ|説明|
+                    |----|----|
+                    |FIELD|書類のフィールド|
+                    |LISTNAME1～20|件名項目１～２０|
+                fieldId:
+                  description: フィールドID
+                  type: string
+                compareOperatorType:
+                  allOf:
+                    - $ref: "#/components/schemas/compareOperatorType"
+                value:
+                  description: 値
+                  type: string
+                valueFrom:
+                  description: 値(From)
+                  type: string
+                valueTo:
+                  description: 値(To)
+                  type: string
+            fulltextSearchCondition:
+              description: 全文検索条件
+              type: object
+              properties:
+                logicalOperatorType:
+                  description: |
+                    全文検索条件全体の AND / OR<br>
+                    *AND または OR を指定
+                  type: string
+                docContentQuery:
+                  description: 書類内容[全文検索]
+                  type: string
+                attachmentFilenameQuery:
+                  description: 添付ファイルの名称[全文検索]
+                  type: string
+                attachmentContentQuery:
+                  description: 添付ファイルの内容[全文検索]
+    
+    GetDocPdfRequest:
+      type: object
+      properties:
+        instructionList:
+          description: 書類PDF生成情報のリスト
+          required:
+            - entries
+          type: object
+          properties:
+            entries:
+              description: 書類PDF生成情報
+              type: array
+              items:
+                type: object
+                required:
+                  - docId
+                properties:
+                  docId:
+                    description: 書類ID
+                    type: string
+                  isInsertTrail:
+                    description: |
+                      証跡PDFを挿入するかどうか<br>
+                      *true または false
+                    type: boolean
+    
+    AddDocCommentRequest:
+      type: object
+      properties:
+        docId:
+          description: 書類ID
+          type: integer
+        comment:
+          description: コメント内容
+          type: string
+        operationInfo:
+          description: 操作情報
+          type: object
+          required:
+            - registrant
+          properties:
+            registrant:
+              description: |
+                登録ユーザー<br>
+                *登録ユーザー(registrant)の userCode を null の値以外入力時に「登録ユーザー」へ反映される
+              type: object
+              required:
+                - userCode
+              properties:
+                userCode:
+                  description: |
+                    ユーザーコード<br>
+                    *登録ユーザー(registrant)の userCode は必須
+    
+    AddDocAttachmentRequest:
+      type: object
+      properties:
+        docId:
+          description: 書類ID
+          type: integer
+        type:
+          description: |
+            添付書類タイプ<br>
+            指定可能な値<br>
+            |パラメータ|説明|
+            |----|----|
+            |FILE|添付ファイル|
+            |URL|URL|
+        explanation:
+          description: 添付の説明
+          type: string
+        name:
+          description: |
+            添付名称<br>
+            *type が URL の場合に必須
+          type: string
+        url:
+          description: |
+            URL<br>
+            *type が URL の場合に必須
+    
+    UpdateDocAttachmentRequest:
+      type: object
+      properties:
+        id:
+          description: |
+            添付ID<br>
+            *「書類添付情報一覧取得API」で取得した書類添付IDを指定
+          type: integer
+        docId:
+          description: 書類ID
+          type: integer
+        type:
+          description: |
+            添付書類タイプ<br>
+            *変更不可<br>
+            指定可能な値<br>
+            |パラメータ|説明|
+            |----|----|
+            |FILE|添付ファイル|
+            |URL|URL|
+        explanation:
+          description: 添付の説明
+          type: string
+        name:
+          description: |
+            添付名称<br>
+            *type が URL の場合に必須
+          type: string
+        url:
+          description: |
+            URL<br>
+            *type が URL の場合に必須
+    
+    WorkflowMessageRequest:
+      type: object
+      required:
+        - userCode
+        - workflowMessageType
+      properties:
+        userCode:
+          description: ユーザーコード
+          type: string
+        workflowMessageType:
+          description: |
+            回付情報タイプ<br>
+            指定可能な値<br>
+            |パラメータ|説明|
+            |----|----|
+            |APPLY_REQUEST|申請依頼|
+            |APPROVE_REQUEST|承認依頼|
+            |CONFIRM_REQUEST|報告依頼|
+            |PREPARE|下書き|
+            |REMANDED|差戻し|
+            |REMIND_EXIST|催促あり|
+            |REQUEST_POSSIBLE|回付予定|
+    
+    DraftRequest:
+      type: object
+      properties:
+        docId:
+          description: |
+            書類ID<br>
+            *「書類データ取得API」、「新規書類データ保存API」、「書類データ更新」で取得した値を指定
+          type: integer
+        criterionDate:
+          description: 基準日
+          type: string
+          pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
+        applyUnitCode:
+          description: 申請者組織コード
+          type: string
+        applyUserCode:
+          description: 申請者コード
+          type: string
+        formCode:
+          description: |
+            フォームコード<br>
+            *「書類データ取得API」、「新規書類データ保存API」、「書類データ更新API」で取得した値を指定
+          type: string
+        ruleCode:
+          description: ルールコード
+          type: string
+    
+    ApproveRequest:
+      type: object
+      properties:
+        docId:
+          description: 書類ID
+          type: integer
+        operatorCode:
+          description: |
+            承認する処理者のユーザーコード<br>
+            *未指定の場合は、指定ステップに設定されている任意の処理者で承認される（どの処理者で承認されるかは不定）
+          type: string
+        ruleStepCode:
+          description: 承認するステップのコード
+          type: string
+        comment:
+          description: コメント
+          type: string
+    
+    RemandRequest:
+      type: object
+      properties:
+        docId:
+          description: 書類ID
+          type: integer
+        operatorCode:
+          description: |
+            差し戻す処理者のユーザーコード<br>
+            *未指定の場合は、差戻し元ステップに設定されている任意の処理者で差戻される（どの処理者で差戻されるかは不定）
+          type: string
+        ruleStepCode:
+          description: 差戻し元ステップのコード
+          type: string
+        comment:
+          description: コメント
+          type: string
+        remandRuleStepCode:
+          description: 差戻し先ステップのコード
+          type: string
+    
+    RetractRequest:
+      type: object
+      properties:
+        docId:
+          description: 書類ID
+          type: integer
+        operatorCode:
+          description: |
+            引戻す処理者のユーザーコード<br>
+            *未指定の場合は、引戻し元ステップに設定されている任意の処理者で引戻される（どの処理者で引戻されるかは不定）
+          type: string
+        ruleStepCode:
+          description: 引戻し先ステップのコード
+          type: string
+    
+    RejectRequest:
+      type: object
+      properties:
+        docId:
+          description: 書類ID
+          type: integer
+        operatorCode:
+          description: |
+            却下する処理者のユーザーコード<br>
+            *未指定の場合は、却下ステップに設定されている任意の処理者で却下される（どの処理者で却下されるかは不定）
+          type: string
+        ruleStepCode:
+          description: 却下ステップのコード
+          type: string
+        comment:
+          description: コメント
+          type: string
+    
     AddUserRequest:
       type: object
       properties:
@@ -6506,6 +10192,776 @@ components:
               type: string
               pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
     
+    GetDoc:
+      type: object
+      properties:
+        owner:
+          description: 書類オーナー
+          type: object
+          properties:
+            type:
+              description: |
+                書類オーナータイプ<br>
+                指定可能な値<br>
+                |パラメータ|説明|
+                |----|----|
+                |UNIT|組織|
+                |USER|ユーザー|
+        id:
+          description: 書類ID
+          type: integer
+        version:
+          description: |
+            バージョン<br>
+            *書類履歴のバージョン
+          type: string
+        criterionDate:
+          description: 基準日
+          type: string
+          pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
+        formCode:
+          description: フォームコード
+          type: string
+        listNames:
+          allOf:
+            - $ref: "#/components/schemas/listNames"
+        adminNo:
+          description: 書類管理番号
+          type: string
+    
+    GetDocHeaderResponse:
+      type: object
+      properties:
+        docHeader:
+          description: 書類情報
+          allOf:
+            - $ref: "#/components/schemas/GetDoc"
+        resultStatus:
+          allOf:
+            - $ref: "#/components/schemas/resultStatus"
+    
+    ListDocReferencerResponse:
+      type: object
+      properties:
+        docHeaderList:
+          description: 書類情報のリスト
+          type: object
+          properties:
+            entries:
+              description: 書類情報
+              type: array
+              items:
+                allOf:
+                  - $ref: "#/components/schemas/GetDoc"
+        resultStatus:
+          allOf:
+            - $ref: "#/components/schemas/resultStatus"
+    
+    DocResponse:
+      type: object
+      properties:
+        doc:
+          description: 書類情報
+          type: object
+          properties:
+            docData:
+              description: 書類データ
+              type: object
+              properties:
+                entryList:
+                  description: 各フィールドのデータ
+                  type: object
+                  properties:
+                    entries:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          name:
+                            description: フィールド名
+                            type: string
+                          fieldType:
+                            description: フィールドタイプ
+                            type: string
+                          fieldId:
+                            description: フィールドID
+                            type: string
+                          dataType:
+                            description: データタイプ
+                            type: string
+                          dataValue:
+                            description: フィールドの値
+                            type: object
+                            properties:
+                              value:
+                                description: |
+                                  フィールドの値<br>
+                                  *通常フィールドの場合のみ
+                              entryList:
+                                description: |
+                                  表明細フィールドのリスト<br>
+                                  *表明細フィールドの場合のみ
+            publicFormId:
+              description: 公開フォームID
+              type: integer
+          allOf:
+            - $ref: "#/components/schemas/GetDoc"
+        resultStatus:
+          allOf:
+            - $ref: "#/components/schemas/resultStatus"
+    
+    SelectDocResponse:
+      type: object
+      properties:
+        resultSet:
+          description: 結果のセット
+          type: object
+          properties:
+            recordList:
+              description: レコードのリスト
+              type: object
+              properties:
+                entries:
+                  description: レコード
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      entryList:
+                        description: エントリのリスト
+                        type: object
+                        properties:
+                          entries:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                name:
+                                  description: 名称
+                                  type: string
+                                value:
+                                  description: 値
+                                  type: object
+                                  
+                     
+            fieldList:
+              description: フィールドのリスト
+              type: object
+              properties:
+                entries:
+                  description: フィールド
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      name:
+                        description: フィールド名
+                        type: string
+                      type:
+                        allOf:
+                          - $ref: "#/components/schemas/enumDataType"
+        resultStatus:
+            allOf:
+              - $ref: "#/components/schemas/resultStatus"
+    
+    ListDocCommentResponse:
+      type: object
+      properties:
+        docCommentList:
+          description: 書類コメント一覧
+          type: object
+          properties:
+            entries:
+              description: 書類コメント情報
+              type: array
+              items:
+                allOf:
+                  - $ref: "#/components/schemas/docComment"
+        resultStatus:
+          allOf:
+            - $ref: "#/components/schemas/resultStatus"
+    
+    AddDocCommentResponse:
+      type: object
+      properties:
+        docComment:
+          description: 書類コメント情報
+          allOf:
+            - $ref: "#/components/schemas/docComment"
+        resultStatus:
+          allOf:
+            - $ref: "#/components/schemas/resultStatus"
+   
+    ruleStepHeader:
+      type: object
+      properties:
+        name:
+          description: ステップ名称
+          type: string
+        type:
+          description: |
+            ステップ種別<br>
+            |パラメータ|説明|
+            |----|----|
+            |START|開始|
+            |CREATE|作成|
+            |APPLY|申請|
+            |APPROVE|承認|
+            |AUTOAPPLY|自動申請|
+            |OUTPUTDOCDATA|自動出力|
+            |CONFIRM|報告|
+            |READ|閲覧|
+            |STORE|保管|
+            |SWITCH|分岐開始|
+            |SYNC|分岐合流|
+            |DISTRIBUTE|並列開始|
+            |COLLECTION|並列合流|
+            |END|終了|
+        index:
+          description: インデックス
+          type: integer
+        code:
+          description: ステップコード
+          type: string
+   
+    docComment:
+      type: object
+      properties:
+        id:
+          description: コメントID
+          type: integer
+        comment:
+          description: コメント
+          type: string
+        ruleStepHeader:
+          description: コメントが付加されているステップ
+          allOf:
+            - $ref: "#/components/schemas/ruleStepHeader"
+        effectorType:
+          allOf:
+            - $ref: "#/components/schemas/operationInfo"
+        operationInfo:
+          description: 操作情報
+          allOf:
+            - $ref: "#/components/schemas/operationInfo"
+    
+    effectorType:
+      description: |
+        作用種別<br>
+        |パラメータ|説明|
+        |----|----|
+        |CREATE|作成|
+        |APPLY|申請|
+        |APPLY_PROXY|代理申請|
+        |APPROVE|承認|
+        |APPROVE_WITH_COMMENTS|コメント付き承認|
+        |REMAND|差戻し|
+        |REJECT|却下|
+        |CANCEL|削除|
+        |RETRACT|引戻し|
+        |CONFIRM|確認|
+        |DELETE|削除|
+        |EDIT|編集|
+        |SAVE|保存|
+        |PDF|PDF|
+        |COPY|コピーして新規|
+        |REFERENCE|関連書類|
+        |CUSTOM|カスタムメニュー|
+        |DEPRIVE|引上げ|
+        |SHARE|共有|
+    
+    operationInfo:
+      type: object
+      properties:
+        registrationDate:
+          description: 登録日時
+          type: string
+          pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
+        modifyDate:
+          description: 更新日時
+          type: string
+          pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
+        modifier:
+          description: 更新ユーザー
+          allOf:
+            - $ref: "#/components/schemas/commonOperatorModel"
+        registrant:
+          description: 登録ユーザー
+          allOf:
+           - $ref: "#/components/schemas/commonOperatorModel"
+        modifierOfShared:
+          description: 更新ユーザー
+          allOf:
+            - $ref: "#/components/schemas/commonOperatorModel"
+        registrantOfShared:
+          description: 登録ユーザー
+          allOf:
+            - $ref: "#/components/schemas/commonOperatorModel"
+    
+    commonOperatorModel:
+      type: object
+      properties:
+        userName:
+          description: ユーザー名称
+          type: string
+        userCode:
+          description: ユーザーコード
+          type: string
+        unitName:
+          description: 組織名称
+          type: string
+        unitCode:
+          description: 組織コード
+          type: string
+        roleName:
+          description: ロール名称
+          type: string
+        roleCode:
+          description: ロールコード
+          type: string
+    
+    DocAttachmentResponse:
+      type: object
+      properties:
+        docAttachment:
+          description: 書類添付情報
+          allOf:
+            - $ref: "#/components/schemas/docAttachment"
+        resultStatus:
+          allOf:
+            - $ref: "#/components/schemas/resultStatus"
+    
+    ListDocAttachmentResponse:
+      type: object
+      properties:
+        docAttachmentList:
+          description: 書類添付情報一覧
+          type: object
+          properties:
+            entries:
+              description: 書類添付情報
+              type: array
+              items:
+                allOf:
+                  - $ref: "#/components/schemas/docAttachment"
+        resultStatus:
+          allOf:
+            - $ref: "#/components/schemas/resultStatus"
+    
+    docAttachment:
+      type: object
+      properties:
+        name:
+          description: ファイル名称
+          type: string
+        id:
+          description: 書類添付ID
+          type: integer
+        type:
+          description: |
+            書類添付タイプ<br>
+            |パラメータ|説明|
+            |----|----|
+            |FILE|添付ファイル|
+            |URL|URL|
+        size:
+          description: ファイルサイズ
+          type: integer
+        path:
+          description: エンコードされたパス情報
+          type: string
+        explanation:
+          description: 添付書類の説明
+          type: string
+        ruleStepHeader:
+          description: 添付書類が付加されているステップ
+          allOf:
+            - $ref: "#/components/schemas/ruleStepHeader"
+        storageFile:
+          description: 添付ファイル
+          type: object
+          properties:
+            name:
+              description: ファイル名
+              type: string
+            key:
+              description: ファイルキー
+              type: string
+            id:
+              description: ファイルID
+              type: string
+            size:
+              description: ファイルサイズ
+              type: integer
+            contentType:
+              description: MIMEタイプ
+              type: string
+        url:
+          description: URL
+          type: string
+        operationInfo:
+          description: 操作情報
+          allOf:
+            - $ref: "#/components/schemas/operationInfo"
+        docId:
+          description: 書類ID
+          type: integer
+    
+    SelectWorkflowMessageResponse:
+      type: object
+      properties:
+        resultSet:
+          description: 回付情報の検索結果
+          type: object
+          properties:
+            fieldList:
+              description: フィールド情報一覧
+              type: object
+              properties:
+                entries:
+                  description: フィールド情報
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      name:
+                        description: フィールド名
+                        type: string
+                      type:
+                        allOf:
+                          - $ref: "#/components/schemas/enumDataType"
+            recordList:
+              description: レコード情報一覧
+              type: object
+              properties:
+                entries:
+                  description: レコード情報
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      index:
+                        description: レコードインデックス
+                        type: integer
+                      entryList:
+                        description: エントリのリスト
+                        type: object
+                        properties:
+                          entries:
+                            description: エントリ
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                name:
+                                  description: 名称
+                                  type: string
+                                value:
+                                  description: 値
+                                  type: object
+        resultStatus:
+          allOf:
+            - $ref: "#/components/schemas/resultStatus"
+    
+    GetWorkflowInfoResponse:
+      type: object
+      properties:
+        workflowInfo:
+          type: object
+          properties:
+            createOperator:
+              description: 作成者
+              allOf:
+                - $ref: "#/components/schemas/commonOperatorModel"
+            currentRuleStepHeaderList:
+              description: 現在ステップ情報リスト
+              type: object
+              properties:
+                entries:
+                  description: 現在ステップヘッダ情報
+                  type : array
+                  items:
+                    allOf:
+                      - $ref: "#/components/schemas/ruleStepHeader"
+            applyOperator:
+              description: 申請者
+              allOf:
+                - $ref: "#/components/schemas/commonOperatorModel"
+            formName:
+              description: フォーム名
+              type: string
+            criterionDate:
+              description: 基準日
+              type: string
+              pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
+            createDate:
+              description: 作成日
+              type: string
+              pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
+            lastOperator:
+              description: 最終処理者
+              allOf:
+                - $ref: "#/components/schemas/commonOperatorModel"
+            docId:
+              description: 書類ID
+              type: integer
+            approvedDate:
+              description: 承認完了日
+              type: string
+              pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
+            applyDate:
+              description: 申請日
+              type: string
+              pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
+            formCode:
+              description: フォームコード
+              type: string
+            workflowState:
+              description: |
+                状態<br>
+                |パラメータ|説明|
+                |----|----|
+                |PREPARE|下書き|
+                |ACTIVE|回付中|
+                |APPROVED|承認完了|
+                |REJECTED|却下|
+                |CANCELED|取り下げ|
+                |DELETED|削除|
+            proxyApplyOperator:
+              description: 代理申請者
+              allOf:
+                - $ref: "#/components/schemas/commonOperatorModel"
+            ruleCode:
+              description: ルールコード
+              type: string
+            ruleName:
+              description: ルール名
+              type: string
+            lastOperateDate:
+              description: 最終処理日
+              type: string
+              pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
+        resultStatus:
+          allOf:
+            - $ref: "#/components/schemas/resultStatus"
+    
+    FindWorkflowTaskResponse:
+      type: object
+      properties:
+        workflowTaskList:
+          description: 回付情報タスク検索結果
+          type: object
+          properties:
+            entries:
+              description: 回付情報タスク一覧
+              type: array
+              items:
+                type: object
+                properties:
+                  state:
+                    description: |
+                      タスクの状態<br>
+                      |パラメータ|説明|
+                      |----|----|
+                      |NOTHING|予定無し|
+                      |FORECAST|予定されている|
+                      |ACTIVE|有効|
+                      |DONE|終了|
+                      |CANCELED|取り消し|
+                  reserveItems:
+                    description: |
+                      拡張項目<br>
+                      *未使用
+                  operator:
+                    description: タスク処理者
+                    allOf:
+                      - $ref: "#/components/schemas/commonOperatorModel"
+                  ruleEffector:
+                    description: タスク作用
+                    type: object
+                    properties:
+                      name:
+                        description: 作用名称
+                        type: string
+                      type:
+                        allOf:
+                          - $ref: "#/components/schemas/effectorType"
+                  isProxy:
+                    description: 代理タスクフラグ
+                    type: boolean
+                  effectDate:
+                    description: 作用日
+                    type: string
+                    pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
+                  deprivedRuleStepHeader:
+                    description: 引上げ元ルールステップ
+                    allOf:
+                      - $ref: "#/components/schemas/ruleStepHeader"
+                  ruleStepHeader:
+                    description: ステップ情報
+                    allOf:
+                      - $ref: "#/components/schemas/ruleStepHeader"
+        resultStatus:
+          allOf:
+            - $ref: "#/components/schemas/resultStatus"
+    
+    ListWorkflowJournalResponse:
+      type: object
+      properties:
+        workflowJournalList:
+          description: 回付情報タスク検索結果
+          type: object
+          properties:
+            entries:
+              description: 回付情報タスク一覧
+              type: array
+              items:
+                type: object
+                properties:
+                  comment:
+                    description: コメント
+                    type: string
+                  createDate:
+                    description: 登録日時
+                    type: string
+                    pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
+                  leadTime:
+                    description: リードタイム
+                    type: integer
+                  docId:
+                    description: 書類ID
+                    type: integer
+                  operator:
+                    description: タスク処理者
+                    allOf:
+                      - $ref: "#/components/schemas/commonOperatorModel"
+                  ruleEffector:
+                    description: タスク作用
+                    type: object
+                    properties:
+                      name:
+                        description: 作用名称
+                        type: string
+                      type:
+                        allOf:
+                          - $ref: "#/components/schemas/effectorType"
+                  ruleStepHeader:
+                    description: ステップ情報
+                    allOf:
+                      - $ref: "#/components/schemas/ruleStepHeader"
+        resultStatus:
+          allOf:
+            - $ref: "#/components/schemas/resultStatus"
+    
+    ListElectJournalResponse:
+      type: object
+      properties:
+        electJournalList:
+          description: 処理者変更履歴検索結果
+          type: object
+          properties:
+            entries:
+              description: 処理者変更履歴一覧
+              type: array
+              items:
+                type: object
+                properties:
+                  createDate:
+                    description: 登録日時
+                    type: string
+                    pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
+                  addOperator:
+                    description: 追加ユーザー
+                    allOf:
+                      - $ref: "#/components/schemas/commonOperatorModel"
+                  actionType:
+                    description: |
+                      操作内容<br>
+                      |パラメータ|説明|
+                      |----|----|
+                      |ADD|追加|
+                      |SELECT_APPLY_USER|申請ユーザー選択（申請ステップ用）|
+                      |DELETE|削除|
+                      |DELEGATE|委譲|
+                  eventType:
+                    description: |
+                      イベント<br>
+                      |パラメータ|説明|
+                      |----|----|
+                      |USER_SELECT|ユーザー選択|
+                      |ADMIN_SELECT|管理者選択|
+                      |DELEGATION|権限委譲|
+                  docId:
+                    description: 書類ID
+                    type: integer
+                  deletedOperator:
+                    description: 削除ユーザー
+                    allOf:
+                      - $ref: "#/components/schemas/commonOperatorModel"
+                  ruleStepHeader:
+                    description: ステップ情報
+                    allOf:
+                      - $ref: "#/components/schemas/ruleStepHeader"
+        resultStatus:
+          allOf:
+            - $ref: "#/components/schemas/resultStatus"
+    
+    ListShareJournalResponse:
+      type: object
+      properties:
+        shareJournalList:
+          description: 共有履歴検索結果
+          type: object
+          properties:
+            entries:
+              description: 共有履歴一覧
+              type: array
+              items:
+                type: object
+                properties:
+                  createDate:
+                    description: 登録日時
+                    type: string
+                    pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
+                  addOperator:
+                    description: 追加ユーザー
+                    allOf:
+                      - $ref: "#/components/schemas/commonOperatorModel"
+                  actionType:
+                    description: |
+                      操作内容<br>
+                      |パラメータ|説明|
+                      |----|----|
+                      |ADD|追加|
+                      |SELECT_APPLY_USER|申請ユーザー選択（申請ステップ用）|
+                      |DELETE|削除|
+                      |DELEGATE|委譲|
+                  docId:
+                    description: 書類ID
+                    type: integer
+                  deletedOperator:
+                    description: 削除ユーザー
+                    allOf:
+                      - $ref: "#/components/schemas/commonOperatorModel"
+                  sharedOperator:
+                    description: 共有ユーザー
+                    allOf:
+                      - $ref: "#/components/schemas/commonOperatorModel"
+                  workflowShareOperatorType:
+                    description: |
+                      回付履歴上の処理者<br>
+                      |パラメータ|説明|
+                      |----|----|
+                      |RECIVER|被共有者|
+                      |SENDER|共有者|
+                  ruleStepHeader:
+                    description: ステップ情報
+                    allOf:
+                      - $ref: "#/components/schemas/ruleStepHeader"
+        resultStatus:
+          allOf:
+            - $ref: "#/components/schemas/resultStatus"
+    
     UserResponse:
       type: object
       properties:
@@ -7049,4 +11505,75 @@ components:
             entries: []
           text: 公開APIの実行時にエラーが発生しました。
           code: APIPAP_W0003
+  
+  # -----------------------------------------------
+  # パラメータ components/parameters
+  # -----------------------------------------------
 
+  parameters:
+    
+    model_name:
+      description: |
+        名前空間<br>
+        common, doc, workflow, org, site, usermaster
+      name: model_name
+      in: path
+      schema:
+        type: string
+        example: doc
+      required: true
+    
+    model_model:
+      description: |
+        モデル名<br>
+        APIの各ページを参照
+      name: model_model
+      in: path
+      schema:
+        type: string
+        example: PrepareDocRequestModel
+      required: true
+    
+    service_name:
+      description: |
+        名前空間<br>
+        doc, workflow, org, site, usermaster
+      name: service_name
+      in: path
+      schema:
+        type: string
+        example: doc
+      required: true
+    
+    service_service:
+      description: |
+        サービス名<br>
+        Doc, Workflow, Org, Site, UserMaster
+      name: service_service
+      in: path
+      schema:
+        type: string
+        example: Doc
+      required: true
+    service_method:
+      description: |
+        メソッド名<br>
+        APIの各ページを参照
+      name: service_method
+      in: path
+      schema:
+        type: string
+        example: getDocHeader
+      required: true
+    
+    download_s:
+      description: |
+        ファイルID<br>
+        事前に他のAPIで取得した system.StorageFileModel 型の値を指定してください。<br>
+        ・ファイルID : ファイルを特定する識別子。他のAPIで事前に取得する
+      name: download_s
+      in: path
+      schema:
+        type: string
+        example: xxxxxxxxx
+      required: true
