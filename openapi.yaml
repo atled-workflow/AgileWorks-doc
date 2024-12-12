@@ -12,6 +12,10 @@ tags:
   - name: 書類API
   - name: ワークフローAPI
   - name: 組織API
+  - name: サイトAPI
+  - name: マスタAPI
+  - name: フォーム管理API
+  - name: 公開API
 
 paths:
   /WebApi/Model?name={model_name}.{model_model}:
@@ -629,7 +633,7 @@ paths:
         $ref: "#/components/requestBodies/CountWorkflowMessageRequest"
       responses:
         "200":
-          $ref: "#/components/responses/CountWorkflowMessageResponses200"
+          $ref: "#/components/responses/CountResponses200"
         "400":
           $ref: "#/components/responses/ErrorResponses400"
         "401":
@@ -2518,7 +2522,253 @@ paths:
           $ref: "#/components/responses/ErrorResponses500"
         "503":
           $ref: "#/components/responses/ErrorResponses503"
- 
+  
+  # --------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=site.Site&method=findProject:
+    post:
+      tags:
+        - サイトAPI
+      summary: 業務カテゴリ一覧取得
+      description:
+        業務カテゴリ一覧を取得します。
+      operationId: findProject
+      requestBody:
+        $ref: "#/components/requestBodies/FindProjectRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/FindProjectResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+  
+  # --------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=usermaster.UserMaster&method=importTinyUserMaster:
+    post:
+      tags:
+        - マスタAPI
+      summary: 外部マスタ(標準)取込
+      description:
+        外部マスタ(標準)をインポートします。
+      operationId: importTinyUserMaster
+      requestBody:
+        $ref: "#/components/requestBodies/ImportTinyUserMasterRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/CountResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+  
+  # --------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=usermaster.UserMaster&method=exportTinyUserMaster:
+    post:
+      tags:
+        - マスタAPI
+      summary: 外部マスタ(標準)取得
+      description:
+        外部マスタ(標準)をエクスポートします。
+      operationId: exportTinyUserMaster
+      requestBody:
+        $ref: "#/components/requestBodies/ExportUserMasterRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/CsvResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+  
+  # --------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=usermaster.UserMaster&method=importUserMaster:
+    post:
+      tags:
+        - マスタAPI
+      summary: 外部マスタ(拡張)取込
+      description:
+        外部マスタ(拡張)をインポートします。
+      operationId: importUserMaster
+      requestBody:
+        $ref: "#/components/requestBodies/ImportUserMasterRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/CountResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+  
+  # --------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=usermaster.UserMaster&method=exportUserMaster:
+    post:
+      tags:
+        - マスタAPI
+      summary: 外部マスタ(拡張)取得
+      description:
+        外部マスタ(拡張)をエクスポートします。
+      operationId: exportUserMaster
+      requestBody:
+        $ref: "#/components/requestBodies/ExportUserMasterRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/CsvResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+  
+  # --------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=form.Form&method=listComponentMasterWindow:
+    post:
+      tags:
+        - フォーム管理API
+      summary: マスター参照コンポーネント一覧取得
+      description:
+        マスター参照コンポーネント一覧を取得します。
+      operationId: listComponentMasterWindow
+      responses:
+        "200":
+          $ref: "#/components/responses/ListComponentMasterWindowResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+  
+  # --------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=form.Form&method=listComponentAutoNumber:
+    post:
+      tags:
+        - フォーム管理API
+      summary: 自動採番コンポーネント一覧取得
+      description:
+        自動採番コンポーネント一覧を取得します。
+      operationId: listComponentAutoNumber
+      responses:
+        "200":
+          $ref: "#/components/responses/ListComponentAutoNumberResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+  
+  # --------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=form.Form&method=listForm:
+    post:
+      tags:
+        - フォーム管理API
+      summary: 登録フォーム一覧取得
+      description:
+        登録フォーム一覧を取得します。
+      operationId: listForm
+      requestBody:
+        $ref: "#/components/requestBodies/ListFormRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/ListFormResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+  
+  # --------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=form.Form&method=findFormDefinition:
+    post:
+      tags:
+        - フォーム管理API
+      summary: フォーム定義情報取得
+      description:
+        フォーム定義情報を取得します。
+      operationId: findFormDefinition
+      requestBody:
+        $ref: "#/components/requestBodies/FindFormDefinitionRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/FindFormDefinitionResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+  
+  # --------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=publication.Publication&method=listPublicFolderInfo:
+    post:
+      tags:
+        - 公開API
+      summary: 公開フォルダ・公開フォーム取得
+      description:
+        公開フォルダ・公開フォーム一覧を取得します。
+      operationId: listPublicFolderInfo
+      requestBody:
+        $ref: "#/components/requestBodies/ListPublicFolderInfoRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/ListPublicFolderInfoResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+  
  # --------------------------------------------------------------------------------------------------
 
 # -----------------------------------------------
@@ -4563,6 +4813,162 @@ components:
                 pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
                 example: 2024-12-31 00:00:00 JST
     
+    ImportTinyUserMasterRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - schemaName
+              - table
+            type: object
+            properties:
+              schemaName:
+                description: |
+                  スキーマ名<br>
+                  *外部マスタのスキーマ名(初期値：agileworks_user)
+                type: string
+                example: agileworks_user
+              strategy:
+                description: |
+                  取込形式<br>
+                  FULLSET：全件取込<br>
+                  SUBSET：差分取込
+                example: FULLSET
+              table:
+                description: テーブル名
+                type: string
+                example: sample$aw
+              data:
+                description: |
+                  CSVデータ<br>
+                  *文字コードはUTF-8固定
+                type: string
+                example: title1,title2,title3
+    
+    ExportTinyUserMasterRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - code
+            type: object
+            properties:
+              code:
+                description: コード
+                type: string
+                example: sample
+    
+    ImportUserMasterRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - schemaName
+              - table
+            type: object
+            properties:
+              schemaName:
+                description: |
+                  スキーマ名<br>
+                  *外部マスタのスキーマ名(初期値：agileworks_user、省略可)
+                type: string
+                example: agileworks_user
+              strategy:
+                description: |
+                  取込形式<br>
+                  FULLSET：全件取込<br>
+                  SUBSET：差分取込<br>
+                  *FULLSETのみ対応し、SUBSETを指定してもFULLSETとしてインポートする
+                example: FULLSET
+              table:
+                description: テーブル名
+                type: string
+                example: sample$aw
+              data:
+                description: |
+                  CSVデータ<br>
+                  *文字コードはUTF-8固定
+                type: string
+                example: title1,title2,title3
+    
+    FindProjectRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - userCode
+              - content
+            type: object
+            properties:
+              userCode:
+                description: ユーザーコード
+                type: string
+                example: user01
+              content:
+                description: |
+                  コンテンツ<br>
+                  *FormMan
+    
+    ListFormRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - criterionDate
+            type: object
+            properties:
+              criterionDate:
+                description: 基準日
+                type: string
+                pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
+                example: 2024-10-31 00:00:00 JST
+    
+    FindFormDefinitionRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - formCode
+            type: object
+            properties:
+              formCode:
+                description: フォームコード
+                type: string
+                example: form01
+              ruleCode:
+                description: |
+                  ルールコード<br>
+                  *未指定の場合は、レスポンスの項目ルールは空。
+                type: string
+                example: rule01
+              criterionDate:
+                description: |
+                  基準日<br>
+                  *未指定の場合は、当日日付でレスポンスの」回付ルール情報を取得
+                type: string
+                pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
+                example: 2024-10-31 00:00:00 JST
+    
+    ListPublicFolderInfoRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - userCode
+            type: object
+            properties:
+              userCode:
+                description: ユーザーコード
+                type: string
+                example: user01
+              criterionDate:
+                description: |
+                  基準日<br>
+                  *未指定の場合は現在日付
+                type: string
+                pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
+                example: 2024-10-31 00:00:00 JST
+    
   # -----------------------------------------------
   # レスポンス components/responses
   # -----------------------------------------------
@@ -5536,7 +5942,7 @@ components:
             存在しないパラメータを指定:
               $ref: "#/components/examples/response_errorRequest"
     
-    CountWorkflowMessageResponses200:
+    CountResponses200:
       description: Successful response
       content:
         application/json:
@@ -5544,7 +5950,7 @@ components:
             type: object
             properties:
               count:
-                description: 指定した回付情報の件数
+                description: 件数
                 type: integer
               resultStatus:
                 allOf:
@@ -8052,6 +8458,384 @@ components:
             リクエストが不正:
               $ref: "#/components/examples/response_errorRequest"
     
+    ExportUserMasterResponses200:
+      description: Successful response
+      content:
+        application/json:
+          examples:
+            正常:
+              value:
+                "CSVファイルの内容(バイナリデータ)"
+            パラメータが不正:
+              value:
+                userMasterCsv:
+                  storageFile:
+                    name:
+                    key:
+                    id:
+                    size:
+                    contentType:
+                resultStatus: 
+                  status: FAIL
+                  messageList: 
+                    entries: 
+                      - text: "{エラーメッセージ}"
+                        code: "{エラーコード}"
+                  text: サービス実行時にエラーが発生しました。
+                  code: AWPCMN0000
+            リクエストが不正:
+              $ref: "#/components/examples/response_errorRequest"
+    
+    FindProjectResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/FindProjectResponse"
+          examples:
+            正常:
+              value:
+                projectList:
+                  entries:
+                    - name: test_業務カテゴリ
+                      code: test_Gyoumu
+                    - name: test2
+                      code: test2
+                resultStatus: 
+                  status: SUCCESS
+                  messageList: 
+                    entries: []
+                  text: 
+                  code: 
+            パラメータが不正:
+              value:
+                projectList:
+                  entries: [] 
+                resultStatus: 
+                  status: FAIL
+                  messageList: 
+                    entries: 
+                      - text: "{エラーメッセージ}"
+                        code: "{エラーコード}"
+                  text: サービス実行時にエラーが発生しました。
+                  code: AWPCMN0000
+            リクエストが不正:
+              $ref: "#/components/examples/response_errorRequest"
+    
+    ListComponentMasterWindowResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/ListComponentMasterWindowResponse"
+          examples:
+            正常:
+              value:
+                masterWindow:
+                  entries:
+                    - name: 製品管理
+                      id: 100001
+                      code: seihin
+                      componentList:
+                        entries:
+                          - name: チケット優先度
+                            id: 1
+                            code: emerg
+                            masterData: 製品指摘優先度マスタ
+                            column:
+                              entries:
+                                - name: ランク
+                                  columnName: RANK
+                                - name: 備考
+                                  columnName: REMARKS
+                          - name: 担当者
+                            id: 1
+                            code: shozoku
+                            masterData: 所属マスタ
+                            column:
+                              entries:
+                                - name: ユーザーコード
+                                  columnName: userCode
+                                - name: ユーザー名
+                                  columnName: userName
+                resultStatus: 
+                  status: SUCCESS
+                  messageList: 
+                    entries: []
+                  text: 
+                  code: 
+            リクエストが不正:
+              $ref: "#/components/examples/response_errorRequest"
+    
+    ListComponentAutoNumberResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/ListComponentAutoNumberResponse"
+          examples:
+            正常:
+              value:
+                autoNumber:
+                  entries:
+                    - name: 製品管理
+                      id: 100001
+                      code: seihin
+                      componentList:
+                        entries:
+                          - name: 傷害調査
+                            id: 1
+                            code: investment
+                resultStatus: 
+                  status: SUCCESS
+                  messageList: 
+                    entries: []
+                  text: 
+                  code: 
+            リクエストが不正:
+              $ref: "#/components/examples/response_errorRequest"
+    
+    ListFormResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/ListFormResponse"
+          examples:
+            正常:
+              value:
+                formProject:
+                  entries:
+                    - name: public
+                      id: 100001
+                      form:
+                        entries:
+                          - name: test
+                            id: 999
+                            type: TEMPLATE
+                            version: 1.0
+                            fieldList:
+                              entries: []
+                            explanation: 
+                            minorVersion: 0
+                            majorVersion: 1
+                            code: test
+                            projectCode: #public
+                            isForcAutoCalc: true
+                            isReferenceOnly: false
+                            isInsertTrailRequired: false
+                            validityDateTo: 2060-12-31 00:00:00 JST
+                            xwfFileName: test.xwf
+                            latestVersion: 1.0
+                            trailFormCode: 
+                            insertTrailPosition: 
+                            validityDateFrom: 1900-01-01 00:00:00 JST
+                            tableName:
+                              entries:
+                                - name: aw1
+                                - name: aw2
+                            isInsertTrail: false
+                            pageCount: 1
+                      code: #public
+                      formCount: 1
+                    - name: 採番テスト
+                      id: 100010
+                      form:
+                        entries:
+                          - name: レイヤ
+                            id: 998
+                            type: MAIN
+                            version: 1.2
+                            fieldList:
+                              entries: []
+                            explanation: 
+                            minorVersion: 2
+                            majorVersion: 1
+                            code: lay
+                            projectCode: saiban
+                            isForcAutoCalc: true
+                            isReferenceOnly: false
+                            isInsertTrailRequired: false
+                            validityDateTo: 2060-12-31 00:00:00 JST
+                            xwfFileName: lay.xwf
+                            latestVersion: 1.2
+                            trailFormCode: 
+                            insertTrailPosition: BACK
+                            validityDateFrom: 1900-01-01 00:00:00 JST
+                            tableName:
+                              entries:
+                                - name: aw3
+                            isInsertTrail: true
+                            pageCount: 1
+                      code: soumu
+                      formCount: 1
+                resultStatus: 
+                  status: SUCCESS
+                  messageList: 
+                    entries: []
+                  text: 
+                  code: 
+            パラメータが不正:
+              value:
+                formProject:
+                  entries: []
+                resultStatus: 
+                  status: FAIL
+                  messageList: 
+                    entries: 
+                      - text: "{エラーメッセージ}"
+                        code: "{エラーコード}"
+                  text: サービス実行時にエラーが発生しました。
+                  code: AWPCMN0000
+            リクエストが不正:
+              $ref: "#/components/examples/response_errorRequest"
+    
+    FindFormDefinitionResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/FindFormDefinitionResponse"
+          examples:
+            正常:
+              value:
+                form:
+                  code: test
+                  name: test
+                  rule:
+                    entries:
+                      - code: rule01
+                        name: ルール
+                        ruleField:
+                          entries:
+                            - ruleStepName: 申請
+                              ruleStepCode: snisei
+                              stepField:
+                                entries:
+                                  - fieldName: 文字フィールド１
+                                    id: textfield1
+                                    disable: true
+                                    invisible: false
+                                    necessary: true
+                  pages:
+                    entries:
+                      - fields:
+                        entries:
+                          - name: 文字フィールド
+                            fieldNo: 1
+                            fieldId: apply_date
+                            fieldTypeNo: 9
+                            fieldType: TEXTFIELD
+                            dataType: STRING
+                            length: 4000
+                            tagName: 申請日
+                            groupIdName: ""
+                            maxRows: 0
+                            isRequired: false
+                            isEditable: false
+                            isDisabled: false
+                            isComma: false
+                            defaultValue: ""
+                            lookupvalue: 
+                            dateformat: 
+                            fieldList:
+                              entries: []
+                resultStatus: 
+                  status: SUCCESS
+                  messageList: 
+                    entries: []
+                  text: 
+                  code: 
+            パラメータが不正:
+              value:
+                form:
+                  entries: []
+                resultStatus: 
+                  status: FAIL
+                  messageList: 
+                    entries: 
+                      - text: "{エラーメッセージ}"
+                        code: "{エラーコード}"
+                  text: サービス実行時にエラーが発生しました。
+                  code: AWPCMN0000
+            リクエストが不正:
+              $ref: "#/components/examples/response_errorRequest"
+    
+    ListPublicFolderInfoResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/ListPublicFolderInfoResponse"
+          examples:
+            正常:
+              value:
+                publicFolderList:
+                  entries:
+                    - name: 総務・勤怠管理
+                      id: 1
+                      code: soumu
+                      publicFormList:
+                        entries:
+                          - formCode: B01
+                            formName: B01身上報告書
+                            ruleCode: soumu
+                            ruleName: 総務汎用ルール
+                          - formCode: B02
+                            formName: B02届出事項変更届
+                            ruleCode: soumu
+                            ruleName: 総務汎用ルール
+                      publicFolderList:
+                        entries:
+                          - name: 勤怠
+                            id: 3
+                            code: kintai
+                            publicFormList:
+                              entries:
+                                - formCode: A083
+                                  formName: A083休暇届
+                                  ruleCode: soumu
+                                  ruleName: 総務汎用ルール
+                            publicFolderList:
+                              entries: []
+                    - name: 財務・経理
+                      id: 2
+                      code: zaimukanri
+                      publicFormList:
+                        entries:
+                          - formCode: shutyo_seisan
+                            formName: 出張仮払精算書
+                            ruleCode: shutyo_seisan
+                            ruleName: 出張清算フロー
+                      publicFolderList:
+                        entries: []
+                resultStatus: 
+                  status: SUCCESS
+                  messageList: 
+                    entries: []
+                  text: 
+                  code: 
+            パラメータが不正:
+              value:
+                publicFolderList:
+                  entries: []
+                resultStatus: 
+                  status: FAIL
+                  messageList: 
+                    entries: 
+                      - text: "{エラーメッセージ}"
+                        code: "{エラーコード}"
+                  text: サービス実行時にエラーが発生しました。
+                  code: AWPCMN0000
+            リクエストが不正:
+              $ref: "#/components/examples/response_errorRequest"
+    
   # -----------------------------------------------
   # スキーマ components/schemas
   # -----------------------------------------------
@@ -10234,6 +11018,7 @@ components:
       properties:
         docHeader:
           description: 書類情報
+          type: object
           allOf:
             - $ref: "#/components/schemas/GetDoc"
         resultStatus:
@@ -11477,6 +12262,607 @@ components:
           allOf:
             - $ref: "#/components/schemas/resultStatus"
     
+    FindProjectResponse:
+      type: object
+      properties:
+        projectList:
+          description: 業務カテゴリ一覧
+          type: object
+          properties:
+            entries:
+              type: array
+              items:
+                type: object
+                properties:
+                  name:
+                    description: 業務カテゴリ名称
+                    type: string
+                  code:
+                    description: 業務カテゴリコード
+                    type: string
+        resultStatus:
+          allOf:
+            - $ref: "#/components/schemas/resultStatus"
+    
+    ListComponentMasterWindowResponse:
+      type: object
+      properties:
+        masterWindow:
+          description: マスタ参照コンポーネント
+          type: object
+          properties:
+            entries:
+              type: array
+              items:
+                type: object
+                properties:
+                  name:
+                    description: 業務カテゴリ名
+                    type: string
+                  id:
+                    description: 業務カテゴリID
+                    type: integer
+                  code:
+                    description: 業務カテゴリコード
+                    type: string
+                  componentList:
+                    description: マスタ参照コンポーネントリスト
+                    type: object
+                    properties:
+                      entries:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            name:
+                              description: コンポーネント名称
+                              type: string
+                            id:
+                              description: コンポーネントID
+                              type: integer
+                            code:
+                              description: コンポーネントコード
+                              type: string
+                            masterData:
+                              description: マスタデータ名
+                              type: string
+                            column:
+                              description: 列項目
+                              type: object
+                              properties:
+                                entries:
+                                  type: array
+                                  items:
+                                    type: object
+                                    properties:
+                                      name:
+                                        description: 見出し名称
+                                        type: string
+                                      columnName:
+                                        description: DB項目名
+                                        type: string
+        resultStatus:
+          allOf:
+            - $ref: "#/components/schemas/resultStatus"
+    
+    ListComponentAutoNumberResponse:
+      type: object
+      properties:
+        autoNumber:
+          description: 自動採番コンポーネント
+          type: object
+          properties:
+            entries:
+              type: array
+              items:
+                type: object
+                properties:
+                  name:
+                    description: 業務カテゴリ名
+                    type: string
+                  id:
+                    description: 業務カテゴリID
+                    type: integer
+                  code:
+                    description: 業務カテゴリコード
+                    type: string
+                  componentList:
+                    description: 自動採番コンポーネントリスト
+                    type: object
+                    properties:
+                      entries:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            name:
+                              description: コンポーネント名称
+                              type: string
+                            id:
+                              description: コンポーネントID
+                              type: integer
+                            code:
+                              description: コンポーネントコード
+                              type: string
+        resultStatus:
+          allOf:
+            - $ref: "#/components/schemas/resultStatus"
+    
+    ListFormResponse:
+      type: object
+      properties:
+        formProject:
+          description: フォーム設定情報
+          type: object
+          properties:
+            entries:
+              type: array
+              items:
+                type: object
+                properties:
+                  name:
+                    description: |
+                      業務カテゴリ名称<br>
+                      *テンプレート(TEMPLATE)も業務カテゴリである
+                    type: string
+                  id:
+                    description: |
+                      業務カテゴリID<br>
+                      *管理プロジェクトIDを使用
+                    type: integer
+                  form:
+                    description: フォーム
+                    type: object
+                    properties:
+                      entries:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            name:
+                              description: フォーム名称
+                              type: string
+                            id:
+                              description: フォームID
+                              type: integer
+                            type:
+                              description: |
+                                フォーム種別<br>
+                                *MAIN / TEMPLATE
+                            version:
+                              description: バージョン
+                              type: string
+                            fieldList:
+                              description: |
+                                フォームフィールド一覧<br>
+                                *空を出力。フォーム定義情報取得APIで表示。
+                              type: object
+                            explanation:
+                              description: 備考
+                              type: string
+                            minorVersion:
+                              description: マイナーバージョン
+                              type: integer
+                            majorVersion:
+                              description: メジャーバージョン
+                              type: integer
+                            code:
+                              description: フォームコード
+                              type: string
+                            projectCode:
+                              description: |
+                                業務カテゴリコード<br>
+                                *formProject/entries 配下の code と同じ
+                              type: string
+                            isForceAutoCalc:
+                              description: |
+                                書類保存時に再計算するかどうか<br>
+                                詳細タブ>動作設定 欄の「計算式設定」内のチェックボックス<br>
+                                チェックあり：true<br>
+                                チェックなし：false
+                              type: boolean
+                            isReferenceOnly:
+                              description: |
+                                関連書類専用フォームかどうか<br>
+                                *使用していないので、falseのみ出力
+                              type: boolean
+                            isInsertTrailRequired:
+                              description: |
+                                証跡PDF挿入を必須とするかどうか<br>
+                                PDFタブ>「挿入するタイミング」のラジオボタン<br>
+                                常に挿入する：true<br>
+                                PDFを作成する度に指定する：false
+                              type: boolean
+                            validityDateTo:
+                              description: 適用終了日
+                              type: string
+                              pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
+                            xwfFileName:
+                              description: XWFファイル名称
+                              type: string
+                            latestVersion:
+                              description: 最新バージョン
+                              type: string
+                            trailFormCode:
+                              description: 証跡PDFとして利用するフォームのフォームコード
+                              type: string
+                            insertTrailPosition:
+                              description: |
+                                証跡PDF挿入位置<br>
+                                PDFタブ>「挿入する位置」のラジオボタン<br>
+                                書類の前：FRONT<br>
+                                書類の後：BACK
+                              type: string
+                            validityDateFrom:
+                              description: 適用開始日
+                              type: string
+                              pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
+                            tableName:
+                              description: DBテーブル名一覧
+                              type: object
+                              properties:
+                                entries:
+                                  type: array
+                                  items:
+                                    type: object
+                                    properties:
+                                      name:
+                                        description: |
+                                          DBテーブル名<br>
+                                          *表明細の内容も表示される
+                            isInsertTrail:
+                              description: |
+                                証跡PDFを挿入するかどうか<br>
+                                PDFタブ>「PDF作成時に証跡PDFを挿入する」内のチェックボックス<br>
+                                チェックあり：true<br>
+                                チェックなし：false
+                              type: boolean
+                            pageCount:
+                              description: フォーム構成ページ数
+                              type: integer
+                  code:
+                    description: 業務カテゴリコード
+                    type: string
+                  formCount:
+                    description: 所属フォーム数
+                    type: integer
+        resultStatus:
+          allOf:
+            - $ref: "#/components/schemas/resultStatus"
+    
+    FindFormDefinitionResponse:
+      type: object
+      properties:
+        form:
+          type: object
+          properties:
+            code:
+              description: フォームコード
+              type: string
+            name:
+              description: フォーム名称
+              type: string
+            rule:
+              description: |
+                回付ルール情報<br>
+                *ない場合は、空白配列
+              type: object
+              properties:
+                entries:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      code:
+                        description: 回付ルールコード
+                        type: string
+                      name:
+                        description: 回付ルール名称
+                        type: string
+                      ruleField:
+                        description: |
+                          項目ルール<br>
+                          *リクエストのルールコードが未指定の場合は、空
+                          *リクエストのルールコードが設定された場合、設定したルールコードの内容のみ表示
+                        type: object
+                        properties:
+                          entries:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                fieldName:
+                                  description: フィールド名
+                                  type: string
+                                id:
+                                  description: ID
+                                  type: string
+                                invisible:
+                                  description: |
+                                    閲覧可<br>
+                                    false：不可<br>
+                                    true：可
+                                  type: boolean
+                                disable:
+                                  description: |
+                                    編集可<br>
+                                    false：不可<br>
+                                    true：可
+                                  type: boolean
+                                necessary:
+                                  description: |
+                                    必須<br>
+                                    false：不可<br>
+                                    true：可
+                                  type: boolean
+            pages:
+              description: フォームページ情報
+              type: object
+              properties:
+                entries:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      fields:
+                        description: フィールド情報
+                        type: object
+                        properties:
+                          entries:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                name:
+                                  description: フィールド名称
+                                  type: string
+                                fieldNo:
+                                  description: フィールド番号
+                                  type: integer
+                                fieldId:
+                                  description: フィールドID
+                                  type: string
+                                fieldTypeNo:
+                                  description: |
+                                    フィールドタイプ番号<br>
+                                    *詳細はfieldTypeを参照
+                                  type: integer
+                                fieldType:
+                                  description: |
+                                    フィールドタイプ<br>
+                                    |フィールドタイプ番号|フィールドタイプ名|意味|備考|
+                                    |----|----|----|----|
+                                    |9|TEXTFIELD|文字フィールド||
+                                    |10|NUMBERFIELD|数値フィールド||
+                                    |11|INTEGERFIELD|整数フィールド||
+                                    |12|TEXTAREA|テキストエリア||
+                                    |14|BUTTON|ボタン|AWでは表示されない|
+                                    |15|RADIOBUTTON|ラジオボタン||
+                                    |16|CHECKBOX|チェックボックス||
+                                    |17|COMBOBOX|コンボボックス||
+                                    |18|LISTBOX|リストボックス||
+                                    |23|BARCODEFIELD|バーコード|AWでは画面に表示されないため、出力しない|
+                                    |24|IMAGE|イメージ|AWでは表示されない|
+                                    |25|YEARFIELD|西暦フィールド||
+                                    |26|MONTHFIELD|月フィールド||
+                                    |27|DAYFIELD|日フィールド||
+                                    |28|WEEKFIELD|曜日フィールド||
+                                    |29|STAMPFIELD|印影フィールド||
+                                    |34|DATEFIELD|日時フィールド||
+                                dataType:
+                                  description: |
+                                    データタイプ<br>
+                                    *既存モデルのフィールド<br>
+                                    |値|意味|
+                                    |----|----|
+                                    |STRING|文字列|
+                                    |DECIMAL|数値|
+                                    |INT|整数値(int)|
+                                    |TEXT|テキスト|
+                                length:
+                                  description: フィールド最大値
+                                  type: integer
+                                tagName:
+                                  description: タグ名
+                                  type: string
+                                groupIdName:
+                                  description: |
+                                    グループID名<br>
+                                    *グループ(表明細)を作った場合にID名が必須。グループでない、ラジオボタンなど一括設定の場合はnull。
+                                  type: string
+                                isRequired:
+                                  description: |
+                                    必須フィールドフラグ<br>
+                                    true：必須フィールド<br>
+                                    false：非必須フィールド
+                                  type: boolean
+                                isEditable:
+                                  description: |
+                                    編集禁止<br>
+                                    false：無し<br>
+                                    true：有り
+                                  type: boolean
+                                isDisabled:
+                                  description: |
+                                    無効<br>
+                                    false：無し<br>
+                                    true：有り
+                                  type: boolean
+                                isComma:
+                                  description: |
+                                    カンマ区切り<br>
+                                    false：無し<br>
+                                    true：有り
+                                  type: boolean
+                                lookupValue:
+                                  description: |
+                                    ルックアップ設定<br>
+                                    *ない場合は null<br>
+                                    |値|意味|
+                                    |----|----|
+                                    |DOCUMENT_ID|書類ID|
+                                    |LOGIN_USER_CODE|ログインユーザーコード|
+                                    |LOGIN_USER_NAME|ログインユーザー名|
+                                    |LOGIN_USER_LOCALIZED_NAME|ログインユーザーローカル名|
+                                    |LOGIN_USER_KANA|ログインユーザーカナ|
+                                    |LOGIN_USER_STAMPNAME|ログインユーザーの印影上の表示名|
+                                    |LOGIN_USER_LOGINID|ログインユーザーログインID|
+                                    |LOGIN_USER_MAILADDRESS|ログインユーザーメールアドレス|
+                                    |LOGIN_USER_RESERVE1～20|ログインユーザー予備項目1～20|
+                                    |LOGIN_UNIT_CODE|ログインユーザー組織コード|
+                                    |LOGIN_UNIT_OFFICIAL_NAME|ログインユーザー組織名称|
+                                    |LOGIN_UNIT_NAME|ログインユーザー組織画面表示名称|
+                                    |LOGIN_UNIT_LOCALIZED_NAME|ログインユーザー組織ローカル表示名称|
+                                    |LOGIN_UNIT_RESERVE1～20|ログインユーザー組織予備項目1～20|
+                                    |LOGIN_SECTIONROLE_CODE|ログインユーザーセクションロールコード|
+                                    |LOGIN_SECTIONROLE_NAME|ログインユーザーセクションロール名称|
+                                    |LOGIN_SECTIONROLE_RANK|ログインユーザーセクションロールランク|
+                                    |USER_CODE|申請ユーザーコード|
+                                    |USER_NAME|申請ユーザー名|
+                                    |USER_LOCALIZED_NAME|申請ユーザーローカル名|
+                                    |USER_KANA|申請ユーザーカナ|
+                                    |USER_STAMPNAME|申請ユーザーの印影上の表示名|
+                                    |USER_LOGINID|申請ユーザーログインID|
+                                    |USER_MAILADDRESS|申請ユーザーメールアドレス|
+                                    |USER_RESERVE1～20|申請ユーザー予備項目1～20|
+                                    |UNIT_CODE|申請組織コード|
+                                    |UNIT_OFFICIAL_NAME|背院生組織名称|
+                                    |UNIT_NAME|申請組織画面表示名称|
+                                    |UNIT_LOCALIZED_NAME|申請組織ローカル表示名称|
+                                    |UNIT_RESERVE1～20|申請組織予備項目1～20|
+                                    |SECTIONROLE_CODE|申請組織セクションロールコード|
+                                    |SECTIONROLE_NAME|申請組織セクションロール名称|
+                                    |SECTIONROLE_RANK|申請組織セクションロールランク|
+                                    |FORM_CODE|フォームコード|
+                                    |FORM_NAME|フォーム名称|
+                                    |RULE_CODE|回付ルールコード|
+                                    |RULE_NAME|回付ルール名称|
+                                    |BAGGAGE_CREATE_DATE|申請日|
+                                    |APLLY_CRITERION_DATE|申請基準日|
+                                    |BAGGAGE_FIX_DATE|承認完了日|
+                                    |DOC_REGIST_DATE|作成日|
+                                    |DOC_ID|書類ID|
+                                    |DOC_VERSION|書類バージョン|
+                                    |DOC_LISTNAME1～20|件名1～20|
+                                    |DOC_ADMINNO|書類管理番号|
+                                    |DOC_OWNER_NAME|書類オーナー名称|
+                                    |DOC_FORM_CODE|フォームコード|
+                                    |DOC_FORM_NAME|フォーム名称|
+                                    |TASK_SEQUENCE|順序|
+                                    |TASK_NODE_CLASS|ステップ種類|
+                                    |TASK_NODE_NAME|ステップ名称|
+                                    |TASK_UNIT_CODE|組織コード|
+                                    |TASK_UNIT_NAME|組織名称|
+                                    |TASK_ROLE_CODE|ロールコード|
+                                    |TASK_ROLE_NAME|ロール名称|
+                                    |TASK_USER_CODE|ユーザーコード|
+                                    |TASK_USER_NAME|ユーザー名称|
+                                    |TASK_PRINCIPAL_UNIT_CODE|被代理組織コード|
+                                    |TASK_PRINCIPAL_UNIT_NAME|被代理組織名称|
+                                    |TASK_PRINCIPAL_ROLE_CODE|被代理ロールコード|
+                                    |TASK_PRINCIPAL_ROLE_NAME|被代理ロール名称|
+                                    |TASK_PRINCIPAL_USER_CODE|被代理ユーザーコード|
+                                    |TASK_PRINCIPAL_USER_NAME|被代理ユーザー名称|
+                                    |TASK_EFFECTNAME|処理名称|
+                                    |TASK_EFFECTDATE|処理日時|
+                                    |TASK_ISPROXYUSER|代理ユーザーかどうか|
+                                    |TASK_ISDEPRIVED|引上げされたかどうか|
+                                    |TASK_DEPRIVED_NODE_NAME|引上げステップ名称|
+                                    |TASK_COMMENT|処理時コメント|
+                                    |TASK_RESERVE1～20|タスク予備項目1～10|
+                                defaultValue:
+                                  description: |
+                                    初期値<br>
+                                    *ない場合は空白("")
+                                  type: string
+                                dateFormat:
+                                  description: | 
+                                    日付書式<br>
+                                    *ない場合は null<br>
+                                    |値|意味|
+                                    |----|----|
+                                    |YYYYMMDD_ZERO|yyyy年MM月dd日(前0あり)|
+                                    |YYYYMMDD_NONZERO|yyyy年MM月dd日(前0なし)|
+                                    |YYYYMMDD_ZERO_SLASH|yyyy/MM/dd(前0あり)|
+                                    |YYYYMMDD_ZERO_HYPHEN|yyyy-MM-dd(前0あり)|
+                                    |YYYYMMDD_NONZERO_SLASH|yyyy/MM/dd(前0なし)|
+                                    |YYYYMMDD_NONZERO_HYPHEN|yyyy-MM-dd(前0なし)|
+                                    |YYYYMMDD_ZERO_DEF|yyyyMMdd(前0あり)|
+                                    |YYYYMMDD_NONZERO_DEF|yyyyMMdd(前0なし)|
+                                    |YYYYMM_ZERO_SLASH|yyyy/MM(前0あり)|
+                                    |YYYYMM_ZERO_HYPHEN|yyyy-MM(前0あり)|
+                                    |YYYYMM_NONZERO_SLASH|yyyy/MM(前0なし)|
+                                    |YYYYMM_NONZERO_HYPHEN|yyyy-MM(前0なし)|
+                                    |MMDD_ZERO_SLASH|MM/DD(前0あり)|
+                                    |MMDD_ZERO_HYHPEN|MM-dd(前0あり)|
+                                    |MMDD_NONZERO_SLASH|MM/DD(前0なし)|
+                                    |MMDD_NONZERO_HYHPEN|MM-dd(前0なし)|
+                                    |YYYYMM_ZERO_DEF|yyyyMM(前0あり)|
+                                    |YYYYMM_NONZERO_DEF|yyyyMM(前0なし)|
+                                    |MMDD_ZERO_DEF|MMDD(前0あり)|
+                                    |MMDD_NONZERO_DEF|MMDD(前0なし)|
+                                fieldList:
+                                  description: |
+                                    フィールド一覧<br>
+                                    *空で表示、本APIではグループID名を使用するため表明細も判断可能
+                                  type: object
+                                maxRows:
+                                  description: |
+                                    表明細行数<br>
+                                    *ない場合は 0
+        resultStatus:
+          allOf:
+            - $ref: "#/components/schemas/resultStatus"
+    
+    ListPublicFolderInfoResponse:
+      type: object
+      properties:
+        publicFolderList:
+          description: 公開フォルダのリスト
+          type: object
+          properties:
+            entries:
+              type: array
+              items:
+                type: object
+                properties:
+                  name:
+                    description: 公開フォルダ名称
+                    type: string
+                  id:
+                    description: 公開フォルダID
+                    type: integer
+                  code:
+                    description: 公開フォルダコード
+                    type: string
+                  publicFormList:
+                    description: 公開フォームのリスト
+                    type: object
+                    properties:
+                      entries:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            formCode:
+                              description: フォームコード
+                              type: string
+                            formName:
+                              description: フォーム名称
+                              type: string
+                            ruleCode:
+                              description: 回付ルールコード
+                              type: string
+                            ruleName:
+                              description: 回付ルール名称
+                              type: string
+                  publicFolderList:
+                    description: 公開フォルダのリスト
+                    type: object
+        resultStatus:
+          allOf:
+            - $ref: "#/components/schemas/resultStatus"
+    
   securitySchemes:
     basicAuth:
       type: http
@@ -11515,7 +12901,7 @@ components:
     model_name:
       description: |
         名前空間<br>
-        common, doc, workflow, org, site, usermaster
+        common, doc, workflow, org, site, usermaster, form, publication
       name: model_name
       in: path
       schema:
@@ -11537,7 +12923,7 @@ components:
     service_name:
       description: |
         名前空間<br>
-        doc, workflow, org, site, usermaster
+        doc, workflow, org, site, usermaster, form, publication
       name: service_name
       in: path
       schema:
@@ -11548,7 +12934,7 @@ components:
     service_service:
       description: |
         サービス名<br>
-        Doc, Workflow, Org, Site, UserMaster
+        Doc, Workflow, Org, Site, UserMaster, Form, Publication
       name: service_service
       in: path
       schema:
