@@ -508,7 +508,7 @@ paths:
         $ref: "#/components/requestBodies/docId2"
       responses:
         "200":
-          $ref: "#/components/responses/GetDocHeaderResponses200"
+          $ref: "#/components/responses/GetDocReferenceeResponses200"
         "400":
           $ref: "#/components/responses/ErrorResponses400"
         "401":
@@ -3015,6 +3015,7 @@ components:
             required:
               - id
             type: object
+            pattern: doc.DocCommentModel
             properties:
               id:
                 description: |
@@ -3075,6 +3076,7 @@ components:
             required:
               - id
             type: object
+            pattern: doc.DocAttachmentModel
             properties:
               id:
                 description: |
@@ -3091,6 +3093,7 @@ components:
               - docId
               - refDocId
             type: object
+            pattern: doc.DocReferenceModel
             properties:
               docId:
                 description: 書類ID(参照先関連書類ID)
@@ -3109,6 +3112,7 @@ components:
               いずれかを必ず指定する。<br>
               両方指定された場合、書類IDを優先する。
             type: object
+            pattern: doc.DocHeaderModel
             properties:
               docId:
                 description: 書類ID
@@ -3126,6 +3130,7 @@ components:
             required:
               - condition
             type: object
+            pattern: workflow.CountWorkflowMessageRequestModel
             properties:
               condition:
                 description: 回付情報件数の取得条件
@@ -3143,10 +3148,12 @@ components:
             required:
               - conditionList
             type: object
+            pattern: workflow.CountListWorkflowMessageRequestModel
             properties:
               conditionList:
                 description: 回付情報件数の取得条件のリスト
                 type: object
+                pattern: workflow.WorkflowMessageConditionModel
                 required:
                   - entries
                 properties:
@@ -3169,10 +3176,12 @@ components:
             required:
               - condition
             type: object
+            pattern: workflow.SelectWorkflowMessageConditionModel
             properties:
               condition:
                 description: 回付情報の検索条件
                 type: object
+                pattern: workflow.CountWorkflowMessageRequestModel
                 properties:
                   formCode:
                     description: フォームコード
@@ -3218,6 +3227,7 @@ components:
               - formCode
               - ruleCode
             type: object
+            pattern: workflow.StartRequestModel
             properties:
               operateUserCode:
                 description: 処理者ユーザーコード
@@ -3259,6 +3269,7 @@ components:
             required:
               - id
             type: object
+            pattern: workflow.DeleteRequestModel
             properties:
               id:
                 description: 書類ID
@@ -3320,10 +3331,12 @@ components:
             required:
               - condition
             type: object
+            pattern: workflow.FindWorkflowTaskRequestModel
             properties:
               condition:
                 description: 回付情報タスクの検索条件
                 type: object
+                pattern: workflow.WorkflowTaskConditionModel
                 properties:
                   docId:
                     description: 書類ID
@@ -3503,6 +3516,7 @@ components:
             required:
               - id
             type: object
+            pattern: org.UserModel
             properties:
               id:
                 description: |
@@ -3523,6 +3537,7 @@ components:
             required:
               - id
             type: object
+            pattern: org.UserModel
             properties:
               id:
                 description: |
@@ -3668,6 +3683,7 @@ components:
               - id
               - code
             type: object
+            pattern: org.UnitModel
             properties:
               id:
                 description: |
@@ -3694,6 +3710,7 @@ components:
             required:
               - id
             type: object
+            pattern: org.UnitModel
             properties:
               id:
                 description: |
@@ -3779,6 +3796,7 @@ components:
             required:
               - id
             type: object
+            pattern: org.SectionRoleModel
             properties:
               id:
                 description: |
@@ -3859,6 +3877,7 @@ components:
             required:
               - id
             type: object
+            pattern: org.SectionRoleGroupModel
             properties:
               id:
                 description: |
@@ -3931,6 +3950,7 @@ components:
             required:
               - id
             type: object
+            pattern: org.UnitAppointmentModel
             properties:
               id:
                 description: |
@@ -3953,6 +3973,7 @@ components:
             required:
               - id
             type: object
+            pattern: org.UnitAppointmentModel
             properties:
               id:
                 description: |
@@ -4048,6 +4069,7 @@ components:
             required:
               - id
             type: object
+            pattern: org.ProxyApplicationAppointmentModel
             properties:
               id:
                 description: |
@@ -4063,6 +4085,7 @@ components:
             required:
               - id
             type: object
+            pattern: org.ProxyApplicationAppointmentModel
             properties:
               id:
                 description: |
@@ -4161,6 +4184,7 @@ components:
             required:
               - id
             type: object
+            pattern: org.ProxyAppointmentModel
             properties:
               id:
                 description: |
@@ -4176,6 +4200,7 @@ components:
             required:
               - id
             type: object
+            pattern: org.ProxyAppointmentModel
             properties:
               id:
                 description: |
@@ -4270,6 +4295,7 @@ components:
             required:
               - id
             type: object
+            pattern: org.DelegationAppointmentModel
             properties:
               id:
                 description: |
@@ -4285,6 +4311,7 @@ components:
             required:
               - id
             type: object
+            pattern: org.DelegationAppointmentModel
             properties:
               id:
                 description: |
@@ -4369,6 +4396,7 @@ components:
             required:
               - id
             type: object
+            pattern: org.DeprivationAppointmentModel
             properties:
               id:
                 description: |
@@ -4384,6 +4412,7 @@ components:
             required:
               - id
             type: object
+            pattern: org.DeprivationAppointmentModel
             properties:
               id:
                 description: |
@@ -4488,6 +4517,7 @@ components:
             required:
               - id
             type: object
+            pattern: org.PrivateRoleModel
             properties:
               id:
                 description: |
@@ -4542,40 +4572,8 @@ components:
               - userCode
               - privateRoleCode
               - candidateCode
-            type: object
-            properties:
-              id:
-                description: |
-                  更新対象プライベートロール所属のID<br>
-                  *「プライベートロール所属作成API」または「プライベートロール所属参照API」で取得した値を指定
-                type: integer
-              userCode:
-                description: |
-                  ユーザーコード<br>
-                  *変更不可
-                type: string
-              privateRoleCode:
-                description: |
-                  プライベートロールコード<br>
-                  *変更不可
-                type: string
-              candidateCode:
-                description: |
-                  候補者のユーザーコード<br>
-                  *変更不可
-                type: string
-              availableDateFrom:
-                description: 適用開始日
-                type: string
-                pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
-              availableDateTo:
-                description: 適用終了日
-                type: string
-                pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
-              criterionDate:
-                description: 基準日
-                type: string
-                pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
+            allOf:
+              - $ref: "#/components/schemas/UpdatePrivateRoleAppointmentRequest"
           example:
             id: 999
             userCode: user01
@@ -4592,6 +4590,7 @@ components:
             required:
               - id
             type: object
+            pattern: org.PrivateRoleAppointmentModel
             properties:
               id:
                 description: |
@@ -4607,6 +4606,7 @@ components:
             required:
               - id
             type: object
+            pattern: org.PrivateRoleAppointmentModel
             properties:
               id:
                 description: |
@@ -4689,6 +4689,7 @@ components:
             required:
               - id
             type: object
+            pattern: org.UniversalRoleModel
             properties:
               id:
                 description: |
@@ -4740,6 +4741,7 @@ components:
               - userCode
               - universalRoleCode
             type: object
+            pattern: org.UniversalRoleAppointmentModel
             properties:
               id:
                 description: |
@@ -4783,6 +4785,7 @@ components:
             required:
               - id
             type: object
+            pattern: org.UniversalRoleAppointmentModel
             properties:
               id:
                 description: |
@@ -4798,6 +4801,7 @@ components:
             required:
               - id
             type: object
+            pattern: org.UniversalRoleAppointmentModel
             properties:
               id:
                 description: |
@@ -4821,6 +4825,7 @@ components:
               - schemaName
               - table
             type: object
+            pattern: usermaster.importUserMasterRequestModel
             properties:
               schemaName:
                 description: |
@@ -4845,13 +4850,14 @@ components:
                 type: string
                 example: title1,title2,title3
     
-    ExportTinyUserMasterRequest:
+    ExportUserMasterRequest:
       content:
         application/json:
           schema:
             required:
               - code
             type: object
+            pattern: usermaster.ExportUserMasterRequestModel
             properties:
               code:
                 description: コード
@@ -4866,6 +4872,7 @@ components:
               - schemaName
               - table
             type: object
+            pattern: usermaster.importUserMasterRequestModel
             properties:
               schemaName:
                 description: |
@@ -4899,6 +4906,7 @@ components:
               - userCode
               - content
             type: object
+            pattern: site.FindProjectRequestModel
             properties:
               userCode:
                 description: ユーザーコード
@@ -4916,6 +4924,7 @@ components:
             required:
               - criterionDate
             type: object
+            pattern: form.ListFormRequestModel
             properties:
               criterionDate:
                 description: 基準日
@@ -4930,6 +4939,7 @@ components:
             required:
               - formCode
             type: object
+            pattern: form.findFormDefinitionRequestModel
             properties:
               formCode:
                 description: フォームコード
@@ -4956,6 +4966,7 @@ components:
             required:
               - userCode
             type: object
+            pattern: publication.ListPublicFolderInfoRequestModel
             properties:
               userCode:
                 description: ユーザーコード
@@ -5831,6 +5842,97 @@ components:
             リクエストが不正:
               $ref: "#/components/examples/response_errorRequest"
     
+    GetDocReferenceeResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            pattern: doc.DocReferenceeResponseModel
+            allOf:
+              - $ref: "#/components/schemas/GetDocHeaderResponse"
+          examples:
+            正常:
+              value:
+                docHeader:
+                  owner:
+                    type: "UNIT"
+                    code: unit01
+                  id: 999
+                  version: 1.0.0
+                  listNames:
+                    listNames1: 
+                    listNames2: 
+                    listNames3: 
+                    listNames4: 
+                    listNames5: 
+                    listNames6: 
+                    listNames7: 
+                    listNames8: 
+                    listNames9: 
+                    listNames10: 
+                    listNames11: 
+                    listNames12: 
+                    listNames13: 
+                    listNames14: 
+                    listNames15: 
+                    listNames16: 
+                    listNames17: 
+                    listNames18: 
+                    listNames19: 
+                    listNames20: 
+                  formCode: form01
+                  criterionDate: 2024-10-31 00:00:00 JST
+                  adminNo: 
+                resultStatus: 
+                  status: SUCCESS
+                  messageList: 
+                    entries: []
+                  text: 
+                  code: 
+            パラメータが不正:
+              value:
+                docHeader:
+                  owner:
+                    type: 
+                    code: 
+                  id: 
+                  version: 
+                  listNames:
+                    listNames1: 
+                    listNames2: 
+                    listNames3: 
+                    listNames4: 
+                    listNames5: 
+                    listNames6: 
+                    listNames7: 
+                    listNames8: 
+                    listNames9: 
+                    listNames10: 
+                    listNames11: 
+                    listNames12: 
+                    listNames13: 
+                    listNames14: 
+                    listNames15: 
+                    listNames16: 
+                    listNames17: 
+                    listNames18: 
+                    listNames19: 
+                    listNames20: 
+                  formCode: 
+                  criterionDate: 
+                  adminNo: 
+                resultStatus: 
+                  status: FAIL
+                  messageList: 
+                    entries: 
+                      - text: 指定された書類は存在しません。
+                        code: AWPDOC0004
+                  text: サービス実行時にエラーが発生しました。
+                  code: AWPCMN0000
+            リクエストが不正:
+              $ref: "#/components/examples/response_errorRequest"
+    
     ListDocReferencerResponses200:
       description: Successful response
       content:
@@ -5948,6 +6050,7 @@ components:
         application/json:
           schema:
             type: object
+            pattern: common.CountResponseModel
             properties:
               count:
                 description: 件数
@@ -5985,16 +6088,19 @@ components:
         application/json:
           schema:
             type: object
+            pattern: workflow.CountListResponseModel
             properties:
               countList:
                 description: 指定した回付情報の件数の一覧
                 type: object
+                pattern: workflow.CountListModel
                 properties:
                   entries:
                     description: 書類情報
                     type: array
                     items:
                       type: object
+                      pattern: workflow.CountModel
                       properties:
                         count:
                           description: 指定した回付情報の件数
@@ -8458,7 +8564,7 @@ components:
             リクエストが不正:
               $ref: "#/components/examples/response_errorRequest"
     
-    ExportUserMasterResponses200:
+    CsvResponses200:
       description: Successful response
       content:
         application/json:
@@ -8845,6 +8951,7 @@ components:
     listNames:
       description: 件名項目
       type: object
+      pattern: doc.DocListNamesModel
       properties:
         listNames1:
           type: string
@@ -8890,6 +8997,7 @@ components:
     reserveItems:
       description: 拡張項目
       type: object
+      pattern: org.ReserveItemsModel
       properties:
         reserveItem1:
           type: string
@@ -8966,6 +9074,37 @@ components:
         |STRING|文字列|
         |TEXT|テキスト|
     
+    targetFormList:
+      description: 対象フォーム一覧
+      type: object
+      pattern: org.TargetFormListModel
+      properties:
+        entries:
+          description: フォームコードのリスト
+          type: array
+          items:
+            type: object
+            pattern: org.TargetFormModel
+            properties:
+              formCode:
+                description: フォームコード
+                type: string
+    targetRuleList:
+      description: 対象回付ルール一覧
+      type: object
+      pattern: org.TargetRuleListModel
+      properties:
+        entries:
+          description: 回付ルールコードのリスト
+          type: array
+          items:
+            type: object
+            pattern: org.TargetRuleModel
+            properties:
+              ruleCode:
+                description: 回付ルールコード
+                type: string
+    
     resultStatus:
       description: APIの実行結果
       type: object
@@ -8997,6 +9136,7 @@ components:
     
     PrepareDocRequestRequest:
       type: object
+      pattern: doc.PrepareDocRequestModel
       properties:
         applyUnitCode:
           description: 申請組織コード
@@ -9025,6 +9165,7 @@ components:
     
     AddDocRequest:
       type: object
+      pattern: doc.DocModel
       properties:
         publicFormId:
           description: |
@@ -9036,12 +9177,14 @@ components:
             書類データ<br>
             *「新規書類データ作成API」で取得した値に対し、任意の値を指定
           type: object
+          pattern: doc.DocDataModel
           required:
             - entryList
           properties:
             entryList:
               description: 各フィールドのデータ
               type: object
+              pattern: doc.DocDataEntryModel
               properties:
                 entries:
                   type: array
@@ -9078,6 +9221,7 @@ components:
                           フィールドの値<br>
                           *任意の値を指定
                         type: object
+                        pattern: doc.DocDataValueModel
                         properties:
                           value:
                             description: |
@@ -9089,6 +9233,8 @@ components:
                               表明細フィールドのリスト<br>
                               *任意の値を指定<br>
                               *表明細フィールドの場合のみ
+                            type: object
+                            pattern: doc.DocDataEntryModel
         id:
           description: |
             書類ID<br>
@@ -9112,6 +9258,7 @@ components:
             件名項目<br>
             *「新規書類データ作成API」で取得した値を指定
           type: object
+          pattern: doc.DocListNamesModel
         version:
           description: |
             書類バージョン<br>
@@ -9122,9 +9269,11 @@ components:
             書類オーナー<br>
             *nullを指定
           type: object
+          pattern: doc.DocOwnerModel
     
     UpdateDocRequest:
       type: object
+      pattern: doc.DocModel
       properties:
         publicFormId:
           description: |
@@ -9136,12 +9285,14 @@ components:
             書類データ<br>
             *「書類データ取得API」または「新規書類データ保存API」で取得した値に対し、任意の値を指定
           type: object
+          pattern: doc.DocDataModel
           required:
             - entryList
           properties:
             entryList:
               description: 各フィールドのデータ
               type: object
+              pattern: doc.DocDataEntryModel
               properties:
                 entries:
                   type: array
@@ -9178,6 +9329,7 @@ components:
                           フィールドの値<br>
                           *任意の値を指定
                         type: object
+                        pattern: doc.DocDataValueModel
                         properties:
                           value:
                             description: |
@@ -9189,6 +9341,8 @@ components:
                               表明細フィールドのリスト<br>
                               *任意の値を指定<br>
                               *表明細フィールドの場合のみ
+                            type: object
+                            pattern: doc.DocDataEntryModel
         id:
           description: |
             書類ID<br>
@@ -9212,6 +9366,7 @@ components:
             件名項目<br>
             *「書類データ取得API」または「新規書類データ保存API」で取得した値を指定
           type: object
+          pattern: doc.DocListNamesModel
         version:
           description: |
             書類バージョン<br>
@@ -9222,13 +9377,16 @@ components:
             書類オーナー<br>
             *「書類データ取得API」または「新規書類データ保存API」で取得した値を指定
           type: object
+          pattern: doc.DocOwnerModel
     
     SelectDocRequest:
       type: object
+      pattern: doc.SelectDocRequestModel
       properties:
         docView:
           description: 一覧のビュー定義
           type: object
+          pattern: doc.DocViewModel
           properties:
             formCode:
               description: フォームコード
@@ -9239,6 +9397,7 @@ components:
             columnList:
               description: 列項目リスト
               type: object
+              pattern: doc.DocViewColumnModel
               properties:
                 entries:
                   type: array
@@ -9296,6 +9455,7 @@ components:
         condition:
           description: 書類の検索条件
           type: object
+          pattern: doc.SelectDocConditionModel
           properties:
             criterionDate:
               description: 基準日
@@ -9337,6 +9497,7 @@ components:
             dateCondition:
               description: 日付条件
               type: object
+              pattern: doc.DateConditionModel
               properties:
                 type:
                   description: |
@@ -9399,6 +9560,8 @@ components:
                     *存在しない日の場合は月末に丸められます
             relativeConditionList:
               description: ユーザー関連条件リスト
+              type: object
+              pattern: doc.RelativeConditionModel
             logicalOperatorType:
               description: |
                 フィールド値条件全体の AND / OR<br>
@@ -9407,6 +9570,7 @@ components:
             fieldValueConditionList:
               description: フィールド値条件リスト
               type: object
+              pattern: doc.FieldValueConditionModel
               properties:
                 type:
                   description: |
@@ -9434,6 +9598,7 @@ components:
             fulltextSearchCondition:
               description: 全文検索条件
               type: object
+              pattern: doc.FulltextSearchConditionModel
               properties:
                 logicalOperatorType:
                   description: |
@@ -9451,18 +9616,21 @@ components:
     
     GetDocPdfRequest:
       type: object
+      pattern: doc.DocPdfRequestModel
       properties:
         instructionList:
           description: 書類PDF生成情報のリスト
           required:
             - entries
           type: object
+          pattern: doc.DocPdfInstructionListModel
           properties:
             entries:
               description: 書類PDF生成情報
               type: array
               items:
                 type: object
+                pattern: doc.DocPdfInstructionModel
                 required:
                   - docId
                 properties:
@@ -9477,6 +9645,7 @@ components:
     
     AddDocCommentRequest:
       type: object
+      pattern: doc.DocCommentModel
       properties:
         docId:
           description: 書類ID
@@ -9487,6 +9656,7 @@ components:
         operationInfo:
           description: 操作情報
           type: object
+          pattern: common.OperationInfoModel
           required:
             - registrant
           properties:
@@ -9495,6 +9665,7 @@ components:
                 登録ユーザー<br>
                 *登録ユーザー(registrant)の userCode を null の値以外入力時に「登録ユーザー」へ反映される
               type: object
+              pattern: common.OperatorModel
               required:
                 - userCode
               properties:
@@ -9505,6 +9676,7 @@ components:
     
     AddDocAttachmentRequest:
       type: object
+      pattern: doc.DocAttachmentModel
       properties:
         docId:
           description: 書類ID
@@ -9529,9 +9701,19 @@ components:
           description: |
             URL<br>
             *type が URL の場合に必須
+          type: string
+          pattern: rule.RuleStepHeaderModel
+        storageFile:
+          description: |
+            添付ファイル<br>
+            *type が FILE の場合に multipart/form-data の2つ目に設定します。
+            *storageFileとして明示的に指定しても無視されます。
+          type: string
+          pattern: system.StorageFileModel
     
     UpdateDocAttachmentRequest:
       type: object
+      pattern: doc.DocAttachmentModel
       properties:
         id:
           description: |
@@ -9562,9 +9744,19 @@ components:
           description: |
             URL<br>
             *type が URL の場合に必須
+          type: string
+          pattern: rule.RuleStepHeaderModel
+        storageFile:
+          description: |
+            添付ファイル<br>
+            *type が FILE の場合に multipart/form-data の2つ目に設定します。
+            *storageFileとして明示的に指定しても無視されます。
+          type: string
+          pattern: system.StorageFileModel
     
     WorkflowMessageRequest:
       type: object
+      pattern: workflow.WorkflowMessageConditionModel
       required:
         - userCode
         - workflowMessageType
@@ -9588,6 +9780,7 @@ components:
     
     DraftRequest:
       type: object
+      pattern: workflow.DraftRequestModel
       properties:
         docId:
           description: |
@@ -9615,6 +9808,7 @@ components:
     
     ApproveRequest:
       type: object
+      pattern: workflow.ApproveRequestModel
       properties:
         docId:
           description: 書類ID
@@ -9633,6 +9827,7 @@ components:
     
     RemandRequest:
       type: object
+      pattern: workflow.RemandRequestModel
       properties:
         docId:
           description: 書類ID
@@ -9654,6 +9849,7 @@ components:
     
     RetractRequest:
       type: object
+      pattern: workflow.RetractRequestModel
       properties:
         docId:
           description: 書類ID
@@ -9669,6 +9865,7 @@ components:
     
     RejectRequest:
       type: object
+      pattern: workflow.RejectRequestModel
       properties:
         docId:
           description: 書類ID
@@ -9687,6 +9884,7 @@ components:
     
     AddUserRequest:
       type: object
+      pattern: org.UserModel
       properties:
         name:
           description: ユーザー名称
@@ -9763,12 +9961,14 @@ components:
             
     FindUserRequest:
       type: object
+      pattern: org.FindUserRequestModel
       properties:
         condition:
           required:
               - criterionDate
           description: ユーザー検索条件
           type: object
+          pattern: org.UserConditionModel
           properties:
             code:
               description: ユーザーコード
@@ -9824,11 +10024,13 @@ components:
             columnValueConditionList:
               description: 任意検索条件一覧
               type: object
+              pattern: org.UserColumnValueConditionListModel
               properties:
                 entries:
                   type: array
                   items:
                     type: object
+                    pattern: org.UserColumnValueConditionModel
                     properties:
                       column:
                         description: |
@@ -9867,6 +10069,7 @@ components:
     
     AddUnitRequest:
       type: object
+      pattern: org.UnitModel
       properties:
         code:
           description: 組織コード
@@ -9919,10 +10122,12 @@ components:
     
     FindUnitRequest:
       type: object
+      pattern: org.FindUnitRequestModel
       properties:
         condition:
           description: 組織検索条件
           type: object
+          pattern: org.UnitConditionModel
           properties:
             code:
               description: 組織コード
@@ -9939,6 +10144,7 @@ components:
             columnValueConditionList:
               description: 任意検索条件一覧
               type: object
+              pattern: org.UnitColumnValueConditionListModel
               properties:
                 entries:
                   type: array
@@ -9982,6 +10188,7 @@ components:
     
     AddSectionRoleRequest:
       type: object
+      pattern: org.SectionRoleModel
       properties:
         code:
           description: セクションロールコード
@@ -10006,10 +10213,12 @@ components:
     
     FindSectionRoleRequest:
       type: object
+      pattern: org.FindSectionRoleRequestModel
       properties:
         condition:
           description: セクションロール検索条件
           type: object
+          pattern: org.SectionRoleConditionModel
           properties:
             code:
               description: セクションロールコード
@@ -10026,11 +10235,13 @@ components:
             columnValueConditionList:
               description: 任意検索条件一覧
               type: object
+              pattern: org.SectionRoleColumnValueConditionListModel
               properties:
                 entries:
                   type: array
                   items:
                     type: object
+                    pattern: org.SectionRoleColumnValueConditionModel
                     properties:
                       column:
                         description: |
@@ -10060,6 +10271,7 @@ components:
     
     AddSectionRoleGroupRequest:
       type: object
+      pattern: org.SectionRoleGroupModel
       properties:
         code:
           description: セクションロールグループコード
@@ -10075,12 +10287,15 @@ components:
           type: string
         roleCodeList:
           description: 所属しているセクションロールコードのリスト
+          type: object
+          pattern: common.CodeListModel
           properties:
             entries:
               description: セクションロールコード情報
               type: array
               items:
                 type: object
+                pattern: commonCodeModel
                 properties:
                   code:
                     description: セクションロールコード
@@ -10088,10 +10303,12 @@ components:
     
     FindSectionRoleGroupRequest:
       type: object
+      pattern: org.FindSectionRoleGroupRequestModel
       properties:
         condition:
           description: セクションロールグループ検索条件
           type: object
+          pattern: org.SectionRoleConditionModel
           properties:
             code:
               description: セクションロールグループコード
@@ -10105,11 +10322,13 @@ components:
             columnValueConditionList:
               description: 任意検索条件一覧
               type: object
+              pattern: org.SectionRoleGroupColumnValueConditionListModel
               properties:
                 entries:
                   type: array
                   items:
                     type: object
+                    pattern: org.SectionRoleGroupColumnValueConditionModel
                     properties:
                       column:
                         description: |
@@ -10134,6 +10353,7 @@ components:
     
     AddUnitAppointmentRequest:
       type: object
+      pattern: org.UnitAppointmentModel
       properties:
         unitCode:
           description: 組織コード
@@ -10159,10 +10379,12 @@ components:
     
     FindUnitAppointmentRequest:
       type: object
+      pattern: org.FindUnitAppointmentRequestModel
       properties:
         condition:
           description: 組織所属検索条件
           type: object
+          pattern: org.UnitAppointmentConditionModel
           properties:
             userCode:
               description: ユーザーコード
@@ -10186,11 +10408,13 @@ components:
             columnValueConditionList:
               description: 任意検索条件一覧
               type: object
+              pattern: org.UnitAppointmentColumnValueConditionListModel
               properties:
                 entries:
                   type: array
                   items:
                     type: object
+                    pattern: org.UnitAppointmentColumnValueConditionModel
                     properties:
                       column:
                         description: |
@@ -10238,6 +10462,7 @@ components:
     
     UpdateUnitAppointmentRequest:
       type: object
+      pattern: org.UnitAppointmentModel
       properties:
         id:
           description: |
@@ -10270,6 +10495,7 @@ components:
     
     AddProxyApplyAppointmentRequest:
       type: object
+      pattern: org.ProxyApplicationAppoitmentModel
       properties:
         principalUserCode:
           description: 被代理ユーザーコード
@@ -10281,29 +10507,11 @@ components:
           description: 代理ユーザーコード
           type: string
         targetFormList:
-          description: 対象フォーム一覧
-          properties:
-            entries:
-              description: フォームコードのリスト
-              type: array
-              items:
-                type: object
-                properties:
-                  formCode:
-                    description: フォームコード
-                    type: string
+          allOf:
+            - $ref: "#/components/schemas/targetFormList"
         targetRuleList:
-          description: 対象回付ルール一覧
-          properties:
-            entries:
-              description: 回付ルールコードのリスト
-              type: array
-              items:
-                type: object
-                properties:
-                  ruleCode:
-                    description: 回付ルールコード
-                    type: string
+          allOf:
+            - $ref: "#/components/schemas/targetRuleList"
         isDisplayCreateMenu:
           description: 書類作成画面に表示するかどうか
           type: boolean
@@ -10322,10 +10530,12 @@ components:
     
     FindProxyApplyAppointmentRequest:
       type: object
+      pattern: FindProxyApplicationAppointmentRequestModel
       properties:
         condition:
           description: 代理申請検索条件
           type: object
+          pattern: org.ProxyApplicationAppointmentConditionModel
           properties:
             principalUserCode:
               description: 被代理ユーザーコード
@@ -10352,6 +10562,7 @@ components:
     
     AddProxyAppointmentRequest:
       type: object
+      pattern: org.ProxyAppointmentModel
       properties:
         principalUserCode:
           description: 被代理ユーザーコード
@@ -10363,29 +10574,11 @@ components:
           description: 代理ユーザーコード
           type: string
         targetFormList:
-          description: 対象フォーム一覧
-          properties:
-            entries:
-              description: フォームコードのリスト
-              type: array
-              items:
-                type: object
-                properties:
-                  formCode:
-                    description: フォームコード
-                    type: string
+          allOf:
+            - $ref: "#/components/schemas/targetFormList"
         targetRuleList:
-          description: 対象回付ルール一覧
-          properties:
-            entries:
-              description: 回付ルールコードのリスト
-              type: array
-              items:
-                type: object
-                properties:
-                  ruleCode:
-                    description: 回付ルールコード
-                    type: string
+          allOf:
+            - $ref: "#/components/schemas/targetRuleList"
         isSendNotification:
           description: 代理承認依頼を通知するかどうか
           type: boolean
@@ -10407,10 +10600,12 @@ components:
     
     FindProxyAppointmentRequest:
       type: object
+      pattern: org.FindProxyAppointmentRequestModel
       properties:
         condition:
           description: 代理承認検索条件
           type: object
+          pattern: org.ProxyAppointmentConditionModel
           properties:
             principalUnitCode:
               description: 被代理組織コード
@@ -10440,6 +10635,7 @@ components:
     
     AddDelegationAppointmentRequest:
       type: object
+      pattern: org.DelegationAppointmentModel
       properties:
         fromUserCode:
           description: 委譲元ユーザーコード
@@ -10451,29 +10647,11 @@ components:
           description: 委譲先ユーザーコード
           type: string
         targetFormList:
-          description: 対象フォーム一覧
-          properties:
-            entries:
-              description: フォームコードのリスト
-              type: array
-              items:
-                type: object
-                properties:
-                  formCode:
-                    description: フォームコード
-                    type: string
+          allOf:
+            - $ref: "#/components/schemas/targetFormList"
         targetRuleList:
-          description: 対象回付ルール一覧
-          properties:
-            entries:
-              description: 回付ルールコードのリスト
-              type: array
-              items:
-                type: object
-                properties:
-                  ruleCode:
-                    description: 回付ルールコード
-                    type: string
+          allOf:
+            - $ref: "#/components/schemas/targetRuleList"
         availableDateFrom:
           description: 適用開始日
           type: string
@@ -10498,10 +10676,12 @@ components:
     
     FindDelegationAppointmentRequest:
       type: object
+      pattern: org.FindDelegationAppointmentRequestModel
       properties:
         condition:
           description: 権限委譲検索条件
           type: object
+          pattern: org.DelegationAppointmentConditionModel
           properties:
             fromUnitCode:
               description: 権限委譲元組織コード
@@ -10525,34 +10705,17 @@ components:
     
     AddDeprivationAppointmentRequest:
       type: object
+      pattern: org.DeprivationAppointmentModel
       properties:
         userCode:
           description: ユーザーコード
           type: string
         targetFormList:
-          description: 対象フォーム一覧
-          properties:
-            entries:
-              description: フォームコードのリスト
-              type: array
-              items:
-                type: object
-                properties:
-                  formCode:
-                    description: フォームコード
-                    type: string
+          allOf:
+            - $ref: "#/components/schemas/targetFormList"
         targetRuleList:
-          description: 対象回付ルール一覧
-          properties:
-            entries:
-              description: 回付ルールコードのリスト
-              type: array
-              items:
-                type: object
-                properties:
-                  ruleCode:
-                    description: 回付ルールコード
-                    type: string
+          allOf:
+            - $ref: "#/components/schemas/targetRuleList"
         availableDateFrom:
           description: 適用開始日
           type: string
@@ -10568,10 +10731,12 @@ components:
     
     FindDeprivationAppointmentRequest:
       type: object
+      pattern: org.FindDeprivationAppointmentRequestModel
       properties:
         condition:
           description: 引上げ権限検索条件
           type: object
+          pattern: org.DeprivationAppointmentConditionModel
           properties:
             userCode:
               description: ユーザーコード
@@ -10589,6 +10754,7 @@ components:
     
     AddPrivateRoleRequest:
       type: object
+      pattern: org.PrivateRoleModel
       properties:
         code:
           description: プライベートロールコード
@@ -10610,12 +10776,15 @@ components:
           type: boolean
         candidateList:
           description: プライベートロール候補者リスト
+          type: object
+          pattern: org.PrivateRoleCandidateListModel
           properties:
             entries:
               description: プライベートロール候補者のリスト
               type: array
               items:
                 type: object
+                pattern: org.PrivateRoleCandidateModel
                 properties:
                   type:
                     description: |
@@ -10660,6 +10829,7 @@ components:
         guidance:
           description: ユーザーサイトの説明文
           type: object
+          pattern: common.GuidanceModel
           properties:
             subject:
               description: 件名
@@ -10670,10 +10840,12 @@ components:
     
     FindPrivateRoleRequest:
       type: object
+      pattern: org.FindPrivateRoleRequestModel
       properties:
         condition:
           description: プライベートロール検索条件
           type: object
+          pattern: org.PrivateRoleConditionModel
           properties:
             code:
               description: プライベートロールコード
@@ -10684,12 +10856,14 @@ components:
             columnValueConditionList:
               description: 任意検索条件一覧
               type: object
+              pattern: org.PrivateRoleColumnValueConditionListModel
               properties:
                 entries:
                   description: 任意検索条件
                   type: array
                   items:
                     type: object
+                    pattern: org.PrivateRoleConditionModel
                     properties:
                       column:
                         description: |
@@ -10712,6 +10886,7 @@ components:
     
     AddPrivateRoleAppointmentRequest:
       type: object
+      pattern: org.PrivateRoleAppointmentModel
       properties:
         userCode:
           description: ユーザーコード
@@ -10737,10 +10912,12 @@ components:
     
     FindPrivateRoleAppointmentRequest:
       type: object
+      pattern: orgFindPrivateRoleAppointmentRequestModel
       properties:
         condition:
           description: プライベートロール所属検索条件
           type: object
+          pattern: org.PrivateRoleAppointmentConditionModel
           properties:
             userCode:
               description: ユーザーコード
@@ -10754,12 +10931,14 @@ components:
             columnValueConditionList:
               description: 任意検索条件一覧
               type: object
+              pattern: org.PrivateRoleAppointmentColumnValueConditionListModel
               properties:
                 entries:
                   description: 任意検索条件
                   type: array
                   items:
                     type: object
+                    pattern: org.PrivateRoleAppointmentColumnValueConditionModel
                     properties:
                       column:
                         description: |
@@ -10824,8 +11003,46 @@ components:
               type: string
               pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
     
+    UpdatePrivateRoleAppointmentRequest:
+      type: object
+      pattern: org.FindPrivateRoleRequestModel
+      properties:
+        id:
+          description: |
+            更新対象プライベートロール所属のID<br>
+            *「プライベートロール所属作成API」または「プライベートロール所属参照API」で取得した値を指定
+          type: integer
+        userCode:
+          description: |
+            ユーザーコード<br>
+            *変更不可
+          type: string
+        privateRoleCode:
+          description: |
+            プライベートロールコード<br>
+            *変更不可
+          type: string
+        candidateCode:
+          description: |
+            候補者のユーザーコード<br>
+            *変更不可
+          type: string
+        availableDateFrom:
+          description: 適用開始日
+          type: string
+          pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
+        availableDateTo:
+          description: 適用終了日
+          type: string
+          pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
+        criterionDate:
+          description: 基準日
+          type: string
+          pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
+    
     AddUniversalRoleRequest:
       type: object
+      pattern: org.UniversalRoleModel
       properties:
         code:
           description: ユニバーサルロールコード
@@ -10845,10 +11062,12 @@ components:
     
     FindUniversalRoleRequest:
       type: object
+      pattern: org.FindUniversalRoleRequestModel
       properties:
         condition:
           description: ユニバーサルロール検索条件
           type: object
+          pattern: org.UniversalRoleConditionModel
           properties:
             code:
               description: ユニバーサルロールコード
@@ -10859,12 +11078,14 @@ components:
             columnValueConditionList:
               description: 任意検索条件一覧
               type: object
+              pattern: org.UniversalRoleColumnValueConditionListModel
               properties:
                 entries:
                   description: 任意検索条件
                   type: array
                   items:
                     type: object
+                    pattern: org.UniversalRoleColumnValueConditionModel
                     properties:
                       column:
                         description: |
@@ -10889,6 +11110,7 @@ components:
     
     AddUniversalRoleAppointmentRequest:
       type: object
+      pattern: org.UniversalRoleAppointmentModel
       properties:
         userCode:
           description: ユーザーコード
@@ -10911,10 +11133,12 @@ components:
     
     FindUniversalRoleAppointmentRequest:
       type: object
+      pattern: org.FindUniversalRoleAppointmentRequestModel
       properties:
         condition:
           description: ユニバーサルロール所属検索条件
           type: object
+          pattern: org.UniversalRoleAppointmentConditionModel
           properties:
             userCode:
               description: ユーザーコード
@@ -10925,12 +11149,14 @@ components:
             columnValueConditionList:
               description: 任意検索条件一覧
               type: object
+              pattern: org.UniversalRoleAppointmentColumnValueConditionListModel
               properties:
                 entries:
                   description: 任意検索条件
                   type: array
                   items:
                     type: object
+                    pattern: org.UniversalRoleAppointmentColumnValueConditionModel
                     properties:
                       column:
                         description: |
@@ -10978,10 +11204,12 @@ components:
     
     GetDoc:
       type: object
+      pattern: doc.DocHeaderModel
       properties:
         owner:
           description: 書類オーナー
           type: object
+          pattern: doc.DocOwnerModel
           properties:
             type:
               description: |
@@ -11015,10 +11243,10 @@ components:
     
     GetDocHeaderResponse:
       type: object
+      pattern: doc.DocHeaderResponseModel
       properties:
         docHeader:
           description: 書類情報
-          type: object
           allOf:
             - $ref: "#/components/schemas/GetDoc"
         resultStatus:
@@ -11027,10 +11255,12 @@ components:
     
     ListDocReferencerResponse:
       type: object
+      pattern: doc.ListDocReferencerResponseModel
       properties:
         docHeaderList:
           description: 書類情報のリスト
           type: object
+          pattern: doc.DocHeaderModel
           properties:
             entries:
               description: 書類情報
@@ -11044,18 +11274,22 @@ components:
     
     DocResponse:
       type: object
+      pattern: doc.DocResponseModel
       properties:
         doc:
           description: 書類情報
           type: object
+          pattern: doc.DocModel
           properties:
             docData:
               description: 書類データ
               type: object
+              pattern: doc.DocDataModel
               properties:
                 entryList:
                   description: 各フィールドのデータ
                   type: object
+                  pattern: doc.DocDataEntryModel
                   properties:
                     entries:
                       type: array
@@ -11077,6 +11311,7 @@ components:
                           dataValue:
                             description: フィールドの値
                             type: object
+                            pattern: doc.DocDataValueModel
                             properties:
                               value:
                                 description: |
@@ -11086,6 +11321,8 @@ components:
                                 description: |
                                   表明細フィールドのリスト<br>
                                   *表明細フィールドの場合のみ
+                                type: object
+                                pattern: doc.DocDataEntryModel
             publicFormId:
               description: 公開フォームID
               type: integer
@@ -11097,29 +11334,35 @@ components:
     
     SelectDocResponse:
       type: object
+      pattern: common.SelectResponseModel
       properties:
         resultSet:
           description: 結果のセット
           type: object
+          pattern: common.ResultSetModel
           properties:
             recordList:
               description: レコードのリスト
               type: object
+              pattern: common.RecordListModel
               properties:
                 entries:
                   description: レコード
                   type: array
                   items:
                     type: object
+                    pattern: common.RecordModel
                     properties:
                       entryList:
                         description: エントリのリスト
                         type: object
+                        pattern: common.EntryListModel
                         properties:
                           entries:
                             type: array
                             items:
                               type: object
+                              pattern: common.EntryModel
                               properties:
                                 name:
                                   description: 名称
@@ -11127,17 +11370,17 @@ components:
                                 value:
                                   description: 値
                                   type: object
-                                  
-                     
             fieldList:
               description: フィールドのリスト
               type: object
+              pattern: common.FieldListModel
               properties:
                 entries:
                   description: フィールド
                   type: array
                   items:
                     type: object
+                    pattern: common.FieldModel
                     properties:
                       name:
                         description: フィールド名
@@ -11151,10 +11394,12 @@ components:
     
     ListDocCommentResponse:
       type: object
+      pattern: doc.ListDocCommentResponseModel
       properties:
         docCommentList:
           description: 書類コメント一覧
           type: object
+          pattern: doc.DocCommentListModel
           properties:
             entries:
               description: 書類コメント情報
@@ -11168,6 +11413,7 @@ components:
     
     AddDocCommentResponse:
       type: object
+      pattern: doc.DocCommentResponseModel
       properties:
         docComment:
           description: 書類コメント情報
@@ -11179,6 +11425,7 @@ components:
    
     ruleStepHeader:
       type: object
+      pattern: rule.RuleStepHeaderModel
       properties:
         name:
           description: ステップ名称
@@ -11211,6 +11458,7 @@ components:
    
     docComment:
       type: object
+      pattern: doc.DocCommentModel
       properties:
         id:
           description: コメントID
@@ -11224,7 +11472,7 @@ components:
             - $ref: "#/components/schemas/ruleStepHeader"
         effectorType:
           allOf:
-            - $ref: "#/components/schemas/operationInfo"
+            - $ref: "#/components/schemas/effectorType"
         operationInfo:
           description: 操作情報
           allOf:
@@ -11257,6 +11505,7 @@ components:
     
     operationInfo:
       type: object
+      pattern: common.OperationInfoModel
       properties:
         registrationDate:
           description: 登録日時
@@ -11285,6 +11534,7 @@ components:
     
     commonOperatorModel:
       type: object
+      pattern: common.OperatorModel
       properties:
         userName:
           description: ユーザー名称
@@ -11307,6 +11557,7 @@ components:
     
     DocAttachmentResponse:
       type: object
+      pattern: doc.DocAttachmentResponseModel
       properties:
         docAttachment:
           description: 書類添付情報
@@ -11318,10 +11569,12 @@ components:
     
     ListDocAttachmentResponse:
       type: object
+      pattern: doc.ListDocAttachmentResponseModel
       properties:
         docAttachmentList:
           description: 書類添付情報一覧
           type: object
+          pattern: doc.DocAttachmentListModel
           properties:
             entries:
               description: 書類添付情報
@@ -11335,6 +11588,7 @@ components:
     
     docAttachment:
       type: object
+      pattern: doc.DocAttachmentModel
       properties:
         name:
           description: ファイル名称
@@ -11365,6 +11619,7 @@ components:
         storageFile:
           description: 添付ファイル
           type: object
+          pattern: system.StorageFileModel
           properties:
             name:
               description: ファイル名
@@ -11394,20 +11649,24 @@ components:
     
     SelectWorkflowMessageResponse:
       type: object
+      pattern: common.SelectResponseModel
       properties:
         resultSet:
           description: 回付情報の検索結果
           type: object
+          pattern: common.ResultSetModel
           properties:
             fieldList:
               description: フィールド情報一覧
               type: object
+              pattern: common.FieldListModel
               properties:
                 entries:
                   description: フィールド情報
                   type: array
                   items:
                     type: object
+                    pattern: common.FieldModel
                     properties:
                       name:
                         description: フィールド名
@@ -11418,12 +11677,14 @@ components:
             recordList:
               description: レコード情報一覧
               type: object
+              pattern: common.RecordListModel
               properties:
                 entries:
                   description: レコード情報
                   type: array
                   items:
                     type: object
+                    pattern: common.RecordModel
                     properties:
                       index:
                         description: レコードインデックス
@@ -11431,6 +11692,7 @@ components:
                       entryList:
                         description: エントリのリスト
                         type: object
+                        pattern: common.EntryModel
                         properties:
                           entries:
                             description: エントリ
@@ -11450,9 +11712,11 @@ components:
     
     GetWorkflowInfoResponse:
       type: object
+      pattern: workflow.WorkflowInfoResponseModel
       properties:
         workflowInfo:
           type: object
+          pattern: workflow.WorkflowInfoModel
           properties:
             createOperator:
               description: 作成者
@@ -11461,6 +11725,7 @@ components:
             currentRuleStepHeaderList:
               description: 現在ステップ情報リスト
               type: object
+              pattern: rule.RuleStepHeaderListModel
               properties:
                 entries:
                   description: 現在ステップヘッダ情報
@@ -11532,16 +11797,19 @@ components:
     
     FindWorkflowTaskResponse:
       type: object
+      pattern: workflow.FindWorkflowTaskResponseModel
       properties:
         workflowTaskList:
           description: 回付情報タスク検索結果
           type: object
+          pattern: workflow.WorkflowTaskListModel
           properties:
             entries:
               description: 回付情報タスク一覧
               type: array
               items:
                 type: object
+                pattern: workflow.WorkflowTaskModel
                 properties:
                   state:
                     description: |
@@ -11564,6 +11832,7 @@ components:
                   ruleEffector:
                     description: タスク作用
                     type: object
+                    pattern: rule.RuleEffectorHeaderModel
                     properties:
                       name:
                         description: 作用名称
@@ -11592,16 +11861,19 @@ components:
     
     ListWorkflowJournalResponse:
       type: object
+      pattern: workflow.ListWorkflowJournalResponseModel
       properties:
         workflowJournalList:
           description: 回付情報タスク検索結果
           type: object
+          pattern: workflow.WorkflowJournalListModel
           properties:
             entries:
               description: 回付情報タスク一覧
               type: array
               items:
                 type: object
+                pattern: workflow.WorkflowJournalModel
                 properties:
                   comment:
                     description: コメント
@@ -11623,6 +11895,7 @@ components:
                   ruleEffector:
                     description: タスク作用
                     type: object
+                    pattern: rule.RuleEffectotHeaderModel
                     properties:
                       name:
                         description: 作用名称
@@ -11640,16 +11913,19 @@ components:
     
     ListElectJournalResponse:
       type: object
+      pattern: workflow.ListElectJournalResponseModel
       properties:
         electJournalList:
           description: 処理者変更履歴検索結果
           type: object
+          pattern: workflow.ElectJournalListModel
           properties:
             entries:
               description: 処理者変更履歴一覧
               type: array
               items:
                 type: object
+                pattern: workflow.ElectJournalModel
                 properties:
                   createDate:
                     description: 登録日時
@@ -11693,16 +11969,19 @@ components:
     
     ListShareJournalResponse:
       type: object
+      pattern: workflow.ListShareJournalResponseModel
       properties:
         shareJournalList:
           description: 共有履歴検索結果
           type: object
+          pattern: workflow.ShareJournalListModel
           properties:
             entries:
               description: 共有履歴一覧
               type: array
               items:
                 type: object
+                pattern: workflow.ShareJournalModel
                 properties:
                   createDate:
                     description: 登録日時
@@ -11749,6 +12028,7 @@ components:
     
     UserResponse:
       type: object
+      pattern: org.UserResponseModel
       properties:
         user:
           description: ユーザー情報
@@ -11769,16 +12049,19 @@ components:
     
     FindUserResponse:
       type: object
+      pattern: org.FindUserResponseModel
       properties:
         userList:
-          description: ユーザー情報一覧
+          description: ユーザー参照結果一覧
           type: object
+          pattern: org.UserListModel
           properties:
             entries:
-              description: セクションロール情報
+              description: ユーザー参照一覧
               type: array
               items:
                 type: object
+                pattern: org.UserModel
                 properties:
                   id:
                     description: ユーザーのid
@@ -11795,6 +12078,7 @@ components:
     
     UnitResponse:
       type: object
+      pattern: org.UnitResponseModel
       properties:
         unit:
           description: 組織情報
@@ -11815,10 +12099,12 @@ components:
     
     FindUnitResponse:
       type: object
+      pattern: org.FindUnitResponseModel
       properties:
         unitList:
           description: 組織情報一覧
           type: object
+          pattern: org.UnitListModel
           properties:
             entries:
               description: 組織情報
@@ -11841,6 +12127,7 @@ components:
     
     SectionRoleResponse:
       type: object
+      pattern: org.SectionRoleResponseModel
       properties:
         sectionRole:
           description: セクションロール情報
@@ -11857,10 +12144,12 @@ components:
     
     FindSectionRoleResponse:
       type: object
+      pattern: org.FindSectionRoleResponseModel
       properties:
         sectionRoleList:
           description: セクションロール情報一覧
           type: object
+          pattern: org.SectionRoleListModel
           properties:
             entries:
               description: セクションロール情報
@@ -11879,6 +12168,7 @@ components:
     
     SectionRoleGroupResponse:
       type: object
+      pattern: org.SectionRoleGroupResponseModel
       properties:
         sectionRoleGroup:
           description: セクションロールグループ情報
@@ -11895,10 +12185,12 @@ components:
     
     FindSectionRoleGroupResponse:
       type: object
+      pattern: org.FindSectionRoleGroupResponseModel
       properties:
         sectionRoleGroupList:
           description: セクションロールグループ情報一覧
           type: object
+          pattern: org.SectionRoleGroupListModel
           properties:
             entries:
               description: セクションロールグループ情報
@@ -11917,6 +12209,7 @@ components:
     
     UnitAppointmentResponse:
       type: object
+      pattern: org.UnitAppointmentResponseModel
       properties:
         unitAppointment:
           description: 組織所属情報
@@ -11935,10 +12228,12 @@ components:
     
     FindUnitAppointmentResponse:
       type: object
+      pattern: org.FindUnitAppointmentResponseModel
       properties:
         unitAppointmentList:
           description: 組織所属情報一覧
           type: object
+          pattern: org.UnitAppointmentListModel
           properties:
             entries:
               description: 組織所属情報
@@ -11960,6 +12255,7 @@ components:
     
     ProxyApplyAppointmentResponse:
       type: object
+      pattern: org.ProxyApplicationAppointmentResponseModel
       properties:
         proxyApplicationAppointment:
           description: 代理申請情報
@@ -11976,10 +12272,12 @@ components:
     
     FindProxyApplyAppointmentResponse:
       type: object
+      pattern: org.FindProxyApplicationAppointmentResponseModel
       properties:
         proxyApplicationAppointmentList:
           description: 代理申請情報一覧
           type: object
+          pattern: org.ProxyApplicationAppointmentListModel
           properties:
             entries:
               description: 代理申請情報
@@ -11998,6 +12296,7 @@ components:
     
     ProxyAppointmentResponse:
       type: object
+      pattern: org.ProxyAppointmentResponseModel
       properties:
         proxyAppointment:
           description: 代理承認情報
@@ -12014,10 +12313,12 @@ components:
     
     FindProxyAppointmentResponse:
       type: object
+      pattern: org.FindProxyAppointmentResponseModel
       properties:
         proxyAppointmentList:
           description: 代理承認情報一覧
           type: object
+          pattern: org.ProxyAppointmentListModel
           properties:
             entries:
               description: 代理承認情報
@@ -12036,6 +12337,7 @@ components:
     
     DelegationAppointmentResponse:
       type: object
+      pattern: org.DelegationAppointmentResponseModel
       properties:
         delegationAppointment:
           description: 権限委譲情報
@@ -12052,10 +12354,12 @@ components:
     
     FindDelegationAppointmentResponse:
       type: object
+      pattern: org.FindDelegationAppointmentResponseModel
       properties:
         delegationAppointmentList:
           description: 権限委譲情報一覧
           type: object
+          pattern: org.DelegationAppointmentListModel
           properties:
             entries:
               description: 権限委譲情報
@@ -12074,6 +12378,7 @@ components:
     
     DeprivationAppointmentResponse:
       type: object
+      pattern: org.DeprivationAppointmentResponseModel
       properties:
         deprivationAppointment:
           description: 引上げ権限情報
@@ -12090,10 +12395,12 @@ components:
     
     FindDeprivationAppointmentResponse:
       type: object
+      pattern: org.FindDeprivationAppointmentResponseModel
       properties:
         deprivationAppointmentList:
           description: 引上げ権限情報一覧
           type: object
+          pattern: org.DeprivationAppointmentListModel
           properties:
             entries:
               description: 引上げ権限情報
@@ -12112,6 +12419,7 @@ components:
     
     PrivateRoleResponse:
       type: object
+      pattern: org.PrivateRoleResponseModel
       properties:
         privateRole:
           description: プライベートロール情報
@@ -12128,10 +12436,12 @@ components:
     
     FindPrivateRoleResponse:
       type: object
+      pattern: org.FindPrivateRoleResponseModel
       properties:
         privateRoleList:
           description: プライベートロール一覧
           type: object
+          pattern: org.PrivateRoleListModel
           properties:
             entries:
               description: プライベートロール情報
@@ -12150,6 +12460,7 @@ components:
     
     PrivateRoleAppointmentResponse:
       type: object
+      pattern: org.PrivateRoleAppointmentResponseModel
       properties:
         privateRoleAppointment:
           description: プライベートロール所属情報
@@ -12166,10 +12477,12 @@ components:
     
     FindPrivateRoleAppointmentResponse:
       type: object
+      pattern: org.FindPrivateRoleAppointmentResponseModel
       properties:
         privateRoleAppointmentList:
           description: プライベートロール所属一覧
           type: object
+          pattern: org.PrivateRoleAppointmentListModel
           properties:
             entries:
               description: プライベートロール所属情報
@@ -12188,6 +12501,7 @@ components:
     
     UniversalRoleResponse:
       type: object
+      pattern: org.UniversalRoleResponseModel
       properties:
         universalRole:
           description: ユニバーサルロール情報
@@ -12204,10 +12518,12 @@ components:
     
     FindUniversalRoleResponse:
       type: object
+      pattern: org.FindUniversalRoleResponseModel
       properties:
         universalRoleList:
           description: ユニバーサルロール一覧
           type: object
+          pattern: org.UnivarsalRoleListModel
           properties:
             entries:
               description: ユニバーサルロール情報
@@ -12226,6 +12542,7 @@ components:
     
     UniversalRoleAppointmentResponse:
       type: object
+      pattern: org.UniversalRoleAppointmentResponseModel
       properties:
         universalRoleAppointment:
           description: ユニバーサルロール所属情報
@@ -12242,10 +12559,12 @@ components:
     
     FindUniversalRoleAppointmentResponse:
       type: object
+      pattern: org.FindUniversalRoleAppointmentResponseModel
       properties:
         universalRoleAppointmentList:
           description: ユニバーサルロール所属一覧
           type: object
+          pattern: org.UniversalRoleAppointmentListModel
           properties:
             entries:
               description: ユニバーサルロール所属情報
@@ -12264,6 +12583,7 @@ components:
     
     FindProjectResponse:
       type: object
+      pattern: site.ListProjectResponseModel
       properties:
         projectList:
           description: 業務カテゴリ一覧
@@ -12286,15 +12606,18 @@ components:
     
     ListComponentMasterWindowResponse:
       type: object
+      pattern: form.ListMasterWindowComponetResponseModel
       properties:
         masterWindow:
           description: マスタ参照コンポーネント
           type: object
+          pattern: form.MasterWindowComponentProjectListModel
           properties:
             entries:
               type: array
               items:
                 type: object
+                pattern: form.MasterWindowComponentProjectModel
                 properties:
                   name:
                     description: 業務カテゴリ名
@@ -12308,11 +12631,13 @@ components:
                   componentList:
                     description: マスタ参照コンポーネントリスト
                     type: object
+                    pattern: form.MasterWindowComponentListModel
                     properties:
                       entries:
                         type: array
                         items:
                           type: object
+                          pattern: form.MasterWindowComponentModel
                           properties:
                             name:
                               description: コンポーネント名称
@@ -12329,11 +12654,13 @@ components:
                             column:
                               description: 列項目
                               type: object
+                              pattern: form.MasterComponentColumnListModel
                               properties:
                                 entries:
                                   type: array
                                   items:
                                     type: object
+                                    pattern: form.MasterComponentColumnModel
                                     properties:
                                       name:
                                         description: 見出し名称
@@ -12347,15 +12674,18 @@ components:
     
     ListComponentAutoNumberResponse:
       type: object
+      pattern: form.ListAutoNumberComponentResponseModel
       properties:
         autoNumber:
           description: 自動採番コンポーネント
           type: object
+          pattern: form.AutoNumberComponentProjectListModel
           properties:
             entries:
               type: array
               items:
                 type: object
+                pattern: form.AutoNumberComponentProjectModel
                 properties:
                   name:
                     description: 業務カテゴリ名
@@ -12369,11 +12699,13 @@ components:
                   componentList:
                     description: 自動採番コンポーネントリスト
                     type: object
+                    pattern: form.AutoNumberComponentListModel
                     properties:
                       entries:
                         type: array
                         items:
                           type: object
+                          pattern: form.AutoNumberComponentModel
                           properties:
                             name:
                               description: コンポーネント名称
@@ -12390,15 +12722,18 @@ components:
     
     ListFormResponse:
       type: object
+      pattern: form.ListFormResponseModel
       properties:
         formProject:
           description: フォーム設定情報
           type: object
+          pattern: form.FormProjectListModel
           properties:
             entries:
               type: array
               items:
                 type: object
+                pattern: form.FormProjectModel
                 properties:
                   name:
                     description: |
@@ -12413,6 +12748,7 @@ components:
                   form:
                     description: フォーム
                     type: object
+                    pattern: form.FormListModel
                     properties:
                       entries:
                         type: array
@@ -12437,6 +12773,7 @@ components:
                                 フォームフィールド一覧<br>
                                 *空を出力。フォーム定義情報取得APIで表示。
                               type: object
+                              pattern: form.FormFieldListModel
                             explanation:
                               description: 備考
                               type: string
@@ -12500,6 +12837,7 @@ components:
                             tableName:
                               description: DBテーブル名一覧
                               type: object
+                              pattern: form.FormTableNameListModel
                               properties:
                                 entries:
                                   type: array
@@ -12532,6 +12870,7 @@ components:
     
     FindFormDefinitionResponse:
       type: object
+      pattern: form.findFormDefinitionResponseModel
       properties:
         form:
           type: object
@@ -12547,11 +12886,13 @@ components:
                 回付ルール情報<br>
                 *ない場合は、空白配列
               type: object
+              pattern: form.RuleStepNameListModel
               properties:
                 entries:
                   type: array
                   items:
                     type: object
+                    pattern: form.RuleStepNameModel
                     properties:
                       code:
                         description: 回付ルールコード
@@ -12565,6 +12906,7 @@ components:
                           *リクエストのルールコードが未指定の場合は、空
                           *リクエストのルールコードが設定された場合、設定したルールコードの内容のみ表示
                         type: object
+                        pattern: form.StepFieldListModel
                         properties:
                           entries:
                             type: array
@@ -12598,6 +12940,7 @@ components:
             pages:
               description: フォームページ情報
               type: object
+              pattern: form.FormPageListModel
               properties:
                 entries:
                   type: array
@@ -12607,11 +12950,13 @@ components:
                       fields:
                         description: フィールド情報
                         type: object
+                        pattern: form.FormFieldListModel
                         properties:
                           entries:
                             type: array
                             items:
                               type: object
+                              pattern: form.FormFieldModel
                               properties:
                                 name:
                                   description: フィールド名称
@@ -12816,10 +13161,12 @@ components:
     
     ListPublicFolderInfoResponse:
       type: object
+      pattern: publication.ListPublicFolderInfoResponseModel
       properties:
         publicFolderList:
           description: 公開フォルダのリスト
           type: object
+          pattern: publication.PublicFolderInfoListModel
           properties:
             entries:
               type: array
@@ -12838,6 +13185,7 @@ components:
                   publicFormList:
                     description: 公開フォームのリスト
                     type: object
+                    pattern: publication.PublicFormListModel
                     properties:
                       entries:
                         type: array
@@ -12859,6 +13207,7 @@ components:
                   publicFolderList:
                     description: 公開フォルダのリスト
                     type: object
+                    pattern: publication.PublicFolderListModel
         resultStatus:
           allOf:
             - $ref: "#/components/schemas/resultStatus"
@@ -12912,7 +13261,7 @@ components:
     model_model:
       description: |
         モデル名<br>
-        APIの各ページを参照
+        APIの各ページのスキーマを参照
       name: model_model
       in: path
       schema:
