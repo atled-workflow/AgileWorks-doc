@@ -13281,7 +13281,7 @@ components:
         使用したいAPIに応じて指定してください。<br>
         ・メソッド名：APIの各ページを参照
       name: service_method
-      in: auery
+      in: query
       schema:
         type: string
         example: getDocHeader
