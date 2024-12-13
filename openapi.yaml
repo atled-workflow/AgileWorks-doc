@@ -13273,7 +13273,7 @@ components:
       in: query
       schema:
         type: string
-        example: doc
+        example: doc.Doc
       
     service_method:
       description: |
