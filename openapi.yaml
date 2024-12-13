@@ -5060,8 +5060,12 @@ components:
       content:
         application/json:
           schema:
-            allOf:
-              - $ref: "#/components/schemas/resultStatus"
+            type: object
+            pattern: common.ResponseModel
+            properties:
+              resultStatus:
+                allOf:
+                  - $ref: "#/components/schemas/resultStatus"
           examples:
             正常:
               value:
@@ -9108,6 +9112,7 @@ components:
     resultStatus:
       description: APIの実行結果
       type: object
+      pattern: common.ResultStatusModel
       properties:
         status:
           description: 結果ステータス
@@ -9115,6 +9120,7 @@ components:
         messageList:
           description: メッセージ詳細
           type: object
+          pattern: common.MessageModel
           properties:
             entries:
               type: array
