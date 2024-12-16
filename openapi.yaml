@@ -2782,6 +2782,7 @@ components:
 
   requestBodies:
     docId:
+      required: true
       content:
         application/json:
           schema:
@@ -2790,6 +2791,7 @@ components:
             example: 999
     
     docId2:
+      required: true
       content:
         application/json:
           schema:
@@ -2967,7 +2969,10 @@ components:
                     compareOperatorType: LIKE
                     value: t
               relativeConditionList:
-                entries: []
+                entries: 
+                  - type: CREATE
+                    userType: USER
+                    userCode: user01
               logicalOperatirType: AND
               workflowState: ACTIVE
               dateCondition:
@@ -3023,13 +3028,15 @@ components:
                 example: 9999
     
     AddDocAttachmentRequest:
-      description: 添付書類タイプがファイルの場合、アップロードファイルは multipart/form-data の２つ目に設定します。
+      description: 添付ファイルがURLのときはapplication/json、FILEのときはmultipart/form-dataを指定します。
       content:
         application/json:
           schema:
             required:
               - docId
               - type
+              - name
+              - url
             allOf:
               - $ref: "#/components/schemas/AddDocAttachmentRequest"
           example:
@@ -3038,13 +3045,27 @@ components:
             name: urlname
             url: https://atled.jp/AgileWorks/Broker/Picus
         multipart/form-data:
-          example:
-            docId: 999
-            type: FILE
-            explanation: 説明
+          schema:
+            type: object
+            required:
+              - request
+              - attachment
+            properties:
+              request:
+                type: object
+                allOf:
+                  - $ref: "#/components/schemas/AddDocAttachmentRequest"
+                description: |
+                  application/jsonと同様です。<br>
+                  必須項目はdocId,typeです。
+              attachment:
+                type: string
+                format: uuid
+                description: アップロードファイル名を指定します。
+
     
     UpdateDocAttachmentRequest:
-      description: 添付書類タイプがファイルの場合、アップロードファイルは multipart/form-data の２つ目に設定します。
+      description: 添付ファイルがURLのときはapplication/json、FILEのときはmultipart/form-dataを指定します。
       content:
         application/json:
           schema:
@@ -3052,6 +3073,8 @@ components:
               - id
               - docId
               - type
+              - name
+              - url
             allOf:
               - $ref: "#/components/schemas/UpdateDocAttachmentRequest"
           example:
@@ -3061,11 +3084,23 @@ components:
             name: urlname
             url: https://atled.jp/AgileWorks/Broker/Picus
         multipart/form-data:
-          example:
-            id: 9999
-            docId: 999
-            type: FILE
-            explanation: 説明
+          schema:
+            type: object
+            required:
+              - request
+              - attachment
+            properties:
+              request:
+                type: object
+                allOf:
+                  - $ref: "#/components/schemas/UpdateDocAttachmentRequest"
+                description: |
+                  application/jsonと同様です。<br>
+                  必須項目はid,docId,typeです。
+              attachment:
+                type: string
+                format: uuid
+                description: アップロードファイル名を指定します。
     
     DeleteDocAttachmentRequest:
       content:
@@ -3334,6 +3369,8 @@ components:
               condition:
                 description: 回付情報タスクの検索条件
                 type: object
+                required:
+                  - docId
                 pattern: workflow.WorkflowTaskConditionModel
                 properties:
                   docId:
@@ -3347,11 +3384,14 @@ components:
                       ステップ種別<br>
                       指定可能な値<br>
                       |パラメータ|説明|
+                      |----|----|
                       |CREATE|作成ステップ|
                       |APPLY|申請ステップ|
                       |APPROVE|承認ステップ|
                       |CONFIRM|報告ステップ|
                       |READ|閲覧ステップ|
+                    type: string
+                    pattern: rule.EnumRuleStepType
           example:
             condition:
               docId: 999
@@ -4835,7 +4875,10 @@ components:
                 description: |
                   取込形式<br>
                   FULLSET：全件取込<br>
-                  SUBSET：差分取込
+                  SUBSET：差分取込<br>
+                  *未指定の場合はFULLSETに設定
+                type: string
+                pattern: MasterImportStrategy
                 example: FULLSET
               table:
                 description: テーブル名
@@ -4884,6 +4927,8 @@ components:
                   FULLSET：全件取込<br>
                   SUBSET：差分取込<br>
                   *FULLSETのみ対応し、SUBSETを指定してもFULLSETとしてインポートする
+                type: string
+                pattern: MasterImportStrategy
                 example: FULLSET
               table:
                 description: テーブル名
@@ -4914,6 +4959,9 @@ components:
                 description: |
                   コンテンツ<br>
                   *FormMan
+                type: string
+                pattern: site.EnumBaseContentAccessType
+                example: FormMan
     
     ListFormRequest:
       content:
@@ -5425,7 +5473,7 @@ components:
     GetDocPdfResponses200:
       description: Successful response
       content:
-        application/json:
+        application/octet-stream:
           schema:
             description: |
               PDFファイルの内容<br>
@@ -5434,6 +5482,8 @@ components:
             正常:
               value:
                 "{PDFファイルの内容(バイナリデータ)}"
+        application/json:
+          examples:
             パラメータが不正:
               value:
                 docPdf:
@@ -8569,11 +8619,13 @@ components:
     CsvResponses200:
       description: Successful response
       content:
-        application/json:
+        application/octet-stream:
           examples:
             正常:
               value:
                 "CSVファイルの内容(バイナリデータ)"
+        application/json:
+          examples:
             パラメータが不正:
               value:
                 userMasterCsv:
@@ -9061,6 +9113,8 @@ components:
         |BETWEEN|～と～の間|
         |EMPTY|未入力|
         |NOT_EMPTY|入力されている|
+      type: string
+      pattern: common.EnumCompareOperatorType
     
     enumDataType:
       description: |
@@ -9075,6 +9129,8 @@ components:
         |LONG|整数値(long)|
         |STRING|文字列|
         |TEXT|テキスト|
+      type: string
+      pattern: common.EnumDataType
     
     targetFormList:
       description: 対象フォーム一覧
@@ -9355,9 +9411,11 @@ components:
         formCode:
           description: |
             フォームコード<br>
-            **「書類データ取得API」または「新規書類データ保存API」で取得した値を指定
+            *「書類データ取得API」または「新規書類データ保存API」で取得した値を指定
         criterionDate:
-          description: 基準日
+          description: |
+            基準日<br>
+            *「書類データ取得API」または「新規書類データ保存API」で取得した値を指定
           type: string
           pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
         adminNo:
@@ -9453,6 +9511,8 @@ components:
                           |LASTOPERATOR_USER_CODE|最終処理者コード|
                           |LASTOPERATOR_USER_NAME|最終処理者名|
                           |LASTOPERATOR_DATE|最終処理日時|
+                        type: string
+                        pattern: doc.EnumDocViewColumnType
                       fieldId:
                         description: フィールドID
                         type: string
@@ -9495,6 +9555,8 @@ components:
                 |REJECTED|却下|
                 |CANCELED|取り下げ|
                 |DELETED|削除|
+              type: string
+              pattern: workflow.EnumWorkflowStateType
             listNameKeyword:
               description: 件名キーワード
               type: string
@@ -9514,6 +9576,8 @@ components:
                     |APPROVED|承認完了日|
                     |REGISTRATION|作成日|
                     |MODIFY|最終適用終了日|
+                  type: string
+                  pattern: doc.EnumDateConditionType
                 rangeType:
                   description: |
                     日付範囲タイプ<br>
@@ -9523,6 +9587,8 @@ components:
                     |ABSOLUTE_DATE|日付指定|
                     |RELATIVE_DAY|日付指定(日)|
                     |RELATIVE_MONTH|日付指定(月)|
+                  type: string
+                  pattern: doc.EnumRangeType
                 from:
                   description: 日付指定の開始日
                   type: string
@@ -9566,6 +9632,36 @@ components:
               description: ユーザー関連条件リスト
               type: object
               pattern: doc.RelativeConditionModel
+              properties:
+                type:
+                  description: |
+                    関連タイプ<br>
+                    指定可能な値<br>
+                    |パラメータ|説明|
+                    |----|----|
+                    |OWNER|書類オーナ|
+                    |CREATE|作成|
+                    |APPLY|申請|
+                    |APPROVE|承認|
+                    |PROXY_APPROVE|代理承認|
+                    |PRINCIPAL_APPROVE|被代理承認|
+                    |REJECT|却下|
+                    |CANCEL|取下げ|
+                unitCode:
+                  description: 組織コード
+                  type: integer
+                userCode:
+                  description: ユーザーコード
+                  type: integer
+                userType:
+                  description:
+                    ユーザータイプ<br>
+                    指定可能な値<br>
+                    |パラメータ|説明|
+                    |UNIT_APPOINTMENT|組織+ユーザ|
+                    |UNIT|組織|
+                    |USER|ユーザ|
+                    |LOGIN_USER|ログインユーザ(WebAPI実行ユーザ)
             logicalOperatorType:
               description: |
                 フィールド値条件全体の AND / OR<br>
@@ -9584,6 +9680,8 @@ components:
                     |----|----|
                     |FIELD|書類のフィールド|
                     |LISTNAME1～20|件名項目１～２０|
+                  type: string
+                  pattern: doc.EnumFieldValueType
                 fieldId:
                   description: フィールドID
                   type: string
@@ -9693,6 +9791,8 @@ components:
             |----|----|
             |FILE|添付ファイル|
             |URL|URL|
+          type: string
+          pattern: doc.EnumDocAttachmetType
         explanation:
           description: 添付の説明
           type: string
@@ -9730,7 +9830,7 @@ components:
         type:
           description: |
             添付書類タイプ<br>
-            *変更不可<br>
+            *更新前と同じ値を設定してください<br>
             指定可能な値<br>
             |パラメータ|説明|
             |----|----|
@@ -9779,8 +9879,10 @@ components:
             |CONFIRM_REQUEST|報告依頼|
             |PREPARE|下書き|
             |REMANDED|差戻し|
-            |REMIND_EXIST|催促あり|
+            |REMIND_EXIST|督促あり|
             |REQUEST_POSSIBLE|回付予定|
+          type: string
+          pattern: workflow.EnumWorkflowMessageType
     
     DraftRequest:
       type: object
@@ -10055,6 +10157,8 @@ components:
                           |AvailableDateFrom|運用開始日|
                           |AvailableDateTo|運用終了日|
                           |ReserveItem1～10|拡張項目1～10|
+                        type: string
+                        pattern: org.EnumUserFieldType
                       compareOperatorType:
                         allOf:
                           - $ref: "#/components/schemas/compareOperatorType"
@@ -10174,6 +10278,8 @@ components:
                           |AvailableDateFrom|運用開始日|
                           |AvailableDateTo|運用終了日|
                           |ReserveItem1～10|拡張項目1～10|
+                        type: string
+                        pattern: org.EnumUnitFieldType
                       compareOperatorType:
                         allOf:
                           - $ref: "#/components/schemas/compareOperatorType"
@@ -10257,6 +10363,8 @@ components:
                           |ImportId|インポートコード|
                           |Name|名称|
                           |Rank|ランク|
+                        type: string
+                        pattern: org.EnumSectionRoleFieldType
                       compareOperatorType:
                         allOf:
                           - $ref: "#/components/schemas/compareOperatorType"
@@ -10343,6 +10451,8 @@ components:
                           |Code|コード|
                           |Name|名称|
                           |SectionRoleCode|セクションロールコード|
+                        type: string
+                        pattern: org.EnumSectionRoleGroupFieldType
                       compareOperatorType:
                         allOf:
                           - $ref: "#/components/schemas/compareOperatorType"
@@ -10409,6 +10519,8 @@ components:
                 |ABSOLUTE|対象組織のみ|
                 |ESCALATE|対象組織と、組織の上位にある 全ての組織 or 所属を返す|
                 |CASCADE|対象組織と、対称組織の配下にある 全ての組織 or 所属を返す|
+              type: string
+              pattern: org.EnumUnitDirectionType
             columnValueConditionList:
               description: 任意検索条件一覧
               type: object
@@ -10448,6 +10560,8 @@ components:
                           |ValidityDateTo|ログインID|
                           |UnitReserveItem1～10|組織拡張項目1～10|
                           |UserReserveItem1～10|ユーザー拡張項目1～10|
+                        type: string
+                        pattern: org.EnumUnitAppointmentFieldType
                       compareOperatorType:
                         allOf:
                           - $ref: "#/components/schemas/compareOperatorType"
@@ -10673,6 +10787,8 @@ components:
             |FROM|委譲前の組織を維持|
             |TO|委譲後のユーザーの主務組織|
             |BLANK|表示しない|
+          type: string
+          pattern: org.EnumTaskUnitPolicyType
         criterionDate:
           description: 基準日
           type: string
@@ -10805,6 +10921,8 @@ components:
                       |OWNER_UNIT|設定ユーザー所属組織|
                       |OWNER_ESCALATE|設定ユーザー所属上位組織|
                       |OWNER_CASCADE|設定ユーザー所属下位組織|
+                    type: string
+                    pattern: org.EnumPrivateRoleCandidateType
                   userCode:
                     description: ユーザーコード
                     type: string
@@ -10823,6 +10941,8 @@ components:
                       |SECTION|セクションロール|
                       |UNIVERSAL|ユニバーサルロール|
                       |PRIVATE|プライベートロール|
+                    type: string
+                    pattern: org.EnumRoleType
                   roleGroupCode:
                     description: ロールグループコード
                     type: string
@@ -10877,6 +10997,8 @@ components:
                           |----|----|
                           |Code|コード|
                           |Name|名称|
+                        type: string
+                        pattern: org.EnumPrivateRoleFieldType
                       compareOperatorType:
                         allOf:
                           - $ref: "#/components/schemas/compareOperatorType"
@@ -10992,6 +11114,8 @@ components:
                           |CandidateReserveItem8|候補者のユーザー拡張項目８|
                           |CandidateReserveItem9|候補者のユーザー拡張項目９|
                           |CandidateReserveItem10|候補者のユーザー拡張項目１０|
+                        type: string
+                        pattern: org.EnumPrivateRoleAppointmentFieldType
                       compareOperatorType:
                         allOf:
                           - $ref: "#/components/schemas/compareOperatorType"
@@ -11101,6 +11225,8 @@ components:
                           |ImportId|インポートコード|
                           |Name|名称|
                           |Rank|ランク|
+                        type: string
+                        pattern: org.EnumUniversalRoleFieldType
                       compareOperatorType:
                         allOf:
                           - $ref: "#/components/schemas/compareOperatorType"
@@ -11191,6 +11317,8 @@ components:
                           |UserReserveItem8|ユーザーの拡張項目８|
                           |UserReserveItem9|ユーザーの拡張項目９|
                           |UserReserveItem10|ユーザーの拡張項目１０|
+                        type: string
+                        pattern: org.EnumUniversalRoleAppointmentFieldType
                       compareOperatorType:
                         allOf:
                           - $ref: "#/components/schemas/compareOperatorType"
@@ -11223,6 +11351,8 @@ components:
                 |----|----|
                 |UNIT|組織|
                 |USER|ユーザー|
+              type: string
+              pattern: form.EnumOwnerType
         id:
           description: 書類ID
           type: integer
@@ -11453,6 +11583,8 @@ components:
             |DISTRIBUTE|並列開始|
             |COLLECTION|並列合流|
             |END|終了|
+          type: string
+          pattern: rule.EnumRuleStepType
         index:
           description: インデックス
           type: integer
@@ -11506,6 +11638,8 @@ components:
         |CUSTOM|カスタムメニュー|
         |DEPRIVE|引上げ|
         |SHARE|共有|
+      type: string
+      pattern: rule.EnumRuleEffectorType
     
     operationInfo:
       type: object
@@ -11607,6 +11741,8 @@ components:
             |----|----|
             |FILE|添付ファイル|
             |URL|URL|
+          type: string
+          pattern: doc.EnumDocAttachmentType
         size:
           description: ファイルサイズ
           type: integer
@@ -11632,7 +11768,9 @@ components:
               description: ファイルキー
               type: string
             id:
-              description: ファイルID
+              description: |
+                ファイルID<br>
+                *ダウンロードAPIで使用可能
               type: string
             size:
               description: ファイルサイズ
@@ -11781,6 +11919,8 @@ components:
                 |REJECTED|却下|
                 |CANCELED|取り下げ|
                 |DELETED|削除|
+              type: string
+              pattern: workflow.EnumWorkflowStateType
             proxyApplyOperator:
               description: 代理申請者
               allOf:
@@ -11825,6 +11965,8 @@ components:
                       |ACTIVE|有効|
                       |DONE|終了|
                       |CANCELED|取り消し|
+                    type: string
+                    pattern: workflow.EnumWorkflowTaskStateType
                   reserveItems:
                     description: |
                       拡張項目<br>
@@ -11948,6 +12090,8 @@ components:
                       |SELECT_APPLY_USER|申請ユーザー選択（申請ステップ用）|
                       |DELETE|削除|
                       |DELEGATE|委譲|
+                    type: string
+                    pattern: workflow.EnumElectActionType
                   eventType:
                     description: |
                       イベント<br>
@@ -11956,6 +12100,8 @@ components:
                       |USER_SELECT|ユーザー選択|
                       |ADMIN_SELECT|管理者選択|
                       |DELEGATION|権限委譲|
+                    type: string
+                    pattern: workflow.EnumElectEventType
                   docId:
                     description: 書類ID
                     type: integer
@@ -12004,6 +12150,8 @@ components:
                       |SELECT_APPLY_USER|申請ユーザー選択（申請ステップ用）|
                       |DELETE|削除|
                       |DELEGATE|委譲|
+                    type: string
+                    pattern: workflow.EnumElectActionType
                   docId:
                     description: 書類ID
                     type: integer
@@ -12022,6 +12170,8 @@ components:
                       |----|----|
                       |RECIVER|被共有者|
                       |SENDER|共有者|
+                    type: string
+                    pattern: workflow.EnumWorkflowShareOperatorType
                   ruleStepHeader:
                     description: ステップ情報
                     allOf:
@@ -12742,12 +12892,10 @@ components:
                   name:
                     description: |
                       業務カテゴリ名称<br>
-                      *テンプレート(TEMPLATE)も業務カテゴリである
                     type: string
                   id:
                     description: |
                       業務カテゴリID<br>
-                      *管理プロジェクトIDを使用
                     type: integer
                   form:
                     description: フォーム
@@ -12769,6 +12917,8 @@ components:
                               description: |
                                 フォーム種別<br>
                                 *MAIN / TEMPLATE
+                              type: string
+                              pattern: EnumFormType
                             version:
                               description: バージョン
                               type: string
@@ -12998,6 +13148,8 @@ components:
                                     |28|WEEKFIELD|曜日フィールド||
                                     |29|STAMPFIELD|印影フィールド||
                                     |34|DATEFIELD|日時フィールド||
+                                  type: string
+                                  pattern: EnumFieldType
                                 dataType:
                                   description: |
                                     データタイプ<br>
@@ -13008,6 +13160,8 @@ components:
                                     |DECIMAL|数値|
                                     |INT|整数値(int)|
                                     |TEXT|テキスト|
+                                  type: string
+                                  pattern: EnumDataType
                                 length:
                                   description: フィールド最大値
                                   type: integer
@@ -13119,6 +13273,8 @@ components:
                                     |TASK_DEPRIVED_NODE_NAME|引上げステップ名称|
                                     |TASK_COMMENT|処理時コメント|
                                     |TASK_RESERVE1～20|タスク予備項目1～10|
+                                  type: string
+                                  pattern: FormFieldLookupValueType
                                 defaultValue:
                                   description: |
                                     初期値<br>
@@ -13150,6 +13306,8 @@ components:
                                     |YYYYMM_NONZERO_DEF|yyyyMM(前0なし)|
                                     |MMDD_ZERO_DEF|MMDD(前0あり)|
                                     |MMDD_NONZERO_DEF|MMDD(前0なし)|
+                                  type: string
+                                  pattern: XWEBDateFormatType
                                 fieldList:
                                   description: |
                                     フィールド一覧<br>
@@ -13211,7 +13369,7 @@ components:
                   publicFolderList:
                     description: 公開フォルダのリスト
                     type: object
-                    pattern: publication.PublicFolderListModel
+                    pattern: publication.PublicFolderInfoListModel
         resultStatus:
           allOf:
             - $ref: "#/components/schemas/resultStatus"
