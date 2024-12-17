@@ -5,8 +5,6 @@ info:
 servers:
   - url: https://sample.atled.jp/AgileWorks/Broker
   
-security:
-  - bearerAuth: []
 tags:
   - name: 共通
   - name: 書類API
@@ -16,6 +14,11 @@ tags:
   - name: マスタAPI
   - name: フォーム管理API
   - name: 公開API
+  - name: SCIMAPI_Users
+  - name: SCIMAPI_Groups
+  - name: SCIMAPI_ResourceTypes
+  - name: SCIMAPI_Schemas
+  - name: SCIMAPI_Service
 
 paths:
   /WebApi/Model:
@@ -2767,6 +2770,409 @@ paths:
         "503":
           $ref: "#/components/responses/ErrorResponses503"
   
+  # --------------------------------------------------------------------------------------------------
+  /SCIM/Users:
+    get:
+      tags:
+        - SCIMAPI_Users
+      summary: ユーザー情報取得
+      description:
+        指定された条件を元にユーザー情報を取得します。
+      operationId: SCIMGetUsers
+      parameters:
+        - $ref: "#/components/parameters/usersFilter"
+      responses:
+        "200":
+          $ref: "#/components/responses/SCIMUsersCountResponses200"
+        "400":
+          $ref: "#/components/responses/SCIMErrorResponses400"
+        "401":
+          $ref: "#/components/responses/SCIMErrorResponses401"
+        "403":
+          $ref: "#/components/responses/SCIMErrorResponses403"
+        "404":
+          $ref: "#/components/responses/SCIMErrorResponses404"
+        "500":
+          $ref: "#/components/responses/SCIMErrorResponses500"
+        "503":
+          $ref: "#/components/responses/SCIMErrorResponses503"
+    
+    post:
+      tags:
+        - SCIMAPI_Users
+      summary: ユーザー情報作成
+      description:
+        リクエストボディに指定したデータを元にユーザー情報を作成します。
+      operationId: SCIMPostUsers
+      requestBody:
+        $ref: "#/components/requestBodies/SCIMPostUsersRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/SCIMUsersResponses200"
+        "400":
+          $ref: "#/components/responses/SCIMErrorResponses400"
+        "401":
+          $ref: "#/components/responses/SCIMErrorResponses401"
+        "403":
+          $ref: "#/components/responses/SCIMErrorResponses403"
+        "404":
+          $ref: "#/components/responses/SCIMErrorResponses404"
+        "500":
+          $ref: "#/components/responses/SCIMErrorResponses500"
+        "503":
+          $ref: "#/components/responses/SCIMErrorResponses503"
+  
+  # --------------------------------------------------------------------------------------------------
+  /SCIM/Users/{USER_ID}:
+    get:
+      tags:
+        - SCIMAPI_Users
+      summary: 指定ユーザー情報取得
+      description:
+        パスに指定したユーザーIDに紐づくユーザーの情報を取得します。
+      operationId: SCIMGetUsersId
+      parameters:
+        - $ref: "#/components/parameters/USER_ID"
+      responses:
+        "200":
+          $ref: "#/components/responses/SCIMUsersResponses200"
+        "400":
+          $ref: "#/components/responses/SCIMErrorResponses400"
+        "401":
+          $ref: "#/components/responses/SCIMErrorResponses401"
+        "403":
+          $ref: "#/components/responses/SCIMErrorResponses403"
+        "404":
+          $ref: "#/components/responses/SCIMErrorResponses404"
+        "500":
+          $ref: "#/components/responses/SCIMErrorResponses500"
+        "503":
+          $ref: "#/components/responses/SCIMErrorResponses503"
+  
+    post:
+      tags:
+        - SCIMAPI_Users
+      summary: ユーザー情報更新
+      description:
+        パスに指定したユーザーIDに紐づくユーザーの情報を更新します。<br>
+        *リクエストボディで指定しなかった項目は、更新されません。
+      operationId: SCIMPostUsersId
+      parameters:
+        - $ref: "#/components/parameters/USER_ID"
+      requestBody:
+        $ref: "#/components/requestBodies/SCIMPostUsersIdRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/SCIMUsersResponses200"
+        "400":
+          $ref: "#/components/responses/SCIMErrorResponses400"
+        "401":
+          $ref: "#/components/responses/SCIMErrorResponses401"
+        "403":
+          $ref: "#/components/responses/SCIMErrorResponses403"
+        "404":
+          $ref: "#/components/responses/SCIMErrorResponses404"
+        "500":
+          $ref: "#/components/responses/SCIMErrorResponses500"
+        "503":
+          $ref: "#/components/responses/SCIMErrorResponses503"
+    
+    patch:
+      tags:
+        - SCIMAPI_Users
+      summary: ユーザー情報一部更新
+      description:
+        パスに指定したユーザーIDに紐づくユーザー情報の指定項目のみを更新します。
+      operationId: SCIMPatchUsersId
+      parameters:
+        - $ref: "#/components/parameters/USER_ID"
+      requestBody:
+        $ref: "#/components/requestBodies/SCIMPatchUsersIdRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/SCIMUsersResponses200"
+        "400":
+          $ref: "#/components/responses/SCIMErrorResponses400"
+        "401":
+          $ref: "#/components/responses/SCIMErrorResponses401"
+        "403":
+          $ref: "#/components/responses/SCIMErrorResponses403"
+        "404":
+          $ref: "#/components/responses/SCIMErrorResponses404"
+        "500":
+          $ref: "#/components/responses/SCIMErrorResponses500"
+        "503":
+          $ref: "#/components/responses/SCIMErrorResponses503"
+    
+    delete:
+      tags:
+        - SCIMAPI_Users
+      summary: ユーザー情報削除
+      description:
+        パスに指定したユーザーIDに紐づくユーザー情報を削除します。<br>
+        *削除方法について<br>
+        ユーザー情報削除APIは、履歴モードの状態で削除動作が異なります。<br>
+        履歴モード無効の場合：削除します<br>
+        履歴モード有効の場合：適用終了します
+      operationId: SCIMDeleteUsersId
+      parameters:
+        - $ref: "#/components/parameters/USER_ID"
+      responses:
+        "204":
+          description: Successful response
+          content:
+            application/json: {}
+        "400":
+          $ref: "#/components/responses/SCIMErrorResponses400"
+        "401":
+          $ref: "#/components/responses/SCIMErrorResponses401"
+        "403":
+          $ref: "#/components/responses/SCIMErrorResponses403"
+        "404":
+          $ref: "#/components/responses/SCIMErrorResponses404"
+        "500":
+          $ref: "#/components/responses/SCIMErrorResponses500"
+        "503":
+          $ref: "#/components/responses/SCIMErrorResponses503"
+  
+  # --------------------------------------------------------------------------------------------------
+  /SCIM/Groups:
+    get:
+      tags:
+        - SCIMAPI_Groups
+      summary: 組織情報取得
+      description:
+        指定された条件を元にユーザー情報を取得します。
+      operationId: SCIMGetGroups
+      parameters:
+        - $ref: "#/components/parameters/groupsFilter"
+      responses:
+        "200":
+          $ref: "#/components/responses/SCIMGroupsCountResponses200"
+        "400":
+          $ref: "#/components/responses/SCIMErrorResponses400"
+        "401":
+          $ref: "#/components/responses/SCIMErrorResponses401"
+        "403":
+          $ref: "#/components/responses/SCIMErrorResponses403"
+        "404":
+          $ref: "#/components/responses/SCIMErrorResponses404"
+        "500":
+          $ref: "#/components/responses/SCIMErrorResponses500"
+        "503":
+          $ref: "#/components/responses/SCIMErrorResponses503"
+    
+    post:
+      tags:
+        - SCIMAPI_Groups
+      summary: 組織情報作成
+      description:
+        リクエストボディに指定したデータを元に組織情報を作成します。
+      operationId: SCIMPostGroups
+      requestBody:
+        $ref: "#/components/requestBodies/SCIMPostGroupsRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/SCIMGroupsResponses200"
+        "400":
+          $ref: "#/components/responses/SCIMErrorResponses400"
+        "401":
+          $ref: "#/components/responses/SCIMErrorResponses401"
+        "403":
+          $ref: "#/components/responses/SCIMErrorResponses403"
+        "404":
+          $ref: "#/components/responses/SCIMErrorResponses404"
+        "500":
+          $ref: "#/components/responses/SCIMErrorResponses500"
+        "503":
+          $ref: "#/components/responses/SCIMErrorResponses503"
+  
+  # --------------------------------------------------------------------------------------------------
+  /SCIM/Groups/{ORG_ID}:
+    get:
+      tags:
+        - SCIMAPI_Groups
+      summary: 指定組織情報取得
+      description:
+        パスに指定した組織IDに紐づく組織の情報を取得します。
+      operationId: SCIMGetGroupsId
+      parameters:
+        - $ref: "#/components/parameters/ORG_ID"
+      responses:
+        "200":
+          $ref: "#/components/responses/SCIMGroupsResponses200"
+        "400":
+          $ref: "#/components/responses/SCIMErrorResponses400"
+        "401":
+          $ref: "#/components/responses/SCIMErrorResponses401"
+        "403":
+          $ref: "#/components/responses/SCIMErrorResponses403"
+        "404":
+          $ref: "#/components/responses/SCIMErrorResponses404"
+        "500":
+          $ref: "#/components/responses/SCIMErrorResponses500"
+        "503":
+          $ref: "#/components/responses/SCIMErrorResponses503"
+    
+    post:
+      tags:
+        - SCIMAPI_Groups
+      summary: 組織情報更新
+      description:
+        パスに指定した組織IDに紐づく組織の情報を更新します。
+      operationId: SCIMPostGroupsId
+      parameters:
+        - $ref: "#/components/parameters/ORG_ID"
+      requestBody:
+        $ref: "#/components/requestBodies/SCIMPostGroupsRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/SCIMGroupsResponses200"
+        "400":
+          $ref: "#/components/responses/SCIMErrorResponses400"
+        "401":
+          $ref: "#/components/responses/SCIMErrorResponses401"
+        "403":
+          $ref: "#/components/responses/SCIMErrorResponses403"
+        "404":
+          $ref: "#/components/responses/SCIMErrorResponses404"
+        "500":
+          $ref: "#/components/responses/SCIMErrorResponses500"
+        "503":
+          $ref: "#/components/responses/SCIMErrorResponses503"
+    patch:
+      tags:
+        - SCIMAPI_Groups
+      summary: 組織情報一部更新
+      description:
+        パスに指定した組織IDに紐づく組織情報の指定項目のみを更新します。
+      operationId: SCIMPatchGroupsId
+      parameters:
+        - $ref: "#/components/parameters/ORG_ID"
+      requestBody:
+        $ref: "#/components/requestBodies/SCIMPatchGroupsIdRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/SCIMGroupsResponses200"
+        "400":
+          $ref: "#/components/responses/SCIMErrorResponses400"
+        "401":
+          $ref: "#/components/responses/SCIMErrorResponses401"
+        "403":
+          $ref: "#/components/responses/SCIMErrorResponses403"
+        "404":
+          $ref: "#/components/responses/SCIMErrorResponses404"
+        "500":
+          $ref: "#/components/responses/SCIMErrorResponses500"
+        "503":
+          $ref: "#/components/responses/SCIMErrorResponses503"
+    
+    delete:
+      tags:
+        - SCIMAPI_Groups
+      summary: 組織情報削除
+      description:
+        パスに指定した組織IDに紐づく組織情報を削除します。<br>
+        *削除方法について<br>
+        組織情報削除APIは、履歴モードの状態で削除動作が異なります。<br>
+        履歴モード無効の場合：削除します<br>
+        履歴モード有効の場合：適用終了します
+      operationId: SCIMDeleteGroupsId
+      parameters:
+        - $ref: "#/components/parameters/ORG_ID"
+      responses:
+        "204":
+          description: Successful response
+          content:
+            application/json: {}
+        "400":
+          $ref: "#/components/responses/SCIMErrorResponses400"
+        "401":
+          $ref: "#/components/responses/SCIMErrorResponses401"
+        "403":
+          $ref: "#/components/responses/SCIMErrorResponses403"
+        "404":
+          $ref: "#/components/responses/SCIMErrorResponses404"
+        "500":
+          $ref: "#/components/responses/SCIMErrorResponses500"
+        "503":
+          $ref: "#/components/responses/SCIMErrorResponses503"
+  
+  # --------------------------------------------------------------------------------------------------
+  /SCIM/ResourceTypes:
+    get:
+      tags:
+        - SCIMAPI_ResourceTypes
+      summary: リソース情報取得
+      description:
+        SCIMサーバーがサポートするリソースタイプ（USER、GROUP）に関する情報を提供するためのエンドポイントです。
+      operationId: SCIMResourceTypes
+      responses:
+        "200":
+          $ref: "#/components/responses/SCIMResourceTypesResponses200"
+        "400":
+          $ref: "#/components/responses/SCIMErrorResponses400"
+        "401":
+          $ref: "#/components/responses/SCIMErrorResponses401"
+        "403":
+          $ref: "#/components/responses/SCIMErrorResponses403"
+        "404":
+          $ref: "#/components/responses/SCIMErrorResponses404"
+        "500":
+          $ref: "#/components/responses/SCIMErrorResponses500"
+        "503":
+          $ref: "#/components/responses/SCIMErrorResponses503"
+  
+  # --------------------------------------------------------------------------------------------------
+  /SCIM/Schemas:
+    get:
+      tags:
+        - SCIMAPI_Schemas
+      summary: スキーマ定義取得
+      description:
+        SCIM サーバーがサポートするスキーマ（データモデル）を定義し、それに関連する属性やメタデータを提供するためのエンドポイントです。
+      operationId: SCIMSchemas
+      responses:
+        "200":
+          $ref: "#/components/responses/SCIMSchemasResponses200"
+        "400":
+          $ref: "#/components/responses/SCIMErrorResponses400"
+        "401":
+          $ref: "#/components/responses/SCIMErrorResponses401"
+        "403":
+          $ref: "#/components/responses/SCIMErrorResponses403"
+        "404":
+          $ref: "#/components/responses/SCIMErrorResponses404"
+        "500":
+          $ref: "#/components/responses/SCIMErrorResponses500"
+        "503":
+          $ref: "#/components/responses/SCIMErrorResponses503"
+  
+  # --------------------------------------------------------------------------------------------------
+  /SCIM/ServiceProviderConfigs:
+    get:
+      tags:
+        - SCIMAPI_Service
+      summary: サービス定義取得
+      description:
+        SCIM サーバーがサポートするサービスプロバイダ構成情報に関する情報を提供するためのエンドポイントです。
+      operationId: SCIMService
+      responses:
+        "200":
+          $ref: "#/components/responses/SCIMServiceResponses200"
+        "400":
+          $ref: "#/components/responses/SCIMErrorResponses400"
+        "401":
+          $ref: "#/components/responses/SCIMErrorResponses401"
+        "403":
+          $ref: "#/components/responses/SCIMErrorResponses403"
+        "404":
+          $ref: "#/components/responses/SCIMErrorResponses404"
+        "500":
+          $ref: "#/components/responses/SCIMErrorResponses500"
+        "503":
+          $ref: "#/components/responses/SCIMErrorResponses503"
+  
  # --------------------------------------------------------------------------------------------------
 
 # -----------------------------------------------
@@ -5026,6 +5432,112 @@ components:
                 pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
                 example: 2024-10-31 00:00:00 JST
     
+    SCIMPostUsersRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - externalId
+              - userName
+              - displayName
+            allOf:
+              - $ref: "#/components/schemas/SCIMPostUsersRequest"
+          example:
+            condition:
+              externalId: user001
+              userName: user001
+              displayName: user001
+              password: user001
+              active: true
+              locale: ja
+              emails:
+                - value: user001@atled.jp
+                  primary: true
+              roles:
+                - value: 9999
+                  display: UR_001
+              groups:
+                - value: 8888
+                  display: org001
+    
+    SCIMPostUsersIdRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - externalId
+              - userName
+              - displayName
+            allOf:
+              - $ref: "#/components/schemas/SCIMPostUsersIdRequest"
+          example:
+            externalId: user001
+            userName: user001
+            displayName: user001
+            active: true
+            locale: ja
+            emails:
+              - value: user001@atled.jp
+                primary: true
+            roles:
+              - value: 9999
+                display: UR_001
+            groups:
+              - value: 8888
+                display: org001
+    
+    SCIMPatchUsersIdRequest:
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/SCIMPatchUsersIdRequest"
+          example:
+            schemas: 
+              - "urn:ietf:params:scim:api:messages:2.0:PatchOp"
+            Operations:
+              - op: Replace
+                path: emails[type eq \"work\"].value
+                value: user001@atled.jp
+              - op: Add
+                path: locale
+                value: jp
+    
+    SCIMPostGroupsRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - externalId
+              - displayName
+            type: object
+            properties:
+              externalId:
+                description: 組織コード
+                type: string
+                example: unit001
+              displayName:
+                description: 組織名称
+                type: string
+                example: unit001
+    
+    SCIMPatchGroupsIdRequest:
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/SCIMPatchGroupsIdRequest"
+          example:
+            schemas: 
+              - "urn:ietf:params:scim:api:messages:2.0:PatchOp"
+            Operations:
+              - op: Replace
+                path: externalId
+                value: unit001
+              - op: Replace
+                path: displayName
+                value: unit001
+    
   # -----------------------------------------------
   # レスポンス components/responses
   # -----------------------------------------------
@@ -5139,7 +5651,109 @@ components:
                    entries: []
                  text: 公開APIの実行時にエラーが発生しました。
                  code: APIPAP_W0003
+    
+    SCIMErrorResponses400:
+      description: "リクエストに問題があります。"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              schemas:
+                type: string
+                example: [ "urn:ietf:params:scim:api:messages:2.0:Error" ]
+              status:
+                type: integer
+                example: 400
+              detail:
+                type: string
+                example: "{エラーメッセージ}"
 
+    SCIMErrorResponses401:
+      description: "認証に失敗した際のエラーです。"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              schemas:
+                type: string
+                example: [ "urn:ietf:params:scim:api:messages:2.0:Error" ]
+              status:
+                type: integer
+                example: 401
+              detail:
+                type: string
+                example: "{エラーメッセージ}"
+
+    SCIMErrorResponses403:
+      description: "リソースにアクセスする権限がありません。"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              schemas:
+                type: string
+                example: [ "urn:ietf:params:scim:api:messages:2.0:Error" ]
+              status:
+                type: integer
+                example: 403
+              detail:
+                type: string
+                example: "{エラーメッセージ}"
+
+    SCIMErrorResponses404:
+      description: "リクエストしたリソースが見つかりません。"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              schemas:
+                type: string
+                example: [ "urn:ietf:params:scim:api:messages:2.0:Error" ]
+              status:
+                type: integer
+                example: 404
+              detail:
+                type: string
+                example: "{エラーメッセージ}"
+
+    SCIMErrorResponses500:
+      description: "サーバー内部でエラーが発生しました。"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              schemas:
+                type: string
+                example: [ "urn:ietf:params:scim:api:messages:2.0:Error" ]
+              status:
+                type: integer
+                example: 500
+              detail:
+                type: string
+                example: "{エラーメッセージ}"
+
+    SCIMErrorResponses503:
+      description: "サービスが一時的に利用できません。"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              schemas:
+                type: string
+                example: [ "urn:ietf:params:scim:api:messages:2.0:Error" ]
+              status:
+                type: integer
+                example: 503
+              detail:
+                type: string
+                example: "{エラーメッセージ}"
+    
     # --------------------------------------------------------------------------------------------------
 
     GetDocHeaderResponses200:
@@ -8996,6 +9610,358 @@ components:
             リクエストが不正:
               $ref: "#/components/examples/response_errorRequest"
     
+    SCIMUsersCountResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/SCIMUsersCountResponse"
+          example:
+            value:
+              schemas:
+                - "urn:ietf:params:scim:api:messages:2.0:ListResponse"
+              totalResults: 1
+              Resources:
+                - id: 999
+                  externalId: user001
+                  displayName: user001
+                  userName: user001
+                  emails:
+                    - value: user001@atled.jp
+                      primary: true
+                  active: true
+                  roles:
+                    - value: 9999
+                      display: UR_001
+                  groups:
+                    - value: 8888
+                      display: org001
+                  schemas:
+                    - "urn:ietf:params:scim:schemas:core:2.0:User"
+    
+    SCIMUsersResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/SCIMUsersResponse"
+          example:
+            value:
+              id: 999
+              externalId: user001
+              displayName: user001
+              userName: user001
+              emails:
+                - value: user001@atled.jp
+                  primary: true
+              active: true
+              roles:
+                - value: 9999
+                  display: UR_001
+              groups:
+                - value: 8888
+                  display: org001
+              schemas:
+                - "urn:ietf:params:scim:schemas:core:2.0:User"
+    
+    SCIMGroupsCountResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/SCIMGroupsCountResponse"
+          example:
+            value:
+              schemas:
+                - "urn:ietf:params:scim:api:messages:2.0:ListResponse"
+              totalResults: 1
+              Resources:
+                - schemas:
+                    - "urn:ietf:params:scim:schemas:core:2.0:Group"
+                  id: 999
+                  externalId: unit001
+                  displayName: unit001
+    
+    SCIMGroupsResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/SCIMGroupsResponse"
+          example:
+            value:
+              schemas:
+                - "urn:ietf:params:scim:schemas:core:2.0:Group"
+              id: 999
+              externalId: unit001
+              displayName: unit001
+    
+    SCIMResourceTypesResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/SCIMResourceTypesResponse"
+          example:
+            value:
+              schemas:
+                - "urn:ietf:params:scim:api:messages:2.0:ListResponse"
+              totalResults: 2
+              Resources:
+                - schemas:
+                    - "urn:ietf:params:scim:schemas:core:2.0:ResourceType"
+                  id: User
+                  name: User
+                  endpoint: /Users
+                  description: User Account
+                  schema: urn:ietf:params:scim:schemas:core:2.0:User
+                  schemaExtensions:
+                    - schema: urn:ietf:params:scim:schemas:extension:enterprise:2.0:User
+                      required: true
+                - schemas:
+                    - "urn:ietf:params:scim:schemas:core:2.0:ResourceType"
+                  id: Group
+                  name: Group
+                  endpoint: /Groups
+                  description: Group
+                  schema: urn:ietf:params:scim:schemas:core:2.0:Group
+    
+    SCIMSchemasResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/SCIMSchemasResponse"
+          example:
+            value:
+              schemas:
+                - "urn:ietf:params:scim:api:messages:2.0:ListResponse"
+              totalResults: 2
+              Resources:
+                - id: "urn:ietf:params:scim:schemas:core:2.0:User"
+                  name: User
+                  description: User
+                  attributes:
+                    - name: id
+                      type: integer
+                      multiValued: false
+                      description: id
+                      mutability: readOnly
+                      required: false
+                      caseExact: false
+                      uniqueness: server
+                      returned: always
+                    - name: externalId
+                      type: string
+                      multiValued: false
+                      description: externalId
+                      mutability: readWrite
+                      required: true
+                      caseExact: false
+                      uniqueness: server
+                      returned: always
+                    - name: userName
+                      type: string
+                      multiValued: false
+                      description: userName
+                      mutability: readWrite
+                      required: true
+                      caseExact: false
+                      uniqueness: server
+                      returned: always
+                    - name: displayName
+                      type: string
+                      multiValued: false
+                      description: displayName
+                      mutability: readWrite
+                      required: true
+                      caseExact: false
+                      uniqueness: none
+                      returned: always
+                    - name: locale
+                      type: string
+                      multiValued: false
+                      description: locale
+                      mutability: writeOnly
+                      required: false
+                      caseExact: false
+                      uniqueness: none
+                      returned: never
+                    - name: active
+                      type: boolean
+                      multiValued: false
+                      description: active
+                      mutability: readWrite
+                      required: false
+                      caseExact: false
+                      uniqueness: none
+                      returned: always
+                    - name: password
+                      type: string
+                      multiValued: false
+                      description: password
+                      mutability: writeOnly
+                      required: false
+                      caseExact: true
+                      uniqueness: none
+                      returned: never
+                    - name: emails
+                      type: complex
+                      multiValued: false
+                      description: emails
+                      mutability: readWrite
+                      required: false
+                      caseExact: false
+                      uniqueness: none
+                      returned: always
+                    - name: emails.value
+                      type: string
+                      multiValued: false
+                      description: emails.value
+                      mutability: readWrite
+                      required: false
+                      caseExact: false
+                      uniqueness: none
+                      returned: always
+                    - name: emails.primary
+                      type: boolean
+                      multiValued: false
+                      description: emails.primary
+                      mutability: readWrite
+                      required: false
+                      caseExact: false
+                      uniqueness: none
+                      returned: always
+                    - name: groups
+                      type: complex
+                      multiValued: false
+                      description: groups
+                      mutability: readWrite
+                      required: false
+                      caseExact: false
+                      uniqueness: none
+                      returned: always
+                    - name: groups.value
+                      type: string
+                      multiValued: false
+                      description: groups.value
+                      mutability: readWrite
+                      required: false
+                      caseExact: false
+                      uniqueness: server
+                      returned: always
+                    - name: groups.display
+                      type: string
+                      multiValued: false
+                      description: groups.deisplay
+                      mutability: readWrite
+                      required: false
+                      caseExact: false
+                      uniqueness: none
+                      returned: always
+                    - name: roles
+                      type: complex
+                      multiValued: false
+                      description: roles
+                      mutability: readWrite
+                      required: false
+                      caseExact: false
+                      uniqueness: none
+                      returned: always
+                    - name: roles.value
+                      type: string
+                      multiValued: false
+                      description: roles.value
+                      mutability: readWrite
+                      required: false
+                      caseExact: false
+                      uniqueness: server
+                      returned: always
+                    - name: roles.display
+                      type: string
+                      multiValued: false
+                      description: roles.display
+                      mutability: readWrite
+                      required: false
+                      caseExact: false
+                      uniqueness: none
+                      returned: always
+                - id: "urn:ietf:params:scim:schemas:core:2.0:Group"
+                  name: Group
+                  description: Group
+                  attributes:
+                    - name: id
+                      type: integer
+                      multiValued: false
+                      description: id
+                      mutability: readOnly
+                      required: false
+                      caseExact: false
+                      uniqueness: server
+                      returned: always
+                    - name: externalId
+                      type: string
+                      multiValued: false
+                      description: externalId
+                      mutability: readWrite
+                      required: true
+                      caseExact: false
+                      uniqueness: server
+                      returned: always
+                    - name: displayName
+                      type: string
+                      multiValued: false
+                      description: displayName
+                      mutability: readWrite
+                      required: true
+                      caseExact: false
+                      uniqueness: none
+                      returned: always
+    
+    SCIMServiceResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/SCIMServiceResponse"
+          example:
+            value:
+              schemas:
+                - "urn:ietf:params:scim:api:messages:2.0:ServiceProviderConfig"
+              patch:
+                supported: true
+              bulk:
+                supported: false
+                maxOperations: 0
+                maxPayloadSize: 0
+              filter:
+                supported: true
+                maxResults: 1000
+              changePassword:
+                supported: true
+              sort:
+                supported: false
+              etag:
+                supported: false
+              authenticationSchemas:
+                - type: oauth2
+                  name: oauth2
+                  description: oauth2
+                  specUri: https://datatracker.ietf.org/doc/html/rfc6749
+                  primary: true
+                - type: httpbasic
+                  name: httpbasic
+                  description: httpbasic
+                  specUri: https://datatracker.ietf.org/doc/html/rfc7617
+                  primary: false
+    
   # -----------------------------------------------
   # スキーマ components/schemas
   # -----------------------------------------------
@@ -11335,6 +12301,171 @@ components:
               type: string
               pattern: ^((?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) ([A-Z]{3})$
     
+    SCIMPostUsersRequest:
+      type: object
+      properties:
+        password:
+          description: パスワード
+          type: string
+      allOf:
+        - $ref: "#/components/schemas/SCIMPostUsersIdRequest"
+    
+    SCIMPostUsersIdRequest:
+      type: object
+      properties:
+        externalId:
+          description: ユーザーコード
+          type: string
+        userName:
+          description: ログインID
+          type: string
+        displayName:
+          description: ユーザー名称
+          type: string
+        locale:
+          description: 言語
+          type: string
+        active:
+          description: |
+            アカウント状態<br>
+            true：ログイン可能<br>
+            false：ログイン不可
+          type: boolean
+        emails:
+          description: メール情報
+          type: array
+          items:
+            type: object
+            properties:
+              value:
+                description: メールアドレス
+                type: string
+              primary:
+                description: 優先フラグ
+                type: boolean
+        roles:
+          description: ロール情報
+          type: array
+          items:
+            type: object
+            properties:
+              value:
+                description: |
+                  ロールID<br>
+                  *ユニバーサルロール
+                type: integer
+              display:
+                description: 表示名
+                type: string
+        groups:
+          description: グループ情報
+          type: array
+          items:
+            type: object
+            properties:
+              value:
+                description: |
+                  グループID<br>
+                  *組織
+                type: integer
+              display:
+                description: 表示名
+                type: string
+        schemas:
+          description: |
+            スキーマ<br>
+            *"urn:ietf:params:scim:schemas:core:2.0:User" 固定
+          type: string
+    
+    SCIMPatchUsersIdRequest:
+      type: object
+      properties:
+        schemas:
+          description: |
+              スキーマ<br>
+              *"urn:ietf:params:scim:api:messages:2.0:PatchOp" 固定
+          type: string
+        Operations:
+          description: オペレーション
+          type: array
+          items:
+            type: object
+            required:
+              - op
+              - path
+            properties:
+              op:
+                description: |
+                  操作タイプ<br>
+                  更新操作は以下が指定可能です。(大文字小文字は区別しません）<br>
+                  追加(add)<br>
+                  置換(replace)<br>
+                  削除(remove)*<br>
+                  *削除(remove)の操作はリソースの必須項目（externalId、displayName、userName）に対して行うことはできません。<br>
+                   必須指定の項目に削除(remove)の操作を行った場合はエラーレスポンスが返却されます。
+                type: string
+              path:
+                description: |
+                  変更対象属性<br>
+                  指定可能な値<br>
+                  |path|AW項目|op(Add)|op(Replace)|op(Remove)|
+                  |----|----|----|----|----|
+                  |externalId|ユーザーコード|valueで指定した値で更新します|valueで指定した値で更新します|指定できません|
+                  |displayName|ユーザー名称|〃|〃|〃|
+                  |userName|ログインID|〃|〃|〃|
+                  |password|パスワード|〃|〃|変更しない|
+                  |active|アカウントロック|〃|〃|〃|
+                  |emails|メールアドレス|〃|〃|null固定|
+                  |locale|表示言語|〃|〃|既定の言語に更新します。|
+                  |roles|ユニバーサルロール|valueで指定したユニバーサルロールを追加します|valueで指定したユニバーサルロールに置き換えます|ユーザーが所持している既存のユニバーサルロールを適用終了又は削除します*|
+                  |groups|所属組織|valueで指定した所属組織を追加します|valueで指定した所属組織に置き換えます|ユーザーが所属している既存の所属組織を適用終了又は削除します*|
+                  *履歴モードの状態によって動作が変わります<br>
+                   無効：削除します / 有効：適用終了します
+                type: string
+              value:
+                description: |
+                  新しい値<br>
+                  pathで指定した属性の更新する値
+                type: string
+    
+    SCIMPatchGroupsIdRequest:
+      type: object
+      properties:
+        schemas:
+          description: |
+              スキーマ<br>
+              *"urn:ietf:params:scim:api:messages:2.0:PatchOp" 固定
+          type: string
+        Operations:
+          description: オペレーション
+          type: array
+          items:
+            type: object
+            properties:
+              op:
+                description: |
+                  更新操作は以下が指定可能です。(大文字小文字は区別しません）<br>
+                  追加(add)<br>
+                  置換(replace)<br>
+                  削除(remove)*<br>
+                  *削除(remove)の操作はリソースの必須項目（externalId、displayName）に対して行うことはできません。<br>
+                   必須指定の項目に削除(remove)の操作を行った場合はエラーレスポンスが返却されます。
+                type: string
+              path:
+                description: |
+                  変更対象の属性のパス<br>
+                  指定可能な値<br>
+                  |path|AW項目|op(Add)|op(Replace)|op(Remove)|
+                  |----|----|----|----|----|
+                  |externalId|組織コード|valueで指定した値で更新します|valueで指定した値で更新します|指定できません|
+                  |displayName|組織名称|〃|〃|〃|
+                type: string
+              value:
+                description: |
+                  新しい値<br>
+                  pathで指定した属性の更新する値
+                type: string
+    
     GetDoc:
       type: object
       pattern: doc.DocHeaderModel
@@ -13375,19 +14506,385 @@ components:
           allOf:
             - $ref: "#/components/schemas/resultStatus"
     
-  securitySchemes:
-    basicAuth:
-      type: http
-      scheme: basic
-    bearerAuth:
-      type: http
-      scheme: bearer
-    noauthAuth:
-      type: http
-      scheme: noauth
-    oauth2Auth:
-      type: http
-      scheme: oauth2
+    SCIMUsersCountResponse:
+      type: object
+      properties:
+        schemas:
+          description: |
+            スキーマ<br>
+            *"urn:ietf:params:scim:api:messages:2.0:ListResponse" 固定
+          type: string
+        totalResults:
+          description: 検索結果件数
+          type: integer
+        Resources:
+          description: ユーザー情報
+          type: array
+          items:
+            allOf:
+              - $ref: "#/components/schemas/SCIMUsersResponse"
+    
+    SCIMUsersResponse:
+      type: object
+      properties:
+        id:
+          description: ユーザーID
+          type: integer
+        externalId:
+          description: ユーザーコード
+          type: string
+        displayName:
+          description: ユーザー名称
+          type: string
+        userName:
+          description: ログインID
+          type: string
+        emails:
+          description: メール情報
+          type: array
+          items:
+            type: object
+            properties:
+              value:
+                description: メールアドレス
+                type: string
+              primary:
+                description: |
+                  優先フラグ<br>
+                  *true 固定
+                type: boolean
+        active:
+          description: |
+            アカウント状態<br>
+            true：ログイン可能<br>
+            false：ログイン不可
+          type: boolean
+        roles:
+          description: ロール情報
+          type: array
+          items:
+            type: object
+            properties:
+              value:
+                description: |
+                  ロールID<br>
+                  *ユニバーサルロール
+                type: integer
+              display:
+                description: 表示名
+                type: string
+        groups:
+          description: グループ情報
+          type: array
+          items:
+            type: object
+            properties:
+              value:
+                description: |
+                  グループID<br>
+                  *組織
+                type: integer
+              display:
+                description: 表示名
+                type: string
+        schemas:
+          description: |
+            スキーマ<br>
+            *"urn:ietf:params:scim:schemas:core:2.0:User" 固定
+          type: string
+    
+    SCIMGroupsCountResponse:
+      type: object
+      properties:
+        schemas:
+          description: |
+            スキーマ<br>
+            *"urn:ietf:params:scim:api:messages:2.0:ListResponse" 固定
+          type: string
+        totalResults:
+          description: 検索結果件数
+          type: integer
+        Resources:
+          description: 組織情報
+          type: array
+          items:
+            allOf:
+              - $ref: "#/components/schemas/SCIMGroupsResponse"
+    
+    SCIMGroupsResponse:
+      type: object
+      properties:
+        schemas:
+          description: |
+            スキーマ<br>
+            *"urn:ietf:params:scim:schemas:core:2.0:Group" 固定
+          type: string
+        id:
+          description: 組織ID
+          type: integer
+        externalId:
+          description: 組織コード
+          type: string
+        displayName:
+          description: 組織名称
+          type: string
+    
+    SCIMResourceTypesResponse:
+      type: object
+      properties:
+        schemas:
+          description: |
+            応答時のスキーマタイプ<br>
+            *"urn:ietf:params:scim:api:messages:2.0:ListResponse" 固定
+          type: string
+        totalResults:
+          description: |
+            検索結果件数<br>
+            *リソースの件数
+          type: integer
+        Resources:
+          description: リソース情報リスト
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                description: |
+                  ID<br>
+                  "User"/"Group" 固定
+                type: integer
+              name:
+                description: |
+                  名称<br>
+                  "User"/"Group" 固定
+                type: string
+              endpoint:
+                description: |
+                  エンドポイント<br>
+                  "/Users"/"/Groups" 固定
+                type: string
+              description:
+                description: |
+                  説明<br>
+                  "User Account"/"Group" 固定
+                type: string
+              schemaExtensions:
+                description: |
+                  スキーマ拡張のリスト<br>
+                  Groupの場合はなし
+                type: object
+                properties:
+                  schema:
+                    description: |
+                      拡張スキーマのURI<br>
+                      "urn:ietf:params:scim:schemas:extension:enterprise:2.0:User" 固定
+                    type: string
+                  required:
+                    description: |
+                      スキーマ拡張フラグ<br>
+                      リソースタイプにスキーマ拡張が必要かどうかを示すフラグ
+                    type: boolean
+              schema:
+                description: |
+                  スキーマ<br>
+                  "urn:ietf:params:scim:schemas:core:2.0:User"/"urn:ietf:params:scim:schemas:core:2.0:Group" 固定
+                type: string
+              schemas:
+                description: |
+                  スキーマ<br>
+                  "urn:ietf:params:scim:schemas:core:2.0:ResourceType" 固定
+                type: string
+    
+    SCIMSchemasResponse:
+      type: object
+      properties:
+        schemas:
+          description: |
+            応答時のスキーマタイプ<br>
+            *"urn:ietf:params:scim:api:messages:2.0:ListResponse" 固定
+          type: string
+        totalResults:
+          description: |
+            検索結果件数<br>
+            *リソースの件数
+          type: integer
+        Resources:
+          description: リソース情報
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                description: |
+                  ID<br>
+                  "urn:ietf:params:scim:schemas:core:2.0:User"/"urn:ietf:params:scim:schemas:core:2.0:Group" 固定
+                type: integer
+              name:
+                description: |
+                  名称<br>
+                  "User"/"Group" 固定
+                type: string
+              description:
+                description: |
+                  説明<br>
+                  "User"/"Group" 固定
+                type: string
+              attributes:
+                description: 属性
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      description: 属性名称
+                      type: string
+                    description:
+                      description: 説明
+                      type: string
+                    multiValued:
+                      description: 属性が複数の値を持つかどうかを示す属性
+                      type: boolean
+                    type:
+                      description: |
+                        属性のタイプ（型）を示す属性<br>
+                        boolean, decimal, integer, dateTime, reference, complex
+                      type: string
+                    required:
+                      description: 属性が必須かどうかを指定するブール値
+                      type: boolean
+                    mutability:
+                      description: |
+                        属性に関する変更可能性<br>
+                        mutable（変更可能）<br>
+                        immutable（変更不可能）<br>
+                        read-only（読み取り専用）<br>
+                      type: string
+                    caseExact:
+                      description: 属性が大文字と小文字を区別するかどうかを指定するブール値
+                      type: boolean
+                    returned:
+                      description: |
+                        属性が検索結果に含まれるかどうかを示す属性<br>
+                        always（常に返される）<br>
+                        default（デフォルトで返される）<br>
+                        never（決して返されない）
+                      type: string
+                    uniqueness:
+                      description: |
+                        属性における一意性（uniqueness）の制約を定義するための属性<br>
+                        server（サーバー管理の一意性）<br>
+                        global（グローバル一意性）<br>
+                        uniqueness（一意性の制約なし）    
+    
+    SCIMServiceResponse:
+      type: object
+      properties:
+        schemas:
+          description: |
+            スキーマ情報<br>
+            *"urn:ietf:params:scim:schemas:core:2.0:ServiceProviderConfig " 固定
+          type: string
+        patch:
+          description: パッチ
+          type: object
+          properties:
+            supported:
+              description: |
+                サポート有無<br>
+                *true固定
+              type: boolean
+        bulk:
+          description: バルク
+          type: object
+          properties:
+            supported:
+              description: |
+                サポート有無<br>
+                *false固定
+              type: boolean
+            maxOperation:
+              description: |
+                最大操作数<br>
+                バルクリクエスト内で許可される操作の最大数を示します。<br>
+                *0固定
+              type: integer
+            maxPayloadSize:
+              description: |
+                最大サイズ<br>
+                バルクリクエストのペイロード（データのサイズ）に許可される最大サイズを示します。<br>
+                *0固定
+              type: integer
+        filter:
+          description: フィルター
+          type: object
+          properties:
+            supported:
+              description: |
+                サポート有無<br>
+                *true固定
+              type: boolean
+            maxResults:
+              description: |
+                最大検索数<br>
+                *1000固定
+              type: integer
+        changePassword:
+          description: パスワード変更有無
+          type: object
+          properties:
+            supported:
+              description: |
+                サポート有無<br>
+                *true固定
+              type: boolean
+        sort:
+          description: ソート
+          type: object
+          properties:
+            supported:
+              description: |
+                サポート有無<br>
+                *false固定
+              type: boolean
+        etag:
+          description: etag
+          type: object
+          properties:
+            supported:
+              description: |
+                サポート有無<br>
+                *false固定
+              type: boolean
+        authenticationSchemas:
+          description: 認証スキーマ
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                description: |
+                  認証スキーマ種別<br>
+                  "oauth2"/"httpbasic" 固定
+                type: string
+              name:
+                description: |
+                  認証名称<br>
+                  "oauth2"/"httpbasic" 固定
+                type: string
+              description:
+                description: |
+                  認証の説明<br>
+                  "oauth2"/"httpbasic" 固定
+                type: string
+              specUri:
+                description: |
+                  認証仕様URI<br>
+                  "https://datatracker.ietf.org/doc/html/rfc6749"/"https://datatracker.ietf.org/doc/html/rfc7617" 固定
+                type: string
+              primary:
+                description: |
+                  優先<br>
+                  "TRUE"/"FALSE" 固定
 
   # -----------------------------------------------
   # 例 components/examples
@@ -13455,3 +14952,46 @@ components:
       schema:
         type: string
         example: xxxxxxxxx
+    
+    usersFilter:
+      description: |
+        フィルター<br>
+        ユーザーコード(externalId)、ユーザー名称(displayName)、ログインID(userName)、メールアドレス(emails)を絞り込むときに指定します。<br>
+        「externalId eq "{ユーザーコード}"」のように指定します。<br>
+        *使用できる演算子はeqのみになります。<br>
+        *検索結果が1000件を超えた場合、1000件まで応答する
+      name: filter
+      in: query
+      schema:
+        type: string
+        example: externalId eq "user001"
+    
+    groupsFilter:
+      description: |
+        フィルター<br>
+        組織コード(externalId)、組織名称(displayName)を絞り込むときに指定します。<br>
+        *使用できる演算子はeqのみになります。<br>
+      name: filter
+      in: query
+      schema:
+        type: string
+        example: externalId eq "unit001"
+    
+    USER_ID:
+      description: ユーザーID
+      name: USER_ID
+      in: path
+      schema:
+        type: integer
+        example: 999
+      required: true
+    
+    ORG_ID:
+      description: 組織ID
+      name: ORG_ID
+      in: path
+      schema:
+        type: integer
+        example: 999
+      required: true
+    
