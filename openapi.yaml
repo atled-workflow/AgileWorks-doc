@@ -3100,7 +3100,7 @@ components:
               attachment:
                 type: string
                 format: uuid
-                description: アップロードファイル名を指定します。
+                description: アップロードファイルを指定します。
     
     DeleteDocAttachmentRequest:
       content:
@@ -9658,6 +9658,7 @@ components:
                     ユーザータイプ<br>
                     指定可能な値<br>
                     |パラメータ|説明|
+                    |----|----|
                     |UNIT_APPOINTMENT|組織+ユーザ|
                     |UNIT|組織|
                     |USER|ユーザ|
