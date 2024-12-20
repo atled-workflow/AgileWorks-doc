@@ -3467,7 +3467,7 @@ components:
               attachment:
                 type: string
                 format: uuid
-                description: アップロードファイル名を指定します。
+                description: アップロードファイルを指定します。
 
     
     UpdateDocAttachmentRequest:
