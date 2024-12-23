@@ -14651,27 +14651,31 @@ components:
               id:
                 description: |
                   ID<br>
-                  "User"/"Group" 固定
+                  Userスキーマの場合："User"固定<br>
+                  Groupスキーマの場合："Group"固定
                 type: integer
               name:
                 description: |
                   名称<br>
-                  "User"/"Group" 固定
+                  Userスキーマの場合："User"固定<br>
+                  Groupスキーマの場合："Group"固定
                 type: string
               endpoint:
                 description: |
                   エンドポイント<br>
-                  "/Users"/"/Groups" 固定
+                  Userスキーマの場合："/Users"固定<br>
+                  Groupスキーマの場合："/Groups"固定
                 type: string
               description:
                 description: |
                   説明<br>
-                  "User Account"/"Group" 固定
+                  Userスキーマの場合："User Account"固定<br>
+                  Groupスキーマの場合："Group"固定
                 type: string
               schemaExtensions:
                 description: |
                   スキーマ拡張のリスト<br>
-                  Groupの場合はなし
+                  Groupスキーマの場合は無し
                 type: object
                 properties:
                   schema:
@@ -14687,7 +14691,8 @@ components:
               schema:
                 description: |
                   スキーマ<br>
-                  "urn:ietf:params:scim:schemas:core:2.0:User"/"urn:ietf:params:scim:schemas:core:2.0:Group" 固定
+                  Userスキーマの場合："urn:ietf:params:scim:schemas:core:2.0:User"固定<br>
+                  Groupスキーマの場合："urn:ietf:params:scim:schemas:core:2.0:Group"固定
                 type: string
               schemas:
                 description: |
@@ -14717,17 +14722,20 @@ components:
               id:
                 description: |
                   ID<br>
-                  "urn:ietf:params:scim:schemas:core:2.0:User"/"urn:ietf:params:scim:schemas:core:2.0:Group" 固定
+                  Userスキーマの場合："urn:ietf:params:scim:schemas:core:2.0:User"固定<br>
+                  Groupスキーマの場合："urn:ietf:params:scim:schemas:core:2.0:Group"固定
                 type: integer
               name:
                 description: |
                   名称<br>
-                  "User"/"Group" 固定
+                  Userスキーマの場合："User"固定<br>
+                  Groupスキーマの場合："Group"固定
                 type: string
               description:
                 description: |
                   説明<br>
-                  "User"/"Group" 固定
+                  Userスキーマの場合："User"固定<br>
+                  Groupスキーマの場合："Group"固定
                 type: string
               attributes:
                 description: 属性
@@ -14864,27 +14872,31 @@ components:
               type:
                 description: |
                   認証スキーマ種別<br>
-                  "oauth2"/"httpbasic" 固定
+                  Oauth2認証の場合："oauth2"固定<br>
+                  Basic認証の場合："httpbasic"固定
                 type: string
               name:
                 description: |
                   認証名称<br>
-                  "oauth2"/"httpbasic" 固定
+                  Oauth2認証の場合："oauth2"固定<br>
+                  Basic認証の場合："httpbasic"固定
                 type: string
               description:
                 description: |
                   認証の説明<br>
-                  "oauth2"/"httpbasic" 固定
+                  Oauth2認証の場合："oauth2"固定<br>
+                  Basic認証の場合："httpbasic"固定
                 type: string
               specUri:
                 description: |
                   認証仕様URI<br>
-                  "https://datatracker.ietf.org/doc/html/rfc6749"/"https://datatracker.ietf.org/doc/html/rfc7617" 固定
+                  Oauth2認証の場合："https://datatracker.ietf.org/doc/html/rfc6749"固定<br>
+                  Basic認証の場合："https://datatracker.ietf.org/doc/html/rfc7617"固定
                 type: string
               primary:
                 description: |
                   優先<br>
-                  "TRUE"/"FALSE" 固定
+                  Oauth2認証の場合："TRUE"固定、Basic認証の場合："FALSE"固定
 
   # -----------------------------------------------
   # 例 components/examples
