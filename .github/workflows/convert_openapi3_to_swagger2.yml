@@ -12,32 +12,32 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Build the site in the jekyll/builder container
+      - uses: actions/checkout@v4
+      - name: Build the site in the jekyll/builder container
 
-     # node-modulesのインストールに時間がかかるのでキャッシュする
-    - name: Cache dependencies
-      uses: actions/cache@v4
-      with:
-        path: '**/node_modules'
-        key: node-modules-${{ hashFiles('**/package-lock.json') }}
+      # node-modulesのインストールに時間がかかるのでキャッシュする
+      - name: Cache dependencies
+        uses: actions/cache@v4
+        with:
+          path: '**/node_modules'
+          key: node-modules-${{ hashFiles('**/package-lock.json') }}
 
-    - name: Install dependencies
-      run: npm ci
+      - name: Install dependencies
+        run: npm ci
+ 
+      # openapi3仕様ドキュメントをフラット化
+      - name: Flatten the OpenAPI3 document
+        run: npx openapi-flattener -s api/openapi.yaml -o api/openapi_flat.yaml
 
-    # openapi3仕様ドキュメントをフラット化
-    - name: Flatten the OpenAPI3 document
-      run: npx openapi-flattener -s api/openapi.yaml -o api/openapi_flat.yaml
+      # openapi3仕様からswagger2仕様に変換
+      - name: Convert OpenAPI3 to Swagger2
+        run: npx api-spec-converter --from=openapi_3 --to=swagger_2 --syntax=yaml api/openapi_flat.yaml > api/swagger.yaml
 
-    # openapi3仕様からswagger2仕様に変換
-    - name: Convert OpenAPI3 to Swagger2
-      run: npx api-spec-converter --from=openapi_3 --to=swagger_2 --syntax=yaml api/openapi_flat.yaml > api/swagger.yaml
-
-    # 変換したファイルをコミットしてプッシュ
-    - name: Push changes
-      run: |
-        git config --global user.email "actions@github.com"
-        git config --global user.name "GitHub Actions"
-        git add api/swagger.yaml
-        git commit -m "Convert OpenAPI3 to Swagger2" || echo "No changes to commit"
-        git push origin main
+      # 変換したファイルをコミットしてプッシュ
+      - name: Push changes
+        run: |
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Actions"
+          git add api/swagger.yaml
+          git commit -m "Convert OpenAPI3 to Swagger2" || echo "No changes to commit"
+          git push origin main
