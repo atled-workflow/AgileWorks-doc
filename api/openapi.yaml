@@ -46,7 +46,961 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
             
  # --------------------------------------------------------------------------------------------------------
-  
+  /WebApi/Service:
+    post:
+      tags:
+        - 共通
+      summary: サービス実行
+      description: 
+        AgileWorksの各サービスを実行します。
+      operationId: service
+      parameters:
+        - $ref: "#/components/parameters/service_name"
+        - $ref: "#/components/parameters/service_method"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+      responses:
+        "200":
+          description: すべてのサービス実行APIは共通でcommon.ResponseModel型のフィールドがレスポンスボディに含まれます。
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/resultStatus"
+              example:
+                value:
+                  resultStatus: 
+                    status: SUCCESS
+                    messageList: 
+                      entries: []
+                    text: 
+                    code: 
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+            
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Download:
+    get:
+      tags:
+        - 共通
+      summary: ダウンロード
+      description: 
+        AgileWorks上にアップロードされている各ファイルをダウンロードします。
+      operationId: download
+      parameters:
+        - $ref: "#/components/parameters/download_s"
+      responses:
+        "200":
+          description: |
+            取得したファイル名は、Content-Disposition レスポンスヘッダに以下の形式で格納されます。<br>
+            ・ファイル名が全て ASCII 文字で構成される場合<br>
+            attachment;filename="<ファイル名>"<br>
+            ・ファイル名に ASCII 以外の文字を含む場合<br>
+            attachment;filename="<URL エンコードされたファイル名>"
+          content:
+            application/octet-stream:
+              example:
+                "ファイルの内容（バイナリデータ）" 
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=doc.Doc&method=getDocHeader:
+    post:
+      tags:
+        - 書類API
+      summary: 書類情報取得
+      description: 
+        書類の各情報を取得します。
+      operationId: getDocHeader
+      requestBody:
+        $ref: "#/components/requestBodies/docId"
+      responses:
+        "200":
+          $ref: "#/components/responses/GetDocHeaderResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+            
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=doc.Doc&method=getDoc:
+    post:
+      tags:
+        - 書類API
+      summary: 書類データ取得
+      description: 
+        書類データを取得します。
+      operationId: getDoc
+      requestBody:
+        $ref: "#/components/requestBodies/docId"
+      responses:
+        "200":
+          $ref: "#/components/responses/DocResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+          
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=doc.Doc&method=prepareDocRequest:
+    post:
+      tags:
+        - 書類API
+      summary: 新規書類データ作成
+      description: 
+        初期状態の書類データを作成します。
+      operationId: prepareDocRequest
+      requestBody:
+        $ref: "#/components/requestBodies/PrepareDocRequestRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/DocResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=doc.Doc&method=addDoc:
+    post:
+      tags:
+        - 書類API
+      summary: 新規書類データ保存
+      description: 
+        新規に作成した書類データを保存します。<br>
+        「新規書類データ作成API」で取得したdocの値を雛形として、書類の各フィールドに値をセットし、本APIにより書類データの保存を行います。<br>
+        本APIで保存した書類データを画面から参照できるようにするには、さらに、「下書き保存API」あるいは「書類作成 / 申請API」を実行する必要があります。
+      operationId: addDoc
+      requestBody:
+        $ref: "#/components/requestBodies/AddDocRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/DocResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=doc.Doc&method=updateDoc:
+    post:
+      tags:
+        - 書類API
+      summary: 書類データ更新
+      description: 
+        初期状態の書類データを作成します。<br>
+        「書類データ取得API」または「新規書類データ保存API」で取得したdocに対し、フィールドの値を変更し、本APIにより書類データを更新することができます。
+      operationId: updateDoc
+      requestBody:
+        $ref: "#/components/requestBodies/UpdateDocRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/DocResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=doc.Doc&method=hardDeleteDoc:
+    post:
+      tags:
+        - 書類API
+      summary: 書類物理削除
+      description: 
+        論理削除済みの書類を物理削除します。<br>
+        論理削除を行う場合は「書類論理削除API」を参照してください。
+      operationId: hardDeleteDoc
+      requestBody:
+        $ref: "#/components/requestBodies/docId"
+      responses:
+        "200":
+          $ref: "#/components/responses/ResultStatusResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=doc.Doc&method=selectDoc:
+    post:
+      tags:
+        - 書類API
+      summary: 書類検索
+      description: 
+        指定した条件に合致する書類の一覧を取得します。
+      operationId: selectDoc
+      requestBody:
+        $ref: "#/components/requestBodies/SelectDocRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/SelectDocResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=doc.Doc&method=getDocPdf:
+    post:
+      tags:
+        - 書類API
+      summary: 書類PDFファイル取得
+      description: 
+        書類のPDFファイルを生成し、ダウンロードします。
+      operationId: getDocPdf
+      requestBody:
+        $ref: "#/components/requestBodies/GetDocPdfRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/GetDocPdfResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=doc.Doc&method=listDocComment:
+    post:
+      tags:
+        - 書類API
+      summary: 書類コメント一覧取得
+      description: 
+        書類のコメント一覧を取得します。
+      operationId: listDocComment
+      requestBody:
+        $ref: "#/components/requestBodies/docId"
+      responses:
+        "200":
+          $ref: "#/components/responses/ListDocCommentResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=doc.Doc&method=addDocComment:
+    post:
+      tags:
+        - 書類API
+      summary: 書類メモ追加
+      description: 
+        書類のメモを追加します。
+      operationId: addDocComment
+      requestBody:
+        $ref: "#/components/requestBodies/AddDocCommentRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/AddDocCommentResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=doc.Doc&method=deleteDocComment:
+    post:
+      tags:
+        - 書類API
+      summary: 書類コメント / メモ削除
+      description: 
+        書類のコメント / メモを削除します。
+      operationId: deleteDocComment
+      requestBody:
+        $ref: "#/components/requestBodies/DeleteDocCommentRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/ResultStatusResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=doc.Doc&method=addDocAttachment:
+    post:
+      tags:
+        - 書類API
+      summary: 書類添付情報追加
+      description: 
+        書類の添付情報を追加します。
+      operationId: addDocAttachement
+      requestBody:
+        $ref: "#/components/requestBodies/AddDocAttachmentRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/DocAttachmentResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=doc.Doc&method=updateDocAttachment:
+    post:
+      tags:
+        - 書類API
+      summary: 書類添付情報更新
+      description: 
+        書類の添付情報を更新します。
+      operationId: updateDocAttachement
+      requestBody:
+        $ref: "#/components/requestBodies/UpdateDocAttachmentRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/DocAttachmentResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=doc.Doc&method=listDocAttachment:
+    post:
+      tags:
+        - 書類API
+      summary: 書類添付情報一覧取得
+      description: 
+        書類の添付情報一覧を取得します。
+      operationId: listDocAttachement
+      requestBody:
+        $ref: "#/components/requestBodies/docId"
+      responses:
+        "200":
+          $ref: "#/components/responses/ListDocAttachmentResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=doc.Doc&method=deleteDocAttachment:
+    post:
+      tags:
+        - 書類API
+      summary: 書類添付情報削除
+      description: 
+        書類の添付情報を削除します。
+      operationId: deleteDocAttachement
+      requestBody:
+        $ref: "#/components/requestBodies/DeleteDocAttachmentRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/ResultStatusResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=doc.Doc&method=getDocReferencee:
+    post:
+      tags:
+        - 書類API
+      summary: 参照元関連書類情報取得
+      description: 
+        参照元の関連書類情報を取得します。
+      operationId: getDocReferencee
+      requestBody:
+        $ref: "#/components/requestBodies/docId2"
+      responses:
+        "200":
+          $ref: "#/components/responses/GetDocReferenceeResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=doc.Doc&method=listDocReferencer:
+    post:
+      tags:
+        - 書類API
+      summary: 参照先関連書類情報一覧取得
+      description: 
+        参照先の関連書類情報の一覧を取得します。
+      operationId: listDocReferencer
+      requestBody:
+        $ref: "#/components/requestBodies/docId"
+      responses:
+        "200":
+          $ref: "#/components/responses/ListDocReferencerResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=doc.Doc&method=addDocReference:
+    post:
+      tags:
+        - 書類API
+      summary: 関連書類追加
+      description: 
+        書類の関連付けを追加します。
+      operationId: addDocReference
+      requestBody:
+        $ref: "#/components/requestBodies/DocReferenceRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/ResultStatusResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=doc.Doc&method=deleteDocReference:
+    post:
+      tags:
+        - 書類API
+      summary: 関連書類削除
+      description: 
+        書類の関連付けを削除します。
+      operationId: deleteDocReference
+      requestBody:
+        $ref: "#/components/requestBodies/DocReferenceRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/ResultStatusResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=doc.Doc&method=openDoc:
+    post:
+      tags:
+        - 書類API
+      summary: 書類表示
+      description: 
+        書類を表示するHTMLをダウンロードします。
+      operationId: openDoc
+      requestBody:
+        $ref: "#/components/requestBodies/OpenDocRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/TextHtmlResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=workflow.Workflow&method=countWorkflowMessage:
+    post:
+      tags:
+        - ワークフローAPI
+      summary: 回付情報件数取得
+      description: |
+        回付情報の件数を取得します。
+      operationId: countWorkflowMessage
+      requestBody:
+        $ref: "#/components/requestBodies/CountWorkflowMessageRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/CountResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=workflow.Workflow&method=countListWorkflowMessage:
+    post:
+      tags:
+        - ワークフローAPI
+      summary: 回付情報件数一覧取得
+      description: |
+        回付情報の件数の一覧を取得します。
+      operationId: countListWorkflowMessage
+      requestBody:
+        $ref: "#/components/requestBodies/CountListWorkflowMessageRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/CountListWorkflowMessageResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=workflow.Workflow&method=selectWorkflowMessage:
+    post:
+      tags:
+        - ワークフローAPI
+      summary: 回付情報検索
+      description: |
+        回付情報の一覧を検索します。
+      operationId: selectWorkflowMessage
+      requestBody:
+        $ref: "#/components/requestBodies/SelectWorkflowMessageRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/SelectWorkflowMessageResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=workflow.Workflow&method=draft:
+    post:
+      tags:
+        - ワークフローAPI
+      summary: 書類下書き保存
+      description: |
+        書類を下書き保存します。
+      operationId: draft
+      requestBody:
+        $ref: "#/components/requestBodies/DraftRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/ResultStatusResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=workflow.Workflow&method=start:
+    post:
+      tags:
+        - ワークフローAPI
+      summary: 書類作成/申請
+      description: |
+        書類を作成または申請します。
+      operationId: start
+      requestBody:
+        $ref: "#/components/requestBodies/StartRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/ResultStatusResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=workflow.Workflow&method=approve:
+    post:
+      tags:
+        - ワークフローAPI
+      summary: 書類承認
+      description: |
+        書類を承認します。
+      operationId: approve
+      requestBody:
+        $ref: "#/components/requestBodies/ApproveRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/ResultStatusResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=workflow.Workflow&method=delete:
+    post:
+      tags:
+        - ワークフローAPI
+      summary: 書類論理削除
+      description: |
+        書類を論理削除します。
+      operationId: delete
+      requestBody:
+        $ref: "#/components/requestBodies/DeleteRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/ResultStatusResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=workflow.Workflow&method=remand:
+    post:
+      tags:
+        - ワークフローAPI
+      summary: 書類差戻し
+      description: |
+        書類を差戻します。
+      operationId: remand
+      requestBody:
+        $ref: "#/components/requestBodies/RemandRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/ResultStatusResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=workflow.Workflow&method=retract:
+    post:
+      tags:
+        - ワークフローAPI
+      summary: 書類引戻し
+      description: |
+        書類を引戻します。
+      operationId: retract
+      requestBody:
+        $ref: "#/components/requestBodies/RetractRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/ResultStatusResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=workflow.Workflow&method=reject:
+    post:
+      tags:
+        - ワークフローAPI
+      summary: 書類却下
+      description: |
+        書類を却下します。
+      operationId: reject
+      requestBody:
+        $ref: "#/components/requestBodies/RejectRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/ResultStatusResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=workflow.Workflow&method=getWorkflowInfo:
+    post:
+      tags:
+        - ワークフローAPI
+      summary: 回付情報取得
+      description: |
+        回付情報を取得します。
+      operationId: getWorkflowInfo
+      requestBody:
+        $ref: "#/components/requestBodies/docId"
+      responses:
+        "200":
+          $ref: "#/components/responses/GetWorkflowInfoResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=workflow.Workflow&method=findWorkflowTask:
+    post:
+      tags:
+        - ワークフローAPI
+      summary: 回付情報タスク検索
+      description: |
+        回付情報タスクを検索します。
+      operationId: findWorkflowTask
+      requestBody:
+        $ref: "#/components/requestBodies/FindWorkflowTaskRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/FindWorkflowTaskResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=workflow.Workflow&method=listWorkflowJournal:
+    post:
+      tags:
+        - ワークフローAPI
+      summary: 回付履歴一覧取得
+      description: |
+        回付履歴の一覧を取得します。
+      operationId: listWorkflowJournal
+      requestBody:
+        $ref: "#/components/requestBodies/docId"
+      responses:
+        "200":
+          $ref: "#/components/responses/ListWorkflowJournalResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=workflow.Workflow&method=listElectJournal:
+    post:
+      tags:
+        - ワークフローAPI
+      summary: 処理者変更履歴一覧取得
+      description: |
+        処理者変更履歴の一覧を取得します。
+      operationId: listElectJournal
+      requestBody:
+        $ref: "#/components/requestBodies/docId"
+      responses:
+        "200":
+          $ref: "#/components/responses/ListElectJournalResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+ # --------------------------------------------------------------------------------------------------------
+  /WebApi/Service?name=workflow.Workflow&method=listShareJournal:
+    post:
+      tags:
+        - ワークフローAPI
+      summary: 共有履歴一覧取得
+      description: |
+        共有履歴の一覧を取得します。
+      operationId: listShareJournal
+      requestBody:
+        $ref: "#/components/requestBodies/docId"
+      responses:
+        "200":
+          $ref: "#/components/responses/ListShareJournalResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
  
  # --------------------------------------------------------------------------------------------------------
   /WebApi/Service?name=org.Org&method=addUser:
@@ -1710,6 +2664,12 @@ paths:
       description:
         マスター参照コンポーネント一覧を取得します。
       operationId: listComponentMasterWindow
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
       responses:
         "200":
           $ref: "#/components/responses/ListComponentMasterWindowResponses200"
@@ -1733,6 +2693,12 @@ paths:
       description:
         自動採番コンポーネント一覧を取得します。
       operationId: listComponentAutoNumber
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
       responses:
         "200":
           $ref: "#/components/responses/ListComponentAutoNumberResponses200"
