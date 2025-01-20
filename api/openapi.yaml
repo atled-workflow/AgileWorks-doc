@@ -60,7 +60,19 @@ paths:
       responses:
         "200":
           description: すべてのサービス実行APIは共通でcommon.ResponseModel型のフィールドがレスポンスボディに含まれます。
-          
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/resultStatus"
+              example:
+                value:
+                  resultStatus: 
+                    status: SUCCESS
+                    messageList: 
+                      entries: []
+                    text: 
+                    code: 
         "400":
           $ref: "#/components/responses/ErrorResponses400"
         "401":
