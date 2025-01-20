@@ -3,7 +3,7 @@ name: Deploy Swagger UI to Pages
 # openapi3→swagger2の変換後に実行
 on:
   workflow_run:
-    workflows: [.githuconvert_openapi3_to_swagger2]
+    workflows: [Convert OpenAPI3 to Swagger2]
     types:
       - completed
 
