@@ -2437,7 +2437,7 @@ paths:
         - 組織API
       summary: ユニバーサルロール所属参照
       description:
-        ユニバーサル所属を参照します。
+        ユニバーサルロール所属を参照します。
       operationId: findUniversalRoleAppointment
       requestBody:
         $ref: "#/components/requestBodies/FindUniversalRoleAppointmentRequest"
