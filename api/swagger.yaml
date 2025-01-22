@@ -18335,7 +18335,7 @@ paths:
             type: object
       tags:
         - 組織API
-      description: ユニバーサル所属を参照します。
+      description: ユニバーサルロール所属を参照します。
       operationId: findUniversalRoleAppointment
       summary: ユニバーサルロール所属参照
   /WebApi/Service?name=org.Org&method=findUser:
