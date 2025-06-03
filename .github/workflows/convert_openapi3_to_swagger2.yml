@@ -3,6 +3,8 @@ name: Convert OpenAPI3 to Swagger2 and Deploy Swagger UI
 on:
   push:
     branches: [ "main" ]
+    paths:
+      -  'api/**'
 
 permissions:
   contents: write
