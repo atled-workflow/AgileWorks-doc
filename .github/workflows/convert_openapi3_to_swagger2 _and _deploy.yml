@@ -2,7 +2,8 @@ name: Convert OpenAPI3 to Swagger2 and Deploy to Pages
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
     paths:
       - "api/**" # apiディレクトリ内の変更を監視
 
@@ -28,14 +29,18 @@ jobs:
       - name: Detect changed directories
         id: changes
         run: |
-          # 変更されたディレクトリを取得
-          CHANGED_DIRS=$(git diff --name-only HEAD^ HEAD | grep -oE '^api/[^/]+/' | uniq)
+          # 変更されたファイルを取得（直近のコミット）
+          CHANGED_FILES=$(git log -m -1 --name-only --pretty=format: | grep '^api/' || true)
+          echo "Changed files: $CHANGED_FILES"
+
+          # 変更されたディレクトリを抽出（api/<バージョン名>/ のみ）
+          CHANGED_DIRS=$(echo "$CHANGED_FILES" | grep -oE '^api/[^/]+/' | uniq)
           echo "Changed directories: $CHANGED_DIRS"
-          
+
           # 最初の変更されたディレクトリを取得
           VERSION=$(echo "$CHANGED_DIRS" | head -n 1 | cut -d '/' -f2)
           echo "Detected version directory: $VERSION"
-          
+
           # 出力として渡す
           echo "::set-output name=version::$VERSION"
 
