@@ -1,0 +1,100 @@
+name: Convert OpenAPI3 to Swagger2 and Deploy to Pages
+
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - "api/**" # apiディレクトリ内の変更を監視
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  convert_and_deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # リポジトリのチェックアウト
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 変更されたディレクトリを特定
+      - name: Detect changed directories
+        id: changes
+        run: |
+          # 変更されたディレクトリを取得
+          CHANGED_DIRS=$(git diff --name-only HEAD^ HEAD | grep -oE '^api/[^/]+/' | uniq)
+          echo "Changed directories: $CHANGED_DIRS"
+          
+          # 最初の変更されたディレクトリを取得
+          VERSION=$(echo "$CHANGED_DIRS" | head -n 1 | cut -d '/' -f2)
+          echo "Detected version directory: $VERSION"
+          
+          # 出力として渡す
+          echo "::set-output name=version::$VERSION"
+
+      # node-modulesのキャッシュ
+      - name: Cache dependencies
+        uses: actions/cache@v4
+        with:
+          path: '**/node_modules'
+          key: node-modules-${{ hashFiles('**/package-lock.json') }}
+
+      # 依存関係のインストール
+      - name: Install dependencies
+        run: npm ci
+
+      # OpenAPI3 → Swagger2 の変換とコピー
+      - name: Convert OpenAPI3 to Swagger2 for the changed version
+        if: steps.changes.outputs.version != ''
+        run: |
+          VERSION_DIR="api/${{ steps.changes.outputs.version }}"
+          echo "Processing ${VERSION_DIR}"
+          
+          # openapi.yaml が存在する場合のみ処理を実行
+          if [ -f "${VERSION_DIR}/openapi.yaml" ]; then
+            echo "Found openapi.yaml in ${VERSION_DIR}"
+            
+            # フラット化
+            npx openapi-flattener -s ${VERSION_DIR}/openapi.yaml -o ${VERSION_DIR}/openapi_flat.yaml
+
+            # OpenAPI3 → Swagger2 の変換
+            npx api-spec-converter --from=openapi_3 --to=swagger_2 --syntax=yaml ${VERSION_DIR}/openapi_flat.yaml > ${VERSION_DIR}/swagger.yaml
+          else
+            echo "No openapi.yaml found in ${VERSION_DIR}, skipping..."
+          fi
+
+      # Swagger-UIファイルの注入
+      - name: Checkout swagger-ui
+        uses: actions/checkout@v4
+        with:
+          repository: swagger-api/swagger-ui
+          ref: 'v4.15.5'
+          path: swagger-ui
+          sparse-checkout: dist
+
+      - name: Inject Swagger static files for the changed version
+        if: steps.changes.outputs.version != ''
+        run: |
+          VERSION_DIR="api/${{ steps.changes.outputs.version }}"
+          echo "Injecting Swagger UI files for ${VERSION_DIR}"
+          cp -n ./swagger-ui/dist/* ${VERSION_DIR}/
+
+      # GitHub Pages用にビルドとデプロイ
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+      - name: Build with Jekyll
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
