@@ -1,9 +1,10 @@
-name: Create Release Branch and Deploy to GitHub Pages
+name: Create and Deploy Release Branch
 
 on:
-  push:
+  create:
+    # ブランチが作成されたときにトリガー
     branches:
-      - "release/**" # `release/`で始まるブランチが作成されたときトリガー
+      - release/*
 
 permissions:
   contents: write
@@ -15,41 +16,39 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # リポジトリをクローン
+      # リポジトリをチェックアウト
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # ブランチ名を取得
-      - name: Get branch name
-        id: vars
-        run: |
-          BRANCH_NAME=${GITHUB_REF#refs/heads/}
-          echo "branch_name=${BRANCH_NAME}" >> $GITHUB_ENV
+      # 新しいブランチ名を取得
+      - name: Extract branch name
+        id: branch_name
+        run: echo "branch_name=${GITHUB_REF##*/}" >> $GITHUB_ENV
 
-      # `/api/main`ディレクトリをコピーして`/api/R320`として作成
-      - name: Copy /api/main to release directory
+      # 新しいディレクトリを作成してファイルをコピー
+      - name: Copy api/main to new release directory
         run: |
-          RELEASE_DIR=${BRANCH_NAME#release/}
-          cp -R api/main api/${RELEASE_DIR}
+          NEW_DIR="api/${{ env.branch_name }}"
+          cp -r api/main "$NEW_DIR"
 
-      # 新しく作成したディレクトリをコミットしてプッシュ
-      - name: Commit and push changes
-        run: |
-          git config --global user.email "actions@github.com"
-          git config --global user.name "GitHub Actions"
-          git add api/${{ env.branch_name#release/ }}
-          git commit -m "Add /api/${{ env.branch_name#release/ }} directory for release"
-          git push origin ${{ env.branch_name }}
+      # 必要なファイルが正しくコピーされているか確認
+      - name: List files in new directory
+        run: ls -al "api/${{ env.branch_name }}"
 
-      # GitHub Pages用にドキュメントをセットアップしてデプロイ
+      # GitHub Pages用に設定
       - name: Setup Pages
         uses: actions/configure-pages@v5
+
+      # GitHub Pagesに公開するコンテンツを準備
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1
         with:
-          source: ./ # ルートディレクトリを指定
+          source: ./api/
+
+      # GitHub Pagesにデプロイ
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
