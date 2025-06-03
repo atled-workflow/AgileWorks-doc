@@ -3,6 +3,8 @@ name: Convert OpenAPI3 to Swagger2 and Deploy Swagger UI
 on:
   push:
     branches: [ "main" ]
+    paths:
+      - "api/openapi.yaml" # api/openapi.yaml が変更されたときのみトリガー
 
 permissions:
   contents: write
@@ -14,31 +16,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  detect_changes:
+  convert_and_deploy:
     runs-on: ubuntu-latest
-    outputs:
-      changed_dirs: ${{ steps.detect_changes.outputs.changed_dirs }}
-
-    steps:
-      # リポジトリをチェックアウト
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      # 変更があったディレクトリを検出
-      - name: Detect changed directories
-        id: detect_changes
-        run: |
-          # OpenAPIファイルが変更されたディレクトリを抽出
-          changed_dirs=$(git diff --name-only HEAD^ HEAD | grep 'openapi.yaml' | xargs -I {} dirname {} | sort -u)
-          echo "changed_dirs=$changed_dirs"
-          echo "::set-output name=changed_dirs::$changed_dirs"
-
-  process_and_deploy:
-    needs: detect_changes
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        directory: ${{ fromJSON(needs.detect_changes.outputs.changed_dirs) }}
 
     steps:
       # リポジトリをチェックアウト
@@ -58,19 +37,19 @@ jobs:
 
       # OpenAPI3仕様ドキュメントをフラット化
       - name: Flatten the OpenAPI3 document
-        run: npx openapi-flattener -s ${{ matrix.directory }}/openapi.yaml -o ${{ matrix.directory }}/openapi_flat.yaml
+        run: npx openapi-flattener -s api/openapi.yaml -o api/openapi_flat.yaml
 
       # OpenAPI3からSwagger2へ変換
       - name: Convert OpenAPI3 to Swagger2
-        run: npx api-spec-converter --from=openapi_3 --to=swagger_2 --syntax=yaml ${{ matrix.directory }}/openapi_flat.yaml > ${{ matrix.directory }}/swagger.yaml
+        run: npx api-spec-converter --from=openapi_3 --to=swagger_2 --syntax=yaml api/openapi_flat.yaml > api/swagger.yaml
 
       # 変換したファイルをコミットしてプッシュ
       - name: Commit and Push changes
         run: |
           git config --global user.email "actions@github.com"
           git config --global user.name "GitHub Actions"
-          git add ${{ matrix.directory }}/swagger.yaml
-          git commit -m "Convert OpenAPI3 to Swagger2 in ${{ matrix.directory }}" || echo "No changes to commit"
+          git add api/swagger.yaml
+          git commit -m "Convert OpenAPI3 to Swagger2" || echo "No changes to commit"
           git push origin main
 
       # Swagger UIファイルをチェックアウトして必要なものをコピー
@@ -82,7 +61,7 @@ jobs:
           path: swagger-ui
           sparse-checkout: dist
       - name: Inject Swagger static files
-        run: cp -n ./swagger-ui/dist/* ./${{ matrix.directory }}/
+        run: cp -n ./swagger-ui/dist/* ./api/
 
       # GitHub Pages用にビルドしてデプロイ
       - name: Setup Pages
@@ -90,7 +69,7 @@ jobs:
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1
         with:
-          source: ./${{ matrix.directory }}/
+          source: ./api/
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
       - name: Deploy to GitHub Pages
