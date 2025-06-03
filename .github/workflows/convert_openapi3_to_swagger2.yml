@@ -35,18 +35,18 @@ jobs:
 
       # OpenAPI3仕様ドキュメントをフラット化
       - name: Flatten the OpenAPI3 document
-        run: npx openapi-flattener -s api/openapi.yaml -o api/openapi_flat.yaml
+        run: npx openapi-flattener -s api/main/openapi.yaml -o api/main/openapi_flat.yaml
 
       # OpenAPI3からSwagger2へ変換
       - name: Convert OpenAPI3 to Swagger2
-        run: npx api-spec-converter --from=openapi_3 --to=swagger_2 --syntax=yaml api/openapi_flat.yaml > api/swagger.yaml
+        run: npx api-spec-converter --from=openapi_3 --to=swagger_2 --syntax=yaml api/main/openapi_flat.yaml > api/main/swagger.yaml
 
       # 変換したファイルをコミットしてプッシュ
       - name: Commit and Push changes
         run: |
           git config --global user.email "actions@github.com"
           git config --global user.name "GitHub Actions"
-          git add api/swagger.yaml
+          git add api/main/swagger.yaml
           git commit -m "Convert OpenAPI3 to Swagger2" || echo "No changes to commit"
           git push origin main
 
@@ -59,7 +59,7 @@ jobs:
           path: swagger-ui
           sparse-checkout: dist
       - name: Inject Swagger static files
-        run: cp -n ./swagger-ui/dist/* ./api/
+        run: cp -n ./swagger-ui/dist/* ./api/main
 
       # GitHub Pages用にビルドしてデプロイ
       - name: Setup Pages
@@ -67,7 +67,7 @@ jobs:
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1
         with:
-          source: ./api/
+          source: ./api/main
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
       - name: Deploy to GitHub Pages
