@@ -1,0 +1,55 @@
+name: Create Release Branch and Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - "release/**" # `release/`で始まるブランチが作成されたときトリガー
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  copy_and_deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # リポジトリをクローン
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # ブランチ名を取得
+      - name: Get branch name
+        id: vars
+        run: |
+          BRANCH_NAME=${GITHUB_REF#refs/heads/}
+          echo "branch_name=${BRANCH_NAME}" >> $GITHUB_ENV
+
+      # `/api/main`ディレクトリをコピーして`/api/R320`として作成
+      - name: Copy /api/main to release directory
+        run: |
+          RELEASE_DIR=${BRANCH_NAME#release/}
+          cp -R api/main api/${RELEASE_DIR}
+
+      # 新しく作成したディレクトリをコミットしてプッシュ
+      - name: Commit and push changes
+        run: |
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Actions"
+          git add api/${{ env.branch_name#release/ }}
+          git commit -m "Add /api/${{ env.branch_name#release/ }} directory for release"
+          git push origin ${{ env.branch_name }}
+
+      # GitHub Pages用にドキュメントをセットアップしてデプロイ
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+      - name: Build with Jekyll
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./ # ルートディレクトリを指定
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
