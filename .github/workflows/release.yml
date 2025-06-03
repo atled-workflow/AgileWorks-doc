@@ -33,6 +33,14 @@ jobs:
         run: |
           cp -R api/main api/${{ env.RELEASE_DIR }}
 
+      - name: Commit and push changes
+        run: |
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Actions"
+          git add api/${{ env.branch_name#release/ }}
+          git commit -m "Add /api/${{ env.branch_name#release/ }} directory for release"
+          git push origin ${{ env.branch_name }}
+      
       # 必要な依存関係をインストール
       - name: Install dependencies
         run: npm ci
