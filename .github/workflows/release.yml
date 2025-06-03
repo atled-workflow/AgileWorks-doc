@@ -46,20 +46,31 @@ jobs:
           git commit -m "Add API documentation for release ${{ env.branch_name }}"
           git push origin main
 
-      # GitHub Pages用に設定
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          path:  contents
+      
+      # Swagger-UIファイルをチェックアウトして必要なものをコピー
+      - name: Checkout swagger-ui
+        uses: actions/checkout@v4
+        with:
+          repository: swagger-api/swagger-ui
+          ref: 'v4.15.5'
+          path: swagger-ui
+          sparse-checkout: dist
+      - name: Inject Swagger static files
+        run: cp -n ./swagger-ui/dist/* ./contents/api/${{ env.branch_name }}
+
+      # GitHub Pages用にマニュアルをビルドしてデプロイ
       - name: Setup Pages
         uses: actions/configure-pages@v5
-
-      # GitHub Pagesに公開するコンテンツを準備
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1
         with:
-          source: ./api/
-
-      # GitHub Pagesにデプロイ
+          source: ./contents/
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
-
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
