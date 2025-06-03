@@ -15,6 +15,9 @@ concurrency:
 
 jobs:
   convert_and_deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
 
     steps:
@@ -50,7 +53,13 @@ jobs:
           git commit -m "Convert OpenAPI3 to Swagger2" || echo "No changes to commit"
           git push origin main
 
-      # Swagger UIファイルをチェックアウトして必要なものをコピー
+      # APIドキュメントをチェックアウト
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          path: contents
+
+      # Swagger-UIファイルをチェックアウトして必要なものをコピー
       - name: Checkout swagger-ui
         uses: actions/checkout@v4
         with:
@@ -59,20 +68,17 @@ jobs:
           path: swagger-ui
           sparse-checkout: dist
       - name: Inject Swagger static files
-        run: cp -n ./swagger-ui/dist/* ./api/main
+        run: cp -n ./swagger-ui/dist/* ./contents/api/
 
-      # GitHub Pages用にビルドしてデプロイ
+      # GitHub Pages用にマニュアルをビルドしてデプロイ
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1
         with:
-          source: ./api/main
-          destination:  ./api/main/_site
+          source: ./contents/
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
-        with:
-          path:  ./api/main/_site
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
