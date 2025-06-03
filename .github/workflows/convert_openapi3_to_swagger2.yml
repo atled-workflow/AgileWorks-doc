@@ -70,8 +70,6 @@ jobs:
           source: ./api/main
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
-        with:
-          path:  ./api/main
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
