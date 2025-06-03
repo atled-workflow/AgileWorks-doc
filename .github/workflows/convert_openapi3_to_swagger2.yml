@@ -4,7 +4,7 @@ on:
   push:
     branches: [ "main" ]
     paths:
-      - "api/**/openapi.yaml" # api/内の任意のディレクトリにあるopenapi.yamlの変更を監視
+      - "api/**" # api/内の任意のディレクトリにあるopenapi.yamlの変更を監視
 
 permissions:
   contents: write
