@@ -4,7 +4,7 @@ on:
   push:
     branches: [ "main" ]
     paths:
-      - "api/**"  # api ディレクトリ以下のすべての変更を監視
+      - "api/**"
 
 permissions:
   contents: write
@@ -20,28 +20,30 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # リポジトリをチェックアウト
+      # リポジトリをチェックアウト（完全な履歴を取得）
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       # 変更されたディレクトリを検出
       - name: Detect changed directories
         id: detect_changes
         run: |
-          # 変更されたファイルを取得
-          CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD)
+          # 初回コミットまたは通常の変更検出
+          if git rev-parse HEAD~1 >/dev/null 2>&1; then
+            CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD)
+          else
+            CHANGED_FILES=$(git ls-files)
+          fi
 
-          # 変更されたディレクトリを抽出 (api/以下のトップレベルディレクトリのみ)
+          # 変更されたディレクトリを抽出
           CHANGED_DIRECTORIES=$(echo "$CHANGED_FILES" | grep '^api/' | awk -F'/' '{print $1"/"$2}' | sort | uniq)
-
-          # ディレクトリを出力
-          echo "Changed directories:"
-          echo "$CHANGED_DIRECTORIES"
 
           # GitHub Actions 用の出力として設定
           echo "directories=$CHANGED_DIRECTORIES" >> $GITHUB_ENV
 
-      # 変更がなければスキップ
+      # スキップする場合は早期終了
       - name: Skip if no relevant changes
         if: env.directories == ''
         run: echo "No relevant changes detected. Exiting."
@@ -72,25 +74,3 @@ jobs:
           git config --global user.email "actions@github.com"
           git config --global user.name "GitHub Actions"
           git push origin main
-
-      # Swagger UIファイルをチェックアウト
-      - name: Checkout swagger-ui
-        uses: actions/checkout@v4
-        with:
-          repository: swagger-api/swagger-ui
-          ref: 'v4.15.5'
-          path: swagger-ui
-          sparse-checkout: dist
-
-      # GitHub Pages 用にビルドしてデプロイ
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-      - name: Build with Jekyll
-        uses: actions/jekyll-build-pages@v1
-        with:
-          source: ./api/
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
