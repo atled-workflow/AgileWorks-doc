@@ -21,6 +21,8 @@ jobs:
       # リポジトリをチェックアウト
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          path:  contents
 
       # node_modulesのインストールをキャッシュする
       - name: Cache dependencies
@@ -59,7 +61,7 @@ jobs:
           path: swagger-ui
           sparse-checkout: dist
       - name: Inject Swagger static files
-        run: cp -n ./swagger-ui/dist/* ./api/main
+        run: cp -n ./swagger-ui/dist/* ./contents/api/main
 
       # GitHub Pages用にマニュアルをビルドしてデプロイ
       - name: Setup Pages
@@ -67,7 +69,7 @@ jobs:
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1
         with:
-          source: ./api/main
+          source: ./contents/
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
       - name: Deploy to GitHub Pages
