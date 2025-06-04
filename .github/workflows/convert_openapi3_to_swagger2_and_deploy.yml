@@ -1,4 +1,4 @@
-name: Convert OpenAPI3 to Swagger2
+name: Convert OpenAPI3 to Swagger22
 
 on:
   push:
