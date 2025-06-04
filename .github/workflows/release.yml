@@ -51,6 +51,13 @@ jobs:
         with:
           path:  contents
 
+      # 新しいディレクトリを作成してファイルをコピー
+      - name: Create and copy to new release directory in contents
+        run: |
+          NEW_DIR="./contents/api/${{ env.branch_name }}"
+          mkdir -p "$NEW_DIR"  # コピー先ディレクトリを作成
+          cp -r api/main/* "$NEW_DIR"
+      
       # Swagger-UIファイルをチェックアウトして必要なものをコピー
       - name: Checkout swagger-ui
         uses: actions/checkout@v4
