@@ -65,11 +65,9 @@ jobs:
           ref: 'v4.15.5'
           path: swagger-ui
           sparse-checkout: dist
-      - name: Clean up old Swagger static files
-        run: rm -rf ./contents/api/main/*
 
       - name: Inject Swagger static files
-        run: cp -r ./swagger-ui/dist/* ./contents/api/main
+        run: cp -n ./swagger-ui/dist/* ./contents/api/main
 
       # GitHub Pages用にマニュアルをビルドしてデプロイ
       - name: Setup Pages
