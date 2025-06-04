@@ -23,18 +23,10 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      # APIドキュメントをチェックアウト
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          path: contents
-
-      # 新しいディレクトリを作成してファイルをコピー
-      - name: Create and copy to new release directory in contents
-        run: |
-          NEW_DIR="./contents/api/${{ env.branch_name }}"
-          mkdir -p "$NEW_DIR"  # コピー先ディレクトリを作成
-          cp -r api/main/* "$NEW_DIR"
+          path:  contents
       
       # Swagger-UIファイルをチェックアウトして必要なものをコピー
       - name: Checkout swagger-ui
@@ -44,6 +36,7 @@ jobs:
           ref: 'v4.15.5'
           path: swagger-ui
           sparse-checkout: dist
+
       - name: Inject Swagger static files
         run: cp -n ./swagger-ui/dist/* ./contents/api/main
 
