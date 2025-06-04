@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: '[AW]R3系 WebAPIテストケース整理4'
+  title: '[AW]R3系 WebAPIテストケース整理5'
   version: 1.0.0
 servers:
   - url: https://sample.atled.jp/AgileWorks/Broker
