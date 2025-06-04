@@ -46,11 +46,20 @@ jobs:
           git commit -m "Add API documentation for release ${{ env.branch_name }}"
           git push origin main
 
-            # リポジトリの内容を再チェックアウト
-      - name: Checkout repository again
-        uses: actions/checkout@v4
-        with:
-          path: contents
+      # 現在のGitHub Pagesコンテンツを取得
+      - name: Download existing Pages artifact
+        run: |
+          git fetch origin gh-pages:gh-pages
+          git checkout gh-pages
+          mkdir -p ./contents
+          mv * ./contents || true  # 既存のコンテンツをcontentsディレクトリに移動
+
+      # 新しいディレクトリをcontentsに追加
+      - name: Add new release directory to contents
+        run: |
+          NEW_DIR="./contents/api/${{ env.branch_name }}"
+          mkdir -p "$NEW_DIR"
+          cp -r api/${{ env.branch_name }}/* "$NEW_DIR"
 
       # 新しいディレクトリを作成してファイルをコピー
       - name: Create and copy to new release directory in contents
