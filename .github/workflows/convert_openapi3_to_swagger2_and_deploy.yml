@@ -51,7 +51,7 @@ jobs:
           git add api/main/swagger.yaml
           git commit -m "Convert OpenAPI3 to Swagger2" || echo "No changes to commit"
           git push origin main
-      
+
       - name: Checkout
         uses: actions/checkout@v4
         with:
@@ -65,34 +65,18 @@ jobs:
           ref: 'v4.15.5'
           path: swagger-ui
           sparse-checkout: dist
-      # Swagger-UIをmain用にコピー
-      - name: Inject Swagger static files for main
-        run: |
-          mkdir -p ./_site/api/main
-          cp -r ./swagger-ui/dist/* ./_site/api/main
+      - name: Inject Swagger static files
+        run: cp -n ./swagger-ui/dist/* ./contents/api/main
 
-      # 既存のGitHub Pagesを保持するための設定
-      - name: Checkout existing Pages content
-        uses: actions/checkout@v4
-        with:
-          repository: atled-workflow/AgileWorks-doc
-          ref: gh-pages
-          path: existing-pages
-
-      # 既存のコンテンツをマージ
-      - name: Merge existing Pages content
-        run: |
-          cp -r ./existing-pages/* ./_site/
-
-      # GitHub Pages用のデプロイ
+      # GitHub Pages用にマニュアルをビルドしてデプロイ
       - name: Setup Pages
         uses: actions/configure-pages@v5
-
+      - name: Build with Jekyll
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./contents/
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./_site
-
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
