@@ -46,11 +46,6 @@ jobs:
           git commit -m "Add API documentation for release ${{ env.branch_name }}"
           git push origin main
 
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          path:  contents
-
       # 新しいディレクトリを作成してファイルをコピー
       - name: Create and copy to new release directory in contents
         run: |
