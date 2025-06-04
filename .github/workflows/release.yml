@@ -46,10 +46,11 @@ jobs:
           git commit -m "Add API documentation for release ${{ env.branch_name }}"
           git push origin main
 
-            # リポジトリの内容を再チェックアウト
-      - name: Checkout repository again
+        # リポジトリの内容を再チェックアウト（GitHub Pages用コンテンツを保持）
+      - name: Checkout contents branch
         uses: actions/checkout@v4
         with:
+          ref: gh-pages # GitHub Pagesブランチを取得
           path: contents
 
       # 新しいディレクトリを作成してファイルをコピー
@@ -57,8 +58,8 @@ jobs:
         run: |
           NEW_DIR="./contents/api/${{ env.branch_name }}"
           mkdir -p "$NEW_DIR"  # コピー先ディレクトリを作成
-          cp -r api/${{ env.branch_name}}/* "$NEW_DIR"
-      
+          cp -r api/${{ env.branch_name }}/* "$NEW_DIR"
+
       # Swagger-UIファイルをチェックアウトして必要なものをコピー
       - name: Checkout swagger-ui
         uses: actions/checkout@v4
