@@ -57,7 +57,7 @@ jobs:
         run: |
           NEW_DIR="./contents/api/${{ env.branch_name }}"
           mkdir -p "$NEW_DIR"  # コピー先ディレクトリを作成
-          cp -r api/${{ env.branch_name} }/* "$NEW_DIR"
+          cp -r api/${{ env.branch_name}}/* "$NEW_DIR"
       
       # Swagger-UIファイルをチェックアウトして必要なものをコピー
       - name: Checkout swagger-ui
