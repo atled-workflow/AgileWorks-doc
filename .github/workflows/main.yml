@@ -3,6 +3,12 @@ name: Deploy All API Directories to GitHub Pages
 on:
   workflow_dispatch:  # 手動実行
 
+  workflow_run:
+    workflows:
+      - Create and Deploy Release Branch to Main
+    types:
+      - completed
+
 permissions:
   contents: read
   pages: write
