@@ -1,0 +1,46 @@
+name: Deploy All API Directories to GitHub Pages
+
+on:
+  workflow_dispatch:  # 手動実行
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy_to_pages:
+    runs-on: ubuntu-latest
+
+    steps:
+      # リポジトリをチェックアウト
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Swagger-UIファイルをチェックアウトして必要なものをコピー
+      - name: Checkout swagger-ui
+        uses: actions/checkout@v4
+        with:
+          repository: swagger-api/swagger-ui
+          ref: 'v4.15.5'
+          path: swagger-ui
+          sparse-checkout: dist
+
+      - name: Inject Swagger static files into all API directories
+        run: |
+          for dir in ./api/*/; do
+            cp -n ./swagger-ui/dist/* "$dir"
+          done
+
+      # GitHub Pages用にマニュアルをビルドしてデプロイ
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+      - name: Build with Jekyll
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./  # リポジトリ全体をデプロイ対象に
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
