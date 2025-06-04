@@ -68,7 +68,7 @@ jobs:
           path: swagger-ui
           sparse-checkout: dist
       - name: Inject Swagger static files for release branch
-        run: cp -n ./swagger-ui/dist/* ./contents/api/${{ env.branch_name }}
+        run: cp -n ./swagger-ui/dist/* ./contents/api/${{ env.branch_name }}/
 
       # GitHub Pages用にマニュアルをビルドしてデプロイ
       - name: Setup Pages
@@ -76,7 +76,7 @@ jobs:
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1
         with:
-          source: ./contents/
+          source: ./contents/api/
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
       - name: Deploy to GitHub Pages
