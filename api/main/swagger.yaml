@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  title: '[AW]R3系 WebAPIテストケース整理'
+  title: '[AW]R3系 WebAPIテストケース整理a'
   version: 1.0.0
 host: sample.atled.jp
 basePath: /AgileWorks/Broker
