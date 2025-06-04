@@ -61,18 +61,34 @@ jobs:
           ref: 'v4.15.5'
           path: swagger-ui
           sparse-checkout: dist
-      - name: Inject Swagger static files
-        run: cp -n ./swagger-ui/dist/* ./contents/api/${{ env.branch_name }}
+      # Swagger-UIをtest用にコピー
+      - name: Inject Swagger static files for test
+        run: |
+          mkdir -p ./_site/api/${{ env.branch_name }}
+          cp -r ./swagger-ui/dist/* ./_site/api/${{ env.branch_name }}
 
-      # GitHub Pages用にマニュアルをビルドしてデプロイ
+      # 既存のGitHub Pagesを保持するための設定
+      - name: Checkout existing Pages content
+        uses: actions/checkout@v4
+        with:
+          repository: atled-workflow/AgileWorks-doc
+          ref: gh-pages
+          path: existing-pages
+
+      # 既存のコンテンツをマージ
+      - name: Merge existing Pages content
+        run: |
+          cp -r ./existing-pages/* ./_site/
+
+      # GitHub Pages用のデプロイ
       - name: Setup Pages
         uses: actions/configure-pages@v5
-      - name: Build with Jekyll
-        uses: actions/jekyll-build-pages@v1
-        with:
-          source: ./contents/
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./_site
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
