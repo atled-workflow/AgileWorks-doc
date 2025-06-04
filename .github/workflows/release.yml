@@ -46,6 +46,18 @@ jobs:
           git commit -m "Add API documentation for release ${{ env.branch_name }}"
           git push origin main
 
+      # 必要に応じて`gh-pages`ブランチを初期化
+      - name: Initialize gh-pages branch if not exists
+        run: |
+          if ! git ls-remote --exit-code origin gh-pages; then
+            echo "gh-pages branch does not exist. Initializing..."
+            git checkout --orphan gh-pages
+            echo "# GitHub Pages" > README.md
+            git add README.md
+            git commit -m "Initialize gh-pages branch"
+            git push origin gh-pages
+          fi
+      
       # 現在のGitHub Pagesコンテンツを取得
       - name: Download existing Pages artifact
         run: |
