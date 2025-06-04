@@ -23,6 +23,8 @@ jobs:
       # リポジトリをチェックアウト
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          path:  contents
 
       # node_modulesのインストールをキャッシュする
       - name: Cache dependencies
@@ -51,6 +53,7 @@ jobs:
           git add api/main/swagger.yaml
           git commit -m "Convert OpenAPI3 to Swagger2" || echo "No changes to commit"
           git push origin main
+      
       
       # Swagger-UIファイルをチェックアウトして必要なものをコピー
       - name: Checkout swagger-ui
