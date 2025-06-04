@@ -38,7 +38,7 @@ jobs:
           sparse-checkout: dist
 
       - name: Inject Swagger static files
-        run: cp -n ./swagger-ui/dist/* ./contents/api/main
+        run: cp -n ./swagger-ui/dist/* ./contents/api/main/
 
       # GitHub Pages用にマニュアルをビルドしてデプロイ
       - name: Setup Pages
