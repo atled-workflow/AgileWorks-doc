@@ -1,30 +1,30 @@
-openapi: 3.0.3
+openapi: 3.1.0
 info:
-  title: '[AW]R3系 WebAPIテストケース整理a'
+  title: 'AgileWorks WebAPI (R3.1.0)'
   version: 1.0.0
 servers:
-  - url: https://sample.atled.jp/AgileWorks/Broker
+  - url: https://sample.atled.jp/AgileWorks
   
 tags:
-  - name: 共通
-  - name: 書類API
-  - name: ワークフローAPI
-  - name: 組織API
-  - name: サイトAPI
-  - name: マスタAPI
-  - name: フォーム管理API
-  - name: 公開API
-  - name: SCIMAPI_Users
-  - name: SCIMAPI_Groups
-  - name: SCIMAPI_ResourceTypes
-  - name: SCIMAPI_Schemas
-  - name: SCIMAPI_Service
+  - name: common
+  - name: doc.Doc
+  - name: workflow.Workflow
+  - name: org.Org
+  - name: site.Site
+  - name: usermaster.UserMaster
+  - name: form.Form
+  - name: publication.Publication
+  - name: SCIMAPI/Users
+  - name: SCIMAPI/Groups
+  - name: SCIMAPI/ResourceTypes
+  - name: SCIMAPI/Schemas
+  - name: SCIMAPI/Service
 
 paths:
-  /WebApi/Model:
+  /Broker/WebApi/Model:
     get:
       tags:
-        - 共通
+        - common
       summary: モデルオブジェクト取得
       description: 
         指定のモデルオブジェクトを初期化した状態で取得します。
@@ -46,10 +46,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
             
  # --------------------------------------------------------------------------------------------------------
-  /WebApi/Service:
+  /Broker/WebApi/Service:
     post:
       tags:
-        - 共通
+        - common
       summary: サービス実行
       description: 
         AgileWorksの各サービスを実行します。
@@ -57,12 +57,6 @@ paths:
       parameters:
         - $ref: "#/components/parameters/service_name"
         - $ref: "#/components/parameters/service_method"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties: {}
       responses:
         "200":
           description: すべてのサービス実行APIは共通でcommon.ResponseModel型のフィールドがレスポンスボディに含まれます。
@@ -91,10 +85,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
             
  # --------------------------------------------------------------------------------------------------------
-  /WebApi/Download:
+  /Broker/WebApi/Download:
     get:
       tags:
-        - 共通
+        - common
       summary: ダウンロード
       description: 
         AgileWorks上にアップロードされている各ファイルをダウンロードします。
@@ -124,10 +118,10 @@ paths:
         "503":
           $ref: "#/components/responses/ErrorResponses503"
  # --------------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=doc.Doc&method=getDocHeader:
+  /Broker/WebApi/Service?name=doc.Doc&method=getDocHeader:
     post:
       tags:
-        - 書類API
+        - doc.Doc
       summary: 書類情報取得
       description: 
         書類の各情報を取得します。
@@ -149,10 +143,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
             
  # --------------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=doc.Doc&method=getDoc:
+  /Broker/WebApi/Service?name=doc.Doc&method=getDoc:
     post:
       tags:
-        - 書類API
+        - doc.Doc
       summary: 書類データ取得
       description: 
         書類データを取得します。
@@ -174,10 +168,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
           
  # --------------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=doc.Doc&method=prepareDocRequest:
+  /Broker/WebApi/Service?name=doc.Doc&method=prepareDocRequest:
     post:
       tags:
-        - 書類API
+        - doc.Doc
       summary: 新規書類データ作成
       description: 
         初期状態の書類データを作成します。
@@ -199,10 +193,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
  # --------------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=doc.Doc&method=addDoc:
+  /Broker/WebApi/Service?name=doc.Doc&method=addDoc:
     post:
       tags:
-        - 書類API
+        - doc.Doc
       summary: 新規書類データ保存
       description: 
         新規に作成した書類データを保存します。<br>
@@ -226,10 +220,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
  # --------------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=doc.Doc&method=updateDoc:
+  /Broker/WebApi/Service?name=doc.Doc&method=updateDoc:
     post:
       tags:
-        - 書類API
+        - doc.Doc
       summary: 書類データ更新
       description: 
         初期状態の書類データを作成します。<br>
@@ -252,10 +246,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
  # --------------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=doc.Doc&method=hardDeleteDoc:
+  /Broker/WebApi/Service?name=doc.Doc&method=hardDeleteDoc:
     post:
       tags:
-        - 書類API
+        - doc.Doc
       summary: 書類物理削除
       description: 
         論理削除済みの書類を物理削除します。<br>
@@ -278,10 +272,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
  # --------------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=doc.Doc&method=selectDoc:
+  /Broker/WebApi/Service?name=doc.Doc&method=selectDoc:
     post:
       tags:
-        - 書類API
+        - doc.Doc
       summary: 書類検索
       description: 
         指定した条件に合致する書類の一覧を取得します。
@@ -303,10 +297,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
  # --------------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=doc.Doc&method=getDocPdf:
+  /Broker/WebApi/Service?name=doc.Doc&method=getDocPdf:
     post:
       tags:
-        - 書類API
+        - doc.Doc
       summary: 書類PDFファイル取得
       description: 
         書類のPDFファイルを生成し、ダウンロードします。
@@ -328,10 +322,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
  # --------------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=doc.Doc&method=listDocComment:
+  /Broker/WebApi/Service?name=doc.Doc&method=listDocComment:
     post:
       tags:
-        - 書類API
+        - doc.Doc
       summary: 書類コメント一覧取得
       description: 
         書類のコメント一覧を取得します。
@@ -353,10 +347,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
  # --------------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=doc.Doc&method=addDocComment:
+  /Broker/WebApi/Service?name=doc.Doc&method=addDocComment:
     post:
       tags:
-        - 書類API
+        - doc.Doc
       summary: 書類メモ追加
       description: 
         書類のメモを追加します。
@@ -378,10 +372,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
  # --------------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=doc.Doc&method=deleteDocComment:
+  /Broker/WebApi/Service?name=doc.Doc&method=deleteDocComment:
     post:
       tags:
-        - 書類API
+        - doc.Doc
       summary: 書類コメント / メモ削除
       description: 
         書類のコメント / メモを削除します。
@@ -403,10 +397,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
  # --------------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=doc.Doc&method=addDocAttachment:
+  /Broker/WebApi/Service?name=doc.Doc&method=addDocAttachment:
     post:
       tags:
-        - 書類API
+        - doc.Doc
       summary: 書類添付情報追加
       description: 
         書類の添付情報を追加します。
@@ -428,10 +422,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
  # --------------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=doc.Doc&method=updateDocAttachment:
+  /Broker/WebApi/Service?name=doc.Doc&method=updateDocAttachment:
     post:
       tags:
-        - 書類API
+        - doc.Doc
       summary: 書類添付情報更新
       description: 
         書類の添付情報を更新します。
@@ -453,10 +447,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
  # --------------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=doc.Doc&method=listDocAttachment:
+  /Broker/WebApi/Service?name=doc.Doc&method=listDocAttachment:
     post:
       tags:
-        - 書類API
+        - doc.Doc
       summary: 書類添付情報一覧取得
       description: 
         書類の添付情報一覧を取得します。
@@ -478,10 +472,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
  # --------------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=doc.Doc&method=deleteDocAttachment:
+  /Broker/WebApi/Service?name=doc.Doc&method=deleteDocAttachment:
     post:
       tags:
-        - 書類API
+        - doc.Doc
       summary: 書類添付情報削除
       description: 
         書類の添付情報を削除します。
@@ -503,10 +497,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
  # --------------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=doc.Doc&method=getDocReferencee:
+  /Broker/WebApi/Service?name=doc.Doc&method=getDocReferencee:
     post:
       tags:
-        - 書類API
+        - doc.Doc
       summary: 参照元関連書類情報取得
       description: 
         参照元の関連書類情報を取得します。
@@ -528,10 +522,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
  # --------------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=doc.Doc&method=listDocReferencer:
+  /Broker/WebApi/Service?name=doc.Doc&method=listDocReferencer:
     post:
       tags:
-        - 書類API
+        - doc.Doc
       summary: 参照先関連書類情報一覧取得
       description: 
         参照先の関連書類情報の一覧を取得します。
@@ -553,10 +547,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
  # --------------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=doc.Doc&method=addDocReference:
+  /Broker/WebApi/Service?name=doc.Doc&method=addDocReference:
     post:
       tags:
-        - 書類API
+        - doc.Doc
       summary: 関連書類追加
       description: 
         書類の関連付けを追加します。
@@ -578,10 +572,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
  # --------------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=doc.Doc&method=deleteDocReference:
+  /Broker/WebApi/Service?name=doc.Doc&method=deleteDocReference:
     post:
       tags:
-        - 書類API
+        - doc.Doc
       summary: 関連書類削除
       description: 
         書類の関連付けを削除します。
@@ -603,10 +597,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
  # --------------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=doc.Doc&method=openDoc:
+  /Broker/WebApi/Service?name=doc.Doc&method=openDoc:
     post:
       tags:
-        - 書類API
+        - doc.Doc
       summary: 書類表示
       description: 
         書類を表示するHTMLをダウンロードします。
@@ -628,10 +622,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
  # --------------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=workflow.Workflow&method=countWorkflowMessage:
+  /Broker/WebApi/Service?name=workflow.Workflow&method=countWorkflowMessage:
     post:
       tags:
-        - ワークフローAPI
+        - workflow.Workflow
       summary: 回付情報件数取得
       description: |
         回付情報の件数を取得します。
@@ -653,10 +647,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
  # --------------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=workflow.Workflow&method=countListWorkflowMessage:
+  /Broker/WebApi/Service?name=workflow.Workflow&method=countListWorkflowMessage:
     post:
       tags:
-        - ワークフローAPI
+        - workflow.Workflow
       summary: 回付情報件数一覧取得
       description: |
         回付情報の件数の一覧を取得します。
@@ -678,10 +672,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
  # --------------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=workflow.Workflow&method=selectWorkflowMessage:
+  /Broker/WebApi/Service?name=workflow.Workflow&method=selectWorkflowMessage:
     post:
       tags:
-        - ワークフローAPI
+        - workflow.Workflow
       summary: 回付情報検索
       description: |
         回付情報の一覧を検索します。
@@ -703,10 +697,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
  # --------------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=workflow.Workflow&method=draft:
+  /Broker/WebApi/Service?name=workflow.Workflow&method=draft:
     post:
       tags:
-        - ワークフローAPI
+        - workflow.Workflow
       summary: 書類下書き保存
       description: |
         書類を下書き保存します。
@@ -728,10 +722,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
  # --------------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=workflow.Workflow&method=start:
+  /Broker/WebApi/Service?name=workflow.Workflow&method=start:
     post:
       tags:
-        - ワークフローAPI
+        - workflow.Workflow
       summary: 書類作成/申請
       description: |
         書類を作成または申請します。
@@ -753,10 +747,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
  # --------------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=workflow.Workflow&method=approve:
+  /Broker/WebApi/Service?name=workflow.Workflow&method=approve:
     post:
       tags:
-        - ワークフローAPI
+        - workflow.Workflow
       summary: 書類承認
       description: |
         書類を承認します。
@@ -778,10 +772,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
  # --------------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=workflow.Workflow&method=delete:
+  /Broker/WebApi/Service?name=workflow.Workflow&method=delete:
     post:
       tags:
-        - ワークフローAPI
+        - workflow.Workflow
       summary: 書類論理削除
       description: |
         書類を論理削除します。
@@ -803,10 +797,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
  # --------------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=workflow.Workflow&method=remand:
+  /Broker/WebApi/Service?name=workflow.Workflow&method=remand:
     post:
       tags:
-        - ワークフローAPI
+        - workflow.Workflow
       summary: 書類差戻し
       description: |
         書類を差戻します。
@@ -828,10 +822,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
  # --------------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=workflow.Workflow&method=retract:
+  /Broker/WebApi/Service?name=workflow.Workflow&method=retract:
     post:
       tags:
-        - ワークフローAPI
+        - workflow.Workflow
       summary: 書類引戻し
       description: |
         書類を引戻します。
@@ -853,10 +847,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
  # --------------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=workflow.Workflow&method=reject:
+  /Broker/WebApi/Service?name=workflow.Workflow&method=reject:
     post:
       tags:
-        - ワークフローAPI
+        - workflow.Workflow
       summary: 書類却下
       description: |
         書類を却下します。
@@ -878,10 +872,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
  # --------------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=workflow.Workflow&method=getWorkflowInfo:
+  /Broker/WebApi/Service?name=workflow.Workflow&method=getWorkflowInfo:
     post:
       tags:
-        - ワークフローAPI
+        - workflow.Workflow
       summary: 回付情報取得
       description: |
         回付情報を取得します。
@@ -903,10 +897,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
  # --------------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=workflow.Workflow&method=findWorkflowTask:
+  /Broker/WebApi/Service?name=workflow.Workflow&method=findWorkflowTask:
     post:
       tags:
-        - ワークフローAPI
+        - workflow.Workflow
       summary: 回付情報タスク検索
       description: |
         回付情報タスクを検索します。
@@ -928,10 +922,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
  # --------------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=workflow.Workflow&method=listWorkflowJournal:
+  /Broker/WebApi/Service?name=workflow.Workflow&method=listWorkflowJournal:
     post:
       tags:
-        - ワークフローAPI
+        - workflow.Workflow
       summary: 回付履歴一覧取得
       description: |
         回付履歴の一覧を取得します。
@@ -953,10 +947,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
  # --------------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=workflow.Workflow&method=listElectJournal:
+  /Broker/WebApi/Service?name=workflow.Workflow&method=listElectJournal:
     post:
       tags:
-        - ワークフローAPI
+        - workflow.Workflow
       summary: 処理者変更履歴一覧取得
       description: |
         処理者変更履歴の一覧を取得します。
@@ -978,10 +972,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
  # --------------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=workflow.Workflow&method=listShareJournal:
+  /Broker/WebApi/Service?name=workflow.Workflow&method=listShareJournal:
     post:
       tags:
-        - ワークフローAPI
+        - workflow.Workflow
       summary: 共有履歴一覧取得
       description: |
         共有履歴の一覧を取得します。
@@ -1003,10 +997,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
  # --------------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=org.Org&method=addUser:
+  /Broker/WebApi/Service?name=org.Org&method=addUser:
     post:
       tags:
-        - 組織API
+        - org.Org
       summary: ユーザー作成
       description: |
         ユーザーを作成します。
@@ -1028,10 +1022,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
             
  # --------------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=org.Org&method=findUser:
+  /Broker/WebApi/Service?name=org.Org&method=findUser:
     post:
       tags:
-        - 組織API
+        - org.Org
       summary: ユーザー参照
       description: |
         指定されたパラメータのユーザーを参照します。<br>
@@ -1056,10 +1050,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
             
  # --------------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=org.Org&method=updateUser:
+  /Broker/WebApi/Service?name=org.Org&method=updateUser:
     post:
       tags:
-        - 組織API
+        - org.Org
       summary: ユーザー更新
       description:
         ユーザーを更新します。
@@ -1081,10 +1075,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
           
  # --------------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=org.Org&method=deleteUser:
+  /Broker/WebApi/Service?name=org.Org&method=deleteUser:
     post:
       tags:
-        - 組織API
+        - org.Org
       summary: ユーザー削除
       description:
         ユーザーを削除します。
@@ -1106,10 +1100,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
             
  # --------------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=org.Org&method=disableUser:
+  /Broker/WebApi/Service?name=org.Org&method=disableUser:
     post:
       tags:
-        - 組織API
+        - org.Org
       summary: ユーザー適用終了
       description:
         ユーザーを適用終了します。
@@ -1131,10 +1125,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
 
  # --------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=org.Org&method=addUnit:
+  /Broker/WebApi/Service?name=org.Org&method=addUnit:
     post:
       tags:
-        - 組織API
+        - org.Org
       summary: 組織作成
       description:
         組織を作成します。
@@ -1156,10 +1150,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
  # --------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=org.Org&method=findUnit:
+  /Broker/WebApi/Service?name=org.Org&method=findUnit:
     post:
       tags:
-        - 組織API
+        - org.Org
       summary: 組織参照
       description:
         組織を参照します。
@@ -1181,10 +1175,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
   
   # --------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=org.Org&method=updateUnit:
+  /Broker/WebApi/Service?name=org.Org&method=updateUnit:
     post:
       tags:
-        - 組織API
+        - org.Org
       summary: 組織更新
       description:
         組織を更新します。
@@ -1206,10 +1200,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
   
   # --------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=org.Org&method=deleteUnit:
+  /Broker/WebApi/Service?name=org.Org&method=deleteUnit:
     post:
       tags:
-        - 組織API
+        - org.Org
       summary: 組織削除
       description:
         組織を削除します。
@@ -1231,10 +1225,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
   # --------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=org.Org&method=disableUnit:
+  /Broker/WebApi/Service?name=org.Org&method=disableUnit:
     post:
       tags:
-        - 組織API
+        - org.Org
       summary: 組織適用終了
       description:
         組織を適用終了します。
@@ -1256,10 +1250,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
   # --------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=org.Org&method=addSectionRole:
+  /Broker/WebApi/Service?name=org.Org&method=addSectionRole:
     post:
       tags:
-        - 組織API
+        - org.Org
       summary: セクションロール作成
       description:
         セクションロールを作成します。
@@ -1281,10 +1275,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
   # --------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=org.Org&method=findSectionRole:
+  /Broker/WebApi/Service?name=org.Org&method=findSectionRole:
     post:
       tags:
-        - 組織API
+        - org.Org
       summary: セクションロール参照
       description:
         セクションロールを参照します。
@@ -1306,10 +1300,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
   # --------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=org.Org&method=updateSectionRole:
+  /Broker/WebApi/Service?name=org.Org&method=updateSectionRole:
     post:
       tags:
-        - 組織API
+        - org.Org
       summary: セクションロール更新
       description:
         セクションロールを更新します。
@@ -1331,10 +1325,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
   # --------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=org.Org&method=deleteSectionRole:
+  /Broker/WebApi/Service?name=org.Org&method=deleteSectionRole:
     post:
       tags:
-        - 組織API
+        - org.Org
       summary: セクションロール削除
       description:
         セクションロールを削除します。
@@ -1356,10 +1350,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
   # --------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=org.Org&method=addSectionRoleGroup:
+  /Broker/WebApi/Service?name=org.Org&method=addSectionRoleGroup:
     post:
       tags:
-        - 組織API
+        - org.Org
       summary: セクションロールグループ作成
       description:
         セクションロールグループを作成します。
@@ -1381,10 +1375,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
   # --------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=org.Org&method=findSectionRoleGroup:
+  /Broker/WebApi/Service?name=org.Org&method=findSectionRoleGroup:
     post:
       tags:
-        - 組織API
+        - org.Org
       summary: セクションロールグループ参照
       description:
         セクションロールグループを参照します。
@@ -1406,10 +1400,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
   # --------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=org.Org&method=updateSectionRoleGroup:
+  /Broker/WebApi/Service?name=org.Org&method=updateSectionRoleGroup:
     post:
       tags:
-        - 組織API
+        - org.Org
       summary: セクションロールグループ更新
       description:
         セクションロールグループを更新します。
@@ -1431,10 +1425,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
   # --------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=org.Org&method=deleteSectionRoleGroup:
+  /Broker/WebApi/Service?name=org.Org&method=deleteSectionRoleGroup:
     post:
       tags:
-        - 組織API
+        - org.Org
       summary: セクションロールグループ削除
       description:
         セクションロールグループを削除します。
@@ -1456,10 +1450,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
   # --------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=org.Org&method=addUnitAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=addUnitAppointment:
     post:
       tags:
-        - 組織API
+        - org.Org
       summary: 組織所属作成
       description:
         組織所属を作成します。
@@ -1481,10 +1475,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
   # --------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=org.Org&method=findUnitAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=findUnitAppointment:
     post:
       tags:
-        - 組織API
+        - org.Org
       summary: 組織所属参照
       description:
         組織所属を参照します。
@@ -1506,10 +1500,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
   # --------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=org.Org&method=updateUnitAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=updateUnitAppointment:
     post:
       tags:
-        - 組織API
+        - org.Org
       summary: 組織所属更新
       description:
         組織所属を更新します。
@@ -1531,10 +1525,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
   # --------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=org.Org&method=deleteUnitAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=deleteUnitAppointment:
     post:
       tags:
-        - 組織API
+        - org.Org
       summary: 組織所属削除
       description:
         組織所属を削除します。
@@ -1556,10 +1550,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
   # --------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=org.Org&method=disableUnitAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=disableUnitAppointment:
     post:
       tags:
-        - 組織API
+        - org.Org
       summary: 組織所属適用終了
       description:
         組織所属を適用終了します。
@@ -1581,10 +1575,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
   # --------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=org.Org&method=addProxyApplyAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=addProxyApplyAppointment:
     post:
       tags:
-        - 組織API
+        - org.Org
       summary: 代理申請作成
       description:
         代理申請を作成します。
@@ -1606,10 +1600,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
   # --------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=org.Org&method=findProxyApplyAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=findProxyApplyAppointment:
     post:
       tags:
-        - 組織API
+        - org.Org
       summary: 代理申請参照
       description:
         代理申請を参照します。
@@ -1631,10 +1625,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
   # --------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=org.Org&method=updateProxyApplyAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=updateProxyApplyAppointment:
     post:
       tags:
-        - 組織API
+        - org.Org
       summary: 代理申請更新
       description:
         代理申請を更新します。
@@ -1656,10 +1650,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
   # --------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=org.Org&method=deleteProxyApplyAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=deleteProxyApplyAppointment:
     post:
       tags:
-        - 組織API
+        - org.Org
       summary: 代理申請削除
       description:
         代理申請を削除します。
@@ -1681,10 +1675,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
   # --------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=org.Org&method=disableProxyApplyAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=disableProxyApplyAppointment:
     post:
       tags:
-        - 組織API
+        - org.Org
       summary: 代理申請適用終了
       description:
         代理申請を適用終了します。
@@ -1706,10 +1700,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
   # --------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=org.Org&method=addProxyAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=addProxyAppointment:
     post:
       tags:
-        - 組織API
+        - org.Org
       summary: 代理承認作成
       description:
         代理承認を作成します。
@@ -1731,10 +1725,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
   # --------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=org.Org&method=findProxyAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=findProxyAppointment:
     post:
       tags:
-        - 組織API
+        - org.Org
       summary: 代理承認参照
       description:
         代理承認を参照します。
@@ -1756,10 +1750,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
   # --------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=org.Org&method=updateProxyAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=updateProxyAppointment:
     post:
       tags:
-        - 組織API
+        - org.Org
       summary: 代理承認更新
       description:
         代理承認を更新します。
@@ -1781,10 +1775,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
   # --------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=org.Org&method=deleteProxyAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=deleteProxyAppointment:
     post:
       tags:
-        - 組織API
+        - org.Org
       summary: 代理承認削除
       description:
         代理承認を削除します。
@@ -1806,10 +1800,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
   # --------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=org.Org&method=disableProxyAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=disableProxyAppointment:
     post:
       tags:
-        - 組織API
+        - org.Org
       summary: 代理承認適用終了
       description:
         代理承認を適用終了します。
@@ -1831,10 +1825,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
   # --------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=org.Org&method=addDelegationAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=addDelegationAppointment:
     post:
       tags:
-        - 組織API
+        - org.Org
       summary: 権限委譲作成
       description:
         権限委譲を作成します。
@@ -1856,10 +1850,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
   # --------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=org.Org&method=findDelegationAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=findDelegationAppointment:
     post:
       tags:
-        - 組織API
+        - org.Org
       summary: 権限委譲参照
       description:
         権限委譲を参照します。
@@ -1881,10 +1875,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
   # --------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=org.Org&method=updateDelegationAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=updateDelegationAppointment:
     post:
       tags:
-        - 組織API
+        - org.Org
       summary: 権限委譲更新
       description:
         権限委譲を更新します。
@@ -1906,10 +1900,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
   # --------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=org.Org&method=deleteDelegationAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=deleteDelegationAppointment:
     post:
       tags:
-        - 組織API
+        - org.Org
       summary: 権限委譲削除
       description:
         権限委譲を削除します。
@@ -1931,10 +1925,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
   # --------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=org.Org&method=disableDelegationAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=disableDelegationAppointment:
     post:
       tags:
-        - 組織API
+        - org.Org
       summary: 権限委譲適用終了
       description:
         権限委譲を適用終了します。
@@ -1956,10 +1950,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
   # --------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=org.Org&method=addDeprivationAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=addDeprivationAppointment:
     post:
       tags:
-        - 組織API
+        - org.Org
       summary: 引上げ権限作成
       description:
         引上げ権限を作成します。
@@ -1981,10 +1975,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
   # --------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=org.Org&method=findDeprivationAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=findDeprivationAppointment:
     post:
       tags:
-        - 組織API
+        - org.Org
       summary: 引上げ権限参照
       description:
         引上げ権限を参照します。
@@ -2006,10 +2000,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
   # --------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=org.Org&method=updateDeprivationAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=updateDeprivationAppointment:
     post:
       tags:
-        - 組織API
+        - org.Org
       summary: 引上げ権限更新
       description:
         引上げ権限を更新します。
@@ -2031,10 +2025,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
  # --------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=org.Org&method=deleteDeprivationAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=deleteDeprivationAppointment:
     post:
       tags:
-        - 組織API
+        - org.Org
       summary: 引上げ権限削除
       description:
         引上げ権限を削除します。
@@ -2056,10 +2050,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
   # --------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=org.Org&method=disableDeprivationAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=disableDeprivationAppointment:
     post:
       tags:
-        - 組織API
+        - org.Org
       summary: 引上げ権限適用終了
       description:
         引上げ権限を適用終了します。
@@ -2081,10 +2075,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
   # --------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=org.Org&method=addPrivateRole:
+  /Broker/WebApi/Service?name=org.Org&method=addPrivateRole:
     post:
       tags:
-        - 組織API
+        - org.Org
       summary: プライベートロール作成
       description:
         プライベートロールを作成します。
@@ -2106,10 +2100,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
   # --------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=org.Org&method=findPrivateRole:
+  /Broker/WebApi/Service?name=org.Org&method=findPrivateRole:
     post:
       tags:
-        - 組織API
+        - org.Org
       summary: プライベートロール参照
       description:
         プライベートロールを参照します。
@@ -2131,10 +2125,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
   # --------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=org.Org&method=updatePrivateRole:
+  /Broker/WebApi/Service?name=org.Org&method=updatePrivateRole:
     post:
       tags:
-        - 組織API
+        - org.Org
       summary: プライベートロール更新
       description:
         プライベートロールを更新します。
@@ -2156,10 +2150,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
  # --------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=org.Org&method=deletePrivateRole:
+  /Broker/WebApi/Service?name=org.Org&method=deletePrivateRole:
     post:
       tags:
-        - 組織API
+        - org.Org
       summary: プライベートロール削除
       description:
         プライベートロールを削除します。
@@ -2181,10 +2175,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
   # --------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=org.Org&method=addPrivateRoleAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=addPrivateRoleAppointment:
     post:
       tags:
-        - 組織API
+        - org.Org
       summary: プライベートロール所属作成
       description:
         プライベートロール所属を作成します。
@@ -2206,10 +2200,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
   # --------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=org.Org&method=findPrivateRoleAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=findPrivateRoleAppointment:
     post:
       tags:
-        - 組織API
+        - org.Org
       summary: プライベートロール所属参照
       description:
         プライベートロール所属を参照します。
@@ -2231,10 +2225,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
   # --------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=org.Org&method=updatePrivateRoleAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=updatePrivateRoleAppointment:
     post:
       tags:
-        - 組織API
+        - org.Org
       summary: プライベートロール所属更新
       description:
         プライベートロール所属を更新します。
@@ -2256,10 +2250,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
  # --------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=org.Org&method=deletePrivateRoleAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=deletePrivateRoleAppointment:
     post:
       tags:
-        - 組織API
+        - org.Org
       summary: プライベートロール所属削除
       description:
         プライベートロール所属を削除します。
@@ -2281,10 +2275,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
   # --------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=org.Org&method=disablePrivateRoleAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=disablePrivateRoleAppointment:
     post:
       tags:
-        - 組織API
+        - org.Org
       summary: プライベートロール所属適用終了
       description:
         プライベートロール所属を適用終了します。
@@ -2306,10 +2300,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
  # --------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=org.Org&method=addUniversalRole:
+  /Broker/WebApi/Service?name=org.Org&method=addUniversalRole:
     post:
       tags:
-        - 組織API
+        - org.Org
       summary: ユニバーサルロール作成
       description:
         ユニバーサルロールを作成します。
@@ -2331,10 +2325,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
   # --------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=org.Org&method=findUniversalRole:
+  /Broker/WebApi/Service?name=org.Org&method=findUniversalRole:
     post:
       tags:
-        - 組織API
+        - org.Org
       summary: ユニバーサルロール参照
       description:
         ユニバーサルロールを参照します。
@@ -2356,10 +2350,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
   # --------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=org.Org&method=updateUniversalRole:
+  /Broker/WebApi/Service?name=org.Org&method=updateUniversalRole:
     post:
       tags:
-        - 組織API
+        - org.Org
       summary: ユニバーサルロール更新
       description:
         ユニバーサルロールを更新します。
@@ -2381,10 +2375,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
  # --------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=org.Org&method=deleteUniversalRole:
+  /Broker/WebApi/Service?name=org.Org&method=deleteUniversalRole:
     post:
       tags:
-        - 組織API
+        - org.Org
       summary: ユニバーサルロール削除
       description:
         ユニバーサルロールを削除します。
@@ -2406,10 +2400,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
   # --------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=org.Org&method=addUniversalRoleAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=addUniversalRoleAppointment:
     post:
       tags:
-        - 組織API
+        - org.Org
       summary: ユニバーサルロール所属作成
       description:
         ユニバーサルロール所属を作成します。
@@ -2431,13 +2425,13 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
   # --------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=org.Org&method=findUniversalRoleAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=findUniversalRoleAppointment:
     post:
       tags:
-        - 組織API
+        - org.Org
       summary: ユニバーサルロール所属参照
       description:
-        ユニバーサルロール所属を参照します。
+        ユニバーサル所属を参照します。
       operationId: findUniversalRoleAppointment
       requestBody:
         $ref: "#/components/requestBodies/FindUniversalRoleAppointmentRequest"
@@ -2456,10 +2450,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
   # --------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=org.Org&method=updateUniversalRoleAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=updateUniversalRoleAppointment:
     post:
       tags:
-        - 組織API
+        - org.Org
       summary: ユニバーサルロール所属更新
       description:
         ユニバーサルロール所属を更新します。
@@ -2481,10 +2475,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
  # --------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=org.Org&method=deleteUniversalRoleAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=deleteUniversalRoleAppointment:
     post:
       tags:
-        - 組織API
+        - org.Org
       summary: ユニバーサルロール所属削除
       description:
         ユニバーサルロール所属を削除します。
@@ -2506,10 +2500,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
  
   # --------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=org.Org&method=disableUniversalRoleAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=disableUniversalRoleAppointment:
     post:
       tags:
-        - 組織API
+        - org.Org
       summary: ユニバーサルロール所属適用終了
       description:
         ユニバーサルロール所属を適用終了します。
@@ -2531,10 +2525,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
   
   # --------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=site.Site&method=findProject:
+  /Broker/WebApi/Service?name=site.Site&method=findProject:
     post:
       tags:
-        - サイトAPI
+        - site.Site
       summary: 業務カテゴリ一覧取得
       description:
         業務カテゴリ一覧を取得します。
@@ -2556,10 +2550,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
   
   # --------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=usermaster.UserMaster&method=importTinyUserMaster:
+  /Broker/WebApi/Service?name=usermaster.UserMaster&method=importTinyUserMaster:
     post:
       tags:
-        - マスタAPI
+        - usermaster.UserMaster
       summary: 外部マスタ(標準)取込
       description:
         外部マスタ(標準)をインポートします。
@@ -2581,10 +2575,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
   
   # --------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=usermaster.UserMaster&method=exportTinyUserMaster:
+  /Broker/WebApi/Service?name=usermaster.UserMaster&method=exportTinyUserMaster:
     post:
       tags:
-        - マスタAPI
+        - usermaster.UserMaster
       summary: 外部マスタ(標準)取得
       description:
         外部マスタ(標準)をエクスポートします。
@@ -2606,10 +2600,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
   
   # --------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=usermaster.UserMaster&method=importUserMaster:
+  /Broker/WebApi/Service?name=usermaster.UserMaster&method=importUserMaster:
     post:
       tags:
-        - マスタAPI
+        - usermaster.UserMaster
       summary: 外部マスタ(拡張)取込
       description:
         外部マスタ(拡張)をインポートします。
@@ -2631,10 +2625,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
   
   # --------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=usermaster.UserMaster&method=exportUserMaster:
+  /Broker/WebApi/Service?name=usermaster.UserMaster&method=exportUserMaster:
     post:
       tags:
-        - マスタAPI
+        - usermaster.UserMaster
       summary: 外部マスタ(拡張)取得
       description:
         外部マスタ(拡張)をエクスポートします。
@@ -2656,20 +2650,14 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
   
   # --------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=form.Form&method=listComponentMasterWindow:
+  /Broker/WebApi/Service?name=form.Form&method=listComponentMasterWindow:
     post:
       tags:
-        - フォーム管理API
+        - form.Form
       summary: マスター参照コンポーネント一覧取得
       description:
         マスター参照コンポーネント一覧を取得します。
       operationId: listComponentMasterWindow
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties: {}
       responses:
         "200":
           $ref: "#/components/responses/ListComponentMasterWindowResponses200"
@@ -2685,20 +2673,14 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
   
   # --------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=form.Form&method=listComponentAutoNumber:
+  /Broker/WebApi/Service?name=form.Form&method=listComponentAutoNumber:
     post:
       tags:
-        - フォーム管理API
+        - form.Form
       summary: 自動採番コンポーネント一覧取得
       description:
         自動採番コンポーネント一覧を取得します。
       operationId: listComponentAutoNumber
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties: {}
       responses:
         "200":
           $ref: "#/components/responses/ListComponentAutoNumberResponses200"
@@ -2714,10 +2696,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
   
   # --------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=form.Form&method=listForm:
+  /Broker/WebApi/Service?name=form.Form&method=listForm:
     post:
       tags:
-        - フォーム管理API
+        - form.Form
       summary: 登録フォーム一覧取得
       description:
         登録フォーム一覧を取得します。
@@ -2739,10 +2721,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
   
   # --------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=form.Form&method=findFormDefinition:
+  /Broker/WebApi/Service?name=form.Form&method=findFormDefinition:
     post:
       tags:
-        - フォーム管理API
+        - form.Form
       summary: フォーム定義情報取得
       description:
         フォーム定義情報を取得します。
@@ -2764,10 +2746,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
   
   # --------------------------------------------------------------------------------------------------
-  /WebApi/Service?name=publication.Publication&method=listPublicFolderInfo:
+  /Broker/WebApi/Service?name=publication.Publication&method=listPublicFolderInfo:
     post:
       tags:
-        - 公開API
+        - publication.Publication
       summary: 公開フォルダ・公開フォーム取得
       description:
         公開フォルダ・公開フォーム一覧を取得します。
@@ -2789,10 +2771,10 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
   
   # --------------------------------------------------------------------------------------------------
-  /SCIM/Users:
+  /Broker/SCIM/Users:
     get:
       tags:
-        - SCIMAPI_Users
+        - SCIMAPI/Users
       summary: ユーザー情報取得
       description:
         指定された条件を元にユーザー情報を取得します。
@@ -2817,7 +2799,7 @@ paths:
     
     post:
       tags:
-        - SCIMAPI_Users
+        - SCIMAPI/Users
       summary: ユーザー情報作成
       description:
         リクエストボディに指定したデータを元にユーザー情報を作成します。
@@ -2841,10 +2823,10 @@ paths:
           $ref: "#/components/responses/SCIMErrorResponses503"
   
   # --------------------------------------------------------------------------------------------------
-  /SCIM/Users/{USER_ID}:
+  /Broker/SCIM/Users/{USER_ID}:
     get:
       tags:
-        - SCIMAPI_Users
+        - SCIMAPI/Users
       summary: 指定ユーザー情報取得
       description:
         パスに指定したユーザーIDに紐づくユーザーの情報を取得します。
@@ -2869,7 +2851,7 @@ paths:
   
     post:
       tags:
-        - SCIMAPI_Users
+        - SCIMAPI/Users
       summary: ユーザー情報更新
       description:
         パスに指定したユーザーIDに紐づくユーザーの情報を更新します。<br>
@@ -2897,7 +2879,7 @@ paths:
     
     patch:
       tags:
-        - SCIMAPI_Users
+        - SCIMAPI/Users
       summary: ユーザー情報一部更新
       description:
         パスに指定したユーザーIDに紐づくユーザー情報の指定項目のみを更新します。
@@ -2924,7 +2906,7 @@ paths:
     
     delete:
       tags:
-        - SCIMAPI_Users
+        - SCIMAPI/Users
       summary: ユーザー情報削除
       description:
         パスに指定したユーザーIDに紐づくユーザー情報を削除します。<br>
@@ -2954,10 +2936,10 @@ paths:
           $ref: "#/components/responses/SCIMErrorResponses503"
   
   # --------------------------------------------------------------------------------------------------
-  /SCIM/Groups:
+  /Broker/SCIM/Groups:
     get:
       tags:
-        - SCIMAPI_Groups
+        - SCIMAPI/Groups
       summary: 組織情報取得
       description:
         指定された条件を元にユーザー情報を取得します。
@@ -2982,7 +2964,7 @@ paths:
     
     post:
       tags:
-        - SCIMAPI_Groups
+        - SCIMAPI/Groups
       summary: 組織情報作成
       description:
         リクエストボディに指定したデータを元に組織情報を作成します。
@@ -3006,10 +2988,10 @@ paths:
           $ref: "#/components/responses/SCIMErrorResponses503"
   
   # --------------------------------------------------------------------------------------------------
-  /SCIM/Groups/{ORG_ID}:
+  /Broker/SCIM/Groups/{ORG_ID}:
     get:
       tags:
-        - SCIMAPI_Groups
+        - SCIMAPI/Groups
       summary: 指定組織情報取得
       description:
         パスに指定した組織IDに紐づく組織の情報を取得します。
@@ -3034,7 +3016,7 @@ paths:
     
     post:
       tags:
-        - SCIMAPI_Groups
+        - SCIMAPI/Groups
       summary: 組織情報更新
       description:
         パスに指定した組織IDに紐づく組織の情報を更新します。
@@ -3060,7 +3042,7 @@ paths:
           $ref: "#/components/responses/SCIMErrorResponses503"
     patch:
       tags:
-        - SCIMAPI_Groups
+        - SCIMAPI/Groups
       summary: 組織情報一部更新
       description:
         パスに指定した組織IDに紐づく組織情報の指定項目のみを更新します。
@@ -3087,7 +3069,7 @@ paths:
     
     delete:
       tags:
-        - SCIMAPI_Groups
+        - SCIMAPI/Groups
       summary: 組織情報削除
       description:
         パスに指定した組織IDに紐づく組織情報を削除します。<br>
@@ -3117,10 +3099,10 @@ paths:
           $ref: "#/components/responses/SCIMErrorResponses503"
   
   # --------------------------------------------------------------------------------------------------
-  /SCIM/ResourceTypes:
+  /Broker/SCIM/ResourceTypes:
     get:
       tags:
-        - SCIMAPI_ResourceTypes
+        - SCIMAPI/ResourceTypes
       summary: リソース情報取得
       description:
         SCIMサーバーがサポートするリソースタイプ（USER、GROUP）に関する情報を提供するためのエンドポイントです。
@@ -3142,10 +3124,10 @@ paths:
           $ref: "#/components/responses/SCIMErrorResponses503"
   
   # --------------------------------------------------------------------------------------------------
-  /SCIM/Schemas:
+  /Broker/SCIM/Schemas:
     get:
       tags:
-        - SCIMAPI_Schemas
+        - SCIMAPI/Schemas
       summary: スキーマ定義取得
       description:
         SCIM サーバーがサポートするスキーマ（データモデル）を定義し、それに関連する属性やメタデータを提供するためのエンドポイントです。
@@ -3167,10 +3149,10 @@ paths:
           $ref: "#/components/responses/SCIMErrorResponses503"
   
   # --------------------------------------------------------------------------------------------------
-  /SCIM/ServiceProviderConfigs:
+  /Broker/SCIM/ServiceProviderConfigs:
     get:
       tags:
-        - SCIMAPI_Service
+        - SCIMAPI/Service
       summary: サービス定義取得
       description:
         SCIM サーバーがサポートするサービスプロバイダ構成情報に関する情報を提供するためのエンドポイントです。
