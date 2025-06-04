@@ -46,17 +46,18 @@ jobs:
           git commit -m "Add API documentation for release ${{ env.branch_name }}"
           git push origin main
 
-      - name: Checkout
+      # リポジトリの内容を再チェックアウト
+      - name: Checkout repository again
         uses: actions/checkout@v4
         with:
-          path:  contents
+          path: contents
 
       # 新しいディレクトリを作成してファイルをコピー
       - name: Create and copy to new release directory in contents
         run: |
           NEW_DIR="./contents/api/${{ env.branch_name }}"
           mkdir -p "$NEW_DIR"  # コピー先ディレクトリを作成
-          cp -r api/main/* "$NEW_DIR"
+          cp -r api/${{ env.branch_name} }/* "$NEW_DIR"
       
       # Swagger-UIファイルをチェックアウトして必要なものをコピー
       - name: Checkout swagger-ui
@@ -66,7 +67,7 @@ jobs:
           ref: 'v4.15.5'
           path: swagger-ui
           sparse-checkout: dist
-      - name: Inject Swagger static files
+      - name: Inject Swagger static files for release branch
         run: cp -n ./swagger-ui/dist/* ./contents/api/${{ env.branch_name }}
 
       # GitHub Pages用にマニュアルをビルドしてデプロイ
