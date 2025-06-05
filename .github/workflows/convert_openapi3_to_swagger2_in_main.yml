@@ -2,11 +2,6 @@ name: Convert OpenAPI3 to Swagger2 in main
 
 on:
   workflow_dispatch:  # 手動実行
-  
-  push:
-    branches: [ "main" ]
-    paths:
-      -  'api/main/**'
 
 permissions:
   contents: write
