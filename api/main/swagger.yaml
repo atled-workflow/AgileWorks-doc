@@ -1,13 +1,13 @@
 swagger: '2.0'
 info:
-  title: '[AW]R3系 WebAPIテストケース整理a'
+  title: AgileWorks WebAPI (R3.1.0)
   version: 1.0.0
 host: sample.atled.jp
-basePath: /AgileWorks/Broker
+basePath: /AgileWorks
 schemes:
   - https
 paths:
-  /SCIM/Groups:
+  /Broker/SCIM/Groups:
     get:
       produces:
         - application/json
@@ -156,7 +156,7 @@ paths:
                 type: integer
             type: object
       tags:
-        - SCIMAPI_Groups
+        - SCIMAPI/Groups
       description: 指定された条件を元にユーザー情報を取得します。
       operationId: SCIMGetGroups
       summary: 組織情報取得
@@ -301,11 +301,11 @@ paths:
                 type: integer
             type: object
       tags:
-        - SCIMAPI_Groups
+        - SCIMAPI/Groups
       description: リクエストボディに指定したデータを元に組織情報を作成します。
       operationId: SCIMPostGroups
       summary: 組織情報作成
-  '/SCIM/Groups/{ORG_ID}':
+  '/Broker/SCIM/Groups/{ORG_ID}':
     delete:
       produces:
         - application/json
@@ -409,7 +409,7 @@ paths:
                 type: integer
             type: object
       tags:
-        - SCIMAPI_Groups
+        - SCIMAPI/Groups
       description: >-
         パスに指定した組織IDに紐づく組織情報を削除します。<br> *削除方法について<br>
         組織情報削除APIは、履歴モードの状態で削除動作が異なります。<br> 履歴モード無効の場合：削除します<br>
@@ -544,7 +544,7 @@ paths:
                 type: integer
             type: object
       tags:
-        - SCIMAPI_Groups
+        - SCIMAPI/Groups
       description: パスに指定した組織IDに紐づく組織の情報を取得します。
       operationId: SCIMGetGroupsId
       summary: 指定組織情報取得
@@ -727,7 +727,7 @@ paths:
                 type: integer
             type: object
       tags:
-        - SCIMAPI_Groups
+        - SCIMAPI/Groups
       description: パスに指定した組織IDに紐づく組織情報の指定項目のみを更新します。
       operationId: SCIMPatchGroupsId
       summary: 組織情報一部更新
@@ -877,11 +877,11 @@ paths:
                 type: integer
             type: object
       tags:
-        - SCIMAPI_Groups
+        - SCIMAPI/Groups
       description: パスに指定した組織IDに紐づく組織の情報を更新します。
       operationId: SCIMPostGroupsId
       summary: 組織情報更新
-  /SCIM/ResourceTypes:
+  /Broker/SCIM/ResourceTypes:
     get:
       produces:
         - application/json
@@ -1079,11 +1079,11 @@ paths:
                 type: integer
             type: object
       tags:
-        - SCIMAPI_ResourceTypes
+        - SCIMAPI/ResourceTypes
       description: SCIMサーバーがサポートするリソースタイプ（USER、GROUP）に関する情報を提供するためのエンドポイントです。
       operationId: SCIMResourceTypes
       summary: リソース情報取得
-  /SCIM/Schemas:
+  /Broker/SCIM/Schemas:
     get:
       produces:
         - application/json
@@ -1455,11 +1455,11 @@ paths:
                 type: integer
             type: object
       tags:
-        - SCIMAPI_Schemas
+        - SCIMAPI/Schemas
       description: SCIM サーバーがサポートするスキーマ（データモデル）を定義し、それに関連する属性やメタデータを提供するためのエンドポイントです。
       operationId: SCIMSchemas
       summary: スキーマ定義取得
-  /SCIM/ServiceProviderConfigs:
+  /Broker/SCIM/ServiceProviderConfigs:
     get:
       produces:
         - application/json
@@ -1706,11 +1706,11 @@ paths:
                 type: integer
             type: object
       tags:
-        - SCIMAPI_Service
+        - SCIMAPI/Service
       description: SCIM サーバーがサポートするサービスプロバイダ構成情報に関する情報を提供するためのエンドポイントです。
       operationId: SCIMService
       summary: サービス定義取得
-  /SCIM/Users:
+  /Broker/SCIM/Users:
     get:
       produces:
         - application/json
@@ -1927,7 +1927,7 @@ paths:
                 type: integer
             type: object
       tags:
-        - SCIMAPI_Users
+        - SCIMAPI/Users
       description: 指定された条件を元にユーザー情報を取得します。
       operationId: SCIMGetUsers
       summary: ユーザー情報取得
@@ -2193,11 +2193,11 @@ paths:
                 type: integer
             type: object
       tags:
-        - SCIMAPI_Users
+        - SCIMAPI/Users
       description: リクエストボディに指定したデータを元にユーザー情報を作成します。
       operationId: SCIMPostUsers
       summary: ユーザー情報作成
-  '/SCIM/Users/{USER_ID}':
+  '/Broker/SCIM/Users/{USER_ID}':
     delete:
       produces:
         - application/json
@@ -2301,7 +2301,7 @@ paths:
                 type: integer
             type: object
       tags:
-        - SCIMAPI_Users
+        - SCIMAPI/Users
       description: >-
         パスに指定したユーザーIDに紐づくユーザー情報を削除します。<br> *削除方法について<br>
         ユーザー情報削除APIは、履歴モードの状態で削除動作が異なります。<br> 履歴モード無効の場合：削除します<br>
@@ -2498,7 +2498,7 @@ paths:
                 type: integer
             type: object
       tags:
-        - SCIMAPI_Users
+        - SCIMAPI/Users
       description: パスに指定したユーザーIDに紐づくユーザーの情報を取得します。
       operationId: SCIMGetUsersId
       summary: 指定ユーザー情報取得
@@ -2765,7 +2765,7 @@ paths:
                 type: integer
             type: object
       tags:
-        - SCIMAPI_Users
+        - SCIMAPI/Users
       description: パスに指定したユーザーIDに紐づくユーザー情報の指定項目のみを更新します。
       operationId: SCIMPatchUsersId
       summary: ユーザー情報一部更新
@@ -3033,11 +3033,11 @@ paths:
                 type: integer
             type: object
       tags:
-        - SCIMAPI_Users
+        - SCIMAPI/Users
       description: パスに指定したユーザーIDに紐づくユーザーの情報を更新します。<br> *リクエストボディで指定しなかった項目は、更新されません。
       operationId: SCIMPostUsersId
       summary: ユーザー情報更新
-  /WebApi/Download:
+  /Broker/WebApi/Download:
     get:
       produces:
         - application/octet-stream
@@ -3116,11 +3116,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 共通
+        - common
       description: AgileWorks上にアップロードされている各ファイルをダウンロードします。
       operationId: download
       summary: ダウンロード
-  /WebApi/Model:
+  /Broker/WebApi/Model:
     get:
       produces:
         - application/json
@@ -3196,11 +3196,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 共通
+        - common
       description: 指定のモデルオブジェクトを初期化した状態で取得します。
       operationId: model
       summary: モデルオブジェクト取得
-  /WebApi/Service:
+  /Broker/WebApi/Service:
     post:
       consumes:
         - application/json
@@ -3324,11 +3324,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 共通
+        - common
       description: AgileWorksの各サービスを実行します。
       operationId: service
       summary: サービス実行
-  /WebApi/Service?name=doc.Doc&method=addDoc:
+  /Broker/WebApi/Service?name=doc.Doc&method=addDoc:
     post:
       consumes:
         - application/json
@@ -3673,7 +3673,7 @@ paths:
                 type: string
             type: object
       tags:
-        - 書類API
+        - DocAPI
       description: >-
         新規に作成した書類データを保存します。<br>
         「新規書類データ作成API」で取得したdocの値を雛形として、書類の各フィールドに値をセットし、本APIにより書類データの保存を行います。<br>
@@ -3681,7 +3681,7 @@ paths:
         申請API」を実行する必要があります。
       operationId: addDoc
       summary: 新規書類データ保存
-  /WebApi/Service?name=doc.Doc&method=addDocAttachment:
+  /Broker/WebApi/Service?name=doc.Doc&method=addDocAttachment:
     post:
       consumes:
         - application/json
@@ -4031,11 +4031,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 書類API
+        - DocAPI
       description: 書類の添付情報を追加します。
       operationId: addDocAttachement
       summary: 書類添付情報追加
-  /WebApi/Service?name=doc.Doc&method=addDocComment:
+  /Broker/WebApi/Service?name=doc.Doc&method=addDocComment:
     post:
       consumes:
         - application/json
@@ -4356,11 +4356,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 書類API
+        - DocAPI
       description: 書類のメモを追加します。
       operationId: addDocComment
       summary: 書類メモ追加
-  /WebApi/Service?name=doc.Doc&method=addDocReference:
+  /Broker/WebApi/Service?name=doc.Doc&method=addDocReference:
     post:
       consumes:
         - application/json
@@ -4477,11 +4477,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 書類API
+        - DocAPI
       description: 書類の関連付けを追加します。
       operationId: addDocReference
       summary: 関連書類追加
-  /WebApi/Service?name=doc.Doc&method=deleteDocAttachment:
+  /Broker/WebApi/Service?name=doc.Doc&method=deleteDocAttachment:
     post:
       consumes:
         - application/json
@@ -4595,11 +4595,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 書類API
+        - DocAPI
       description: 書類の添付情報を削除します。
       operationId: deleteDocAttachement
       summary: 書類添付情報削除
-  /WebApi/Service?name=doc.Doc&method=deleteDocComment:
+  /Broker/WebApi/Service?name=doc.Doc&method=deleteDocComment:
     post:
       consumes:
         - application/json
@@ -4713,11 +4713,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 書類API
+        - DocAPI
       description: 書類のコメント / メモを削除します。
       operationId: deleteDocComment
       summary: 書類コメント / メモ削除
-  /WebApi/Service?name=doc.Doc&method=deleteDocReference:
+  /Broker/WebApi/Service?name=doc.Doc&method=deleteDocReference:
     post:
       consumes:
         - application/json
@@ -4834,11 +4834,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 書類API
+        - DocAPI
       description: 書類の関連付けを削除します。
       operationId: deleteDocReference
       summary: 関連書類削除
-  /WebApi/Service?name=doc.Doc&method=getDoc:
+  /Broker/WebApi/Service?name=doc.Doc&method=getDoc:
     post:
       consumes:
         - application/json
@@ -5075,11 +5075,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 書類API
+        - DocAPI
       description: 書類データを取得します。
       operationId: getDoc
       summary: 書類データ取得
-  /WebApi/Service?name=doc.Doc&method=getDocHeader:
+  /Broker/WebApi/Service?name=doc.Doc&method=getDocHeader:
     post:
       consumes:
         - application/json
@@ -5271,11 +5271,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 書類API
+        - DocAPI
       description: 書類の各情報を取得します。
       operationId: getDocHeader
       summary: 書類情報取得
-  /WebApi/Service?name=doc.Doc&method=getDocPdf:
+  /Broker/WebApi/Service?name=doc.Doc&method=getDocPdf:
     post:
       consumes:
         - application/json
@@ -5378,11 +5378,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 書類API
+        - DocAPI
       description: 書類のPDFファイルを生成し、ダウンロードします。
       operationId: getDocPdf
       summary: 書類PDFファイル取得
-  /WebApi/Service?name=doc.Doc&method=getDocReferencee:
+  /Broker/WebApi/Service?name=doc.Doc&method=getDocReferencee:
     post:
       consumes:
         - application/json
@@ -5574,11 +5574,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 書類API
+        - DocAPI
       description: 参照元の関連書類情報を取得します。
       operationId: getDocReferencee
       summary: 参照元関連書類情報取得
-  /WebApi/Service?name=doc.Doc&method=hardDeleteDoc:
+  /Broker/WebApi/Service?name=doc.Doc&method=hardDeleteDoc:
     post:
       consumes:
         - application/json
@@ -5685,11 +5685,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 書類API
+        - DocAPI
       description: 論理削除済みの書類を物理削除します。<br> 論理削除を行う場合は「書類論理削除API」を参照してください。
       operationId: hardDeleteDoc
       summary: 書類物理削除
-  /WebApi/Service?name=doc.Doc&method=listDocAttachment:
+  /Broker/WebApi/Service?name=doc.Doc&method=listDocAttachment:
     post:
       consumes:
         - application/json
@@ -6006,11 +6006,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 書類API
+        - DocAPI
       description: 書類の添付情報一覧を取得します。
       operationId: listDocAttachement
       summary: 書類添付情報一覧取得
-  /WebApi/Service?name=doc.Doc&method=listDocComment:
+  /Broker/WebApi/Service?name=doc.Doc&method=listDocComment:
     post:
       consumes:
         - application/json
@@ -6307,11 +6307,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 書類API
+        - DocAPI
       description: 書類のコメント一覧を取得します。
       operationId: listDocComment
       summary: 書類コメント一覧取得
-  /WebApi/Service?name=doc.Doc&method=listDocReferencer:
+  /Broker/WebApi/Service?name=doc.Doc&method=listDocReferencer:
     post:
       consumes:
         - application/json
@@ -6511,11 +6511,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 書類API
+        - DocAPI
       description: 参照先の関連書類情報の一覧を取得します。
       operationId: listDocReferencer
       summary: 参照先関連書類情報一覧取得
-  /WebApi/Service?name=doc.Doc&method=openDoc:
+  /Broker/WebApi/Service?name=doc.Doc&method=openDoc:
     post:
       consumes:
         - application/json
@@ -6599,11 +6599,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 書類API
+        - DocAPI
       description: 書類を表示するHTMLをダウンロードします。
       operationId: openDoc
       summary: 書類表示
-  /WebApi/Service?name=doc.Doc&method=prepareDocRequest:
+  /Broker/WebApi/Service?name=doc.Doc&method=prepareDocRequest:
     post:
       consumes:
         - application/json
@@ -6870,11 +6870,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 書類API
+        - DocAPI
       description: 初期状態の書類データを作成します。
       operationId: prepareDocRequest
       summary: 新規書類データ作成
-  /WebApi/Service?name=doc.Doc&method=selectDoc:
+  /Broker/WebApi/Service?name=doc.Doc&method=selectDoc:
     post:
       consumes:
         - application/json
@@ -7336,11 +7336,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 書類API
+        - DocAPI
       description: 指定した条件に合致する書類の一覧を取得します。
       operationId: selectDoc
       summary: 書類検索
-  /WebApi/Service?name=doc.Doc&method=updateDoc:
+  /Broker/WebApi/Service?name=doc.Doc&method=updateDoc:
     post:
       consumes:
         - application/json
@@ -7693,13 +7693,13 @@ paths:
                 type: string
             type: object
       tags:
-        - 書類API
+        - DocAPI
       description: >-
         初期状態の書類データを作成します。<br>
         「書類データ取得API」または「新規書類データ保存API」で取得したdocに対し、フィールドの値を変更し、本APIにより書類データを更新することができます。
       operationId: updateDoc
       summary: 書類データ更新
-  /WebApi/Service?name=doc.Doc&method=updateDocAttachment:
+  /Broker/WebApi/Service?name=doc.Doc&method=updateDocAttachment:
     post:
       consumes:
         - application/json
@@ -8054,11 +8054,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 書類API
+        - DocAPI
       description: 書類の添付情報を更新します。
       operationId: updateDocAttachement
       summary: 書類添付情報更新
-  /WebApi/Service?name=form.Form&method=findFormDefinition:
+  /Broker/WebApi/Service?name=form.Form&method=findFormDefinition:
     post:
       consumes:
         - application/json
@@ -8592,11 +8592,11 @@ paths:
                 type: string
             type: object
       tags:
-        - フォーム管理API
+        - FormAPI
       description: フォーム定義情報を取得します。
       operationId: findFormDefinition
       summary: フォーム定義情報取得
-  /WebApi/Service?name=form.Form&method=listComponentAutoNumber:
+  /Broker/WebApi/Service?name=form.Form&method=listComponentAutoNumber:
     post:
       consumes:
         - application/json
@@ -8740,11 +8740,11 @@ paths:
                 type: string
             type: object
       tags:
-        - フォーム管理API
+        - FormAPI
       description: 自動採番コンポーネント一覧を取得します。
       operationId: listComponentAutoNumber
       summary: 自動採番コンポーネント一覧取得
-  /WebApi/Service?name=form.Form&method=listComponentMasterWindow:
+  /Broker/WebApi/Service?name=form.Form&method=listComponentMasterWindow:
     post:
       consumes:
         - application/json
@@ -8908,11 +8908,11 @@ paths:
                 type: string
             type: object
       tags:
-        - フォーム管理API
+        - FormAPI
       description: マスター参照コンポーネント一覧を取得します。
       operationId: listComponentMasterWindow
       summary: マスター参照コンポーネント一覧取得
-  /WebApi/Service?name=form.Form&method=listForm:
+  /Broker/WebApi/Service?name=form.Form&method=listForm:
     post:
       consumes:
         - application/json
@@ -9173,11 +9173,11 @@ paths:
                 type: string
             type: object
       tags:
-        - フォーム管理API
+        - FormAPI
       description: 登録フォーム一覧を取得します。
       operationId: listForm
       summary: 登録フォーム一覧取得
-  /WebApi/Service?name=org.Org&method=addDelegationAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=addDelegationAppointment:
     post:
       consumes:
         - application/json
@@ -9430,11 +9430,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 組織API
+        - OrgAPI
       description: 権限委譲を作成します。
       operationId: addDelegationAppointment
       summary: 権限委譲作成
-  /WebApi/Service?name=org.Org&method=addDeprivationAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=addDeprivationAppointment:
     post:
       consumes:
         - application/json
@@ -9652,11 +9652,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 組織API
+        - OrgAPI
       description: 引上げ権限を作成します。
       operationId: addDeprivationAppointment
       summary: 引上げ権限作成
-  /WebApi/Service?name=org.Org&method=addPrivateRole:
+  /Broker/WebApi/Service?name=org.Org&method=addPrivateRole:
     post:
       consumes:
         - application/json
@@ -9950,11 +9950,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 組織API
+        - OrgAPI
       description: プライベートロールを作成します。
       operationId: addPrivateRole
       summary: プライベートロール作成
-  /WebApi/Service?name=org.Org&method=addPrivateRoleAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=addPrivateRoleAppointment:
     post:
       consumes:
         - application/json
@@ -10126,11 +10126,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 組織API
+        - OrgAPI
       description: プライベートロール所属を作成します。
       operationId: addPrivateRoleAppointment
       summary: プライベートロール所属作成
-  /WebApi/Service?name=org.Org&method=addProxyApplyAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=addProxyApplyAppointment:
     post:
       consumes:
         - application/json
@@ -10367,11 +10367,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 組織API
+        - OrgAPI
       description: 代理申請を作成します。
       operationId: addProxyApplyAppointment
       summary: 代理申請作成
-  /WebApi/Service?name=org.Org&method=addProxyAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=addProxyAppointment:
     post:
       consumes:
         - application/json
@@ -10614,11 +10614,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 組織API
+        - OrgAPI
       description: 代理承認を作成します。
       operationId: addProxyAppointment
       summary: 代理承認作成
-  /WebApi/Service?name=org.Org&method=addSectionRole:
+  /Broker/WebApi/Service?name=org.Org&method=addSectionRole:
     post:
       consumes:
         - application/json
@@ -10775,11 +10775,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 組織API
+        - OrgAPI
       description: セクションロールを作成します。
       operationId: addSectionRole
       summary: セクションロール作成
-  /WebApi/Service?name=org.Org&method=addSectionRoleGroup:
+  /Broker/WebApi/Service?name=org.Org&method=addSectionRoleGroup:
     post:
       consumes:
         - application/json
@@ -10950,11 +10950,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 組織API
+        - OrgAPI
       description: セクションロールグループを作成します。
       operationId: addSectionRoleGroup
       summary: セクションロールグループ作成
-  /WebApi/Service?name=org.Org&method=addUnit:
+  /Broker/WebApi/Service?name=org.Org&method=addUnit:
     post:
       consumes:
         - application/json
@@ -11273,11 +11273,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 組織API
+        - OrgAPI
       description: 組織を作成します。
       operationId: addUnit
       summary: 組織作成
-  /WebApi/Service?name=org.Org&method=addUnitAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=addUnitAppointment:
     post:
       consumes:
         - application/json
@@ -11450,11 +11450,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 組織API
+        - OrgAPI
       description: 組織所属を作成します。
       operationId: addUnitAppointment
       summary: 組織所属作成
-  /WebApi/Service?name=org.Org&method=addUniversalRole:
+  /Broker/WebApi/Service?name=org.Org&method=addUniversalRole:
     post:
       consumes:
         - application/json
@@ -11602,11 +11602,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 組織API
+        - OrgAPI
       description: ユニバーサルロールを作成します。
       operationId: addUniversalRole
       summary: ユニバーサルロール作成
-  /WebApi/Service?name=org.Org&method=addUniversalRoleAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=addUniversalRoleAppointment:
     post:
       consumes:
         - application/json
@@ -11771,11 +11771,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 組織API
+        - OrgAPI
       description: ユニバーサルロール所属を作成します。
       operationId: addUniversalRoleAppointment
       summary: ユニバーサルロール所属作成
-  /WebApi/Service?name=org.Org&method=addUser:
+  /Broker/WebApi/Service?name=org.Org&method=addUser:
     post:
       consumes:
         - application/json
@@ -12144,12 +12144,12 @@ paths:
                 type: string
             type: object
       tags:
-        - 組織API
+        - OrgAPI
       description: |
         ユーザーを作成します。
       operationId: AddUser
       summary: ユーザー作成
-  /WebApi/Service?name=org.Org&method=deleteDelegationAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=deleteDelegationAppointment:
     post:
       consumes:
         - application/json
@@ -12263,11 +12263,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 組織API
+        - OrgAPI
       description: 権限委譲を削除します。
       operationId: deleteDelegationAppointment
       summary: 権限委譲削除
-  /WebApi/Service?name=org.Org&method=deleteDeprivationAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=deleteDeprivationAppointment:
     post:
       consumes:
         - application/json
@@ -12381,11 +12381,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 組織API
+        - OrgAPI
       description: 引上げ権限を削除します。
       operationId: deleteDeprivationAppointment
       summary: 引上げ権限削除
-  /WebApi/Service?name=org.Org&method=deletePrivateRole:
+  /Broker/WebApi/Service?name=org.Org&method=deletePrivateRole:
     post:
       consumes:
         - application/json
@@ -12499,11 +12499,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 組織API
+        - OrgAPI
       description: プライベートロールを削除します。
       operationId: deletePrivateRole
       summary: プライベートロール削除
-  /WebApi/Service?name=org.Org&method=deletePrivateRoleAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=deletePrivateRoleAppointment:
     post:
       consumes:
         - application/json
@@ -12617,11 +12617,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 組織API
+        - OrgAPI
       description: プライベートロール所属を削除します。
       operationId: deletePrivateRoleAppointment
       summary: プライベートロール所属削除
-  /WebApi/Service?name=org.Org&method=deleteProxyApplyAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=deleteProxyApplyAppointment:
     post:
       consumes:
         - application/json
@@ -12735,11 +12735,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 組織API
+        - OrgAPI
       description: 代理申請を削除します。
       operationId: deleteProxyApplyAppointment
       summary: 代理申請削除
-  /WebApi/Service?name=org.Org&method=deleteProxyAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=deleteProxyAppointment:
     post:
       consumes:
         - application/json
@@ -12853,11 +12853,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 組織API
+        - OrgAPI
       description: 代理承認を削除します。
       operationId: deleteProxyAppointment
       summary: 代理承認削除
-  /WebApi/Service?name=org.Org&method=deleteSectionRole:
+  /Broker/WebApi/Service?name=org.Org&method=deleteSectionRole:
     post:
       consumes:
         - application/json
@@ -12971,11 +12971,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 組織API
+        - OrgAPI
       description: セクションロールを削除します。
       operationId: deleteSectionRole
       summary: セクションロール削除
-  /WebApi/Service?name=org.Org&method=deleteSectionRoleGroup:
+  /Broker/WebApi/Service?name=org.Org&method=deleteSectionRoleGroup:
     post:
       consumes:
         - application/json
@@ -13089,11 +13089,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 組織API
+        - OrgAPI
       description: セクションロールグループを削除します。
       operationId: deleteSectionRoleGroup
       summary: セクションロールグループ削除
-  /WebApi/Service?name=org.Org&method=deleteUnit:
+  /Broker/WebApi/Service?name=org.Org&method=deleteUnit:
     post:
       consumes:
         - application/json
@@ -13221,11 +13221,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 組織API
+        - OrgAPI
       description: 組織を削除します。
       operationId: deleteUnit
       summary: 組織削除
-  /WebApi/Service?name=org.Org&method=deleteUnitAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=deleteUnitAppointment:
     post:
       consumes:
         - application/json
@@ -13348,11 +13348,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 組織API
+        - OrgAPI
       description: 組織所属を削除します。
       operationId: deleteUnitAppointment
       summary: 組織所属削除
-  /WebApi/Service?name=org.Org&method=deleteUniversalRole:
+  /Broker/WebApi/Service?name=org.Org&method=deleteUniversalRole:
     post:
       consumes:
         - application/json
@@ -13466,11 +13466,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 組織API
+        - OrgAPI
       description: ユニバーサルロールを削除します。
       operationId: deleteUniversalRole
       summary: ユニバーサルロール削除
-  /WebApi/Service?name=org.Org&method=deleteUniversalRoleAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=deleteUniversalRoleAppointment:
     post:
       consumes:
         - application/json
@@ -13584,11 +13584,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 組織API
+        - OrgAPI
       description: ユニバーサルロール所属を削除します。
       operationId: deleteUniversalRoleAppointment
       summary: ユニバーサルロール所属削除
-  /WebApi/Service?name=org.Org&method=deleteUser:
+  /Broker/WebApi/Service?name=org.Org&method=deleteUser:
     post:
       consumes:
         - application/json
@@ -13709,11 +13709,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 組織API
+        - OrgAPI
       description: ユーザーを削除します。
       operationId: DeleteUser
       summary: ユーザー削除
-  /WebApi/Service?name=org.Org&method=disableDelegationAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=disableDelegationAppointment:
     post:
       consumes:
         - application/json
@@ -13912,11 +13912,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 組織API
+        - OrgAPI
       description: 権限委譲を適用終了します。
       operationId: disableDelegationAppointment
       summary: 権限委譲適用終了
-  /WebApi/Service?name=org.Org&method=disableDeprivationAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=disableDeprivationAppointment:
     post:
       consumes:
         - application/json
@@ -14098,11 +14098,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 組織API
+        - OrgAPI
       description: 引上げ権限を適用終了します。
       operationId: disableDeprivationAppointment
       summary: 引上げ権限適用終了
-  /WebApi/Service?name=org.Org&method=disablePrivateRoleAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=disablePrivateRoleAppointment:
     post:
       consumes:
         - application/json
@@ -14260,11 +14260,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 組織API
+        - OrgAPI
       description: プライベートロール所属を適用終了します。
       operationId: disablePrivateRoleAppointment
       summary: プライベートロール所属適用終了
-  /WebApi/Service?name=org.Org&method=disableProxyApplyAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=disableProxyApplyAppointment:
     post:
       consumes:
         - application/json
@@ -14455,11 +14455,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 組織API
+        - OrgAPI
       description: 代理申請を適用終了します。
       operationId: disableProxyApplyAppointment
       summary: 代理申請適用終了
-  /WebApi/Service?name=org.Org&method=disableProxyAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=disableProxyAppointment:
     post:
       consumes:
         - application/json
@@ -14653,11 +14653,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 組織API
+        - OrgAPI
       description: 代理承認を適用終了します。
       operationId: disableProxyAppointment
       summary: 代理承認適用終了
-  /WebApi/Service?name=org.Org&method=disableUnit:
+  /Broker/WebApi/Service?name=org.Org&method=disableUnit:
     post:
       consumes:
         - application/json
@@ -14892,11 +14892,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 組織API
+        - OrgAPI
       description: 組織を適用終了します。
       operationId: disableUnit
       summary: 組織適用終了
-  /WebApi/Service?name=org.Org&method=disableUnitAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=disableUnitAppointment:
     post:
       consumes:
         - application/json
@@ -15056,11 +15056,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 組織API
+        - OrgAPI
       description: 組織所属を適用終了します。
       operationId: disableUnitAppointment
       summary: 組織所属適用終了
-  /WebApi/Service?name=org.Org&method=disableUniversalRoleAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=disableUniversalRoleAppointment:
     post:
       consumes:
         - application/json
@@ -15215,11 +15215,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 組織API
+        - OrgAPI
       description: ユニバーサルロール所属を適用終了します。
       operationId: disableUniversalRoleAppointment
       summary: ユニバーサルロール所属適用終了
-  /WebApi/Service?name=org.Org&method=disableUser:
+  /Broker/WebApi/Service?name=org.Org&method=disableUser:
     post:
       consumes:
         - application/json
@@ -15476,11 +15476,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 組織API
+        - OrgAPI
       description: ユーザーを適用終了します。
       operationId: DisableUser
       summary: ユーザー適用終了
-  /WebApi/Service?name=org.Org&method=findDelegationAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=findDelegationAppointment:
     post:
       consumes:
         - application/json
@@ -15698,11 +15698,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 組織API
+        - OrgAPI
       description: 権限委譲を参照します。
       operationId: findDelegationAppointment
       summary: 権限委譲参照
-  /WebApi/Service?name=org.Org&method=findDeprivationAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=findDeprivationAppointment:
     post:
       consumes:
         - application/json
@@ -15897,11 +15897,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 組織API
+        - OrgAPI
       description: 引上げ権限を参照します。
       operationId: findDeprivationAppointment
       summary: 引上げ権限参照
-  /WebApi/Service?name=org.Org&method=findPrivateRole:
+  /Broker/WebApi/Service?name=org.Org&method=findPrivateRole:
     post:
       consumes:
         - application/json
@@ -16171,11 +16171,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 組織API
+        - OrgAPI
       description: プライベートロールを参照します。
       operationId: findPrivateRole
       summary: プライベートロール参照
-  /WebApi/Service?name=org.Org&method=findPrivateRoleAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=findPrivateRoleAppointment:
     post:
       consumes:
         - application/json
@@ -16436,11 +16436,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 組織API
+        - OrgAPI
       description: プライベートロール所属を参照します。
       operationId: findPrivateRoleAppointment
       summary: プライベートロール所属参照
-  /WebApi/Service?name=org.Org&method=findProxyApplyAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=findProxyApplyAppointment:
     post:
       consumes:
         - application/json
@@ -16653,11 +16653,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 組織API
+        - OrgAPI
       description: 代理申請を参照します。
       operationId: findProxyApplyAppointment
       summary: 代理申請参照
-  /WebApi/Service?name=org.Org&method=findProxyAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=findProxyAppointment:
     post:
       consumes:
         - application/json
@@ -16876,11 +16876,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 組織API
+        - OrgAPI
       description: 代理承認を参照します。
       operationId: findProxyAppointment
       summary: 代理承認参照
-  /WebApi/Service?name=org.Org&method=findSectionRole:
+  /Broker/WebApi/Service?name=org.Org&method=findSectionRole:
     post:
       consumes:
         - application/json
@@ -17096,11 +17096,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 組織API
+        - OrgAPI
       description: セクションロールを参照します。
       operationId: findSectionRole
       summary: セクションロール参照
-  /WebApi/Service?name=org.Org&method=findSectionRoleGroup:
+  /Broker/WebApi/Service?name=org.Org&method=findSectionRoleGroup:
     post:
       consumes:
         - application/json
@@ -17313,11 +17313,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 組織API
+        - OrgAPI
       description: セクションロールグループを参照します。
       operationId: findSectionRoleGroup
       summary: セクションロールグループ参照
-  /WebApi/Service?name=org.Org&method=findUnit:
+  /Broker/WebApi/Service?name=org.Org&method=findUnit:
     post:
       consumes:
         - application/json
@@ -17630,11 +17630,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 組織API
+        - OrgAPI
       description: 組織を参照します。
       operationId: findUnit
       summary: 組織参照
-  /WebApi/Service?name=org.Org&method=findUnitAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=findUnitAppointment:
     post:
       consumes:
         - application/json
@@ -17890,11 +17890,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 組織API
+        - OrgAPI
       description: 組織所属を参照します。
       operationId: findUnitAppointment
       summary: 組織所属参照
-  /WebApi/Service?name=org.Org&method=findUniversalRole:
+  /Broker/WebApi/Service?name=org.Org&method=findUniversalRole:
     post:
       consumes:
         - application/json
@@ -18093,11 +18093,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 組織API
+        - OrgAPI
       description: ユニバーサルロールを参照します。
       operationId: findUniversalRole
       summary: ユニバーサルロール参照
-  /WebApi/Service?name=org.Org&method=findUniversalRoleAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=findUniversalRoleAppointment:
     post:
       consumes:
         - application/json
@@ -18334,11 +18334,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 組織API
-      description: ユニバーサルロール所属を参照します。
+        - OrgAPI
+      description: ユニバーサル所属を参照します。
       operationId: findUniversalRoleAppointment
       summary: ユニバーサルロール所属参照
-  /WebApi/Service?name=org.Org&method=findUser:
+  /Broker/WebApi/Service?name=org.Org&method=findUser:
     post:
       consumes:
         - application/json
@@ -18717,7 +18717,7 @@ paths:
                 type: string
             type: object
       tags:
-        - 組織API
+        - OrgAPI
       description: |
         指定されたパラメータのユーザーを参照します。<br>
         ユーザーの参照には、基準日を指定する必要があります。<br>
@@ -18725,7 +18725,7 @@ paths:
         また、columnValueConditionListで検索条件を指定できます。
       operationId: FindUser
       summary: ユーザー参照
-  /WebApi/Service?name=org.Org&method=updateDelegationAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=updateDelegationAppointment:
     post:
       consumes:
         - application/json
@@ -18984,11 +18984,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 組織API
+        - OrgAPI
       description: 権限委譲を更新します。
       operationId: updateDelegationAppointment
       summary: 権限委譲更新
-  /WebApi/Service?name=org.Org&method=updateDeprivationAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=updateDeprivationAppointment:
     post:
       consumes:
         - application/json
@@ -19212,11 +19212,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 組織API
+        - OrgAPI
       description: 引上げ権限を更新します。
       operationId: updateDeprivationAppointment
       summary: 引上げ権限更新
-  /WebApi/Service?name=org.Org&method=updatePrivateRole:
+  /Broker/WebApi/Service?name=org.Org&method=updatePrivateRole:
     post:
       consumes:
         - application/json
@@ -19516,11 +19516,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 組織API
+        - OrgAPI
       description: プライベートロールを更新します。
       operationId: updatePrivateRole
       summary: プライベートロール更新
-  /WebApi/Service?name=org.Org&method=updatePrivateRoleAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=updatePrivateRoleAppointment:
     post:
       consumes:
         - application/json
@@ -19704,11 +19704,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 組織API
+        - OrgAPI
       description: プライベートロール所属を更新します。
       operationId: updatePrivateRoleAppointment
       summary: プライベートロール所属更新
-  /WebApi/Service?name=org.Org&method=updateProxyApplyAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=updateProxyApplyAppointment:
     post:
       consumes:
         - application/json
@@ -19951,11 +19951,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 組織API
+        - OrgAPI
       description: 代理申請を更新します。
       operationId: updateProxyApplyAppointment
       summary: 代理申請更新
-  /WebApi/Service?name=org.Org&method=updateProxyAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=updateProxyAppointment:
     post:
       consumes:
         - application/json
@@ -20204,11 +20204,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 組織API
+        - OrgAPI
       description: 代理承認を更新します。
       operationId: updateProxyAppointment
       summary: 代理承認更新
-  /WebApi/Service?name=org.Org&method=updateSectionRole:
+  /Broker/WebApi/Service?name=org.Org&method=updateSectionRole:
     post:
       consumes:
         - application/json
@@ -20371,11 +20371,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 組織API
+        - OrgAPI
       description: セクションロールを更新します。
       operationId: updateSectionRole
       summary: セクションロール更新
-  /WebApi/Service?name=org.Org&method=updateSectionRoleGroup:
+  /Broker/WebApi/Service?name=org.Org&method=updateSectionRoleGroup:
     post:
       consumes:
         - application/json
@@ -20552,11 +20552,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 組織API
+        - OrgAPI
       description: セクションロールグループを更新します。
       operationId: updateSectionRoleGroup
       summary: セクションロールグループ更新
-  /WebApi/Service?name=org.Org&method=updateUnit:
+  /Broker/WebApi/Service?name=org.Org&method=updateUnit:
     post:
       consumes:
         - application/json
@@ -20883,11 +20883,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 組織API
+        - OrgAPI
       description: 組織を更新します。
       operationId: updateUnit
       summary: 組織更新
-  /WebApi/Service?name=org.Org&method=updateUnitAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=updateUnitAppointment:
     post:
       consumes:
         - application/json
@@ -21068,11 +21068,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 組織API
+        - OrgAPI
       description: 組織所属を更新します。
       operationId: updateUnitAppointment
       summary: 組織所属更新
-  /WebApi/Service?name=org.Org&method=updateUniversalRole:
+  /Broker/WebApi/Service?name=org.Org&method=updateUniversalRole:
     post:
       consumes:
         - application/json
@@ -21226,11 +21226,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 組織API
+        - OrgAPI
       description: ユニバーサルロールを更新します。
       operationId: updateUniversalRole
       summary: ユニバーサルロール更新
-  /WebApi/Service?name=org.Org&method=updateUniversalRoleAppointment:
+  /Broker/WebApi/Service?name=org.Org&method=updateUniversalRoleAppointment:
     post:
       consumes:
         - application/json
@@ -21405,11 +21405,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 組織API
+        - OrgAPI
       description: ユニバーサルロール所属を更新します。
       operationId: updateUniversalRoleAppointment
       summary: ユニバーサルロール所属更新
-  /WebApi/Service?name=org.Org&method=updateUser:
+  /Broker/WebApi/Service?name=org.Org&method=updateUser:
     post:
       consumes:
         - application/json
@@ -21786,11 +21786,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 組織API
+        - OrgAPI
       description: ユーザーを更新します。
       operationId: UpdateUser
       summary: ユーザー更新
-  /WebApi/Service?name=publication.Publication&method=listPublicFolderInfo:
+  /Broker/WebApi/Service?name=publication.Publication&method=listPublicFolderInfo:
     post:
       consumes:
         - application/json
@@ -21956,11 +21956,11 @@ paths:
                 type: string
             type: object
       tags:
-        - 公開API
+        - PublicationAPI
       description: 公開フォルダ・公開フォーム一覧を取得します。
       operationId: listPublicFolderInfo
       summary: 公開フォルダ・公開フォーム取得
-  /WebApi/Service?name=site.Site&method=findProject:
+  /Broker/WebApi/Service?name=site.Site&method=findProject:
     post:
       consumes:
         - application/json
@@ -22095,11 +22095,11 @@ paths:
                 type: string
             type: object
       tags:
-        - サイトAPI
+        - SiteAPI
       description: 業務カテゴリ一覧を取得します。
       operationId: findProject
       summary: 業務カテゴリ一覧取得
-  /WebApi/Service?name=usermaster.UserMaster&method=exportTinyUserMaster:
+  /Broker/WebApi/Service?name=usermaster.UserMaster&method=exportTinyUserMaster:
     post:
       consumes:
         - application/json
@@ -22178,11 +22178,11 @@ paths:
                 type: string
             type: object
       tags:
-        - マスタAPI
+        - UserMasterAPI
       description: 外部マスタ(標準)をエクスポートします。
       operationId: exportTinyUserMaster
       summary: 外部マスタ(標準)取得
-  /WebApi/Service?name=usermaster.UserMaster&method=exportUserMaster:
+  /Broker/WebApi/Service?name=usermaster.UserMaster&method=exportUserMaster:
     post:
       consumes:
         - application/json
@@ -22261,11 +22261,11 @@ paths:
                 type: string
             type: object
       tags:
-        - マスタAPI
+        - UserMasterAPI
       description: 外部マスタ(拡張)をエクスポートします。
       operationId: exportUserMaster
       summary: 外部マスタ(拡張)取得
-  /WebApi/Service?name=usermaster.UserMaster&method=importTinyUserMaster:
+  /Broker/WebApi/Service?name=usermaster.UserMaster&method=importTinyUserMaster:
     post:
       consumes:
         - application/json
@@ -22402,11 +22402,11 @@ paths:
                 type: string
             type: object
       tags:
-        - マスタAPI
+        - UserMasterAPI
       description: 外部マスタ(標準)をインポートします。
       operationId: importTinyUserMaster
       summary: 外部マスタ(標準)取込
-  /WebApi/Service?name=usermaster.UserMaster&method=importUserMaster:
+  /Broker/WebApi/Service?name=usermaster.UserMaster&method=importUserMaster:
     post:
       consumes:
         - application/json
@@ -22543,11 +22543,11 @@ paths:
                 type: string
             type: object
       tags:
-        - マスタAPI
+        - UserMasterAPI
       description: 外部マスタ(拡張)をインポートします。
       operationId: importUserMaster
       summary: 外部マスタ(拡張)取込
-  /WebApi/Service?name=workflow.Workflow&method=approve:
+  /Broker/WebApi/Service?name=workflow.Workflow&method=approve:
     post:
       consumes:
         - application/json
@@ -22670,12 +22670,12 @@ paths:
                 type: string
             type: object
       tags:
-        - ワークフローAPI
+        - WorkflowAPI
       description: |
         書類を承認します。
       operationId: approve
       summary: 書類承認
-  /WebApi/Service?name=workflow.Workflow&method=countListWorkflowMessage:
+  /Broker/WebApi/Service?name=workflow.Workflow&method=countListWorkflowMessage:
     post:
       consumes:
         - application/json
@@ -22831,12 +22831,12 @@ paths:
                 type: string
             type: object
       tags:
-        - ワークフローAPI
+        - WorkflowAPI
       description: |
         回付情報の件数の一覧を取得します。
       operationId: countListWorkflowMessage
       summary: 回付情報件数一覧取得
-  /WebApi/Service?name=workflow.Workflow&method=countWorkflowMessage:
+  /Broker/WebApi/Service?name=workflow.Workflow&method=countWorkflowMessage:
     post:
       consumes:
         - application/json
@@ -22973,12 +22973,12 @@ paths:
                 type: string
             type: object
       tags:
-        - ワークフローAPI
+        - WorkflowAPI
       description: |
         回付情報の件数を取得します。
       operationId: countWorkflowMessage
       summary: 回付情報件数取得
-  /WebApi/Service?name=workflow.Workflow&method=delete:
+  /Broker/WebApi/Service?name=workflow.Workflow&method=delete:
     post:
       consumes:
         - application/json
@@ -23090,12 +23090,12 @@ paths:
                 type: string
             type: object
       tags:
-        - ワークフローAPI
+        - WorkflowAPI
       description: |
         書類を論理削除します。
       operationId: delete
       summary: 書類論理削除
-  /WebApi/Service?name=workflow.Workflow&method=draft:
+  /Broker/WebApi/Service?name=workflow.Workflow&method=draft:
     post:
       consumes:
         - application/json
@@ -23232,12 +23232,12 @@ paths:
                 type: string
             type: object
       tags:
-        - ワークフローAPI
+        - WorkflowAPI
       description: |
         書類を下書き保存します。
       operationId: draft
       summary: 書類下書き保存
-  /WebApi/Service?name=workflow.Workflow&method=findWorkflowTask:
+  /Broker/WebApi/Service?name=workflow.Workflow&method=findWorkflowTask:
     post:
       consumes:
         - application/json
@@ -23536,12 +23536,12 @@ paths:
                 type: string
             type: object
       tags:
-        - ワークフローAPI
+        - WorkflowAPI
       description: |
         回付情報タスクを検索します。
       operationId: findWorkflowTask
       summary: 回付情報タスク検索
-  /WebApi/Service?name=workflow.Workflow&method=getWorkflowInfo:
+  /Broker/WebApi/Service?name=workflow.Workflow&method=getWorkflowInfo:
     post:
       consumes:
         - application/json
@@ -23844,12 +23844,12 @@ paths:
                 type: string
             type: object
       tags:
-        - ワークフローAPI
+        - WorkflowAPI
       description: |
         回付情報を取得します。
       operationId: getWorkflowInfo
       summary: 回付情報取得
-  /WebApi/Service?name=workflow.Workflow&method=listElectJournal:
+  /Broker/WebApi/Service?name=workflow.Workflow&method=listElectJournal:
     post:
       consumes:
         - application/json
@@ -24080,12 +24080,12 @@ paths:
                 type: string
             type: object
       tags:
-        - ワークフローAPI
+        - WorkflowAPI
       description: |
         処理者変更履歴の一覧を取得します。
       operationId: listElectJournal
       summary: 処理者変更履歴一覧取得
-  /WebApi/Service?name=workflow.Workflow&method=listShareJournal:
+  /Broker/WebApi/Service?name=workflow.Workflow&method=listShareJournal:
     post:
       consumes:
         - application/json
@@ -24338,12 +24338,12 @@ paths:
                 type: string
             type: object
       tags:
-        - ワークフローAPI
+        - WorkflowAPI
       description: |
         共有履歴の一覧を取得します。
       operationId: listShareJournal
       summary: 共有履歴一覧取得
-  /WebApi/Service?name=workflow.Workflow&method=listWorkflowJournal:
+  /Broker/WebApi/Service?name=workflow.Workflow&method=listWorkflowJournal:
     post:
       consumes:
         - application/json
@@ -24570,12 +24570,12 @@ paths:
                 type: string
             type: object
       tags:
-        - ワークフローAPI
+        - WorkflowAPI
       description: |
         回付履歴の一覧を取得します。
       operationId: listWorkflowJournal
       summary: 回付履歴一覧取得
-  /WebApi/Service?name=workflow.Workflow&method=reject:
+  /Broker/WebApi/Service?name=workflow.Workflow&method=reject:
     post:
       consumes:
         - application/json
@@ -24699,12 +24699,12 @@ paths:
                 type: string
             type: object
       tags:
-        - ワークフローAPI
+        - WorkflowAPI
       description: |
         書類を却下します。
       operationId: reject
       summary: 書類却下
-  /WebApi/Service?name=workflow.Workflow&method=remand:
+  /Broker/WebApi/Service?name=workflow.Workflow&method=remand:
     post:
       consumes:
         - application/json
@@ -24832,12 +24832,12 @@ paths:
                 type: string
             type: object
       tags:
-        - ワークフローAPI
+        - WorkflowAPI
       description: |
         書類を差戻します。
       operationId: remand
       summary: 書類差戻し
-  /WebApi/Service?name=workflow.Workflow&method=retract:
+  /Broker/WebApi/Service?name=workflow.Workflow&method=retract:
     post:
       consumes:
         - application/json
@@ -24957,12 +24957,12 @@ paths:
                 type: string
             type: object
       tags:
-        - ワークフローAPI
+        - WorkflowAPI
       description: |
         書類を引戻します。
       operationId: retract
       summary: 書類引戻し
-  /WebApi/Service?name=workflow.Workflow&method=selectWorkflowMessage:
+  /Broker/WebApi/Service?name=workflow.Workflow&method=selectWorkflowMessage:
     post:
       consumes:
         - application/json
@@ -25167,12 +25167,12 @@ paths:
                 type: string
             type: object
       tags:
-        - ワークフローAPI
+        - WorkflowAPI
       description: |
         回付情報の一覧を検索します。
       operationId: selectWorkflowMessage
       summary: 回付情報検索
-  /WebApi/Service?name=workflow.Workflow&method=start:
+  /Broker/WebApi/Service?name=workflow.Workflow&method=start:
     post:
       consumes:
         - application/json
@@ -25315,7 +25315,7 @@ paths:
                 type: string
             type: object
       tags:
-        - ワークフローAPI
+        - WorkflowAPI
       description: |
         書類を作成または申請します。
       operationId: start
@@ -35266,19 +35266,19 @@ definitions:
         type: array
     type: object
 tags:
-  - name: 共通
-  - name: 書類API
-  - name: ワークフローAPI
-  - name: 組織API
-  - name: サイトAPI
-  - name: マスタAPI
-  - name: フォーム管理API
-  - name: 公開API
-  - name: SCIMAPI_Users
-  - name: SCIMAPI_Groups
-  - name: SCIMAPI_ResourceTypes
-  - name: SCIMAPI_Schemas
-  - name: SCIMAPI_Service
+  - name: common
+  - name: DocAPI
+  - name: WorkflowAPI
+  - name: OrgAPI
+  - name: SiteAPI
+  - name: UserMasterAPI
+  - name: FormAPI
+  - name: PublicationAPI
+  - name: SCIMAPI/Users
+  - name: SCIMAPI/Groups
+  - name: SCIMAPI/ResourceTypes
+  - name: SCIMAPI/Schemas
+  - name: SCIMAPI/Service
 x-components:
   parameters:
     ORG_ID:
