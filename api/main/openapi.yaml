@@ -7,13 +7,13 @@ servers:
   
 tags:
   - name: common
-  - name: doc.Doc
-  - name: workflow.Workflow
-  - name: org.Org
-  - name: site.Site
-  - name: usermaster.UserMaster
-  - name: form.Form
-  - name: publication.Publication
+  - name: DocAPI
+  - name: WorkflowAPI
+  - name: OrgAPI
+  - name: SiteAPI
+  - name: UserMasterAPI
+  - name: FormAPI
+  - name: PublicationAPI
   - name: SCIMAPI/Users
   - name: SCIMAPI/Groups
   - name: SCIMAPI/ResourceTypes
@@ -127,7 +127,7 @@ paths:
   /Broker/WebApi/Service?name=doc.Doc&method=getDocHeader:
     post:
       tags:
-        - doc.Doc
+        - DocAPI
       summary: 書類情報取得
       description: 
         書類の各情報を取得します。
@@ -152,7 +152,7 @@ paths:
   /Broker/WebApi/Service?name=doc.Doc&method=getDoc:
     post:
       tags:
-        - doc.Doc
+        - DocAPI
       summary: 書類データ取得
       description: 
         書類データを取得します。
@@ -177,7 +177,7 @@ paths:
   /Broker/WebApi/Service?name=doc.Doc&method=prepareDocRequest:
     post:
       tags:
-        - doc.Doc
+        - DocAPI
       summary: 新規書類データ作成
       description: 
         初期状態の書類データを作成します。
@@ -202,7 +202,7 @@ paths:
   /Broker/WebApi/Service?name=doc.Doc&method=addDoc:
     post:
       tags:
-        - doc.Doc
+        - DocAPI
       summary: 新規書類データ保存
       description: 
         新規に作成した書類データを保存します。<br>
@@ -229,7 +229,7 @@ paths:
   /Broker/WebApi/Service?name=doc.Doc&method=updateDoc:
     post:
       tags:
-        - doc.Doc
+        - DocAPI
       summary: 書類データ更新
       description: 
         初期状態の書類データを作成します。<br>
@@ -255,7 +255,7 @@ paths:
   /Broker/WebApi/Service?name=doc.Doc&method=hardDeleteDoc:
     post:
       tags:
-        - doc.Doc
+        - DocAPI
       summary: 書類物理削除
       description: 
         論理削除済みの書類を物理削除します。<br>
@@ -281,7 +281,7 @@ paths:
   /Broker/WebApi/Service?name=doc.Doc&method=selectDoc:
     post:
       tags:
-        - doc.Doc
+        - DocAPI
       summary: 書類検索
       description: 
         指定した条件に合致する書類の一覧を取得します。
@@ -306,7 +306,7 @@ paths:
   /Broker/WebApi/Service?name=doc.Doc&method=getDocPdf:
     post:
       tags:
-        - doc.Doc
+        - DocAPI
       summary: 書類PDFファイル取得
       description: 
         書類のPDFファイルを生成し、ダウンロードします。
@@ -331,7 +331,7 @@ paths:
   /Broker/WebApi/Service?name=doc.Doc&method=listDocComment:
     post:
       tags:
-        - doc.Doc
+        - DocAPI
       summary: 書類コメント一覧取得
       description: 
         書類のコメント一覧を取得します。
@@ -356,7 +356,7 @@ paths:
   /Broker/WebApi/Service?name=doc.Doc&method=addDocComment:
     post:
       tags:
-        - doc.Doc
+        - DocAPI
       summary: 書類メモ追加
       description: 
         書類のメモを追加します。
@@ -381,7 +381,7 @@ paths:
   /Broker/WebApi/Service?name=doc.Doc&method=deleteDocComment:
     post:
       tags:
-        - doc.Doc
+        - DocAPI
       summary: 書類コメント / メモ削除
       description: 
         書類のコメント / メモを削除します。
@@ -406,7 +406,7 @@ paths:
   /Broker/WebApi/Service?name=doc.Doc&method=addDocAttachment:
     post:
       tags:
-        - doc.Doc
+        - DocAPI
       summary: 書類添付情報追加
       description: 
         書類の添付情報を追加します。
@@ -431,7 +431,7 @@ paths:
   /Broker/WebApi/Service?name=doc.Doc&method=updateDocAttachment:
     post:
       tags:
-        - doc.Doc
+        - DocAPI
       summary: 書類添付情報更新
       description: 
         書類の添付情報を更新します。
@@ -456,7 +456,7 @@ paths:
   /Broker/WebApi/Service?name=doc.Doc&method=listDocAttachment:
     post:
       tags:
-        - doc.Doc
+        - DocAPI
       summary: 書類添付情報一覧取得
       description: 
         書類の添付情報一覧を取得します。
@@ -481,7 +481,7 @@ paths:
   /Broker/WebApi/Service?name=doc.Doc&method=deleteDocAttachment:
     post:
       tags:
-        - doc.Doc
+        - DocAPI
       summary: 書類添付情報削除
       description: 
         書類の添付情報を削除します。
@@ -506,7 +506,7 @@ paths:
   /Broker/WebApi/Service?name=doc.Doc&method=getDocReferencee:
     post:
       tags:
-        - doc.Doc
+        - DocAPI
       summary: 参照元関連書類情報取得
       description: 
         参照元の関連書類情報を取得します。
@@ -531,7 +531,7 @@ paths:
   /Broker/WebApi/Service?name=doc.Doc&method=listDocReferencer:
     post:
       tags:
-        - doc.Doc
+        - DocAPI
       summary: 参照先関連書類情報一覧取得
       description: 
         参照先の関連書類情報の一覧を取得します。
@@ -556,7 +556,7 @@ paths:
   /Broker/WebApi/Service?name=doc.Doc&method=addDocReference:
     post:
       tags:
-        - doc.Doc
+        - DocAPI
       summary: 関連書類追加
       description: 
         書類の関連付けを追加します。
@@ -581,7 +581,7 @@ paths:
   /Broker/WebApi/Service?name=doc.Doc&method=deleteDocReference:
     post:
       tags:
-        - doc.Doc
+        - DocAPI
       summary: 関連書類削除
       description: 
         書類の関連付けを削除します。
@@ -606,7 +606,7 @@ paths:
   /Broker/WebApi/Service?name=doc.Doc&method=openDoc:
     post:
       tags:
-        - doc.Doc
+        - DocAPI
       summary: 書類表示
       description: 
         書類を表示するHTMLをダウンロードします。
@@ -631,7 +631,7 @@ paths:
   /Broker/WebApi/Service?name=workflow.Workflow&method=countWorkflowMessage:
     post:
       tags:
-        - workflow.Workflow
+        - WorkflowAPI
       summary: 回付情報件数取得
       description: |
         回付情報の件数を取得します。
@@ -656,7 +656,7 @@ paths:
   /Broker/WebApi/Service?name=workflow.Workflow&method=countListWorkflowMessage:
     post:
       tags:
-        - workflow.Workflow
+        - WorkflowAPI
       summary: 回付情報件数一覧取得
       description: |
         回付情報の件数の一覧を取得します。
@@ -681,7 +681,7 @@ paths:
   /Broker/WebApi/Service?name=workflow.Workflow&method=selectWorkflowMessage:
     post:
       tags:
-        - workflow.Workflow
+        - WorkflowAPI
       summary: 回付情報検索
       description: |
         回付情報の一覧を検索します。
@@ -706,7 +706,7 @@ paths:
   /Broker/WebApi/Service?name=workflow.Workflow&method=draft:
     post:
       tags:
-        - workflow.Workflow
+        - WorkflowAPI
       summary: 書類下書き保存
       description: |
         書類を下書き保存します。
@@ -731,7 +731,7 @@ paths:
   /Broker/WebApi/Service?name=workflow.Workflow&method=start:
     post:
       tags:
-        - workflow.Workflow
+        - WorkflowAPI
       summary: 書類作成/申請
       description: |
         書類を作成または申請します。
@@ -756,7 +756,7 @@ paths:
   /Broker/WebApi/Service?name=workflow.Workflow&method=approve:
     post:
       tags:
-        - workflow.Workflow
+        - WorkflowAPI
       summary: 書類承認
       description: |
         書類を承認します。
@@ -781,7 +781,7 @@ paths:
   /Broker/WebApi/Service?name=workflow.Workflow&method=delete:
     post:
       tags:
-        - workflow.Workflow
+        - WorkflowAPI
       summary: 書類論理削除
       description: |
         書類を論理削除します。
@@ -806,7 +806,7 @@ paths:
   /Broker/WebApi/Service?name=workflow.Workflow&method=remand:
     post:
       tags:
-        - workflow.Workflow
+        - WorkflowAPI
       summary: 書類差戻し
       description: |
         書類を差戻します。
@@ -831,7 +831,7 @@ paths:
   /Broker/WebApi/Service?name=workflow.Workflow&method=retract:
     post:
       tags:
-        - workflow.Workflow
+        - WorkflowAPI
       summary: 書類引戻し
       description: |
         書類を引戻します。
@@ -856,7 +856,7 @@ paths:
   /Broker/WebApi/Service?name=workflow.Workflow&method=reject:
     post:
       tags:
-        - workflow.Workflow
+        - WorkflowAPI
       summary: 書類却下
       description: |
         書類を却下します。
@@ -881,7 +881,7 @@ paths:
   /Broker/WebApi/Service?name=workflow.Workflow&method=getWorkflowInfo:
     post:
       tags:
-        - workflow.Workflow
+        - WorkflowAPI
       summary: 回付情報取得
       description: |
         回付情報を取得します。
@@ -906,7 +906,7 @@ paths:
   /Broker/WebApi/Service?name=workflow.Workflow&method=findWorkflowTask:
     post:
       tags:
-        - workflow.Workflow
+        - WorkflowAPI
       summary: 回付情報タスク検索
       description: |
         回付情報タスクを検索します。
@@ -931,7 +931,7 @@ paths:
   /Broker/WebApi/Service?name=workflow.Workflow&method=listWorkflowJournal:
     post:
       tags:
-        - workflow.Workflow
+        - WorkflowAPI
       summary: 回付履歴一覧取得
       description: |
         回付履歴の一覧を取得します。
@@ -956,7 +956,7 @@ paths:
   /Broker/WebApi/Service?name=workflow.Workflow&method=listElectJournal:
     post:
       tags:
-        - workflow.Workflow
+        - WorkflowAPI
       summary: 処理者変更履歴一覧取得
       description: |
         処理者変更履歴の一覧を取得します。
@@ -981,7 +981,7 @@ paths:
   /Broker/WebApi/Service?name=workflow.Workflow&method=listShareJournal:
     post:
       tags:
-        - workflow.Workflow
+        - WorkflowAPI
       summary: 共有履歴一覧取得
       description: |
         共有履歴の一覧を取得します。
@@ -1006,7 +1006,7 @@ paths:
   /Broker/WebApi/Service?name=org.Org&method=addUser:
     post:
       tags:
-        - org.Org
+        - OrgAPI
       summary: ユーザー作成
       description: |
         ユーザーを作成します。
@@ -1031,7 +1031,7 @@ paths:
   /Broker/WebApi/Service?name=org.Org&method=findUser:
     post:
       tags:
-        - org.Org
+        - OrgAPI
       summary: ユーザー参照
       description: |
         指定されたパラメータのユーザーを参照します。<br>
@@ -1059,7 +1059,7 @@ paths:
   /Broker/WebApi/Service?name=org.Org&method=updateUser:
     post:
       tags:
-        - org.Org
+        - OrgAPI
       summary: ユーザー更新
       description:
         ユーザーを更新します。
@@ -1084,7 +1084,7 @@ paths:
   /Broker/WebApi/Service?name=org.Org&method=deleteUser:
     post:
       tags:
-        - org.Org
+        - OrgAPI
       summary: ユーザー削除
       description:
         ユーザーを削除します。
@@ -1109,7 +1109,7 @@ paths:
   /Broker/WebApi/Service?name=org.Org&method=disableUser:
     post:
       tags:
-        - org.Org
+        - OrgAPI
       summary: ユーザー適用終了
       description:
         ユーザーを適用終了します。
@@ -1134,7 +1134,7 @@ paths:
   /Broker/WebApi/Service?name=org.Org&method=addUnit:
     post:
       tags:
-        - org.Org
+        - OrgAPI
       summary: 組織作成
       description:
         組織を作成します。
@@ -1159,7 +1159,7 @@ paths:
   /Broker/WebApi/Service?name=org.Org&method=findUnit:
     post:
       tags:
-        - org.Org
+        - OrgAPI
       summary: 組織参照
       description:
         組織を参照します。
@@ -1184,7 +1184,7 @@ paths:
   /Broker/WebApi/Service?name=org.Org&method=updateUnit:
     post:
       tags:
-        - org.Org
+        - OrgAPI
       summary: 組織更新
       description:
         組織を更新します。
@@ -1209,7 +1209,7 @@ paths:
   /Broker/WebApi/Service?name=org.Org&method=deleteUnit:
     post:
       tags:
-        - org.Org
+        - OrgAPI
       summary: 組織削除
       description:
         組織を削除します。
@@ -1234,7 +1234,7 @@ paths:
   /Broker/WebApi/Service?name=org.Org&method=disableUnit:
     post:
       tags:
-        - org.Org
+        - OrgAPI
       summary: 組織適用終了
       description:
         組織を適用終了します。
@@ -1259,7 +1259,7 @@ paths:
   /Broker/WebApi/Service?name=org.Org&method=addSectionRole:
     post:
       tags:
-        - org.Org
+        - OrgAPI
       summary: セクションロール作成
       description:
         セクションロールを作成します。
@@ -1284,7 +1284,7 @@ paths:
   /Broker/WebApi/Service?name=org.Org&method=findSectionRole:
     post:
       tags:
-        - org.Org
+        - OrgAPI
       summary: セクションロール参照
       description:
         セクションロールを参照します。
@@ -1309,7 +1309,7 @@ paths:
   /Broker/WebApi/Service?name=org.Org&method=updateSectionRole:
     post:
       tags:
-        - org.Org
+        - OrgAPI
       summary: セクションロール更新
       description:
         セクションロールを更新します。
@@ -1334,7 +1334,7 @@ paths:
   /Broker/WebApi/Service?name=org.Org&method=deleteSectionRole:
     post:
       tags:
-        - org.Org
+        - OrgAPI
       summary: セクションロール削除
       description:
         セクションロールを削除します。
@@ -1359,7 +1359,7 @@ paths:
   /Broker/WebApi/Service?name=org.Org&method=addSectionRoleGroup:
     post:
       tags:
-        - org.Org
+        - OrgAPI
       summary: セクションロールグループ作成
       description:
         セクションロールグループを作成します。
@@ -1384,7 +1384,7 @@ paths:
   /Broker/WebApi/Service?name=org.Org&method=findSectionRoleGroup:
     post:
       tags:
-        - org.Org
+        - OrgAPI
       summary: セクションロールグループ参照
       description:
         セクションロールグループを参照します。
@@ -1409,7 +1409,7 @@ paths:
   /Broker/WebApi/Service?name=org.Org&method=updateSectionRoleGroup:
     post:
       tags:
-        - org.Org
+        - OrgAPI
       summary: セクションロールグループ更新
       description:
         セクションロールグループを更新します。
@@ -1434,7 +1434,7 @@ paths:
   /Broker/WebApi/Service?name=org.Org&method=deleteSectionRoleGroup:
     post:
       tags:
-        - org.Org
+        - OrgAPI
       summary: セクションロールグループ削除
       description:
         セクションロールグループを削除します。
@@ -1459,7 +1459,7 @@ paths:
   /Broker/WebApi/Service?name=org.Org&method=addUnitAppointment:
     post:
       tags:
-        - org.Org
+        - OrgAPI
       summary: 組織所属作成
       description:
         組織所属を作成します。
@@ -1484,7 +1484,7 @@ paths:
   /Broker/WebApi/Service?name=org.Org&method=findUnitAppointment:
     post:
       tags:
-        - org.Org
+        - OrgAPI
       summary: 組織所属参照
       description:
         組織所属を参照します。
@@ -1509,7 +1509,7 @@ paths:
   /Broker/WebApi/Service?name=org.Org&method=updateUnitAppointment:
     post:
       tags:
-        - org.Org
+        - OrgAPI
       summary: 組織所属更新
       description:
         組織所属を更新します。
@@ -1534,7 +1534,7 @@ paths:
   /Broker/WebApi/Service?name=org.Org&method=deleteUnitAppointment:
     post:
       tags:
-        - org.Org
+        - OrgAPI
       summary: 組織所属削除
       description:
         組織所属を削除します。
@@ -1559,7 +1559,7 @@ paths:
   /Broker/WebApi/Service?name=org.Org&method=disableUnitAppointment:
     post:
       tags:
-        - org.Org
+        - OrgAPI
       summary: 組織所属適用終了
       description:
         組織所属を適用終了します。
@@ -1584,7 +1584,7 @@ paths:
   /Broker/WebApi/Service?name=org.Org&method=addProxyApplyAppointment:
     post:
       tags:
-        - org.Org
+        - OrgAPI
       summary: 代理申請作成
       description:
         代理申請を作成します。
@@ -1609,7 +1609,7 @@ paths:
   /Broker/WebApi/Service?name=org.Org&method=findProxyApplyAppointment:
     post:
       tags:
-        - org.Org
+        - OrgAPI
       summary: 代理申請参照
       description:
         代理申請を参照します。
@@ -1634,7 +1634,7 @@ paths:
   /Broker/WebApi/Service?name=org.Org&method=updateProxyApplyAppointment:
     post:
       tags:
-        - org.Org
+        - OrgAPI
       summary: 代理申請更新
       description:
         代理申請を更新します。
@@ -1659,7 +1659,7 @@ paths:
   /Broker/WebApi/Service?name=org.Org&method=deleteProxyApplyAppointment:
     post:
       tags:
-        - org.Org
+        - OrgAPI
       summary: 代理申請削除
       description:
         代理申請を削除します。
@@ -1684,7 +1684,7 @@ paths:
   /Broker/WebApi/Service?name=org.Org&method=disableProxyApplyAppointment:
     post:
       tags:
-        - org.Org
+        - OrgAPI
       summary: 代理申請適用終了
       description:
         代理申請を適用終了します。
@@ -1709,7 +1709,7 @@ paths:
   /Broker/WebApi/Service?name=org.Org&method=addProxyAppointment:
     post:
       tags:
-        - org.Org
+        - OrgAPI
       summary: 代理承認作成
       description:
         代理承認を作成します。
@@ -1734,7 +1734,7 @@ paths:
   /Broker/WebApi/Service?name=org.Org&method=findProxyAppointment:
     post:
       tags:
-        - org.Org
+        - OrgAPI
       summary: 代理承認参照
       description:
         代理承認を参照します。
@@ -1759,7 +1759,7 @@ paths:
   /Broker/WebApi/Service?name=org.Org&method=updateProxyAppointment:
     post:
       tags:
-        - org.Org
+        - OrgAPI
       summary: 代理承認更新
       description:
         代理承認を更新します。
@@ -1784,7 +1784,7 @@ paths:
   /Broker/WebApi/Service?name=org.Org&method=deleteProxyAppointment:
     post:
       tags:
-        - org.Org
+        - OrgAPI
       summary: 代理承認削除
       description:
         代理承認を削除します。
@@ -1809,7 +1809,7 @@ paths:
   /Broker/WebApi/Service?name=org.Org&method=disableProxyAppointment:
     post:
       tags:
-        - org.Org
+        - OrgAPI
       summary: 代理承認適用終了
       description:
         代理承認を適用終了します。
@@ -1834,7 +1834,7 @@ paths:
   /Broker/WebApi/Service?name=org.Org&method=addDelegationAppointment:
     post:
       tags:
-        - org.Org
+        - OrgAPI
       summary: 権限委譲作成
       description:
         権限委譲を作成します。
@@ -1859,7 +1859,7 @@ paths:
   /Broker/WebApi/Service?name=org.Org&method=findDelegationAppointment:
     post:
       tags:
-        - org.Org
+        - OrgAPI
       summary: 権限委譲参照
       description:
         権限委譲を参照します。
@@ -1884,7 +1884,7 @@ paths:
   /Broker/WebApi/Service?name=org.Org&method=updateDelegationAppointment:
     post:
       tags:
-        - org.Org
+        - OrgAPI
       summary: 権限委譲更新
       description:
         権限委譲を更新します。
@@ -1909,7 +1909,7 @@ paths:
   /Broker/WebApi/Service?name=org.Org&method=deleteDelegationAppointment:
     post:
       tags:
-        - org.Org
+        - OrgAPI
       summary: 権限委譲削除
       description:
         権限委譲を削除します。
@@ -1934,7 +1934,7 @@ paths:
   /Broker/WebApi/Service?name=org.Org&method=disableDelegationAppointment:
     post:
       tags:
-        - org.Org
+        - OrgAPI
       summary: 権限委譲適用終了
       description:
         権限委譲を適用終了します。
@@ -1959,7 +1959,7 @@ paths:
   /Broker/WebApi/Service?name=org.Org&method=addDeprivationAppointment:
     post:
       tags:
-        - org.Org
+        - OrgAPI
       summary: 引上げ権限作成
       description:
         引上げ権限を作成します。
@@ -1984,7 +1984,7 @@ paths:
   /Broker/WebApi/Service?name=org.Org&method=findDeprivationAppointment:
     post:
       tags:
-        - org.Org
+        - OrgAPI
       summary: 引上げ権限参照
       description:
         引上げ権限を参照します。
@@ -2009,7 +2009,7 @@ paths:
   /Broker/WebApi/Service?name=org.Org&method=updateDeprivationAppointment:
     post:
       tags:
-        - org.Org
+        - OrgAPI
       summary: 引上げ権限更新
       description:
         引上げ権限を更新します。
@@ -2034,7 +2034,7 @@ paths:
   /Broker/WebApi/Service?name=org.Org&method=deleteDeprivationAppointment:
     post:
       tags:
-        - org.Org
+        - OrgAPI
       summary: 引上げ権限削除
       description:
         引上げ権限を削除します。
@@ -2059,7 +2059,7 @@ paths:
   /Broker/WebApi/Service?name=org.Org&method=disableDeprivationAppointment:
     post:
       tags:
-        - org.Org
+        - OrgAPI
       summary: 引上げ権限適用終了
       description:
         引上げ権限を適用終了します。
@@ -2084,7 +2084,7 @@ paths:
   /Broker/WebApi/Service?name=org.Org&method=addPrivateRole:
     post:
       tags:
-        - org.Org
+        - OrgAPI
       summary: プライベートロール作成
       description:
         プライベートロールを作成します。
@@ -2109,7 +2109,7 @@ paths:
   /Broker/WebApi/Service?name=org.Org&method=findPrivateRole:
     post:
       tags:
-        - org.Org
+        - OrgAPI
       summary: プライベートロール参照
       description:
         プライベートロールを参照します。
@@ -2134,7 +2134,7 @@ paths:
   /Broker/WebApi/Service?name=org.Org&method=updatePrivateRole:
     post:
       tags:
-        - org.Org
+        - OrgAPI
       summary: プライベートロール更新
       description:
         プライベートロールを更新します。
@@ -2159,7 +2159,7 @@ paths:
   /Broker/WebApi/Service?name=org.Org&method=deletePrivateRole:
     post:
       tags:
-        - org.Org
+        - OrgAPI
       summary: プライベートロール削除
       description:
         プライベートロールを削除します。
@@ -2184,7 +2184,7 @@ paths:
   /Broker/WebApi/Service?name=org.Org&method=addPrivateRoleAppointment:
     post:
       tags:
-        - org.Org
+        - OrgAPI
       summary: プライベートロール所属作成
       description:
         プライベートロール所属を作成します。
@@ -2209,7 +2209,7 @@ paths:
   /Broker/WebApi/Service?name=org.Org&method=findPrivateRoleAppointment:
     post:
       tags:
-        - org.Org
+        - OrgAPI
       summary: プライベートロール所属参照
       description:
         プライベートロール所属を参照します。
@@ -2234,7 +2234,7 @@ paths:
   /Broker/WebApi/Service?name=org.Org&method=updatePrivateRoleAppointment:
     post:
       tags:
-        - org.Org
+        - OrgAPI
       summary: プライベートロール所属更新
       description:
         プライベートロール所属を更新します。
@@ -2259,7 +2259,7 @@ paths:
   /Broker/WebApi/Service?name=org.Org&method=deletePrivateRoleAppointment:
     post:
       tags:
-        - org.Org
+        - OrgAPI
       summary: プライベートロール所属削除
       description:
         プライベートロール所属を削除します。
@@ -2284,7 +2284,7 @@ paths:
   /Broker/WebApi/Service?name=org.Org&method=disablePrivateRoleAppointment:
     post:
       tags:
-        - org.Org
+        - OrgAPI
       summary: プライベートロール所属適用終了
       description:
         プライベートロール所属を適用終了します。
@@ -2309,7 +2309,7 @@ paths:
   /Broker/WebApi/Service?name=org.Org&method=addUniversalRole:
     post:
       tags:
-        - org.Org
+        - OrgAPI
       summary: ユニバーサルロール作成
       description:
         ユニバーサルロールを作成します。
@@ -2334,7 +2334,7 @@ paths:
   /Broker/WebApi/Service?name=org.Org&method=findUniversalRole:
     post:
       tags:
-        - org.Org
+        - OrgAPI
       summary: ユニバーサルロール参照
       description:
         ユニバーサルロールを参照します。
@@ -2359,7 +2359,7 @@ paths:
   /Broker/WebApi/Service?name=org.Org&method=updateUniversalRole:
     post:
       tags:
-        - org.Org
+        - OrgAPI
       summary: ユニバーサルロール更新
       description:
         ユニバーサルロールを更新します。
@@ -2384,7 +2384,7 @@ paths:
   /Broker/WebApi/Service?name=org.Org&method=deleteUniversalRole:
     post:
       tags:
-        - org.Org
+        - OrgAPI
       summary: ユニバーサルロール削除
       description:
         ユニバーサルロールを削除します。
@@ -2409,7 +2409,7 @@ paths:
   /Broker/WebApi/Service?name=org.Org&method=addUniversalRoleAppointment:
     post:
       tags:
-        - org.Org
+        - OrgAPI
       summary: ユニバーサルロール所属作成
       description:
         ユニバーサルロール所属を作成します。
@@ -2434,7 +2434,7 @@ paths:
   /Broker/WebApi/Service?name=org.Org&method=findUniversalRoleAppointment:
     post:
       tags:
-        - org.Org
+        - OrgAPI
       summary: ユニバーサルロール所属参照
       description:
         ユニバーサル所属を参照します。
@@ -2459,7 +2459,7 @@ paths:
   /Broker/WebApi/Service?name=org.Org&method=updateUniversalRoleAppointment:
     post:
       tags:
-        - org.Org
+        - OrgAPI
       summary: ユニバーサルロール所属更新
       description:
         ユニバーサルロール所属を更新します。
@@ -2484,7 +2484,7 @@ paths:
   /Broker/WebApi/Service?name=org.Org&method=deleteUniversalRoleAppointment:
     post:
       tags:
-        - org.Org
+        - OrgAPI
       summary: ユニバーサルロール所属削除
       description:
         ユニバーサルロール所属を削除します。
@@ -2509,7 +2509,7 @@ paths:
   /Broker/WebApi/Service?name=org.Org&method=disableUniversalRoleAppointment:
     post:
       tags:
-        - org.Org
+        - OrgAPI
       summary: ユニバーサルロール所属適用終了
       description:
         ユニバーサルロール所属を適用終了します。
@@ -2534,7 +2534,7 @@ paths:
   /Broker/WebApi/Service?name=site.Site&method=findProject:
     post:
       tags:
-        - site.Site
+        - SiteAPI
       summary: 業務カテゴリ一覧取得
       description:
         業務カテゴリ一覧を取得します。
@@ -2559,7 +2559,7 @@ paths:
   /Broker/WebApi/Service?name=usermaster.UserMaster&method=importTinyUserMaster:
     post:
       tags:
-        - usermaster.UserMaster
+        - UserMasterAPI
       summary: 外部マスタ(標準)取込
       description:
         外部マスタ(標準)をインポートします。
@@ -2584,7 +2584,7 @@ paths:
   /Broker/WebApi/Service?name=usermaster.UserMaster&method=exportTinyUserMaster:
     post:
       tags:
-        - usermaster.UserMaster
+        - UserMasterAPI
       summary: 外部マスタ(標準)取得
       description:
         外部マスタ(標準)をエクスポートします。
@@ -2609,7 +2609,7 @@ paths:
   /Broker/WebApi/Service?name=usermaster.UserMaster&method=importUserMaster:
     post:
       tags:
-        - usermaster.UserMaster
+        - UserMasterAPI
       summary: 外部マスタ(拡張)取込
       description:
         外部マスタ(拡張)をインポートします。
@@ -2634,7 +2634,7 @@ paths:
   /Broker/WebApi/Service?name=usermaster.UserMaster&method=exportUserMaster:
     post:
       tags:
-        - usermaster.UserMaster
+        - UserMasterAPI
       summary: 外部マスタ(拡張)取得
       description:
         外部マスタ(拡張)をエクスポートします。
@@ -2659,7 +2659,7 @@ paths:
   /Broker/WebApi/Service?name=form.Form&method=listComponentMasterWindow:
     post:
       tags:
-        - form.Form
+        - FormAPI
       summary: マスター参照コンポーネント一覧取得
       description:
         マスター参照コンポーネント一覧を取得します。
@@ -2688,7 +2688,7 @@ paths:
   /Broker/WebApi/Service?name=form.Form&method=listComponentAutoNumber:
     post:
       tags:
-        - form.Form
+        - FormAPI
       summary: 自動採番コンポーネント一覧取得
       description:
         自動採番コンポーネント一覧を取得します。
@@ -2717,7 +2717,7 @@ paths:
   /Broker/WebApi/Service?name=form.Form&method=listForm:
     post:
       tags:
-        - form.Form
+        - FormAPI
       summary: 登録フォーム一覧取得
       description:
         登録フォーム一覧を取得します。
@@ -2742,7 +2742,7 @@ paths:
   /Broker/WebApi/Service?name=form.Form&method=findFormDefinition:
     post:
       tags:
-        - form.Form
+        - FormAPI
       summary: フォーム定義情報取得
       description:
         フォーム定義情報を取得します。
@@ -2767,7 +2767,7 @@ paths:
   /Broker/WebApi/Service?name=publication.Publication&method=listPublicFolderInfo:
     post:
       tags:
-        - publication.Publication
+        - PublicationAPI
       summary: 公開フォルダ・公開フォーム取得
       description:
         公開フォルダ・公開フォーム一覧を取得します。
