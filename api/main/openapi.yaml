@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: 'AgileWorks WebAPI(R3.1.0)'
+  title: 'AgileWorks WebAPI (R3.1.0)'
   version: 1.0.0
 servers:
   - url: https://sample.atled.jp/AgileWorks
@@ -10638,7 +10638,7 @@ components:
                   description: ユーザーコード
                   type: integer
                 userType:
-                  description:
+                  description: |
                     ユーザータイプ<br>
                     指定可能な値<br>
                     |パラメータ|説明|
@@ -10646,7 +10646,7 @@ components:
                     |UNIT_APPOINTMENT|組織+ユーザ|
                     |UNIT|組織|
                     |USER|ユーザ|
-                    |LOGIN_USER|ログインユーザ(WebAPI実行ユーザ)
+                    |LOGIN_USER|ログインユーザ(WebAPI実行ユーザ)|
             logicalOperatorType:
               description: |
                 フィールド値条件全体の AND / OR<br>
@@ -10821,6 +10821,8 @@ components:
             |----|----|
             |FILE|添付ファイル|
             |URL|URL|
+          type: string
+          pattern: doc.EnumDocAttachmetType
         explanation:
           description: 添付の説明
           type: string
