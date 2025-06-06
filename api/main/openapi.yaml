@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: 'AgileWorks WebAPI (R3.1.0) '
+  title: 'AgileWorks WebAPI(R3.1.0)'
   version: 1.0.0
 servers:
   - url: https://sample.atled.jp/AgileWorks
