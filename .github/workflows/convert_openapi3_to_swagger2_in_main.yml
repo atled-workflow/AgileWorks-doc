@@ -36,6 +36,7 @@ jobs:
       - name: Convert OpenAPI3.1 to OpenAPI3.0
         run: |
           npx @redocly/openapi-cli bundle api/main/openapi.yaml -o api/main/openapi_3_0.yaml --ext yaml
+          npx @redocly/openapi-cli lint api/main/openapi_3_0.yaml
       
       # OpenAPI3仕様ドキュメントをフラット化
       - name: Flatten the OpenAPI3 document
