@@ -3475,7 +3475,7 @@ paths:
                     properties:
                       entryList:
                         description: 各フィールドのデータ
-                        pattern: doc.DocDataEntryModel
+                        pattern: doc.DocDataEntryListModel
                         properties:
                           entries:
                             items:
@@ -3509,6 +3509,7 @@ paths:
                                   description: フィールド名
                                   type: string
                               type: object
+                            pattern: doc.DocDataEntryModel
                             type: array
                         type: object
                     type: object
@@ -4877,7 +4878,7 @@ paths:
                     properties:
                       entryList:
                         description: 各フィールドのデータ
-                        pattern: doc.DocDataEntryModel
+                        pattern: doc.DocDataEntryListModel
                         properties:
                           entries:
                             items:
@@ -4911,6 +4912,7 @@ paths:
                                   description: フィールド名
                                   type: string
                               type: object
+                            pattern: doc.DocDataEntryModel
                             type: array
                         type: object
                     type: object
@@ -6684,10 +6686,11 @@ paths:
                     properties:
                       entryList:
                         description: 各フィールドのデータ
-                        pattern: doc.DocDataEntryModel
+                        pattern: doc.DocDataEntryListModel
                         properties:
                           entries:
                             items:
+                              pattern: doc.DocDataEntryModel
                               properties:
                                 dataType:
                                   description: データタイプ
@@ -6992,51 +6995,57 @@ paths:
                     type: integer
                   fieldValueConditionList:
                     description: フィールド値条件リスト
-                    pattern: doc.FieldValueConditionModel
+                    pattern: doc.FieldValueConditionListModel
                     properties:
-                      compareOperatorType:
-                        description: |
-                          比較演算子<br>
-                          指定可能な値<br>
-                          |パラメータ|説明|
-                          |----|----|
-                          |EQUAL|～と等しい|
-                          |LESS_THAN|～より小さい|
-                          |LESS_EQUAL|～以下|
-                          |GREATER_THAN|～より大きい|
-                          |GREATER_EQUAL|～以上|
-                          |NOT_EQUAL|～と異なる|
-                          |LIKE|～を含む|
-                          |NOT_LIKE|～を含まない|
-                          |START_WITH|～から始まる|
-                          |END_WITH|～で終わる|
-                          |BETWEEN|～と～の間|
-                          |EMPTY|未入力|
-                          |NOT_EMPTY|入力されている|
-                        pattern: common.EnumCompareOperatorType
-                        type: string
-                      fieldId:
-                        description: フィールドID
-                        type: string
-                      type:
-                        description: |
-                          フィールド値タイプ<br>
-                          指定可能な値<br>
-                          |パラメータ|説明|
-                          |----|----|
-                          |FIELD|書類のフィールド|
-                          |LISTNAME1～20|件名項目１～２０|
-                        pattern: doc.EnumFieldValueType
-                        type: string
-                      value:
-                        description: 値
-                        type: string
-                      valueFrom:
-                        description: 値(From)
-                        type: string
-                      valueTo:
-                        description: 値(To)
-                        type: string
+                      entries:
+                        items:
+                          pattern: doc.FieldValueConditionModel
+                          properties:
+                            compareOperatorType:
+                              description: |
+                                比較演算子<br>
+                                指定可能な値<br>
+                                |パラメータ|説明|
+                                |----|----|
+                                |EQUAL|～と等しい|
+                                |LESS_THAN|～より小さい|
+                                |LESS_EQUAL|～以下|
+                                |GREATER_THAN|～より大きい|
+                                |GREATER_EQUAL|～以上|
+                                |NOT_EQUAL|～と異なる|
+                                |LIKE|～を含む|
+                                |NOT_LIKE|～を含まない|
+                                |START_WITH|～から始まる|
+                                |END_WITH|～で終わる|
+                                |BETWEEN|～と～の間|
+                                |EMPTY|未入力|
+                                |NOT_EMPTY|入力されている|
+                              pattern: common.EnumCompareOperatorType
+                              type: string
+                            fieldId:
+                              description: フィールドID
+                              type: string
+                            type:
+                              description: |
+                                フィールド値タイプ<br>
+                                指定可能な値<br>
+                                |パラメータ|説明|
+                                |----|----|
+                                |FIELD|書類のフィールド|
+                                |LISTNAME1～20|件名項目１～２０|
+                              pattern: doc.EnumFieldValueType
+                              type: string
+                            value:
+                              description: 値
+                              type: string
+                            valueFrom:
+                              description: 値(From)
+                              type: string
+                            valueTo:
+                              description: 値(To)
+                              type: string
+                          type: object
+                        type: array
                     type: object
                   formCode:
                     description: フォームコード
@@ -7071,40 +7080,46 @@ paths:
                     description: ユーザー関連条件リスト
                     pattern: doc.RelativeConditionModel
                     properties:
-                      type:
-                        description: |
-                          関連タイプ<br>
-                          指定可能な値<br>
-                          |パラメータ|説明|
-                          |----|----|
-                          |OWNER|書類オーナ|
-                          |CREATE|作成|
-                          |APPLY|申請|
-                          |APPROVE|承認|
-                          |PROXY_APPROVE|代理承認|
-                          |PRINCIPAL_APPROVE|被代理承認|
-                          |REJECT|却下|
-                          |CANCEL|取下げ|
-                        pattern: EnumRelativeType
-                        type: string
-                      unitCode:
-                        description: 組織コード
-                        type: integer
-                      userCode:
-                        description: ユーザーコード
-                        type: integer
-                      userType:
-                        description: |
-                          ユーザータイプ<br>
-                          指定可能な値<br>
-                          |パラメータ|説明|
-                          |----|----|
-                          |UNIT_APPOINTMENT|組織+ユーザ|
-                          |UNIT|組織|
-                          |USER|ユーザ|
-                          |LOGIN_USER|ログインユーザ(WebAPI実行ユーザ)|
-                        pattern: EnumRelativeUserType
-                        type: string
+                      entries:
+                        items:
+                          pattern: doc.FieldValueConditionModel
+                          properties:
+                            type:
+                              description: |
+                                関連タイプ<br>
+                                指定可能な値<br>
+                                |パラメータ|説明|
+                                |----|----|
+                                |OWNER|書類オーナ|
+                                |CREATE|作成|
+                                |APPLY|申請|
+                                |APPROVE|承認|
+                                |PROXY_APPROVE|代理承認|
+                                |PRINCIPAL_APPROVE|被代理承認|
+                                |REJECT|却下|
+                                |CANCEL|取下げ|
+                              pattern: EnumRelativeType
+                              type: string
+                            unitCode:
+                              description: 組織コード
+                              type: integer
+                            userCode:
+                              description: ユーザーコード
+                              type: integer
+                            userType:
+                              description: |
+                                ユーザータイプ<br>
+                                指定可能な値<br>
+                                |パラメータ|説明|
+                                |----|----|
+                                |UNIT_APPOINTMENT|組織+ユーザ|
+                                |UNIT|組織|
+                                |USER|ユーザ|
+                                |LOGIN_USER|ログインユーザ(WebAPI実行ユーザ)|
+                              pattern: EnumRelativeUserType
+                              type: string
+                          type: object
+                        type: array
                     type: object
                   ruleCode:
                     description: 回付ルールコード
@@ -7136,10 +7151,11 @@ paths:
                 properties:
                   columnList:
                     description: 列項目リスト
-                    pattern: doc.DocViewColumnModel
+                    pattern: doc.DocViewColumnListModel
                     properties:
                       entries:
                         items:
+                          pattern: doc.DocViewColumnModel
                           properties:
                             fieldId:
                               description: フィールドID
@@ -7399,10 +7415,11 @@ paths:
                 properties:
                   entryList:
                     description: 各フィールドのデータ
-                    pattern: doc.DocDataEntryModel
+                    pattern: doc.DocDataEntryListModel
                     properties:
                       entries:
                         items:
+                          pattern: doc.DocDataEntryModel
                           properties:
                             dataType:
                               description: |
@@ -7521,7 +7538,7 @@ paths:
                     properties:
                       entryList:
                         description: 各フィールドのデータ
-                        pattern: doc.DocDataEntryModel
+                        pattern: doc.DocDataEntryListModel
                         properties:
                           entries:
                             items:
@@ -7555,6 +7572,7 @@ paths:
                                   description: フィールド名
                                   type: string
                               type: object
+                            pattern: doc.DocDataEntryModel
                             type: array
                         type: object
                     type: object
@@ -16918,6 +16936,7 @@ paths:
                     pattern: org.SectionRoleColumnValueConditionListModel
                     properties:
                       entries:
+                        description: 任意検索条件
                         items:
                           pattern: org.SectionRoleColumnValueConditionModel
                           properties:
@@ -17138,6 +17157,7 @@ paths:
                     pattern: org.SectionRoleGroupColumnValueConditionListModel
                     properties:
                       entries:
+                        description: 任意検索条件
                         items:
                           pattern: org.SectionRoleGroupColumnValueConditionModel
                           properties:
@@ -17355,6 +17375,7 @@ paths:
                     pattern: org.UnitColumnValueConditionListModel
                     properties:
                       entries:
+                        description: 任意検索条件
                         items:
                           properties:
                             column:
@@ -17664,6 +17685,7 @@ paths:
                     pattern: org.UnitAppointmentColumnValueConditionListModel
                     properties:
                       entries:
+                        description: 任意検索条件
                         items:
                           pattern: org.UnitAppointmentColumnValueConditionModel
                           properties:
@@ -18365,6 +18387,7 @@ paths:
                     pattern: org.UserColumnValueConditionListModel
                     properties:
                       entries:
+                        description: 任意検索条件
                         items:
                           pattern: org.UserColumnValueConditionModel
                           properties:
@@ -26929,7 +26952,7 @@ definitions:
             properties:
               entryList:
                 description: 各フィールドのデータ
-                pattern: doc.DocDataEntryModel
+                pattern: doc.DocDataEntryListModel
                 properties:
                   entries:
                     items:
@@ -26963,6 +26986,7 @@ definitions:
                           description: フィールド名
                           type: string
                       type: object
+                    pattern: doc.DocDataEntryModel
                     type: array
                 type: object
             type: object
@@ -28448,6 +28472,7 @@ definitions:
             pattern: org.SectionRoleGroupColumnValueConditionListModel
             properties:
               entries:
+                description: 任意検索条件
                 items:
                   pattern: org.SectionRoleGroupColumnValueConditionModel
                   properties:
@@ -28593,6 +28618,7 @@ definitions:
             pattern: org.SectionRoleColumnValueConditionListModel
             properties:
               entries:
+                description: 任意検索条件
                 items:
                   pattern: org.SectionRoleColumnValueConditionModel
                   properties:
@@ -28738,6 +28764,7 @@ definitions:
             pattern: org.UnitAppointmentColumnValueConditionListModel
             properties:
               entries:
+                description: 任意検索条件
                 items:
                   pattern: org.UnitAppointmentColumnValueConditionModel
                   properties:
@@ -28926,6 +28953,7 @@ definitions:
             pattern: org.UnitColumnValueConditionListModel
             properties:
               entries:
+                description: 任意検索条件
                 items:
                   properties:
                     column:
@@ -29462,6 +29490,7 @@ definitions:
             pattern: org.UserColumnValueConditionListModel
             properties:
               entries:
+                description: 任意検索条件
                 items:
                   pattern: org.UserColumnValueConditionModel
                   properties:
@@ -31979,10 +32008,11 @@ definitions:
             properties:
               entryList:
                 description: 各フィールドのデータ
-                pattern: doc.DocDataEntryModel
+                pattern: doc.DocDataEntryListModel
                 properties:
                   entries:
                     items:
+                      pattern: doc.DocDataEntryModel
                       properties:
                         dataType:
                           description: データタイプ
@@ -33520,51 +33550,57 @@ definitions:
             type: integer
           fieldValueConditionList:
             description: フィールド値条件リスト
-            pattern: doc.FieldValueConditionModel
+            pattern: doc.FieldValueConditionListModel
             properties:
-              compareOperatorType:
-                description: |
-                  比較演算子<br>
-                  指定可能な値<br>
-                  |パラメータ|説明|
-                  |----|----|
-                  |EQUAL|～と等しい|
-                  |LESS_THAN|～より小さい|
-                  |LESS_EQUAL|～以下|
-                  |GREATER_THAN|～より大きい|
-                  |GREATER_EQUAL|～以上|
-                  |NOT_EQUAL|～と異なる|
-                  |LIKE|～を含む|
-                  |NOT_LIKE|～を含まない|
-                  |START_WITH|～から始まる|
-                  |END_WITH|～で終わる|
-                  |BETWEEN|～と～の間|
-                  |EMPTY|未入力|
-                  |NOT_EMPTY|入力されている|
-                pattern: common.EnumCompareOperatorType
-                type: string
-              fieldId:
-                description: フィールドID
-                type: string
-              type:
-                description: |
-                  フィールド値タイプ<br>
-                  指定可能な値<br>
-                  |パラメータ|説明|
-                  |----|----|
-                  |FIELD|書類のフィールド|
-                  |LISTNAME1～20|件名項目１～２０|
-                pattern: doc.EnumFieldValueType
-                type: string
-              value:
-                description: 値
-                type: string
-              valueFrom:
-                description: 値(From)
-                type: string
-              valueTo:
-                description: 値(To)
-                type: string
+              entries:
+                items:
+                  pattern: doc.FieldValueConditionModel
+                  properties:
+                    compareOperatorType:
+                      description: |
+                        比較演算子<br>
+                        指定可能な値<br>
+                        |パラメータ|説明|
+                        |----|----|
+                        |EQUAL|～と等しい|
+                        |LESS_THAN|～より小さい|
+                        |LESS_EQUAL|～以下|
+                        |GREATER_THAN|～より大きい|
+                        |GREATER_EQUAL|～以上|
+                        |NOT_EQUAL|～と異なる|
+                        |LIKE|～を含む|
+                        |NOT_LIKE|～を含まない|
+                        |START_WITH|～から始まる|
+                        |END_WITH|～で終わる|
+                        |BETWEEN|～と～の間|
+                        |EMPTY|未入力|
+                        |NOT_EMPTY|入力されている|
+                      pattern: common.EnumCompareOperatorType
+                      type: string
+                    fieldId:
+                      description: フィールドID
+                      type: string
+                    type:
+                      description: |
+                        フィールド値タイプ<br>
+                        指定可能な値<br>
+                        |パラメータ|説明|
+                        |----|----|
+                        |FIELD|書類のフィールド|
+                        |LISTNAME1～20|件名項目１～２０|
+                      pattern: doc.EnumFieldValueType
+                      type: string
+                    value:
+                      description: 値
+                      type: string
+                    valueFrom:
+                      description: 値(From)
+                      type: string
+                    valueTo:
+                      description: 値(To)
+                      type: string
+                  type: object
+                type: array
             type: object
           formCode:
             description: フォームコード
@@ -33599,40 +33635,46 @@ definitions:
             description: ユーザー関連条件リスト
             pattern: doc.RelativeConditionModel
             properties:
-              type:
-                description: |
-                  関連タイプ<br>
-                  指定可能な値<br>
-                  |パラメータ|説明|
-                  |----|----|
-                  |OWNER|書類オーナ|
-                  |CREATE|作成|
-                  |APPLY|申請|
-                  |APPROVE|承認|
-                  |PROXY_APPROVE|代理承認|
-                  |PRINCIPAL_APPROVE|被代理承認|
-                  |REJECT|却下|
-                  |CANCEL|取下げ|
-                pattern: EnumRelativeType
-                type: string
-              unitCode:
-                description: 組織コード
-                type: integer
-              userCode:
-                description: ユーザーコード
-                type: integer
-              userType:
-                description: |
-                  ユーザータイプ<br>
-                  指定可能な値<br>
-                  |パラメータ|説明|
-                  |----|----|
-                  |UNIT_APPOINTMENT|組織+ユーザ|
-                  |UNIT|組織|
-                  |USER|ユーザ|
-                  |LOGIN_USER|ログインユーザ(WebAPI実行ユーザ)|
-                pattern: EnumRelativeUserType
-                type: string
+              entries:
+                items:
+                  pattern: doc.FieldValueConditionModel
+                  properties:
+                    type:
+                      description: |
+                        関連タイプ<br>
+                        指定可能な値<br>
+                        |パラメータ|説明|
+                        |----|----|
+                        |OWNER|書類オーナ|
+                        |CREATE|作成|
+                        |APPLY|申請|
+                        |APPROVE|承認|
+                        |PROXY_APPROVE|代理承認|
+                        |PRINCIPAL_APPROVE|被代理承認|
+                        |REJECT|却下|
+                        |CANCEL|取下げ|
+                      pattern: EnumRelativeType
+                      type: string
+                    unitCode:
+                      description: 組織コード
+                      type: integer
+                    userCode:
+                      description: ユーザーコード
+                      type: integer
+                    userType:
+                      description: |
+                        ユーザータイプ<br>
+                        指定可能な値<br>
+                        |パラメータ|説明|
+                        |----|----|
+                        |UNIT_APPOINTMENT|組織+ユーザ|
+                        |UNIT|組織|
+                        |USER|ユーザ|
+                        |LOGIN_USER|ログインユーザ(WebAPI実行ユーザ)|
+                      pattern: EnumRelativeUserType
+                      type: string
+                  type: object
+                type: array
             type: object
           ruleCode:
             description: 回付ルールコード
@@ -33664,10 +33706,11 @@ definitions:
         properties:
           columnList:
             description: 列項目リスト
-            pattern: doc.DocViewColumnModel
+            pattern: doc.DocViewColumnListModel
             properties:
               entries:
                 items:
+                  pattern: doc.DocViewColumnModel
                   properties:
                     fieldId:
                       description: フィールドID
@@ -34340,10 +34383,11 @@ definitions:
         properties:
           entryList:
             description: 各フィールドのデータ
-            pattern: doc.DocDataEntryModel
+            pattern: doc.DocDataEntryListModel
             properties:
               entries:
                 items:
+                  pattern: doc.DocDataEntryModel
                   properties:
                     dataType:
                       description: |
@@ -36061,7 +36105,7 @@ x-components:
                         properties:
                           entryList:
                             description: 各フィールドのデータ
-                            pattern: doc.DocDataEntryModel
+                            pattern: doc.DocDataEntryListModel
                             properties:
                               entries:
                                 items:
@@ -36095,6 +36139,7 @@ x-components:
                                       description: フィールド名
                                       type: string
                                   type: object
+                                pattern: doc.DocDataEntryModel
                                 type: array
                             type: object
                         type: object
@@ -38669,7 +38714,7 @@ x-components:
                     properties:
                       entryList:
                         description: 各フィールドのデータ
-                        pattern: doc.DocDataEntryModel
+                        pattern: doc.DocDataEntryListModel
                         properties:
                           entries:
                             items:
@@ -38703,6 +38748,7 @@ x-components:
                                   description: フィールド名
                                   type: string
                               type: object
+                            pattern: doc.DocDataEntryModel
                             type: array
                         type: object
                     type: object
@@ -44887,10 +44933,11 @@ x-components:
                     properties:
                       entryList:
                         description: 各フィールドのデータ
-                        pattern: doc.DocDataEntryModel
+                        pattern: doc.DocDataEntryListModel
                         properties:
                           entries:
                             items:
+                              pattern: doc.DocDataEntryModel
                               properties:
                                 dataType:
                                   description: データタイプ
@@ -50688,6 +50735,7 @@ x-components:
                     pattern: org.SectionRoleGroupColumnValueConditionListModel
                     properties:
                       entries:
+                        description: 任意検索条件
                         items:
                           pattern: org.SectionRoleGroupColumnValueConditionModel
                           properties:
@@ -50773,6 +50821,7 @@ x-components:
                     pattern: org.SectionRoleColumnValueConditionListModel
                     properties:
                       entries:
+                        description: 任意検索条件
                         items:
                           pattern: org.SectionRoleColumnValueConditionModel
                           properties:
@@ -50866,6 +50915,7 @@ x-components:
                     pattern: org.UnitAppointmentColumnValueConditionListModel
                     properties:
                       entries:
+                        description: 任意検索条件
                         items:
                           pattern: org.UnitAppointmentColumnValueConditionModel
                           properties:
@@ -50994,6 +51044,7 @@ x-components:
                     pattern: org.UnitColumnValueConditionListModel
                     properties:
                       entries:
+                        description: 任意検索条件
                         items:
                           properties:
                             column:
@@ -51297,6 +51348,7 @@ x-components:
                     pattern: org.UserColumnValueConditionListModel
                     properties:
                       entries:
+                        description: 任意検索条件
                         items:
                           pattern: org.UserColumnValueConditionModel
                           properties:
@@ -52213,51 +52265,57 @@ x-components:
                     type: integer
                   fieldValueConditionList:
                     description: フィールド値条件リスト
-                    pattern: doc.FieldValueConditionModel
+                    pattern: doc.FieldValueConditionListModel
                     properties:
-                      compareOperatorType:
-                        description: |
-                          比較演算子<br>
-                          指定可能な値<br>
-                          |パラメータ|説明|
-                          |----|----|
-                          |EQUAL|～と等しい|
-                          |LESS_THAN|～より小さい|
-                          |LESS_EQUAL|～以下|
-                          |GREATER_THAN|～より大きい|
-                          |GREATER_EQUAL|～以上|
-                          |NOT_EQUAL|～と異なる|
-                          |LIKE|～を含む|
-                          |NOT_LIKE|～を含まない|
-                          |START_WITH|～から始まる|
-                          |END_WITH|～で終わる|
-                          |BETWEEN|～と～の間|
-                          |EMPTY|未入力|
-                          |NOT_EMPTY|入力されている|
-                        pattern: common.EnumCompareOperatorType
-                        type: string
-                      fieldId:
-                        description: フィールドID
-                        type: string
-                      type:
-                        description: |
-                          フィールド値タイプ<br>
-                          指定可能な値<br>
-                          |パラメータ|説明|
-                          |----|----|
-                          |FIELD|書類のフィールド|
-                          |LISTNAME1～20|件名項目１～２０|
-                        pattern: doc.EnumFieldValueType
-                        type: string
-                      value:
-                        description: 値
-                        type: string
-                      valueFrom:
-                        description: 値(From)
-                        type: string
-                      valueTo:
-                        description: 値(To)
-                        type: string
+                      entries:
+                        items:
+                          pattern: doc.FieldValueConditionModel
+                          properties:
+                            compareOperatorType:
+                              description: |
+                                比較演算子<br>
+                                指定可能な値<br>
+                                |パラメータ|説明|
+                                |----|----|
+                                |EQUAL|～と等しい|
+                                |LESS_THAN|～より小さい|
+                                |LESS_EQUAL|～以下|
+                                |GREATER_THAN|～より大きい|
+                                |GREATER_EQUAL|～以上|
+                                |NOT_EQUAL|～と異なる|
+                                |LIKE|～を含む|
+                                |NOT_LIKE|～を含まない|
+                                |START_WITH|～から始まる|
+                                |END_WITH|～で終わる|
+                                |BETWEEN|～と～の間|
+                                |EMPTY|未入力|
+                                |NOT_EMPTY|入力されている|
+                              pattern: common.EnumCompareOperatorType
+                              type: string
+                            fieldId:
+                              description: フィールドID
+                              type: string
+                            type:
+                              description: |
+                                フィールド値タイプ<br>
+                                指定可能な値<br>
+                                |パラメータ|説明|
+                                |----|----|
+                                |FIELD|書類のフィールド|
+                                |LISTNAME1～20|件名項目１～２０|
+                              pattern: doc.EnumFieldValueType
+                              type: string
+                            value:
+                              description: 値
+                              type: string
+                            valueFrom:
+                              description: 値(From)
+                              type: string
+                            valueTo:
+                              description: 値(To)
+                              type: string
+                          type: object
+                        type: array
                     type: object
                   formCode:
                     description: フォームコード
@@ -52292,40 +52350,46 @@ x-components:
                     description: ユーザー関連条件リスト
                     pattern: doc.RelativeConditionModel
                     properties:
-                      type:
-                        description: |
-                          関連タイプ<br>
-                          指定可能な値<br>
-                          |パラメータ|説明|
-                          |----|----|
-                          |OWNER|書類オーナ|
-                          |CREATE|作成|
-                          |APPLY|申請|
-                          |APPROVE|承認|
-                          |PROXY_APPROVE|代理承認|
-                          |PRINCIPAL_APPROVE|被代理承認|
-                          |REJECT|却下|
-                          |CANCEL|取下げ|
-                        pattern: EnumRelativeType
-                        type: string
-                      unitCode:
-                        description: 組織コード
-                        type: integer
-                      userCode:
-                        description: ユーザーコード
-                        type: integer
-                      userType:
-                        description: |
-                          ユーザータイプ<br>
-                          指定可能な値<br>
-                          |パラメータ|説明|
-                          |----|----|
-                          |UNIT_APPOINTMENT|組織+ユーザ|
-                          |UNIT|組織|
-                          |USER|ユーザ|
-                          |LOGIN_USER|ログインユーザ(WebAPI実行ユーザ)|
-                        pattern: EnumRelativeUserType
-                        type: string
+                      entries:
+                        items:
+                          pattern: doc.FieldValueConditionModel
+                          properties:
+                            type:
+                              description: |
+                                関連タイプ<br>
+                                指定可能な値<br>
+                                |パラメータ|説明|
+                                |----|----|
+                                |OWNER|書類オーナ|
+                                |CREATE|作成|
+                                |APPLY|申請|
+                                |APPROVE|承認|
+                                |PROXY_APPROVE|代理承認|
+                                |PRINCIPAL_APPROVE|被代理承認|
+                                |REJECT|却下|
+                                |CANCEL|取下げ|
+                              pattern: EnumRelativeType
+                              type: string
+                            unitCode:
+                              description: 組織コード
+                              type: integer
+                            userCode:
+                              description: ユーザーコード
+                              type: integer
+                            userType:
+                              description: |
+                                ユーザータイプ<br>
+                                指定可能な値<br>
+                                |パラメータ|説明|
+                                |----|----|
+                                |UNIT_APPOINTMENT|組織+ユーザ|
+                                |UNIT|組織|
+                                |USER|ユーザ|
+                                |LOGIN_USER|ログインユーザ(WebAPI実行ユーザ)|
+                              pattern: EnumRelativeUserType
+                              type: string
+                          type: object
+                        type: array
                     type: object
                   ruleCode:
                     description: 回付ルールコード
@@ -52357,10 +52421,11 @@ x-components:
                 properties:
                   columnList:
                     description: 列項目リスト
-                    pattern: doc.DocViewColumnModel
+                    pattern: doc.DocViewColumnListModel
                     properties:
                       entries:
                         items:
+                          pattern: doc.DocViewColumnModel
                           properties:
                             fieldId:
                               description: フィールドID
@@ -52896,10 +52961,11 @@ x-components:
                 properties:
                   entryList:
                     description: 各フィールドのデータ
-                    pattern: doc.DocDataEntryModel
+                    pattern: doc.DocDataEntryListModel
                     properties:
                       entries:
                         items:
+                          pattern: doc.DocDataEntryModel
                           properties:
                             dataType:
                               description: |
