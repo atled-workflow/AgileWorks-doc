@@ -10253,12 +10253,13 @@ components:
             entryList:
               description: 各フィールドのデータ
               type: object
-              pattern: doc.DocDataEntryModel
+              pattern: doc.DocDataEntryListModel
               properties:
                 entries:
                   type: array
                   items:
                     type: object
+                    pattern: doc.DocDataEntryModel
                     required:
                       - name
                       - fieldType
@@ -10360,12 +10361,13 @@ components:
             columnList:
               description: 列項目リスト
               type: object
-              pattern: doc.DocViewColumnModel
+              pattern: doc.DocViewColumnListModel
               properties:
                 entries:
                   type: array
                   items:
                     type: object
+                    pattern: doc.DocViewColumnModel
                     properties:
                       type: 
                         description: |
@@ -10534,40 +10536,46 @@ components:
               type: object
               pattern: doc.RelativeConditionModel
               properties:
-                type:
-                  description: |
-                    関連タイプ<br>
-                    指定可能な値<br>
-                    |パラメータ|説明|
-                    |----|----|
-                    |OWNER|書類オーナ|
-                    |CREATE|作成|
-                    |APPLY|申請|
-                    |APPROVE|承認|
-                    |PROXY_APPROVE|代理承認|
-                    |PRINCIPAL_APPROVE|被代理承認|
-                    |REJECT|却下|
-                    |CANCEL|取下げ|
-                  type: string
-                  pattern: EnumRelativeType
-                unitCode:
-                  description: 組織コード
-                  type: integer
-                userCode:
-                  description: ユーザーコード
-                  type: integer
-                userType:
-                  description: |
-                    ユーザータイプ<br>
-                    指定可能な値<br>
-                    |パラメータ|説明|
-                    |----|----|
-                    |UNIT_APPOINTMENT|組織+ユーザ|
-                    |UNIT|組織|
-                    |USER|ユーザ|
-                    |LOGIN_USER|ログインユーザ(WebAPI実行ユーザ)|
-                  type: string
-                  pattern: EnumRelativeUserType
+                entries:
+                  type: array
+                  items:
+                    type: object
+                    pattern: doc.FieldValueConditionModel
+                    properties:
+                      type:
+                        description: |
+                          関連タイプ<br>
+                          指定可能な値<br>
+                          |パラメータ|説明|
+                          |----|----|
+                          |OWNER|書類オーナ|
+                          |CREATE|作成|
+                          |APPLY|申請|
+                          |APPROVE|承認|
+                          |PROXY_APPROVE|代理承認|
+                          |PRINCIPAL_APPROVE|被代理承認|
+                          |REJECT|却下|
+                          |CANCEL|取下げ|
+                        type: string
+                        pattern: EnumRelativeType
+                      unitCode:
+                        description: 組織コード
+                        type: integer
+                      userCode:
+                        description: ユーザーコード
+                        type: integer
+                      userType:
+                        description: |
+                          ユーザータイプ<br>
+                          指定可能な値<br>
+                          |パラメータ|説明|
+                          |----|----|
+                          |UNIT_APPOINTMENT|組織+ユーザ|
+                          |UNIT|組織|
+                          |USER|ユーザ|
+                          |LOGIN_USER|ログインユーザ(WebAPI実行ユーザ)|
+                        type: string
+                        pattern: EnumRelativeUserType
             logicalOperatorType:
               description: |
                 フィールド値条件全体の AND / OR<br>
@@ -10576,33 +10584,39 @@ components:
             fieldValueConditionList:
               description: フィールド値条件リスト
               type: object
-              pattern: doc.FieldValueConditionModel
+              pattern: doc.FieldValueConditionListModel
               properties:
-                type:
-                  description: |
-                    フィールド値タイプ<br>
-                    指定可能な値<br>
-                    |パラメータ|説明|
-                    |----|----|
-                    |FIELD|書類のフィールド|
-                    |LISTNAME1～20|件名項目１～２０|
-                  type: string
-                  pattern: doc.EnumFieldValueType
-                fieldId:
-                  description: フィールドID
-                  type: string
-                compareOperatorType:
-                  allOf:
-                    - $ref: "#/components/schemas/compareOperatorType"
-                value:
-                  description: 値
-                  type: string
-                valueFrom:
-                  description: 値(From)
-                  type: string
-                valueTo:
-                  description: 値(To)
-                  type: string
+                entries:
+                  type: array
+                  items:
+                    type: object
+                    pattern: doc.FieldValueConditionModel
+                    properties:
+                      type:
+                        description: |
+                          フィールド値タイプ<br>
+                          指定可能な値<br>
+                          |パラメータ|説明|
+                          |----|----|
+                          |FIELD|書類のフィールド|
+                          |LISTNAME1～20|件名項目１～２０|
+                        type: string
+                        pattern: doc.EnumFieldValueType
+                      fieldId:
+                        description: フィールドID
+                        type: string
+                      compareOperatorType:
+                        allOf:
+                          - $ref: "#/components/schemas/compareOperatorType"
+                      value:
+                        description: 値
+                        type: string
+                      valueFrom:
+                        description: 値(From)
+                        type: string
+                      valueTo:
+                        description: 値(To)
+                        type: string
             fulltextSearchCondition:
               description: 全文検索条件
               type: object
@@ -11041,6 +11055,7 @@ components:
               pattern: org.UserColumnValueConditionListModel
               properties:
                 entries:
+                  description: 任意検索条件
                   type: array
                   items:
                     type: object
@@ -11163,6 +11178,7 @@ components:
               pattern: org.UnitColumnValueConditionListModel
               properties:
                 entries:
+                  description: 任意検索条件
                   type: array
                   items:
                     type: object
@@ -11256,6 +11272,7 @@ components:
               pattern: org.SectionRoleColumnValueConditionListModel
               properties:
                 entries:
+                  description: 任意検索条件
                   type: array
                   items:
                     type: object
@@ -11345,6 +11362,7 @@ components:
               pattern: org.SectionRoleGroupColumnValueConditionListModel
               properties:
                 entries:
+                  description: 任意検索条件
                   type: array
                   items:
                     type: object
@@ -11435,6 +11453,7 @@ components:
               pattern: org.UnitAppointmentColumnValueConditionListModel
               properties:
                 entries:
+                  description: 任意検索条件
                   type: array
                   items:
                     type: object
@@ -12499,10 +12518,11 @@ components:
                 entryList:
                   description: 各フィールドのデータ
                   type: object
-                  pattern: doc.DocDataEntryModel
+                  pattern: doc.DocDataEntryListModel
                   properties:
                     entries:
                       type: array
+                      pattern: doc.DocDataEntryModel
                       items:
                         type: object
                         properties:
@@ -12560,12 +12580,13 @@ components:
                 entryList:
                   description: 各フィールドのデータ
                   type: object
-                  pattern: doc.DocDataEntryModel
+                  pattern: doc.DocDataEntryListModel
                   properties:
                     entries:
                       type: array
                       items:
                         type: object
+                        pattern: doc.DocDataEntryModel
                         properties:
                           name:
                             description: フィールド名
