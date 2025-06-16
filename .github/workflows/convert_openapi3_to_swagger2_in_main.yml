@@ -35,12 +35,12 @@ jobs:
       # `openapi.yaml` の内容を `openapi_303.yaml` にコピー
       - name: Copy openapi.yaml to openapi_303.yaml
         run: |
-          cp openapi.yaml openapi_303.yaml
+          cp api/main/openapi.yaml api/main/openapi_303.yaml
 
       # `openapi_303.yaml` の1行目を変更
       - name: Update first line in openapi_303.yaml
         run: |
-          sed -i '1s/openapi: 3.1.0/openapi: 3.0.3/' openapi_303.yaml
+          sed -i '1s/openapi: 3.1.0/openapi: 3.0.3/' api/main/openapi_303.yaml
       
       # OpenAPI3仕様ドキュメントをフラット化
       - name: Flatten the OpenAPI3 document
