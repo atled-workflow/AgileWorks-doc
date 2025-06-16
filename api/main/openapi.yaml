@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.1.0
 info:
   title: 'AgileWorks WebAPI (R3.1.0)'
   version: 1.0.0
@@ -186,7 +186,7 @@ paths:
         $ref: "#/components/requestBodies/PrepareDocRequestRequest"
       responses:
         "200":
-          $ref: "#/components/responses/DocResponses200"
+          $ref: "#/components/responses/PrepareDocResponses200"
         "400":
           $ref: "#/components/responses/ErrorResponses400"
         "401":
@@ -3610,7 +3610,7 @@ components:
               conditionList:
                 description: 回付情報件数の取得条件のリスト
                 type: object
-                pattern: workflow.WorkflowMessageConditionModel
+                pattern: workflow.WorkflowMessageConditionListModel
                 required:
                   - entries
                 properties:
@@ -5861,7 +5861,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response_errorRequest"
+              $ref: "#/components/examples/responseErrorRequest"
     
     DocResponses200:
       description: Successful response
@@ -5872,109 +5872,26 @@ components:
               - $ref: "#/components/schemas/DocResponse"
           examples:
             正常:
-              value:
-                doc:
-                  docData:
-                    entryList:
-                      entries:
-                        - name: 文字フィールド1
-                          fieldType: TEXTFIELD
-                          fieldId: textfield1
-                          dataType: STRING
-                          dataValue:
-                            value: update
-                            entryList:
-                              entries: []
-                        - name: 整数フィールド1
-                          fieldType: INTEGERFIELD
-                          fieldId: integerfield1
-                          dataType: INT
-                          dataValue:
-                            value: 11
-                            entryList:
-                              entries: []
-                    publicFormId: 222
-                    owner:
-                      type: UNIT
-                      code: unit01
-                    id: 999
-                    version: 1.0.0
-                    listNames:
-                      listNames1: 
-                      listNames2: 
-                      listNames3: 
-                      listNames4: 
-                      listNames5: 
-                      listNames6: 
-                      listNames7: 
-                      listNames8: 
-                      listNames9: 
-                      listNames10: 
-                      listNames11: 
-                      listNames12: 
-                      listNames13: 
-                      listNames14: 
-                      listNames15: 
-                      listNames16: 
-                      listNames17: 
-                      listNames18: 
-                      listNames19: 
-                      listNames20: 
-                    formCode: form01
-                    criterionDate: 2024-10-31 00:00:00 JST
-                    adminNo: 
-                resultStatus: 
-                  status: SUCCESS
-                  messageList: 
-                    entries: []
-                  text: 
-                  code: 
+              $ref: "#/components/examples/responseSuccessDoc"
             パラメータが不正:
-              value:
-                doc:
-                  docData:
-                    entryList:
-                      entries: []
-                  publicFormId: 
-                  owner:
-                    type: 
-                    code: 
-                  id: 
-                  version: 
-                  listNames:
-                    listNames1: 
-                    listNames2: 
-                    listNames3: 
-                    listNames4: 
-                    listNames5: 
-                    listNames6: 
-                    listNames7: 
-                    listNames8: 
-                    listNames9: 
-                    listNames10: 
-                    listNames11: 
-                    listNames12: 
-                    listNames13: 
-                    listNames14: 
-                    listNames15: 
-                    listNames16: 
-                    listNames17: 
-                    listNames18: 
-                    listNames19: 
-                    listNames20: 
-                  formCode: 
-                  criterionDate: 
-                  adminNo: 
-                resultStatus: 
-                  status: FAIL
-                  messageList: 
-                    entries: 
-                      - text: "{エラーメッセージ}"
-                        code: "{エラーコード}"
-                  text: サービス実行時にエラーが発生しました。
-                  code: AWPCMN0000
+              $ref: "#/components/examples/responseErrorDoc"
             リクエストが不正:
-              $ref: "#/components/examples/response_errorRequest"
+              $ref: "#/components/examples/responseErrorRequest"
+    
+    PrepareDocResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/PrepareDocResponse"
+          examples:
+            正常:
+              $ref: "#/components/examples/responseSuccessDoc"
+            パラメータが不正:
+              $ref: "#/components/examples/responseErrorDoc"
+            リクエストが不正:
+              $ref: "#/components/examples/responseErrorRequest"
     
     AddDocResponses200:
       description: Successful response
@@ -6043,7 +5960,7 @@ components:
                   text: 
                   code: 
             パラメータ / リクエストが不正:
-              $ref: "#/components/examples/response_errorRequest"
+              $ref: "#/components/examples/responseErrorRequest"
     
     SelectDocResponses200:
       description: Successful response
@@ -6100,7 +6017,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response_errorRequest"
+              $ref: "#/components/examples/responseErrorRequest"
     
     GetDocPdfResponses200:
       description: Successful response
@@ -6134,7 +6051,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response_errorRequest"
+              $ref: "#/components/examples/responseErrorRequest"
     
     ListDocCommentResponses200:
       description: Successful response
@@ -6205,7 +6122,7 @@ components:
                   text: 
                   code: 
             リクエストが不正:
-              $ref: "#/components/examples/response_errorRequest"
+              $ref: "#/components/examples/responseErrorRequest"
     
     AddDocCommentResponses200:
       description: Successful response
@@ -6314,7 +6231,7 @@ components:
                   text: 
                   code: 
             リクエストが不正:
-              $ref: "#/components/examples/response_errorRequest"
+              $ref: "#/components/examples/responseErrorRequest"
     
     DocAttachmentResponses200:
       description: Successful response
@@ -6443,7 +6360,7 @@ components:
                   text: 
                   code: 
             リクエストが不正:
-              $ref: "#/components/examples/response_errorRequest"
+              $ref: "#/components/examples/responseErrorRequest"
     
     ListDocAttachmentResponses200:
       description: Successful response
@@ -6524,7 +6441,7 @@ components:
                   text: 
                   code: 
             リクエストが不正:
-              $ref: "#/components/examples/response_errorRequest"
+              $ref: "#/components/examples/responseErrorRequest"
     
     GetDocReferenceeResponses200:
       description: Successful response
@@ -6615,7 +6532,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response_errorRequest"
+              $ref: "#/components/examples/responseErrorRequest"
     
     ListDocReferencerResponses200:
       description: Successful response
@@ -6706,7 +6623,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response_errorRequest"
+              $ref: "#/components/examples/responseErrorRequest"
     
     TextHtmlResponses200:
       description: Successful response
@@ -6726,7 +6643,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             存在しないパラメータを指定:
-              $ref: "#/components/examples/response_errorRequest"
+              $ref: "#/components/examples/responseErrorRequest"
     
     CountResponses200:
       description: Successful response
@@ -6764,7 +6681,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response_errorRequest"
+              $ref: "#/components/examples/responseErrorRequest"
     
     CountListWorkflowMessageResponses200:
       description: Successful response
@@ -6818,7 +6735,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response_errorRequest"
+              $ref: "#/components/examples/responseErrorRequest"
     
     SelectWorkflowMessageResponses200:
       description: Successful response
@@ -6907,7 +6824,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response_errorRequest"
+              $ref: "#/components/examples/responseErrorRequest"
     
     GetWorkflowInfoResponses200:
       description: Successful response
@@ -7024,7 +6941,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response_errorRequest"
+              $ref: "#/components/examples/responseErrorRequest"
     
     FindWorkflowTaskResponses200:
       description: Successful response
@@ -7091,7 +7008,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response_errorRequest"
+              $ref: "#/components/examples/responseErrorRequest"
     
     ListWorkflowJournalResponses200:
       description: Successful response
@@ -7143,7 +7060,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response_errorRequest"
+              $ref: "#/components/examples/responseErrorRequest"
     
     ListElectJournalResponses200:
       description: Successful response
@@ -7199,7 +7116,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response_errorRequest"
+              $ref: "#/components/examples/responseErrorRequest"
     
     ListShareJournalResponses200:
       description: Successful response
@@ -7262,7 +7179,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response_errorRequest"
+              $ref: "#/components/examples/responseErrorRequest"
     
     UserResponses200:
       description: Successful response
@@ -7377,7 +7294,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response_errorRequest"
+              $ref: "#/components/examples/responseErrorRequest"
     
     FindUserResponses200:
       description: Successful response
@@ -7452,7 +7369,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response_errorRequest"
+              $ref: "#/components/examples/responseErrorRequest"
     
     DisableUserResponses200:
       description: Successful response
@@ -7567,7 +7484,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response_errorRequest"
+              $ref: "#/components/examples/responseErrorRequest"
     
     UnitResponses200:
       description: Successful response
@@ -7670,7 +7587,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response_errorRequest"
+              $ref: "#/components/examples/responseErrorRequest"
     
     FindUnitResponses200:
       description: Successful response
@@ -7739,7 +7656,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response_errorRequest"
+              $ref: "#/components/examples/responseErrorRequest"
     
     DisableUnitResponses200:
       description: Successful response
@@ -7842,7 +7759,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response_errorRequest"
+              $ref: "#/components/examples/responseErrorRequest"
     
     SectionRoleResponses200:
       description: Successful response
@@ -7887,7 +7804,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response_errorRequest"
+              $ref: "#/components/examples/responseErrorRequest"
     
     FindSectionRoleResponses200:
       description: Successful response
@@ -7927,7 +7844,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response_errorRequest"
+              $ref: "#/components/examples/responseErrorRequest"
     
     SectionRoleGroupResponses200:
       description: Successful response
@@ -7973,7 +7890,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response_errorRequest"
+              $ref: "#/components/examples/responseErrorRequest"
     
     FindSectionRoleGroupResponses200:
       description: Successful response
@@ -8015,7 +7932,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response_errorRequest"
+              $ref: "#/components/examples/responseErrorRequest"
     
     UnitAppointmentResponses200:
       description: Successful response
@@ -8062,7 +7979,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response_errorRequest"
+              $ref: "#/components/examples/responseErrorRequest"
     
     FindUnitAppointmentResponses200:
       description: Successful response
@@ -8103,7 +8020,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response_errorRequest"
+              $ref: "#/components/examples/responseErrorRequest"
     
     DisableUnitAppointmentResponses200:
       description: Successful response
@@ -8150,7 +8067,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response_errorRequest"
+              $ref: "#/components/examples/responseErrorRequest"
     
     ProxyApplyAppointmentResponses200:
       description: Successful response
@@ -8207,7 +8124,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response_errorRequest"
+              $ref: "#/components/examples/responseErrorRequest"
     
     FindProxyApplyAppointmentResponses200:
       description: Successful response
@@ -8254,7 +8171,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response_errorRequest"
+              $ref: "#/components/examples/responseErrorRequest"
     
     DisableProxyApplyAppointmentResponses200:
       description: Successful response
@@ -8311,7 +8228,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response_errorRequest"
+              $ref: "#/components/examples/responseErrorRequest"
     
     ProxyAppointmentResponses200:
       description: Successful response
@@ -8370,7 +8287,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response_errorRequest"
+              $ref: "#/components/examples/responseErrorRequest"
     
     FindProxyAppointmentResponses200:
       description: Successful response
@@ -8418,7 +8335,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response_errorRequest"
+              $ref: "#/components/examples/responseErrorRequest"
     
     DisableProxyAppointmentResponses200:
       description: Successful response
@@ -8477,7 +8394,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response_errorRequest"
+              $ref: "#/components/examples/responseErrorRequest"
     
     DelegationAppointmentResponses200:
       description: Successful response
@@ -8534,7 +8451,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response_errorRequest"
+              $ref: "#/components/examples/responseErrorRequest"
     
     FindDelegationAppointmentResponses200:
       description: Successful response
@@ -8581,7 +8498,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response_errorRequest"
+              $ref: "#/components/examples/responseErrorRequest"
     
     DisableDelegationAppointmentResponses200:
       description: Successful response
@@ -8638,7 +8555,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response_errorRequest"
+              $ref: "#/components/examples/responseErrorRequest"
     
     DeprivationAppointmentResponses200:
       description: Successful response
@@ -8689,7 +8606,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response_errorRequest"
+              $ref: "#/components/examples/responseErrorRequest"
     
     FindDeprivationAppointmentResponses200:
       description: Successful response
@@ -8733,7 +8650,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response_errorRequest"
+              $ref: "#/components/examples/responseErrorRequest"
     
     DisableDeprivationAppointmentResponses200:
       description: Successful response
@@ -8784,7 +8701,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response_errorRequest"
+              $ref: "#/components/examples/responseErrorRequest"
     
     PrivateRoleResponses200:
       description: Successful response
@@ -8853,7 +8770,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response_errorRequest"
+              $ref: "#/components/examples/responseErrorRequest"
     
     FindPrivateRoleResponses200:
       description: Successful response
@@ -8910,7 +8827,7 @@ components:
                   text: 
                   code: 
             リクエストが不正:
-              $ref: "#/components/examples/response_errorRequest"
+              $ref: "#/components/examples/responseErrorRequest"
     
     PrivateRoleAppointmentResponses200:
       description: Successful response
@@ -8955,7 +8872,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response_errorRequest"
+              $ref: "#/components/examples/responseErrorRequest"
     
     FindPrivateRoleAppointmentResponses200:
       description: Successful response
@@ -8995,7 +8912,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response_errorRequest"
+              $ref: "#/components/examples/responseErrorRequest"
     
     DisablePrivateRoleAppointmentResponses200:
       description: Successful response
@@ -9040,7 +8957,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response_errorRequest"
+              $ref: "#/components/examples/responseErrorRequest"
     
     UniversalRoleResponses200:
       description: Successful response
@@ -9083,7 +9000,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response_errorRequest"
+              $ref: "#/components/examples/responseErrorRequest"
     
     FindUniversalRoleResponses200:
       description: Successful response
@@ -9120,7 +9037,7 @@ components:
                   text: 
                   code: 
             リクエストが不正:
-              $ref: "#/components/examples/response_errorRequest"
+              $ref: "#/components/examples/responseErrorRequest"
     
     UniversalRoleAppointmentResponses200:
       description: Successful response
@@ -9163,7 +9080,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response_errorRequest"
+              $ref: "#/components/examples/responseErrorRequest"
     
     FindUniversalRoleAppointmentResponses200:
       description: Successful response
@@ -9203,7 +9120,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response_errorRequest"
+              $ref: "#/components/examples/responseErrorRequest"
     
     DisableUniversalRoleAppointmentResponses200:
       description: Successful response
@@ -9246,7 +9163,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response_errorRequest"
+              $ref: "#/components/examples/responseErrorRequest"
     
     CsvResponses200:
       description: Successful response
@@ -9276,7 +9193,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response_errorRequest"
+              $ref: "#/components/examples/responseErrorRequest"
     
     FindProjectResponses200:
       description: Successful response
@@ -9313,7 +9230,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response_errorRequest"
+              $ref: "#/components/examples/responseErrorRequest"
     
     ListComponentMasterWindowResponses200:
       description: Successful response
@@ -9359,7 +9276,7 @@ components:
                   text: 
                   code: 
             リクエストが不正:
-              $ref: "#/components/examples/response_errorRequest"
+              $ref: "#/components/examples/responseErrorRequest"
     
     ListComponentAutoNumberResponses200:
       description: Successful response
@@ -9388,7 +9305,7 @@ components:
                   text: 
                   code: 
             リクエストが不正:
-              $ref: "#/components/examples/response_errorRequest"
+              $ref: "#/components/examples/responseErrorRequest"
     
     ListFormResponses200:
       description: Successful response
@@ -9484,7 +9401,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response_errorRequest"
+              $ref: "#/components/examples/responseErrorRequest"
     
     FindFormDefinitionResponses200:
       description: Successful response
@@ -9556,7 +9473,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response_errorRequest"
+              $ref: "#/components/examples/responseErrorRequest"
     
     ListPublicFolderInfoResponses200:
       description: Successful response
@@ -9626,7 +9543,7 @@ components:
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
             リクエストが不正:
-              $ref: "#/components/examples/response_errorRequest"
+              $ref: "#/components/examples/responseErrorRequest"
     
     SCIMUsersCountResponses200:
       description: Successful response
@@ -10631,6 +10548,8 @@ components:
                     |PRINCIPAL_APPROVE|被代理承認|
                     |REJECT|却下|
                     |CANCEL|取下げ|
+                  type: string
+                  pattern: EnumRelativeType
                 unitCode:
                   description: 組織コード
                   type: integer
@@ -10647,6 +10566,8 @@ components:
                     |UNIT|組織|
                     |USER|ユーザ|
                     |LOGIN_USER|ログインユーザ(WebAPI実行ユーザ)|
+                  type: string
+                  pattern: EnumRelativeUserType
             logicalOperatorType:
               description: |
                 フィールド値条件全体の AND / OR<br>
@@ -12505,6 +12426,9 @@ components:
                 |USER|ユーザー|
               type: string
               pattern: form.EnumOwnerType
+            code:
+              description: 書類オーナーコード
+              type: string
         id:
           description: 書類ID
           type: integer
@@ -12546,7 +12470,7 @@ components:
         docHeaderList:
           description: 書類情報のリスト
           type: object
-          pattern: doc.DocHeaderModel
+          pattern: doc.DocHeaderListModel
           properties:
             entries:
               description: 書類情報
@@ -12603,6 +12527,68 @@ components:
                                 description: |
                                   フィールドの値<br>
                                   *通常フィールドの場合のみ
+                                pattern: dataTypeの型
+                              entryList:
+                                description: |
+                                  表明細フィールドのリスト<br>
+                                  *表明細フィールドの場合のみ
+                                type: object
+                                pattern: doc.DocDataEntryModel
+            publicFormId:
+              description: 公開フォームID
+              type: integer
+          allOf:
+            - $ref: "#/components/schemas/GetDoc"
+        resultStatus:
+          allOf:
+            - $ref: "#/components/schemas/resultStatus"
+    
+    PrepareDocResponse:
+      type: object
+      pattern: doc.PrepareDocResponseModel
+      properties:
+        doc:
+          description: 書類情報
+          type: object
+          pattern: doc.DocModel
+          properties:
+            docData:
+              description: 書類データ
+              type: object
+              pattern: doc.DocDataModel
+              properties:
+                entryList:
+                  description: 各フィールドのデータ
+                  type: object
+                  pattern: doc.DocDataEntryModel
+                  properties:
+                    entries:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          name:
+                            description: フィールド名
+                            type: string
+                          fieldType:
+                            description: フィールドタイプ
+                            type: string
+                          fieldId:
+                            description: フィールドID
+                            type: string
+                          dataType:
+                            description: データタイプ
+                            type: string
+                          dataValue:
+                            description: フィールドの値
+                            type: object
+                            pattern: doc.DocDataValueModel
+                            properties:
+                              value:
+                                description: |
+                                  フィールドの値<br>
+                                  *通常フィールドの場合のみ
+                                pattern: dataTypeの型
                               entryList:
                                 description: |
                                   表明細フィールドのリスト<br>
@@ -12656,6 +12642,9 @@ components:
                                 value:
                                   description: 値
                                   type: object
+                      index:
+                        description: レコードインデックス
+                        type: integer
             fieldList:
               description: フィールドのリスト
               type: object
@@ -13892,11 +13881,13 @@ components:
       pattern: site.ListProjectResponseModel
       properties:
         projectList:
-          description: 業務カテゴリ一覧
+          description: 業務カテゴリ検索結果
           type: object
           properties:
             entries:
+              description: 業務カテゴリのリスト
               type: array
+              pattern: site.ListProjectModel
               items:
                 type: object
                 properties:
@@ -14924,7 +14915,7 @@ components:
 
   examples:
     
-    response_errorRequest:
+    responseErrorRequest:
       value: 
         resultStatus: 
           status: FAIL
@@ -14932,6 +14923,112 @@ components:
             entries: []
           text: 公開APIの実行時にエラーが発生しました。
           code: APIPAP_W0003
+    
+    responseSuccessDoc:
+      value:
+        doc:
+          docData:
+            entryList:
+              entries:
+                - name: 文字フィールド1
+                  fieldType: TEXTFIELD
+                  fieldId: textfield1
+                  dataType: STRING
+                  dataValue:
+                    value: update
+                    entryList:
+                      entries: []
+                - name: 整数フィールド1
+                  fieldType: INTEGERFIELD
+                  fieldId: integerfield1
+                  dataType: INT
+                  dataValue:
+                    value: 11
+                    entryList:
+                      entries: []
+            publicFormId: 222
+            owner:
+              type: UNIT
+              code: unit01
+            id: 999
+            version: 1.0.0
+            listNames:
+              listNames1: 
+              listNames2: 
+              listNames3: 
+              listNames4: 
+              listNames5: 
+              listNames6: 
+              listNames7: 
+              listNames8: 
+              listNames9: 
+              listNames10: 
+              listNames11: 
+              listNames12: 
+              listNames13: 
+              listNames14: 
+              listNames15: 
+              listNames16: 
+              listNames17: 
+              listNames18: 
+              listNames19: 
+              listNames20: 
+            formCode: form01
+            criterionDate: 2024-10-31 00:00:00 JST
+            adminNo: 
+        resultStatus: 
+          status: SUCCESS
+          messageList: 
+            entries: []
+          text: 
+          code: 
+
+    responseErrorDoc:
+      value:
+        doc:
+          docData:
+            entryList:
+              entries: []
+          publicFormId: 
+          owner:
+            type: 
+            code: 
+          id: 
+          version: 
+          listNames:
+            listNames1: 
+            listNames2: 
+            listNames3: 
+            listNames4: 
+            listNames5: 
+            listNames6: 
+            listNames7: 
+            listNames8: 
+            listNames9: 
+            listNames10: 
+            listNames11: 
+            listNames12: 
+            listNames13: 
+            listNames14: 
+            listNames15: 
+            listNames16: 
+            listNames17: 
+            listNames18: 
+            listNames19: 
+            listNames20: 
+          formCode: 
+          criterionDate: 
+          adminNo: 
+        resultStatus: 
+          status: FAIL
+          messageList: 
+            entries: 
+              - text: "{エラーメッセージ}"
+                code: "{エラーコード}"
+          text: サービス実行時にエラーが発生しました。
+          code: AWPCMN0000
+    
+
   
   # -----------------------------------------------
   # パラメータ components/parameters
