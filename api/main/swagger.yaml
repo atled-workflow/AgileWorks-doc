@@ -21827,6 +21827,7 @@ paths:
                 properties:
                   entries:
                     items:
+                      pattern: publication.PublicFolderInfoModel
                       properties:
                         code:
                           description: 公開フォルダコード
@@ -21847,6 +21848,7 @@ paths:
                           properties:
                             entries:
                               items:
+                                pattern: publication.PublicFormLModel
                                 properties:
                                   formCode:
                                     description: フォームコード
@@ -31521,6 +31523,7 @@ definitions:
         properties:
           entries:
             items:
+              pattern: publication.PublicFolderInfoModel
               properties:
                 code:
                   description: 公開フォルダコード
@@ -31541,6 +31544,7 @@ definitions:
                   properties:
                     entries:
                       items:
+                        pattern: publication.PublicFormLModel
                         properties:
                           formCode:
                             description: フォームコード
@@ -44223,6 +44227,7 @@ x-components:
                 properties:
                   entries:
                     items:
+                      pattern: publication.PublicFolderInfoModel
                       properties:
                         code:
                           description: 公開フォルダコード
@@ -44243,6 +44248,7 @@ x-components:
                           properties:
                             entries:
                               items:
+                                pattern: publication.PublicFormLModel
                                 properties:
                                   formCode:
                                     description: フォームコード
