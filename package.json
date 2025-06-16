@@ -10,6 +10,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@redocly/openapi-cli": "^1.0.0-beta.68",
     "api-spec-converter": "^2.12.0",
     "openapi-flattener": "^1.0.3"
   }
