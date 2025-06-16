@@ -14477,6 +14477,7 @@ components:
               type: array
               items:
                 type: object
+                pattern: publication.PublicFolderInfoModel
                 properties:
                   name:
                     description: 公開フォルダ名称
@@ -14496,6 +14497,7 @@ components:
                         type: array
                         items:
                           type: object
+                          pattern: publication.PublicFormLModel
                           properties:
                             formCode:
                               description: フォームコード
