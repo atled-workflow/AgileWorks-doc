@@ -32,9 +32,14 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      # OpenAPI3.1 を OpenAPI3.0 に変換
+      - name: Convert OpenAPI3.1 to OpenAPI3.0
+        run: |
+          npx @redocly/openapi-cli bundle api/main/openapi.yaml -o api/main/openapi_3_0.yaml --ext yaml
+      
       # OpenAPI3仕様ドキュメントをフラット化
       - name: Flatten the OpenAPI3 document
-        run: npx openapi-flattener -s api/main/openapi.yaml -o api/main/openapi_flat.yaml
+        run: npx openapi-flattener -s api/main/openapi_3_0.yaml -o api/main/openapi_flat.yaml
       
       # OpenAPI3からSwagger2へ変換
       - name: Convert OpenAPI3 to Swagger2
