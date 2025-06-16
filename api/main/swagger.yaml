@@ -3497,6 +3497,7 @@ paths:
                                       description: |
                                         フィールドの値<br>
                                         *通常フィールドの場合のみ
+                                      pattern: dataTypeの型
                                   type: object
                                 fieldId:
                                   description: フィールドID
@@ -3566,6 +3567,9 @@ paths:
                     description: 書類オーナー
                     pattern: doc.DocOwnerModel
                     properties:
+                      code:
+                        description: 書類オーナーコード
+                        type: string
                       type:
                         description: |
                           書類オーナータイプ<br>
@@ -4895,6 +4899,7 @@ paths:
                                       description: |
                                         フィールドの値<br>
                                         *通常フィールドの場合のみ
+                                      pattern: dataTypeの型
                                   type: object
                                 fieldId:
                                   description: フィールドID
@@ -4964,6 +4969,9 @@ paths:
                     description: 書類オーナー
                     pattern: doc.DocOwnerModel
                     properties:
+                      code:
+                        description: 書類オーナーコード
+                        type: string
                       type:
                         description: |
                           書類オーナータイプ<br>
@@ -5163,6 +5171,9 @@ paths:
                     description: 書類オーナー
                     pattern: doc.DocOwnerModel
                     properties:
+                      code:
+                        description: 書類オーナーコード
+                        type: string
                       type:
                         description: |
                           書類オーナータイプ<br>
@@ -5466,6 +5477,9 @@ paths:
                     description: 書類オーナー
                     pattern: doc.DocOwnerModel
                     properties:
+                      code:
+                        description: 書類オーナーコード
+                        type: string
                       type:
                         description: |
                           書類オーナータイプ<br>
@@ -6329,7 +6343,7 @@ paths:
             properties:
               docHeaderList:
                 description: 書類情報のリスト
-                pattern: doc.DocHeaderModel
+                pattern: doc.DocHeaderListModel
                 properties:
                   entries:
                     description: 書類情報
@@ -6400,6 +6414,9 @@ paths:
                           description: 書類オーナー
                           pattern: doc.DocOwnerModel
                           properties:
+                            code:
+                              description: 書類オーナーコード
+                              type: string
                             type:
                               description: |
                                 書類オーナータイプ<br>
@@ -6646,7 +6663,7 @@ paths:
         '200':
           description: Successful response
           schema:
-            pattern: doc.DocResponseModel
+            pattern: doc.PrepareDocResponseModel
             properties:
               doc:
                 description: 書類情報
@@ -6689,6 +6706,7 @@ paths:
                                       description: |
                                         フィールドの値<br>
                                         *通常フィールドの場合のみ
+                                      pattern: dataTypeの型
                                   type: object
                                 fieldId:
                                   description: フィールドID
@@ -6758,6 +6776,9 @@ paths:
                     description: 書類オーナー
                     pattern: doc.DocOwnerModel
                     properties:
+                      code:
+                        description: 書類オーナーコード
+                        type: string
                       type:
                         description: |
                           書類オーナータイプ<br>
@@ -7064,6 +7085,8 @@ paths:
                           |PRINCIPAL_APPROVE|被代理承認|
                           |REJECT|却下|
                           |CANCEL|取下げ|
+                        pattern: EnumRelativeType
+                        type: string
                       unitCode:
                         description: 組織コード
                         type: integer
@@ -7080,6 +7103,8 @@ paths:
                           |UNIT|組織|
                           |USER|ユーザ|
                           |LOGIN_USER|ログインユーザ(WebAPI実行ユーザ)|
+                        pattern: EnumRelativeUserType
+                        type: string
                     type: object
                   ruleCode:
                     description: 回付ルールコード
@@ -7243,6 +7268,9 @@ paths:
                                     type: object
                                   type: array
                               type: object
+                            index:
+                              description: レコードインデックス
+                              type: integer
                           type: object
                         type: array
                     type: object
@@ -7515,6 +7543,7 @@ paths:
                                       description: |
                                         フィールドの値<br>
                                         *通常フィールドの場合のみ
+                                      pattern: dataTypeの型
                                   type: object
                                 fieldId:
                                   description: フィールドID
@@ -7584,6 +7613,9 @@ paths:
                     description: 書類オーナー
                     pattern: doc.DocOwnerModel
                     properties:
+                      code:
+                        description: 書類オーナーコード
+                        type: string
                       type:
                         description: |
                           書類オーナータイプ<br>
@@ -21959,9 +21991,10 @@ paths:
             pattern: site.ListProjectResponseModel
             properties:
               projectList:
-                description: 業務カテゴリ一覧
+                description: 業務カテゴリ検索結果
                 properties:
                   entries:
+                    description: 業務カテゴリのリスト
                     items:
                       properties:
                         code:
@@ -21971,6 +22004,7 @@ paths:
                           description: 業務カテゴリ名称
                           type: string
                       type: object
+                    pattern: site.ListProjectModel
                     type: array
                 type: object
               resultStatus:
@@ -22654,7 +22688,7 @@ paths:
             properties:
               conditionList:
                 description: 回付情報件数の取得条件のリスト
-                pattern: workflow.WorkflowMessageConditionModel
+                pattern: workflow.WorkflowMessageConditionListModel
                 properties:
                   entries:
                     description: 回付情報件数の取得条件
@@ -26915,6 +26949,7 @@ definitions:
                               description: |
                                 フィールドの値<br>
                                 *通常フィールドの場合のみ
+                              pattern: dataTypeの型
                           type: object
                         fieldId:
                           description: フィールドID
@@ -26984,6 +27019,9 @@ definitions:
             description: 書類オーナー
             pattern: doc.DocOwnerModel
             properties:
+              code:
+                description: 書類オーナーコード
+                type: string
               type:
                 description: |
                   書類オーナータイプ<br>
@@ -28056,9 +28094,10 @@ definitions:
     pattern: site.ListProjectResponseModel
     properties:
       projectList:
-        description: 業務カテゴリ一覧
+        description: 業務カテゴリ検索結果
         properties:
           entries:
+            description: 業務カテゴリのリスト
             items:
               properties:
                 code:
@@ -28068,6 +28107,7 @@ definitions:
                   description: 業務カテゴリ名称
                   type: string
               type: object
+            pattern: site.ListProjectModel
             type: array
         type: object
       resultStatus:
@@ -29976,6 +30016,9 @@ definitions:
         description: 書類オーナー
         pattern: doc.DocOwnerModel
         properties:
+          code:
+            description: 書類オーナーコード
+            type: string
           type:
             description: |
               書類オーナータイプ<br>
@@ -30064,6 +30107,9 @@ definitions:
             description: 書類オーナー
             pattern: doc.DocOwnerModel
             properties:
+              code:
+                description: 書類オーナーコード
+                type: string
               type:
                 description: |
                   書類オーナータイプ<br>
@@ -31007,7 +31053,7 @@ definitions:
     properties:
       docHeaderList:
         description: 書類情報のリスト
-        pattern: doc.DocHeaderModel
+        pattern: doc.DocHeaderListModel
         properties:
           entries:
             description: 書類情報
@@ -31078,6 +31124,9 @@ definitions:
                   description: 書類オーナー
                   pattern: doc.DocOwnerModel
                   properties:
+                    code:
+                      description: 書類オーナーコード
+                      type: string
                     type:
                       description: |
                         書類オーナータイプ<br>
@@ -31903,6 +31952,174 @@ definitions:
           ステップコード<br>
           *nullを指定
         type: string
+    type: object
+  PrepareDocResponse:
+    pattern: doc.PrepareDocResponseModel
+    properties:
+      doc:
+        description: 書類情報
+        pattern: (?=doc.DocModel)(?=doc.DocHeaderModel)
+        properties:
+          adminNo:
+            description: 書類管理番号
+            type: string
+          criterionDate:
+            description: 基準日
+            pattern: >-
+              ^((19|20)[0-9]{2})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])
+              (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) JST$
+            type: string
+          docData:
+            description: 書類データ
+            pattern: doc.DocDataModel
+            properties:
+              entryList:
+                description: 各フィールドのデータ
+                pattern: doc.DocDataEntryModel
+                properties:
+                  entries:
+                    items:
+                      properties:
+                        dataType:
+                          description: データタイプ
+                          type: string
+                        dataValue:
+                          description: フィールドの値
+                          pattern: doc.DocDataValueModel
+                          properties:
+                            entryList:
+                              description: |
+                                表明細フィールドのリスト<br>
+                                *表明細フィールドの場合のみ
+                              pattern: doc.DocDataEntryModel
+                              type: object
+                            value:
+                              description: |
+                                フィールドの値<br>
+                                *通常フィールドの場合のみ
+                              pattern: dataTypeの型
+                          type: object
+                        fieldId:
+                          description: フィールドID
+                          type: string
+                        fieldType:
+                          description: フィールドタイプ
+                          type: string
+                        name:
+                          description: フィールド名
+                          type: string
+                      type: object
+                    type: array
+                type: object
+            type: object
+          formCode:
+            description: フォームコード
+            type: string
+          id:
+            description: 書類ID
+            type: integer
+          listNames:
+            description: 件名項目
+            pattern: doc.DocListNamesModel
+            properties:
+              listNames1:
+                type: string
+              listNames10:
+                type: string
+              listNames11:
+                type: string
+              listNames12:
+                type: string
+              listNames13:
+                type: string
+              listNames14:
+                type: string
+              listNames15:
+                type: string
+              listNames16:
+                type: string
+              listNames17:
+                type: string
+              listNames18:
+                type: string
+              listNames19:
+                type: string
+              listNames2:
+                type: string
+              listNames20:
+                type: string
+              listNames3:
+                type: string
+              listNames4:
+                type: string
+              listNames5:
+                type: string
+              listNames6:
+                type: string
+              listNames7:
+                type: string
+              listNames8:
+                type: string
+              listNames9:
+                type: string
+            type: object
+          owner:
+            description: 書類オーナー
+            pattern: doc.DocOwnerModel
+            properties:
+              code:
+                description: 書類オーナーコード
+                type: string
+              type:
+                description: |
+                  書類オーナータイプ<br>
+                  指定可能な値<br>
+                  |パラメータ|説明|
+                  |----|----|
+                  |UNIT|組織|
+                  |USER|ユーザー|
+                pattern: form.EnumOwnerType
+                type: string
+            type: object
+          publicFormId:
+            description: 公開フォームID
+            type: integer
+          version:
+            description: |
+              バージョン<br>
+              *書類履歴のバージョン
+            type: string
+        type: object
+      resultStatus:
+        description: APIの実行結果
+        pattern: common.ResultStatusModel
+        properties:
+          code:
+            description: 結果コード
+            type: string
+          messageList:
+            description: メッセージ詳細
+            pattern: common.MessageModel
+            properties:
+              entries:
+                items:
+                  properties:
+                    code:
+                      description: 結果コード
+                      type: string
+                    text:
+                      description: 結果説明
+                      type: string
+                  type: object
+                type: array
+            type: object
+          status:
+            description: 結果ステータス
+            type: string
+          text:
+            description: 結果説明
+            type: string
+        type: object
     type: object
   PrivateRoleAppointmentResponse:
     pattern: org.PrivateRoleAppointmentResponseModel
@@ -33392,6 +33609,8 @@ definitions:
                   |PRINCIPAL_APPROVE|被代理承認|
                   |REJECT|却下|
                   |CANCEL|取下げ|
+                pattern: EnumRelativeType
+                type: string
               unitCode:
                 description: 組織コード
                 type: integer
@@ -33408,6 +33627,8 @@ definitions:
                   |UNIT|組織|
                   |USER|ユーザ|
                   |LOGIN_USER|ログインユーザ(WebAPI実行ユーザ)|
+                pattern: EnumRelativeUserType
+                type: string
             type: object
           ruleCode:
             description: 回付ルールコード
@@ -33568,6 +33789,9 @@ definitions:
                             type: object
                           type: array
                       type: object
+                    index:
+                      description: レコードインデックス
+                      type: integer
                   type: object
                 type: array
             type: object
@@ -35804,6 +36028,9 @@ x-components:
                             description: 書類オーナー
                             pattern: doc.DocOwnerModel
                             properties:
+                              code:
+                                description: 書類オーナーコード
+                                type: string
                               type:
                                 description: |
                                   書類オーナータイプ<br>
@@ -35852,6 +36079,7 @@ x-components:
                                           description: |
                                             フィールドの値<br>
                                             *通常フィールドの場合のみ
+                                          pattern: dataTypeの型
                                       type: object
                                     fieldId:
                                       description: フィールドID
@@ -38459,6 +38687,7 @@ x-components:
                                       description: |
                                         フィールドの値<br>
                                         *通常フィールドの場合のみ
+                                      pattern: dataTypeの型
                                   type: object
                                 fieldId:
                                   description: フィールドID
@@ -38528,6 +38757,9 @@ x-components:
                     description: 書類オーナー
                     pattern: doc.DocOwnerModel
                     properties:
+                      code:
+                        description: 書類オーナーコード
+                        type: string
                       type:
                         description: |
                           書類オーナータイプ<br>
@@ -39828,9 +40060,10 @@ x-components:
             pattern: site.ListProjectResponseModel
             properties:
               projectList:
-                description: 業務カテゴリ一覧
+                description: 業務カテゴリ検索結果
                 properties:
                   entries:
+                    description: 業務カテゴリのリスト
                     items:
                       properties:
                         code:
@@ -39840,6 +40073,7 @@ x-components:
                           description: 業務カテゴリ名称
                           type: string
                       type: object
+                    pattern: site.ListProjectModel
                     type: array
                 type: object
               resultStatus:
@@ -41671,6 +41905,9 @@ x-components:
                     description: 書類オーナー
                     pattern: doc.DocOwnerModel
                     properties:
+                      code:
+                        description: 書類オーナーコード
+                        type: string
                       type:
                         description: |
                           書類オーナータイプ<br>
@@ -41919,6 +42156,9 @@ x-components:
                     description: 書類オーナー
                     pattern: doc.DocOwnerModel
                     properties:
+                      code:
+                        description: 書類オーナーコード
+                        type: string
                       type:
                         description: |
                           書類オーナータイプ<br>
@@ -43285,7 +43525,7 @@ x-components:
             properties:
               docHeaderList:
                 description: 書類情報のリスト
-                pattern: doc.DocHeaderModel
+                pattern: doc.DocHeaderListModel
                 properties:
                   entries:
                     description: 書類情報
@@ -43356,6 +43596,9 @@ x-components:
                           description: 書類オーナー
                           pattern: doc.DocOwnerModel
                           properties:
+                            code:
+                              description: 書類オーナーコード
+                              type: string
                             type:
                               description: |
                                 書類オーナータイプ<br>
@@ -44499,6 +44742,289 @@ x-components:
                           type: object
                       type: object
                     type: array
+                type: object
+            type: object
+      description: Successful response
+    PrepareDocResponses200:
+      content:
+        application/json:
+          examples:
+            パラメータが不正:
+              value:
+                doc:
+                  adminNo: null
+                  criterionDate: null
+                  docData:
+                    entryList:
+                      entries: []
+                  formCode: null
+                  id: null
+                  listNames:
+                    listNames1: null
+                    listNames10: null
+                    listNames11: null
+                    listNames12: null
+                    listNames13: null
+                    listNames14: null
+                    listNames15: null
+                    listNames16: null
+                    listNames17: null
+                    listNames18: null
+                    listNames19: null
+                    listNames2: null
+                    listNames20: null
+                    listNames3: null
+                    listNames4: null
+                    listNames5: null
+                    listNames6: null
+                    listNames7: null
+                    listNames8: null
+                    listNames9: null
+                  owner:
+                    code: null
+                    type: null
+                  publicFormId: null
+                  version: null
+                resultStatus:
+                  code: AWPCMN0000
+                  messageList:
+                    entries:
+                      - code: '{エラーコード}'
+                        text: '{エラーメッセージ}'
+                  status: FAIL
+                  text: サービス実行時にエラーが発生しました。
+            リクエストが不正:
+              value:
+                resultStatus:
+                  code: APIPAP_W0003
+                  messageList:
+                    entries: []
+                  status: FAIL
+                  text: 公開APIの実行時にエラーが発生しました。
+            正常:
+              value:
+                doc:
+                  docData:
+                    adminNo: null
+                    criterionDate: '2024-10-31 00:00:00 JST'
+                    entryList:
+                      entries:
+                        - dataType: STRING
+                          dataValue:
+                            entryList:
+                              entries: []
+                            value: update
+                          fieldId: textfield1
+                          fieldType: TEXTFIELD
+                          name: 文字フィールド1
+                        - dataType: INT
+                          dataValue:
+                            entryList:
+                              entries: []
+                            value: 11
+                          fieldId: integerfield1
+                          fieldType: INTEGERFIELD
+                          name: 整数フィールド1
+                    formCode: form01
+                    id: 999
+                    listNames:
+                      listNames1: null
+                      listNames10: null
+                      listNames11: null
+                      listNames12: null
+                      listNames13: null
+                      listNames14: null
+                      listNames15: null
+                      listNames16: null
+                      listNames17: null
+                      listNames18: null
+                      listNames19: null
+                      listNames2: null
+                      listNames20: null
+                      listNames3: null
+                      listNames4: null
+                      listNames5: null
+                      listNames6: null
+                      listNames7: null
+                      listNames8: null
+                      listNames9: null
+                    owner:
+                      code: unit01
+                      type: UNIT
+                    publicFormId: 222
+                    version: 1.0.0
+                resultStatus:
+                  code: null
+                  messageList:
+                    entries: []
+                  status: SUCCESS
+                  text: null
+          schema:
+            pattern: doc.PrepareDocResponseModel
+            properties:
+              doc:
+                description: 書類情報
+                pattern: (?=doc.DocModel)(?=doc.DocHeaderModel)
+                properties:
+                  adminNo:
+                    description: 書類管理番号
+                    type: string
+                  criterionDate:
+                    description: 基準日
+                    pattern: >-
+                      ^((19|20)[0-9]{2})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])
+                      (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) JST$
+                    type: string
+                  docData:
+                    description: 書類データ
+                    pattern: doc.DocDataModel
+                    properties:
+                      entryList:
+                        description: 各フィールドのデータ
+                        pattern: doc.DocDataEntryModel
+                        properties:
+                          entries:
+                            items:
+                              properties:
+                                dataType:
+                                  description: データタイプ
+                                  type: string
+                                dataValue:
+                                  description: フィールドの値
+                                  pattern: doc.DocDataValueModel
+                                  properties:
+                                    entryList:
+                                      description: |
+                                        表明細フィールドのリスト<br>
+                                        *表明細フィールドの場合のみ
+                                      pattern: doc.DocDataEntryModel
+                                      type: object
+                                    value:
+                                      description: |
+                                        フィールドの値<br>
+                                        *通常フィールドの場合のみ
+                                      pattern: dataTypeの型
+                                  type: object
+                                fieldId:
+                                  description: フィールドID
+                                  type: string
+                                fieldType:
+                                  description: フィールドタイプ
+                                  type: string
+                                name:
+                                  description: フィールド名
+                                  type: string
+                              type: object
+                            type: array
+                        type: object
+                    type: object
+                  formCode:
+                    description: フォームコード
+                    type: string
+                  id:
+                    description: 書類ID
+                    type: integer
+                  listNames:
+                    description: 件名項目
+                    pattern: doc.DocListNamesModel
+                    properties:
+                      listNames1:
+                        type: string
+                      listNames10:
+                        type: string
+                      listNames11:
+                        type: string
+                      listNames12:
+                        type: string
+                      listNames13:
+                        type: string
+                      listNames14:
+                        type: string
+                      listNames15:
+                        type: string
+                      listNames16:
+                        type: string
+                      listNames17:
+                        type: string
+                      listNames18:
+                        type: string
+                      listNames19:
+                        type: string
+                      listNames2:
+                        type: string
+                      listNames20:
+                        type: string
+                      listNames3:
+                        type: string
+                      listNames4:
+                        type: string
+                      listNames5:
+                        type: string
+                      listNames6:
+                        type: string
+                      listNames7:
+                        type: string
+                      listNames8:
+                        type: string
+                      listNames9:
+                        type: string
+                    type: object
+                  owner:
+                    description: 書類オーナー
+                    pattern: doc.DocOwnerModel
+                    properties:
+                      code:
+                        description: 書類オーナーコード
+                        type: string
+                      type:
+                        description: |
+                          書類オーナータイプ<br>
+                          指定可能な値<br>
+                          |パラメータ|説明|
+                          |----|----|
+                          |UNIT|組織|
+                          |USER|ユーザー|
+                        pattern: form.EnumOwnerType
+                        type: string
+                    type: object
+                  publicFormId:
+                    description: 公開フォームID
+                    type: integer
+                  version:
+                    description: |
+                      バージョン<br>
+                      *書類履歴のバージョン
+                    type: string
+                type: object
+              resultStatus:
+                description: APIの実行結果
+                pattern: common.ResultStatusModel
+                properties:
+                  code:
+                    description: 結果コード
+                    type: string
+                  messageList:
+                    description: メッセージ詳細
+                    pattern: common.MessageModel
+                    properties:
+                      entries:
+                        items:
+                          properties:
+                            code:
+                              description: 結果コード
+                              type: string
+                            text:
+                              description: 結果説明
+                              type: string
+                          type: object
+                        type: array
+                    type: object
+                  status:
+                    description: 結果ステータス
+                    type: string
+                  text:
+                    description: 結果説明
+                    type: string
                 type: object
             type: object
       description: Successful response
@@ -46461,6 +46987,9 @@ x-components:
                                     type: object
                                   type: array
                               type: object
+                            index:
+                              description: レコードインデックス
+                              type: integer
                           type: object
                         type: array
                     type: object
@@ -47586,7 +48115,51 @@ x-components:
             type: object
       description: Successful response
   examples:
-    response_errorRequest:
+    responseErrorDoc:
+      value:
+        doc:
+          adminNo: null
+          criterionDate: null
+          docData:
+            entryList:
+              entries: []
+          formCode: null
+          id: null
+          listNames:
+            listNames1: null
+            listNames10: null
+            listNames11: null
+            listNames12: null
+            listNames13: null
+            listNames14: null
+            listNames15: null
+            listNames16: null
+            listNames17: null
+            listNames18: null
+            listNames19: null
+            listNames2: null
+            listNames20: null
+            listNames3: null
+            listNames4: null
+            listNames5: null
+            listNames6: null
+            listNames7: null
+            listNames8: null
+            listNames9: null
+          owner:
+            code: null
+            type: null
+          publicFormId: null
+          version: null
+        resultStatus:
+          code: AWPCMN0000
+          messageList:
+            entries:
+              - code: '{エラーコード}'
+                text: '{エラーメッセージ}'
+          status: FAIL
+          text: サービス実行時にエラーが発生しました。
+    responseErrorRequest:
       value:
         resultStatus:
           code: APIPAP_W0003
@@ -47594,6 +48167,64 @@ x-components:
             entries: []
           status: FAIL
           text: 公開APIの実行時にエラーが発生しました。
+    responseSuccessDoc:
+      value:
+        doc:
+          docData:
+            adminNo: null
+            criterionDate: '2024-10-31 00:00:00 JST'
+            entryList:
+              entries:
+                - dataType: STRING
+                  dataValue:
+                    entryList:
+                      entries: []
+                    value: update
+                  fieldId: textfield1
+                  fieldType: TEXTFIELD
+                  name: 文字フィールド1
+                - dataType: INT
+                  dataValue:
+                    entryList:
+                      entries: []
+                    value: 11
+                  fieldId: integerfield1
+                  fieldType: INTEGERFIELD
+                  name: 整数フィールド1
+            formCode: form01
+            id: 999
+            listNames:
+              listNames1: null
+              listNames10: null
+              listNames11: null
+              listNames12: null
+              listNames13: null
+              listNames14: null
+              listNames15: null
+              listNames16: null
+              listNames17: null
+              listNames18: null
+              listNames19: null
+              listNames2: null
+              listNames20: null
+              listNames3: null
+              listNames4: null
+              listNames5: null
+              listNames6: null
+              listNames7: null
+              listNames8: null
+              listNames9: null
+            owner:
+              code: unit01
+              type: UNIT
+            publicFormId: 222
+            version: 1.0.0
+        resultStatus:
+          code: null
+          messageList:
+            entries: []
+          status: SUCCESS
+          text: null
   requestBodies:
     AddDelegationAppointmentRequest:
       content:
@@ -48967,7 +49598,7 @@ x-components:
             properties:
               conditionList:
                 description: 回付情報件数の取得条件のリスト
-                pattern: workflow.WorkflowMessageConditionModel
+                pattern: workflow.WorkflowMessageConditionListModel
                 properties:
                   entries:
                     description: 回付情報件数の取得条件
@@ -51669,6 +52300,8 @@ x-components:
                           |PRINCIPAL_APPROVE|被代理承認|
                           |REJECT|却下|
                           |CANCEL|取下げ|
+                        pattern: EnumRelativeType
+                        type: string
                       unitCode:
                         description: 組織コード
                         type: integer
@@ -51685,6 +52318,8 @@ x-components:
                           |UNIT|組織|
                           |USER|ユーザ|
                           |LOGIN_USER|ログインユーザ(WebAPI実行ユーザ)|
+                        pattern: EnumRelativeUserType
+                        type: string
                     type: object
                   ruleCode:
                     description: 回付ルールコード
