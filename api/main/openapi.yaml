@@ -10145,12 +10145,13 @@ components:
             entryList:
               description: 各フィールドのデータ
               type: object
-              pattern: doc.DocDataEntryModel
+              pattern: doc.DocDataEntryListModel
               properties:
                 entries:
                   type: array
                   items:
                     type: object
+                    pattern: doc.DocDataEntryModel
                     required:
                       - name
                       - fieldType
