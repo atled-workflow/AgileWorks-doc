@@ -6445,9 +6445,9 @@ components:
               - $ref: "#/components/schemas/DocResponse"
           examples:
             正常:
-              $ref: "#/components/examples/responseSuccessDoc"
+              $ref: "#/components/examples/SuccessDocResponse"
             パラメータが不正:
-              $ref: "#/components/examples/responseErrorDoc"
+              $ref: "#/components/examples/ErrorDocResponse"
             リクエストが不正:
               $ref: "#/components/examples/responseErrorRequest"
     
@@ -6460,9 +6460,9 @@ components:
               - $ref: "#/components/schemas/NotAdminDocResponse"
           examples:
             正常:
-              $ref: "#/components/examples/responseSuccessDoc"
+              $ref: "#/components/examples/SuccessDocResponse"
             パラメータが不正:
-              $ref: "#/components/examples/responseErrorDoc"
+              $ref: "#/components/examples/ErrorDocResponse"
             リクエストが不正:
               $ref: "#/components/examples/responseErrorRequest"
     
@@ -6475,9 +6475,9 @@ components:
               - $ref: "#/components/schemas/PrepareDocResponse"
           examples:
             正常:
-              $ref: "#/components/examples/responseSuccessDoc"
+              $ref: "#/components/examples/SuccessDocResponse"
             パラメータが不正:
-              $ref: "#/components/examples/responseErrorDoc"
+              $ref: "#/components/examples/ErrorDocResponse"
             リクエストが不正:
               $ref: "#/components/examples/responseErrorRequest"
     
@@ -6490,9 +6490,9 @@ components:
               - $ref: "#/components/schemas/NotAdminPrepareDocResponse"
           examples:
             正常:
-              $ref: "#/components/examples/responseSuccessDoc"
+              $ref: "#/components/examples/SuccessDocResponse"
             パラメータが不正:
-              $ref: "#/components/examples/responseErrorDoc"
+              $ref: "#/components/examples/ErrorDocResponse"
             リクエストが不正:
               $ref: "#/components/examples/responseErrorRequest"
     
@@ -7377,8 +7377,12 @@ components:
               value:
                 countList:
                   entries:
-                    - count: 1
-                    - count: 2
+                    - code: APPROVE_REQUEST
+                      name: 承認依頼
+                      count: 1
+                    - code: CONFIRM_REQUEST
+                      name: 報告確認
+                      count: 2
                 resultStatus: 
                   status: SUCCESS
                   messageList: 
@@ -10236,64 +10240,9 @@ components:
               - $ref: "#/components/schemas/ListPublicFolderInfoResponse"
           examples:
             正常:
-              value:
-                publicFolderList:
-                  entries:
-                    - name: 総務・勤怠管理
-                      id: 1
-                      code: soumu
-                      publicFormList:
-                        entries:
-                          - formCode: B01
-                            formName: B01身上報告書
-                            ruleCode: soumu
-                            ruleName: 総務汎用ルール
-                          - formCode: B02
-                            formName: B02届出事項変更届
-                            ruleCode: soumu
-                            ruleName: 総務汎用ルール
-                      publicFolderList:
-                        entries:
-                          - name: 勤怠
-                            id: 3
-                            code: kintai
-                            publicFormList:
-                              entries:
-                                - formCode: A083
-                                  formName: A083休暇届
-                                  ruleCode: soumu
-                                  ruleName: 総務汎用ルール
-                            publicFolderList:
-                              entries: []
-                    - name: 財務・経理
-                      id: 2
-                      code: zaimukanri
-                      publicFormList:
-                        entries:
-                          - formCode: shutyo_seisan
-                            formName: 出張仮払精算書
-                            ruleCode: shutyo_seisan
-                            ruleName: 出張清算フロー
-                      publicFolderList:
-                        entries: []
-                resultStatus: 
-                  status: SUCCESS
-                  messageList: 
-                    entries: []
-                  text: 
-                  code: 
+              $ref: "#/components/examples/ListPublicFolderInfoSuccessResponse"
             パラメータが不正:
-              value:
-                publicFolderList:
-                  entries: []
-                resultStatus: 
-                  status: FAIL
-                  messageList: 
-                    entries: 
-                      - text: "{エラーメッセージ}"
-                        code: "{エラーコード}"
-                  text: サービス実行時にエラーが発生しました。
-                  code: AWPCMN0000
+              $ref: "#/components/examples/ListPublicFolderInfoErrorResponse"
             リクエストが不正:
               $ref: "#/components/examples/responseErrorRequest"
     
@@ -10306,64 +10255,9 @@ components:
               - $ref: "#/components/schemas/NotAdminListPublicFolderInfoResponse"
           examples:
             正常:
-              value:
-                publicFolderList:
-                  entries:
-                    - name: 総務・勤怠管理
-                      id: 1
-                      code: soumu
-                      publicFormList:
-                        entries:
-                          - formCode: B01
-                            formName: B01身上報告書
-                            ruleCode: soumu
-                            ruleName: 総務汎用ルール
-                          - formCode: B02
-                            formName: B02届出事項変更届
-                            ruleCode: soumu
-                            ruleName: 総務汎用ルール
-                      publicFolderList:
-                        entries:
-                          - name: 勤怠
-                            id: 3
-                            code: kintai
-                            publicFormList:
-                              entries:
-                                - formCode: A083
-                                  formName: A083休暇届
-                                  ruleCode: soumu
-                                  ruleName: 総務汎用ルール
-                            publicFolderList:
-                              entries: []
-                    - name: 財務・経理
-                      id: 2
-                      code: zaimukanri
-                      publicFormList:
-                        entries:
-                          - formCode: shutyo_seisan
-                            formName: 出張仮払精算書
-                            ruleCode: shutyo_seisan
-                            ruleName: 出張清算フロー
-                      publicFolderList:
-                        entries: []
-                resultStatus: 
-                  status: SUCCESS
-                  messageList: 
-                    entries: []
-                  text: 
-                  code: 
+              $ref: "#/components/examples/ListPublicFolderInfoSuccessResponse"
             パラメータが不正:
-              value:
-                publicFolderList:
-                  entries: []
-                resultStatus: 
-                  status: FAIL
-                  messageList: 
-                    entries: 
-                      - text: "{エラーメッセージ}"
-                        code: "{エラーコード}"
-                  text: サービス実行時にエラーが発生しました。
-                  code: AWPCMN0000
+              $ref: "#/components/examples/ListPublicFolderInfoErrorResponse"
             リクエストが不正:
               $ref: "#/components/examples/responseErrorRequest"
     
@@ -16878,7 +16772,7 @@ components:
           text: 公開APIの実行時にエラーが発生しました。
           code: APIPAP_W0003
     
-    responseSuccessDoc:
+    SuccessDocResponse:
       value:
         doc:
           docData:
@@ -16937,7 +16831,7 @@ components:
           text: 
           code: 
 
-    responseErrorDoc:
+    ErrorDocResponse:
       value:
         doc:
           docData:
@@ -16973,6 +16867,67 @@ components:
           formCode: 
           criterionDate: 
           adminNo: 
+        resultStatus: 
+          status: FAIL
+          messageList: 
+            entries: 
+              - text: "{エラーメッセージ}"
+                code: "{エラーコード}"
+          text: サービス実行時にエラーが発生しました。
+          code: AWPCMN0000
+    
+    ListPublicFolderInfoSuccessResponse:
+      value:
+        publicFolderList:
+          entries:
+            - name: 総務・勤怠管理
+              id: 1
+              code: soumu
+              publicFormList:
+                entries:
+                  - formCode: B01
+                    formName: B01身上報告書
+                    ruleCode: soumu
+                    ruleName: 総務汎用ルール
+                  - formCode: B02
+                    formName: B02届出事項変更届
+                    ruleCode: soumu
+                    ruleName: 総務汎用ルール
+              publicFolderList:
+                entries:
+                  - name: 勤怠
+                    id: 3
+                    code: kintai
+                    publicFormList:
+                      entries:
+                        - formCode: A083
+                          formName: A083休暇届
+                          ruleCode: soumu
+                          ruleName: 総務汎用ルール
+                    publicFolderList:
+                      entries: []
+            - name: 財務・経理
+              id: 2
+              code: zaimukanri
+              publicFormList:
+                entries:
+                  - formCode: shutyo_seisan
+                    formName: 出張仮払精算書
+                    ruleCode: shutyo_seisan
+                    ruleName: 出張清算フロー
+              publicFolderList:
+                entries: []
+        resultStatus: 
+          status: SUCCESS
+          messageList: 
+            entries: []
+          text: 
+          code:
+    
+    ListPublicFolderInfoErrorResponse:
+      value:
+        publicFolderList:
+          entries: []
         resultStatus: 
           status: FAIL
           messageList: 
