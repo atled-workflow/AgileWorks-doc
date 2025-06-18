@@ -53,7 +53,9 @@ paths:
         - common
       summary: サービス実行
       description: 
-        AgileWorksの各サービスを実行します。
+        AgileWorksの各サービスを実行します。<br>
+        （管理者権限必須API）管理ロールの「全てのコンテンツ、全ての業務カテゴリの権限を持つ管理ロール」を有しているユーザーで実行することができます。
+        （管理者権限不要API）管理ロールの「全てのコンテンツ、全ての業務カテゴリの権限を持つ管理ロール」の所属有無に問わず、実行することができます。
       operationId: service
       parameters:
         - $ref: "#/components/parameters/service_name"
@@ -16947,7 +16949,9 @@ components:
       description: |
         {名前空間}.{モデル名}<br>
         取得したいモデルオブジェクトに応じて指定してください。<br>
-        ・名前空間：common, doc, workflow, org, site, usermaster, form, publication<br>
+        ・名前空間：<br>
+          （管理者権限必須API）common, doc, workflow, org, site, usermaster, form, publication<br>
+          （管理者権限不要API）doc.notadmin, workflow.notadmin, org.notadmin, publication.notadmin, system.notadmin<br>
         ・モデル名：APIの各ページのスキーマを参照
       name: name
       in: query
@@ -16959,7 +16963,9 @@ components:
       description: |
         {名前空間}.{サービス名}<br>
         使用したいAPIに応じて指定してください。<br>
-        ・名前空間：doc, workflow, org, site, usermaster, form, publication<br>
+        ・名前空間：<br>
+          （管理者権限必須API）doc, workflow, org, site, usermaster, form, publication<br>
+          （管理者権限不要API）userfunc.doc, userfunc.workflow, userfunc.org, userfunc.publication, system<br>
         ・サービス名：Doc, Workflow, Org, Site, UserMaster, Form, Publication
       name: name
       in: query
