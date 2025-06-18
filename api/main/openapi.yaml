@@ -61,11 +61,7 @@ paths:
         - $ref: "#/components/parameters/service_name"
         - $ref: "#/components/parameters/service_method"
       requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties: {}
+        $ref: "#/components/requestBodies/nonParameter"
       responses:
         "200":
           description: すべてのサービス実行APIは共通でcommon.ResponseModel型のフィールドがレスポンスボディに含まれます。
@@ -2668,11 +2664,7 @@ paths:
         マスター参照コンポーネント一覧を取得します。
       operationId: listComponentMasterWindow
       requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties: {}
+        $ref: "#/components/requestBodies/nonParameter"
       responses:
         "200":
           $ref: "#/components/responses/ListComponentMasterWindowResponses200"
@@ -2697,11 +2689,7 @@ paths:
         自動採番コンポーネント一覧を取得します。
       operationId: listComponentAutoNumber
       requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties: {}
+        $ref: "#/components/requestBodies/nonParameter"
       responses:
         "200":
           $ref: "#/components/responses/ListComponentAutoNumberResponses200"
@@ -3006,11 +2994,7 @@ paths:
         API 実行ユーザーの所有している代理承認権限を取得する API です。<br>
       operationId: notAdminListProxyAppointment
       requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties: {}
+        $ref: "#/components/requestBodies/nonParameter"
       responses:
         "200":
           $ref: "#/components/responses/NotAdminListProxyAppointmentResponses200"
@@ -3061,11 +3045,7 @@ paths:
         API 実行ユーザー自身のユーザー情報を取得する API です。
       operationId: notAdminGetUserInfo
       requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties: {}
+        $ref: "#/components/requestBodies/nonParameter"
       responses:
         "200":
           $ref: "#/components/responses/NotAdminGetUserInfoResponses200"
@@ -3090,11 +3070,7 @@ paths:
         AgileWorks のバージョン情報を取得する API です。
       operationId: notAdminGetVersion
       requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties: {}
+        $ref: "#/components/requestBodies/nonParameter"
       responses:
         "200":
           $ref: "#/components/responses/NotAdminGetVersionResponses200"
@@ -3526,6 +3502,13 @@ components:
     # -----------------------------------------------
 
   requestBodies:
+    nonParameter:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties: {}
+    
     docId:
       required: true
       content:
@@ -10882,6 +10865,136 @@ components:
       type: string
       pattern: org.notadmin.NotAdminEnumObjectTargetType
     
+    EnumDocViewColumnType:
+      description: |
+        列項目タイプ<br>
+        指定可能な値<br>
+        |パラメータ|値|
+        |----|----|
+        |FIELD|書類のフィールド|
+        |GROUP_FIELD|書類の表明細フィールド|
+        |DOC_ID|書類ID|
+        |DOC_ADMIN_NO|書類管理番号|
+        |DOC_LISTNAME1～20|件名項目１～２０|
+        |DOC_FULL_VERSION|書類バージョン|
+        |DOC_EXIST_ATTACHMENT|添付有無|
+        |DOC_EXIST_COMMENT|コメント有無|
+        |DOC_REFERENCE_STATUS|関連書類有無|
+        |FORM_CODE|フォームコード|
+        |FORM_NAME|フォーム名|
+        |FORM_STATUS|フォームバージョン|
+        |RULE_CODE|回付ルールコード|
+        |RULE_NAME|回付ルール名|
+        |FLOW_STATUS|書類状態|
+        |FLOW_CURRENTSTEP_NAME|現在のステップ|
+        |FLOW_CRITERION_DATE|基準日|
+        |FLOW_FIX_DATE|承認完了日時|
+        |CREATOR_UNIT_CODE|作成者組織コード|
+        |CREATOR_UNIT_NAME|作成者組織名|
+        |CREATOR_ROLE_CODE|作成者ロールコード|
+        |CREATOR_ROLE_NAME|作成者ロール名|
+        |CREATOR_USER_CODE|作成者コード|
+        |CREATOR_USER_NAME|作成者名|
+        |CREATE_DATE|作成日時|
+        |APPLY_UNIT_CODE|申請者組織コード|
+        |APPLY_UNIT_NAME|申請者組織名|
+        |APPLY_ROLE_CODE|申請者ロールコード|
+        |APPLY_ROLE_NAME|申請者ロール名|
+        |APPLY_USER_CODE|申請者コード|
+        |APPLY_USER_NAME|申請者名|
+        |APPLY_DATE|申請日時|
+        |LASTOPERATOR_UNIT_CODE|最終処理者組織コード|
+        |LASTOPERATOR_UNIT_NAME|最終処理者組織名|
+        |LASTOPERATOR_ROLE_CODE|最終処理者ロールコード|
+        |LASTOPERATOR_ROLE_NAME|最終処理者ロール名|
+        |LASTOPERATOR_USER_CODE|最終処理者コード|
+        |LASTOPERATOR_USER_NAME|最終処理者名|
+        |LASTOPERATOR_DATE|最終処理日時|
+      type: string
+      pattern: doc.EnumDocViewColumnType
+    
+    EnumWorkflowStateType:
+      description: |
+        書類状態<br>
+        指定可能な値<br>
+        |パラメータ|説明|
+        |----|----|
+        |PREPARE|下書き|
+        |ACTIVE|回付中|
+        |APPROVED|承認完了|
+        |REJECTED|却下|
+        |CANCELED|取り下げ|
+        |DELETED|削除|
+      type: string
+      pattern: workflow.EnumWorkflowStateType
+    
+    EnumDateConditionType:
+      description: |
+        日付タイプ<br>
+        指定可能な値<br>
+        |パラメータ|説明|
+        |----|----|
+        |APPLY|申請日|
+        |CRITERION|基準日|
+        |APPROVED|承認完了日|
+        |REGISTRATION|作成日|
+        |MODIFY|最終適用終了日|
+      type: string
+      pattern: doc.EnumDateConditionType
+    
+    EnumRangeType:
+      description: |
+        日付範囲タイプ<br>
+        指定可能な値<br>
+        |パラメータ|説明|
+        |----|----|
+        |ABSOLUTE_DATE|日付指定|
+        |RELATIVE_DAY|日付指定(日)|
+        |RELATIVE_MONTH|日付指定(月)|
+      type: string
+      pattern: doc.EnumRangeType
+    
+    EnumRelativeType:
+      description: |
+        関連タイプ<br>
+        指定可能な値<br>
+        |パラメータ|説明|
+        |----|----|
+        |OWNER|書類オーナ|
+        |CREATE|作成|
+        |APPLY|申請|
+        |APPROVE|承認|
+        |PROXY_APPROVE|代理承認|
+        |PRINCIPAL_APPROVE|被代理承認|
+        |REJECT|却下|
+        |CANCEL|取下げ|
+      type: string
+      pattern: EnumRelativeType
+    
+    EnumRelativeUserType:
+      description: |
+        ユーザータイプ<br>
+        指定可能な値<br>
+        |パラメータ|説明|
+        |----|----|
+        |UNIT_APPOINTMENT|組織+ユーザ|
+        |UNIT|組織|
+        |USER|ユーザ|
+        |LOGIN_USER|ログインユーザ(WebAPI実行ユーザ)|
+      type: string
+      pattern: EnumRelativeUserType
+
+    EnumFieldValueType:
+      description: |
+        フィールド値タイプ<br>
+        指定可能な値<br>
+        |パラメータ|説明|
+        |----|----|
+        |FIELD|書類のフィールド|
+        |LISTNAME1～20|件名項目１～２０|
+      type: string
+      pattern: doc.EnumFieldValueType
+    
     targetFormList:
       description: 対象フォーム一覧
       type: object
@@ -11373,52 +11486,8 @@ components:
                     pattern: doc.DocViewColumnModel
                     properties:
                       type: 
-                        description: |
-                          列項目タイプ<br>
-                          指定可能な値<br>
-                          |パラメータ|値|
-                          |----|----|
-                          |FIELD|書類のフィールド|
-                          |GROUP_FIELD|書類の表明細フィールド|
-                          |DOC_ID|書類ID|
-                          |DOC_ADMIN_NO|書類管理番号|
-                          |DOC_LISTNAME1～20|件名項目１～２０|
-                          |DOC_FULL_VERSION|書類バージョン|
-                          |DOC_EXIST_ATTACHMENT|添付有無|
-                          |DOC_EXIST_COMMENT|コメント有無|
-                          |DOC_REFERENCE_STATUS|関連書類有無|
-                          |FORM_CODE|フォームコード|
-                          |FORM_NAME|フォーム名|
-                          |FORM_STATUS|フォームバージョン|
-                          |RULE_CODE|回付ルールコード|
-                          |RULE_NAME|回付ルール名|
-                          |FLOW_STATUS|書類状態|
-                          |FLOW_CURRENTSTEP_NAME|現在のステップ|
-                          |FLOW_CRITERION_DATE|基準日|
-                          |FLOW_FIX_DATE|承認完了日時|
-                          |CREATOR_UNIT_CODE|作成者組織コード|
-                          |CREATOR_UNIT_NAME|作成者組織名|
-                          |CREATOR_ROLE_CODE|作成者ロールコード|
-                          |CREATOR_ROLE_NAME|作成者ロール名|
-                          |CREATOR_USER_CODE|作成者コード|
-                          |CREATOR_USER_NAME|作成者名|
-                          |CREATE_DATE|作成日時|
-                          |APPLY_UNIT_CODE|申請者組織コード|
-                          |APPLY_UNIT_NAME|申請者組織名|
-                          |APPLY_ROLE_CODE|申請者ロールコード|
-                          |APPLY_ROLE_NAME|申請者ロール名|
-                          |APPLY_USER_CODE|申請者コード|
-                          |APPLY_USER_NAME|申請者名|
-                          |APPLY_DATE|申請日時|
-                          |LASTOPERATOR_UNIT_CODE|最終処理者組織コード|
-                          |LASTOPERATOR_UNIT_NAME|最終処理者組織名|
-                          |LASTOPERATOR_ROLE_CODE|最終処理者ロールコード|
-                          |LASTOPERATOR_ROLE_NAME|最終処理者ロール名|
-                          |LASTOPERATOR_USER_CODE|最終処理者コード|
-                          |LASTOPERATOR_USER_NAME|最終処理者名|
-                          |LASTOPERATOR_DATE|最終処理日時|
-                        type: string
-                        pattern: doc.EnumDocViewColumnType
+                        allOf:
+                        - $ref: "#/components/schemas/EnumDocViewColumnType"
                       fieldId:
                         description: フィールドID
                         type: string
@@ -11450,19 +11519,8 @@ components:
               description: 回付ルールステップコード
               type: string
             workflowState:
-              description: |
-                書類状態<br>
-                指定可能な値<br>
-                |パラメータ|説明|
-                |----|----|
-                |PREPARE|下書き|
-                |ACTIVE|回付中|
-                |APPROVED|承認完了|
-                |REJECTED|却下|
-                |CANCELED|取り下げ|
-                |DELETED|削除|
-              type: string
-              pattern: workflow.EnumWorkflowStateType
+              allOf:
+                - $ref: "#/components/schemas/EnumWorkflowStateType"
             listNameKeyword:
               description: 件名キーワード
               type: string
@@ -11472,29 +11530,11 @@ components:
               pattern: doc.DateConditionModel
               properties:
                 type:
-                  description: |
-                    日付タイプ<br>
-                    指定可能な値<br>
-                    |パラメータ|説明|
-                    |----|----|
-                    |APPLY|申請日|
-                    |CRITERION|基準日|
-                    |APPROVED|承認完了日|
-                    |REGISTRATION|作成日|
-                    |MODIFY|最終適用終了日|
-                  type: string
-                  pattern: doc.EnumDateConditionType
+                  allOf:
+                    - $ref: "#/components/schemas/EnumDateConditionType"
                 rangeType:
-                  description: |
-                    日付範囲タイプ<br>
-                    指定可能な値<br>
-                    |パラメータ|説明|
-                    |----|----|
-                    |ABSOLUTE_DATE|日付指定|
-                    |RELATIVE_DAY|日付指定(日)|
-                    |RELATIVE_MONTH|日付指定(月)|
-                  type: string
-                  pattern: doc.EnumRangeType
+                  allOf:
+                    - $ref: "#/components/schemas/EnumRangeType"
                 from:
                   description: 日付指定の開始日
                   type: string
@@ -11546,21 +11586,8 @@ components:
                     pattern: doc.FieldValueConditionModel
                     properties:
                       type:
-                        description: |
-                          関連タイプ<br>
-                          指定可能な値<br>
-                          |パラメータ|説明|
-                          |----|----|
-                          |OWNER|書類オーナ|
-                          |CREATE|作成|
-                          |APPLY|申請|
-                          |APPROVE|承認|
-                          |PROXY_APPROVE|代理承認|
-                          |PRINCIPAL_APPROVE|被代理承認|
-                          |REJECT|却下|
-                          |CANCEL|取下げ|
-                        type: string
-                        pattern: EnumRelativeType
+                        allOf:
+                          - $ref: "#/components/schemas/EnumRelativeType"
                       unitCode:
                         description: 組織コード
                         type: integer
@@ -11568,17 +11595,8 @@ components:
                         description: ユーザーコード
                         type: integer
                       userType:
-                        description: |
-                          ユーザータイプ<br>
-                          指定可能な値<br>
-                          |パラメータ|説明|
-                          |----|----|
-                          |UNIT_APPOINTMENT|組織+ユーザ|
-                          |UNIT|組織|
-                          |USER|ユーザ|
-                          |LOGIN_USER|ログインユーザ(WebAPI実行ユーザ)|
-                        type: string
-                        pattern: EnumRelativeUserType
+                        allOf:
+                          - $ref: "#/components/schemas/EnumRelativeUserType"
             logicalOperatorType:
               description: |
                 フィールド値条件全体の AND / OR<br>
@@ -11596,15 +11614,8 @@ components:
                     pattern: doc.FieldValueConditionModel
                     properties:
                       type:
-                        description: |
-                          フィールド値タイプ<br>
-                          指定可能な値<br>
-                          |パラメータ|説明|
-                          |----|----|
-                          |FIELD|書類のフィールド|
-                          |LISTNAME1～20|件名項目１～２０|
-                        type: string
-                        pattern: doc.EnumFieldValueType
+                        allOf:
+                          - $ref: "#/components/schemas/EnumFieldValueType"
                       fieldId:
                         description: フィールドID
                         type: string
@@ -11668,52 +11679,8 @@ components:
                     pattern: doc.notadmin.NotAdminDocViewColumnModel
                     properties:
                       type: 
-                        description: |
-                          列項目タイプ<br>
-                          指定可能な値<br>
-                          |パラメータ|値|
-                          |----|----|
-                          |FIELD|書類のフィールド|
-                          |GROUP_FIELD|書類の表明細フィールド|
-                          |DOC_ID|書類ID|
-                          |DOC_ADMIN_NO|書類管理番号|
-                          |DOC_LISTNAME1～20|件名項目１～２０|
-                          |DOC_FULL_VERSION|書類バージョン|
-                          |DOC_EXIST_ATTACHMENT|添付有無|
-                          |DOC_EXIST_COMMENT|コメント有無|
-                          |DOC_REFERENCE_STATUS|関連書類有無|
-                          |FORM_CODE|フォームコード|
-                          |FORM_NAME|フォーム名|
-                          |FORM_STATUS|フォームバージョン|
-                          |RULE_CODE|回付ルールコード|
-                          |RULE_NAME|回付ルール名|
-                          |FLOW_STATUS|書類状態|
-                          |FLOW_CURRENTSTEP_NAME|現在のステップ|
-                          |FLOW_CRITERION_DATE|基準日|
-                          |FLOW_FIX_DATE|承認完了日時|
-                          |CREATOR_UNIT_CODE|作成者組織コード|
-                          |CREATOR_UNIT_NAME|作成者組織名|
-                          |CREATOR_ROLE_CODE|作成者ロールコード|
-                          |CREATOR_ROLE_NAME|作成者ロール名|
-                          |CREATOR_USER_CODE|作成者コード|
-                          |CREATOR_USER_NAME|作成者名|
-                          |CREATE_DATE|作成日時|
-                          |APPLY_UNIT_CODE|申請者組織コード|
-                          |APPLY_UNIT_NAME|申請者組織名|
-                          |APPLY_ROLE_CODE|申請者ロールコード|
-                          |APPLY_ROLE_NAME|申請者ロール名|
-                          |APPLY_USER_CODE|申請者コード|
-                          |APPLY_USER_NAME|申請者名|
-                          |APPLY_DATE|申請日時|
-                          |LASTOPERATOR_UNIT_CODE|最終処理者組織コード|
-                          |LASTOPERATOR_UNIT_NAME|最終処理者組織名|
-                          |LASTOPERATOR_ROLE_CODE|最終処理者ロールコード|
-                          |LASTOPERATOR_ROLE_NAME|最終処理者ロール名|
-                          |LASTOPERATOR_USER_CODE|最終処理者コード|
-                          |LASTOPERATOR_USER_NAME|最終処理者名|
-                          |LASTOPERATOR_DATE|最終処理日時|
-                        type: string
-                        pattern: doc.EnumDocViewColumnType
+                        allOf:
+                        - $ref: "#/components/schemas/EnumDocViewColumnType"
                       fieldId:
                         description: フィールドID
                         type: string
@@ -11742,19 +11709,8 @@ components:
               description: 回付ルールステップコード
               type: string
             workflowState:
-              description: |
-                書類状態<br>
-                指定可能な値<br>
-                |パラメータ|説明|
-                |----|----|
-                |PREPARE|下書き|
-                |ACTIVE|回付中|
-                |APPROVED|承認完了|
-                |REJECTED|却下|
-                |CANCELED|取り下げ|
-                |DELETED|削除|
-              type: string
-              pattern: workflow.EnumWorkflowStateType
+              allOf:
+                - $ref: "#/components/schemas/EnumWorkflowStateType"
             listNameKeyword:
               description: 件名キーワード
               type: string
@@ -11764,29 +11720,11 @@ components:
               pattern: doc.notadmin.NotAdminDateConditionModel
               properties:
                 type:
-                  description: |
-                    日付タイプ<br>
-                    指定可能な値<br>
-                    |パラメータ|説明|
-                    |----|----|
-                    |APPLY|申請日|
-                    |CRITERION|基準日|
-                    |APPROVED|承認完了日|
-                    |REGISTRATION|作成日|
-                    |MODIFY|最終適用終了日|
-                  type: string
-                  pattern: doc.EnumDateConditionType
+                  allOf:
+                    - $ref: "#/components/schemas/EnumDateConditionType"
                 rangeType:
-                  description: |
-                    日付範囲タイプ<br>
-                    指定可能な値<br>
-                    |パラメータ|説明|
-                    |----|----|
-                    |ABSOLUTE_DATE|日付指定|
-                    |RELATIVE_DAY|日付指定(日)|
-                    |RELATIVE_MONTH|日付指定(月)|
-                  type: string
-                  pattern: doc.EnumRangeType
+                  allOf:
+                    - $ref: "#/components/schemas/EnumRangeType"
                 from:
                   description: 日付指定の開始日
                   type: string
@@ -11838,21 +11776,8 @@ components:
                     pattern: doc.notadmin.NotAdminFieldValueConditionModel
                     properties:
                       type:
-                        description: |
-                          関連タイプ<br>
-                          指定可能な値<br>
-                          |パラメータ|説明|
-                          |----|----|
-                          |OWNER|書類オーナ|
-                          |CREATE|作成|
-                          |APPLY|申請|
-                          |APPROVE|承認|
-                          |PROXY_APPROVE|代理承認|
-                          |PRINCIPAL_APPROVE|被代理承認|
-                          |REJECT|却下|
-                          |CANCEL|取下げ|
-                        type: string
-                        pattern: EnumRelativeType
+                        allOf:
+                          - $ref: "#/components/schemas/EnumRelativeType"
                       unitCode:
                         description: 組織コード
                         type: integer
@@ -11860,17 +11785,8 @@ components:
                         description: ユーザーコード
                         type: integer
                       userType:
-                        description: |
-                          ユーザータイプ<br>
-                          指定可能な値<br>
-                          |パラメータ|説明|
-                          |----|----|
-                          |UNIT_APPOINTMENT|組織+ユーザ|
-                          |UNIT|組織|
-                          |USER|ユーザ|
-                          |LOGIN_USER|ログインユーザ(WebAPI実行ユーザ)|
-                        type: string
-                        pattern: EnumRelativeUserType
+                        allOf:
+                          - $ref: "#/components/schemas/EnumRelativeUserType"
             logicalOperatorType:
               description: |
                 フィールド値条件全体の AND / OR<br>
@@ -11888,15 +11804,8 @@ components:
                     pattern: doc.notadmin.NotAdminFieldValueConditionModel
                     properties:
                       type:
-                        description: |
-                          フィールド値タイプ<br>
-                          指定可能な値<br>
-                          |パラメータ|説明|
-                          |----|----|
-                          |FIELD|書類のフィールド|
-                          |LISTNAME1～20|件名項目１～２０|
-                        type: string
-                        pattern: doc.EnumFieldValueType
+                        allOf:
+                          - $ref: "#/components/schemas/EnumFieldValueType"
                       fieldId:
                         description: フィールドID
                         type: string
@@ -14588,18 +14497,8 @@ components:
               description: フォームコード
               type: string
             workflowState:
-              description: |
-                状態<br>
-                |パラメータ|説明|
-                |----|----|
-                |PREPARE|下書き|
-                |ACTIVE|回付中|
-                |APPROVED|承認完了|
-                |REJECTED|却下|
-                |CANCELED|取り下げ|
-                |DELETED|削除|
-              type: string
-              pattern: workflow.EnumWorkflowStateType
+              allOf:
+                - $ref: "#/components/schemas/EnumWorkflowStateType"
             proxyApplyOperator:
               description: 代理申請者
               allOf:
