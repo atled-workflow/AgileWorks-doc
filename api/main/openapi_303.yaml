@@ -14,6 +14,7 @@ tags:
   - name: UserMasterAPI
   - name: FormAPI
   - name: PublicationAPI
+  - name: NotAdminAPI
   - name: SCIMAPI/Users
   - name: SCIMAPI/Groups
   - name: SCIMAPI/ResourceTypes
@@ -52,17 +53,15 @@ paths:
         - common
       summary: サービス実行
       description: 
-        AgileWorksの各サービスを実行します。
+        AgileWorksの各サービスを実行します。<br>
+        （管理者権限必須API）管理ロールの「全てのコンテンツ、全ての業務カテゴリの権限を持つ管理ロール」を有しているユーザーで実行することができます。
+        （管理者権限不要API）管理ロールの「全てのコンテンツ、全ての業務カテゴリの権限を持つ管理ロール」の所属有無に問わず、実行することができます。
       operationId: service
       parameters:
         - $ref: "#/components/parameters/service_name"
         - $ref: "#/components/parameters/service_method"
       requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties: {}
+        $ref: "#/components/requestBodies/nonParameter"
       responses:
         "200":
           description: すべてのサービス実行APIは共通でcommon.ResponseModel型のフィールドがレスポンスボディに含まれます。
@@ -183,7 +182,7 @@ paths:
         初期状態の書類データを作成します。
       operationId: prepareDocRequest
       requestBody:
-        $ref: "#/components/requestBodies/PrepareDocRequestRequest"
+        $ref: "#/components/requestBodies/PrepareDocRequest"
       responses:
         "200":
           $ref: "#/components/responses/PrepareDocResponses200"
@@ -2665,11 +2664,7 @@ paths:
         マスター参照コンポーネント一覧を取得します。
       operationId: listComponentMasterWindow
       requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties: {}
+        $ref: "#/components/requestBodies/nonParameter"
       responses:
         "200":
           $ref: "#/components/responses/ListComponentMasterWindowResponses200"
@@ -2694,11 +2689,7 @@ paths:
         自動採番コンポーネント一覧を取得します。
       operationId: listComponentAutoNumber
       requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties: {}
+        $ref: "#/components/requestBodies/nonParameter"
       responses:
         "200":
           $ref: "#/components/responses/ListComponentAutoNumberResponses200"
@@ -2777,6 +2768,312 @@ paths:
       responses:
         "200":
           $ref: "#/components/responses/ListPublicFolderInfoResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+  
+  # --------------------------------------------------------------------------------------------------
+  /Broker/WebApi/Service?name=userfunc.doc.Doc&method=prepareDocRequest:
+    post:
+      tags:
+        - NotAdminAPI
+      summary: (管理者権限不要) 新規書類データ作成
+      description:
+        初期状態の書類データを作成する API です。<br>
+        取得したレスポンスは「新規書類データ保存 API」で使用できます。
+      operationId: notAdminPrepareDocRequest
+      requestBody:
+        $ref: "#/components/requestBodies/NotAdminPrepareDocRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/NotAdminPrepareDocResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+  
+  # --------------------------------------------------------------------------------------------------------
+  /Broker/WebApi/Service?name=userfunc.doc.Doc&method=addDoc:
+    post:
+      tags:
+        - NotAdminAPI
+      summary: （管理者権限不要）新規書類データ保存
+      description: 
+        新規に作成した書類データを保存します。<br>
+        「新規書類データ作成API」で取得したdocの値を雛形として、書類の各フィールドに値をセットし、本APIにより書類データの保存を行います。<br>
+        本APIで保存した書類データを画面から参照できるようにするには、さらに「書類作成 / 申請API」を実行する必要があります。
+      operationId: addDoc
+      requestBody:
+        $ref: "#/components/requestBodies/NotAdminAddDocRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/NotAdminDocResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+  
+  # --------------------------------------------------------------------------------------------------
+  /Broker/WebApi/Service?name=userfunc.doc.Doc&method=selectDoc:
+    post:
+      tags:
+        - NotAdminAPI
+      summary: (管理者権限不要) 書類検索
+      description:
+        API 実行ユーザーが閲覧可能且つ<br>
+        指定した条件に合致する書類の一覧を取得する API です。
+      operationId: notAdminSelectDoc
+      requestBody:
+        $ref: "#/components/requestBodies/NotAdminSelectDocRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/SelectDocResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+  
+  # --------------------------------------------------------------------------------------------------
+  /Broker/WebApi/Service?name=userfunc.doc.Doc&method=getDocView:
+    post:
+      tags:
+        - NotAdminAPI
+      summary: (管理者権限不要) 書類表示
+      description:
+        API 実行ユーザーが閲覧可能な書類を表示する HTML を取得する API です。
+      operationId: notAdminGetDocView
+      requestBody:
+        $ref: "#/components/requestBodies/NotAdminOpenDocRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/TextHtmlResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+
+  # --------------------------------------------------------------------------------------------------------
+  /Broker/WebApi/Service?name=userfunc.workflow.Workflow&method=countListWorkflowMessage:
+    post:
+      tags:
+        - NotAdminAPI
+      summary: （管理者権限不要）回付情報件数一覧取得
+      description: |
+        API 実行ユーザーが閲覧可能な回付情報の件数の一覧を取得する API です。
+      operationId: notAdminCountListWorkflowMessage
+      requestBody:
+        $ref: "#/components/requestBodies/NotAdminCountListWorkflowMessageRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/NotAdminCountListWorkflowMessageResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+  
+  # --------------------------------------------------------------------------------------------------------
+  /Broker/WebApi/Service?name=userfunc.workflow.Workflow&method=selectWorkflowMessage:
+    post:
+      tags:
+        - NotAdminAPI
+      summary: （管理者権限不要）回付情報検索
+      description: |
+        API 実行ユーザーが閲覧可能な回付情報の一覧を検索する API です。
+      operationId: selectWorkflowMessage
+      requestBody:
+        $ref: "#/components/requestBodies/NotAdminSelectWorkflowMessageRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/SelectWorkflowMessageResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+
+  # --------------------------------------------------------------------------------------------------
+  /Broker/WebApi/Service?name=userfunc.workflow.Workflow&method=start:
+    post:
+      tags:
+        - NotAdminAPI
+      summary: (管理者権限不要) 書類作成/申請
+      description:
+        API 実行ユーザーが、本人または代理の立場で書類作成/申請を行う API です。<br>
+        作成ステップがある回付ルールの書類を作成/申請する場合、申請ユーザーに設定可能なユーザーは申請ステップの処理者の条件を満たすユーザーに限られます。
+      operationId: notAdminStart
+      requestBody:
+        $ref: "#/components/requestBodies/NotAdminStartRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/ResultStatusResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+  
+  # --------------------------------------------------------------------------------------------------
+  /Broker/WebApi/Service?name=userfunc.org.Org&method=listProxyApplyAppointment:
+    post:
+      tags:
+        - NotAdminAPI
+      summary: (管理者権限不要) 所有している代理申請権限取得API
+      description:
+        API 実行ユーザーの所有している代理申請権限を取得する API です。<br>
+      operationId: notAdminListProxyApplyAppointment
+      requestBody:
+        $ref: "#/components/requestBodies/NotAdminListProxyApplyAppointmentRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/NotAdminListProxyApplyAppointmentResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+  
+  # --------------------------------------------------------------------------------------------------
+  /Broker/WebApi/Service?name=userfunc.org.Org&method=listProxyAppointment:
+    post:
+      tags:
+        - NotAdminAPI
+      summary: (管理者権限不要) 所有している代理承認権限取得API
+      description:
+        API 実行ユーザーの所有している代理承認権限を取得する API です。<br>
+      operationId: notAdminListProxyAppointment
+      requestBody:
+        $ref: "#/components/requestBodies/nonParameter"
+      responses:
+        "200":
+          $ref: "#/components/responses/NotAdminListProxyAppointmentResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+  
+  # --------------------------------------------------------------------------------------------------
+  /Broker/WebApi/Service?name=userfunc.publication.Publication&method=listPublicFolderInfo:
+    post:
+      tags:
+        - NotAdminAPI
+      summary: （管理者権限不要）公開フォルダ・公開フォーム取得
+      description:
+        API 実行ユーザーの公開フォルダ・公開フォーム一覧を取得する API です。<br>
+        リクエストボディの userCode に API 実行ユーザーが代理申請権限を持つユーザーを指定した場合、レスポンスに含まれる公開フォームは代理申請権限のフォーム、回付ルールの条件に合うものに限られます。
+      operationId: notAdminListPublicFolderInfo
+      requestBody:
+        $ref: "#/components/requestBodies/NotAdminListPublicFolderInfoRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/NotAdminListPublicFolderInfoResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+  
+  # --------------------------------------------------------------------------------------------------
+  /Broker/WebApi/Service?name=userfunc.system.System&method=getUserInfo:
+    post:
+      tags:
+        - NotAdminAPI
+      summary: （管理者権限不要）ユーザー情報取得
+      description:
+        API 実行ユーザー自身のユーザー情報を取得する API です。
+      operationId: notAdminGetUserInfo
+      requestBody:
+        $ref: "#/components/requestBodies/nonParameter"
+      responses:
+        "200":
+          $ref: "#/components/responses/NotAdminGetUserInfoResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+  
+  # --------------------------------------------------------------------------------------------------
+  /Broker/WebApi/Service?name=userfunc.system.System&method=getVersion:
+    post:
+      tags:
+        - NotAdminAPI
+      summary: （管理者権限不要）バージョン情報取得
+      description:
+        AgileWorks のバージョン情報を取得する API です。
+      operationId: notAdminGetVersion
+      requestBody:
+        $ref: "#/components/requestBodies/nonParameter"
+      responses:
+        "200":
+          $ref: "#/components/responses/NotAdminGetVersionResponses200"
         "400":
           $ref: "#/components/responses/ErrorResponses400"
         "401":
@@ -3205,6 +3502,13 @@ components:
     # -----------------------------------------------
 
   requestBodies:
+    nonParameter:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties: {}
+    
     docId:
       required: true
       content:
@@ -3223,7 +3527,7 @@ components:
             type: integer
             example: 998
     
-    PrepareDocRequestRequest:
+    PrepareDocRequest:
       content:
         application/json:
           schema:
@@ -3233,7 +3537,25 @@ components:
               - formCode
               - ruleCode
             allOf:
-              - $ref: "#/components/schemas/PrepareDocRequestRequest"
+              - $ref: "#/components/schemas/PrepareDocRequest"
+          example:
+            applyUnitCode: unit01
+            applyUserCode: user01
+            stepCode: 
+            referenceDocId: 
+            formCode: form01
+            ruleCode: rule01
+            criterionDate: 2024-10-31 00:00:00 JST
+    
+    NotAdminPrepareDocRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - formCode
+              - ruleCode
+            allOf:
+              - $ref: "#/components/schemas/NotAdminPrepareDocRequest"
           example:
             applyUnitCode: unit01
             applyUserCode: user01
@@ -3253,6 +3575,67 @@ components:
               - formCode
             allOf:
               - $ref: "#/components/schemas/AddDocRequest"
+          example:
+            publicFormId: 222
+            docData:
+              entryList:
+                entries:
+                  - fieldType: TEXTFIELD
+                    fieldId: textfield1
+                    dataType: STRING
+                    dataValue:
+                      entryList:
+                        entries: []
+                      value: 
+                    name: 文字フィールド１
+                  - fieldType: INTEGERFIELD
+                    fieldId: integerfield1
+                    dataType: INT
+                    dataValue:
+                      entryList:
+                        entries: []
+                      value: 
+                    name: 整数フィールド１
+            id: 
+            formCode: form01
+            criterionDate: 2024-10-31 00:00:00 JST
+            adminNo: 
+            listNames:
+              listName1: 
+              listName2: 
+              listName3: 
+              listName4: 
+              listName5: 
+              listName6: 
+              listName7: 
+              listName8: 
+              listName9: 
+              listName10: 
+              listName11: 
+              listName12: 
+              listName13: 
+              listName14: 
+              listName15: 
+              listName16: 
+              listName17: 
+              listName18: 
+              listName19: 
+              listName20: 
+            version: 
+            owner:
+              code: 
+              type: 
+    
+    NotAdminAddDocRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - publicFormId
+              - docData
+              - formCode
+            allOf:
+              - $ref: "#/components/schemas/NotAdminAddDocRequest"
           example:
             publicFormId: 222
             docData:
@@ -3377,6 +3760,39 @@ components:
           schema:
             allOf:
               - $ref: "#/components/schemas/SelectDocRequest"
+          example:
+            docView: 
+              formCode: form01
+              columnList:
+                entries:
+                  - type: DOC_ID
+                  - type: FIELD
+                    fieldId: textfield1
+            condition:
+              fieldValueConditionList:
+                entries:
+                  - type: FIELD
+                    fieldId: textfield
+                    compareOperatorType: LIKE
+                    value: t
+              relativeConditionList:
+                entries: 
+                  - type: CREATE
+                    userType: USER
+                    userCode: user01
+              logicalOperatirType: AND
+              workflowState: ACTIVE
+              dateCondition:
+                from: 2024-10-31 00:00:00 JST
+                type: APPLY
+              formCode: form01
+    
+    NotAdminSelectDocRequest:
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/NotAdminSelectDocRequest"
           example:
             docView: 
               formCode: form01
@@ -3571,7 +3987,26 @@ components:
             type: object
             pattern: doc.DocHeaderModel
             properties:
-              docId:
+              id:
+                description: 書類ID
+                type: integer
+                example: 999
+              adminNo:
+                description: 書類管理番号
+                type: string
+                example: 100
+    
+    NotAdminOpenDocRequest:
+      content:
+        application/json:
+          schema:
+            description: |
+              いずれかを必ず指定する。<br>
+              両方指定された場合、書類IDを優先する。
+            type: object
+            pattern: doc.notadmin.NotAdminDocHeaderModel
+            properties:
+              id:
                 description: 書類ID
                 type: integer
                 example: 999
@@ -3626,6 +4061,34 @@ components:
                 - userCode: user01
                   workflowMessageType: CONFIRM_REQUEST
     
+    NotAdminCountListWorkflowMessageRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - conditionList
+            type: object
+            pattern: workflow.notadmin.NotAdminCountListWorkflowMessageRequestModel
+            properties:
+              conditionList:
+                description: 回付情報件数の取得条件のリスト
+                type: object
+                pattern: workflow.notadmin.NotAdminWorkflowMessageConditionListModel
+                required:
+                  - entries
+                properties:
+                  entries:
+                    description: 回付情報件数の取得条件
+                    allOf:
+                      - $ref: "#/components/schemas/NotAdminWorkflowMessageRequest"
+          example:
+            conditionList:
+              entries:
+                - userCode: user01
+                  workflowMessageType: APPROVE_REQUEST
+                - userCode: user01
+                  workflowMessageType: CONFIRM_REQUEST
+    
     SelectWorkflowMessageRequest:
       content:
         application/json:
@@ -3645,6 +4108,33 @@ components:
                     type: string
                 allOf:
                   - $ref: "#/components/schemas/WorkflowMessageRequest"
+          example:
+            conditionList:
+              entries:
+                - userCode: user01
+                  workflowMessageType: APPROVE_REQUEST
+                - userCode: user01
+                  workflowMessageType: CONFIRM_REQUEST
+    
+    NotAdminSelectWorkflowMessageRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - condition
+            type: object
+            pattern: workflow.notAdminSelectWorkflowMessageConditionModel
+            properties:
+              condition:
+                description: 回付情報の検索条件
+                type: object
+                pattern: workflow.notadmin.NotAdminCountWorkflowMessageRequestModel
+                properties:
+                  formCode:
+                    description: フォームコード
+                    type: string
+                allOf:
+                  - $ref: "#/components/schemas/NotAdminWorkflowMessageRequest"
           example:
             conditionList:
               entries:
@@ -3700,6 +4190,31 @@ components:
             applyUnitCode: unit01
             applyUserCode: user01
             operateUserCode: user01
+            formCode: form01
+            ruleCode: rule01
+            comment: 申請
+    
+    NotAdminStartRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - docId
+              - formCode
+              - ruleCode
+            type: object
+            pattern: workflow.notadmin.NotAdminStartRequestModel
+            properties:
+              comment:
+                description: コメント
+                type: string
+            allOf:
+              - $ref: "#/components/schemas/NotAdminDraftRequest"
+          example:
+            docId: 999
+            criterionDate: 2024-10-31 00:00:00 JST
+            applyUnitCode: unit01
+            applyUserCode: user01
             formCode: form01
             ruleCode: rule01
             comment: 申請
@@ -4559,6 +5074,21 @@ components:
                 description: |
                   適用終了日<br>
                   *null の場合は 2060/12/31 に設定
+                type: string
+                pattern: ^((19|20)[0-9]{2})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) JST$
+                example: 2024-12-31 00:00:00 JST
+    
+    NotAdminListProxyApplyAppointmentRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            pattern: org.notadmin.NotAdminListProxyApplicationAppointmentRequestModel
+            properties:
+              criterionDate:
+                description: |
+                  基準日<br>
+                  *未指定の場合は、現在日付
                 type: string
                 pattern: ^((19|20)[0-9]{2})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) JST$
                 example: 2024-12-31 00:00:00 JST
@@ -5450,6 +5980,25 @@ components:
                 pattern: ^((19|20)[0-9]{2})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) JST$
                 example: 2024-10-31 00:00:00 JST
     
+    NotAdminListPublicFolderInfoRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            pattern: publication.notadmin.NotAdminListPublicFolderInfoRequestModel
+            properties:
+              userCode:
+                description: ユーザーコード
+                type: string
+                example: user01
+              criterionDate:
+                description: |
+                  基準日<br>
+                  *未指定の場合は現在日付
+                type: string
+                pattern: ^((19|20)[0-9]{2})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) JST$
+                example: 2024-10-31 00:00:00 JST
+    
     SCIMPostUsersRequest:
       content:
         application/json:
@@ -5872,9 +6421,24 @@ components:
               - $ref: "#/components/schemas/DocResponse"
           examples:
             正常:
-              $ref: "#/components/examples/responseSuccessDoc"
+              $ref: "#/components/examples/SuccessDocResponse"
             パラメータが不正:
-              $ref: "#/components/examples/responseErrorDoc"
+              $ref: "#/components/examples/ErrorDocResponse"
+            リクエストが不正:
+              $ref: "#/components/examples/responseErrorRequest"
+    
+    NotAdminDocResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/NotAdminDocResponse"
+          examples:
+            正常:
+              $ref: "#/components/examples/SuccessDocResponse"
+            パラメータが不正:
+              $ref: "#/components/examples/ErrorDocResponse"
             リクエストが不正:
               $ref: "#/components/examples/responseErrorRequest"
     
@@ -5887,9 +6451,24 @@ components:
               - $ref: "#/components/schemas/PrepareDocResponse"
           examples:
             正常:
-              $ref: "#/components/examples/responseSuccessDoc"
+              $ref: "#/components/examples/SuccessDocResponse"
             パラメータが不正:
-              $ref: "#/components/examples/responseErrorDoc"
+              $ref: "#/components/examples/ErrorDocResponse"
+            リクエストが不正:
+              $ref: "#/components/examples/responseErrorRequest"
+    
+    NotAdminPrepareDocResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/NotAdminPrepareDocResponse"
+          examples:
+            正常:
+              $ref: "#/components/examples/SuccessDocResponse"
+            パラメータが不正:
+              $ref: "#/components/examples/ErrorDocResponse"
             リクエストが不正:
               $ref: "#/components/examples/responseErrorRequest"
     
@@ -6716,6 +7295,70 @@ components:
                   entries:
                     - count: 1
                     - count: 2
+                resultStatus: 
+                  status: SUCCESS
+                  messageList: 
+                    entries: []
+                  text: 
+                  code: 
+            パラメータが不正:
+              value:
+                countList:
+                  entries: []
+                resultStatus: 
+                  status: FAIL
+                  messageList: 
+                    entries: 
+                      - text: "{エラーメッセージ}"
+                        code: "{エラーコード}"
+                  text: サービス実行時にエラーが発生しました。
+                  code: AWPCMN0000
+            リクエストが不正:
+              $ref: "#/components/examples/responseErrorRequest"
+    
+    NotAdminCountListWorkflowMessageResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            pattern: workflow.notadmin.NotAdminCountListResponseModel
+            properties:
+              countList:
+                description: 指定した回付情報の件数の一覧
+                type: object
+                pattern: workflow.notadmin.NotAdminCountListModel
+                properties:
+                  entries:
+                    description: 書類情報
+                    type: array
+                    items:
+                      type: object
+                      pattern: workflow.notadmin.NotAdminCountModel
+                      properties:
+                        code:
+                          allOf:
+                            - $ref: "#/components/schemas/workflowMessageType"
+                        name:
+                          description: 回付情報の名称
+                          type: string
+                        count:
+                          description: 件数
+                          type: integer
+              resultStatus:
+                allOf:
+                  - $ref: "#/components/schemas/resultStatus"
+          examples:
+            正常:
+              value:
+                countList:
+                  entries:
+                    - code: APPROVE_REQUEST
+                      name: 承認依頼
+                      count: 1
+                    - code: CONFIRM_REQUEST
+                      name: 報告確認
+                      count: 2
                 resultStatus: 
                   status: SUCCESS
                   messageList: 
@@ -8230,6 +8873,56 @@ components:
             リクエストが不正:
               $ref: "#/components/examples/responseErrorRequest"
     
+    NotAdminListProxyApplyAppointmentResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/NotAdminListProxyApplyAppointmentResponse"
+          examples:
+            正常:
+              value:
+                proxyApplicationAppointmentList:
+                  entries:
+                    - id: 999
+                      proxyUserCode: user01
+                      principalUserCode: user01
+                      principalUnitCode: unit01
+                      formType: All
+                      targetFormList:
+                        entries:
+                          - formCode: form01
+                      ruleType: All
+                      targetRuleList:
+                        entries:
+                          - ruleCode: rule01
+                      criterionDate: 2024-12-31 00:00:00 JST
+                      availableDateFrom: 1900-01-01 00:00:00 JST
+                      availableDateTo: 2060-12-31 00:00:00 JST
+                      isDisplayCreateMenu: true
+                      sortNo: null
+                resultStatus: 
+                  status: SUCCESS
+                  messageList: 
+                    entries: []
+                  text: 
+                  code: 
+            パラメータが不正:
+              value:
+                proxyApplicationAppointmentList:
+                  entries: [] 
+                resultStatus: 
+                  status: FAIL
+                  messageList: 
+                    entries: 
+                      - text: "{エラーメッセージ}"
+                        code: "{エラーコード}"
+                  text: サービス実行時にエラーが発生しました。
+                  code: AWPCMN0000
+            リクエストが不正:
+              $ref: "#/components/examples/responseErrorRequest"
+    
     ProxyAppointmentResponses200:
       description: Successful response
       content:
@@ -8393,6 +9086,45 @@ components:
                         code: "{エラーコード}"
                   text: サービス実行時にエラーが発生しました。
                   code: AWPCMN0000
+            リクエストが不正:
+              $ref: "#/components/examples/responseErrorRequest"
+    
+    NotAdminListProxyAppointmentResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/NotAdminListProxyAppointmentResponse"
+          examples:
+            正常:
+              value:
+                proxyAppointmentList:
+                  entries:
+                    - id: 999
+                      proxyUserCode: user01
+                      principalUserCode: user01
+                      principalUnitCode: unit01
+                      formType: All
+                      targetFormList:
+                        entries:
+                          - formCode: form01
+                      ruleType: All
+                      targetRuleList:
+                        entries:
+                          - ruleCode: rule01
+                      criterionDate: 2024-12-31 00:00:00 JST
+                      availableDateFrom: 1900-01-01 00:00:00 JST
+                      availableDateTo: 2060-12-31 00:00:00 JST
+                      isDisplayTodoMenu: true
+                      isSendNotification: true
+                      sortNo: null
+                resultStatus: 
+                  status: SUCCESS
+                  messageList: 
+                    entries: []
+                  text: 
+                  code: 
             リクエストが不正:
               $ref: "#/components/examples/responseErrorRequest"
     
@@ -9484,64 +10216,92 @@ components:
               - $ref: "#/components/schemas/ListPublicFolderInfoResponse"
           examples:
             正常:
+              $ref: "#/components/examples/ListPublicFolderInfoSuccessResponse"
+            パラメータが不正:
+              $ref: "#/components/examples/ListPublicFolderInfoErrorResponse"
+            リクエストが不正:
+              $ref: "#/components/examples/responseErrorRequest"
+    
+    NotAdminListPublicFolderInfoResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/NotAdminListPublicFolderInfoResponse"
+          examples:
+            正常:
+              $ref: "#/components/examples/ListPublicFolderInfoSuccessResponse"
+            パラメータが不正:
+              $ref: "#/components/examples/ListPublicFolderInfoErrorResponse"
+            リクエストが不正:
+              $ref: "#/components/examples/responseErrorRequest"
+    
+    NotAdminGetUserInfoResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/NotAdminGetUserInfoResponse"
+          examples:
+            正常:
               value:
-                publicFolderList:
-                  entries:
-                    - name: 総務・勤怠管理
-                      id: 1
-                      code: soumu
-                      publicFormList:
-                        entries:
-                          - formCode: B01
-                            formName: B01身上報告書
-                            ruleCode: soumu
-                            ruleName: 総務汎用ルール
-                          - formCode: B02
-                            formName: B02届出事項変更届
-                            ruleCode: soumu
-                            ruleName: 総務汎用ルール
-                      publicFolderList:
-                        entries:
-                          - name: 勤怠
-                            id: 3
-                            code: kintai
-                            publicFormList:
-                              entries:
-                                - formCode: A083
-                                  formName: A083休暇届
-                                  ruleCode: soumu
-                                  ruleName: 総務汎用ルール
-                            publicFolderList:
-                              entries: []
-                    - name: 財務・経理
-                      id: 2
-                      code: zaimukanri
-                      publicFormList:
-                        entries:
-                          - formCode: shutyo_seisan
-                            formName: 出張仮払精算書
-                            ruleCode: shutyo_seisan
-                            ruleName: 出張清算フロー
-                      publicFolderList:
-                        entries: []
+                userInfo:
+                  user:
+                    code: user001
+                    name: 寺崎啓一
+                    loginId: user001
+                    displayLanguage: ja
+                  unit:
+                    entries:
+                      - code: unit001 
+                        name: 組織1
+                        isMainUnit: false
+                        sectionRoleCode: srole01
+                        sectionRoleName: セクションロール1  
+                      - code: unit002
+                        name: 組織2
+                        isMainUnit: false
+                        sectionRoleCode: srole02
+                        sectionRoleName: セクションロール2
+                  role:
+                    entries:
+                      - type: universalRole
+                        code: urole01
+                        name: ユニバーサルロール
+                      - type: privateRole
+                        code: prole01
+                        name: プライベートロール
+                systemName: AgileWorks
                 resultStatus: 
                   status: SUCCESS
                   messageList: 
                     entries: []
                   text: 
                   code: 
-            パラメータが不正:
+            リクエストが不正:
+              $ref: "#/components/examples/responseErrorRequest"
+    
+    NotAdminGetVersionResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/NotAdminGetVersionResponse"
+          examples:
+            正常:
               value:
-                publicFolderList:
-                  entries: []
+                versionInfo:
+                  version: 3.1.1
+                  buildNumber: 9999999
                 resultStatus: 
-                  status: FAIL
+                  status: SUCCESS
                   messageList: 
-                    entries: 
-                      - text: "{エラーメッセージ}"
-                        code: "{エラーコード}"
-                  text: サービス実行時にエラーが発生しました。
-                  code: AWPCMN0000
+                    entries: []
+                  text: 
+                  code: 
             リクエストが不正:
               $ref: "#/components/examples/responseErrorRequest"
     
@@ -9949,6 +10709,52 @@ components:
         listNames20:
           type: string
     
+    NotAdminListNames:
+      description: 件名項目
+      type: object
+      pattern: doc.notadmin.NotAdminDocListNamesModel
+      properties:
+        listNames1:
+          type: string
+        listNames2:
+          type: string
+        listNames3:
+          type: string
+        listNames4:
+          type: string
+        listNames5:
+          type: string
+        listNames6:
+          type: string
+        listNames7:
+          type: string
+        listNames8:
+          type: string
+        listNames9:
+          type: string
+        listNames10:
+          type: string
+        listNames11:
+          type: string
+        listNames12:
+          type: string
+        listNames13:
+          type: string
+        listNames14:
+          type: string
+        listNames15:
+          type: string
+        listNames16:
+          type: string
+        listNames17:
+          type: string
+        listNames18:
+          type: string
+        listNames19:
+          type: string
+        listNames20:
+          type: string
+
     reserveItems:
       description: 拡張項目
       type: object
@@ -10033,6 +10839,162 @@ components:
       type: string
       pattern: common.EnumDataType
     
+    workflowMessageType:
+      description: |
+        回付情報タイプ<br>
+        指定可能な値<br>
+        |パラメータ|説明|
+        |----|----|
+        |APPLY_REQUEST|申請依頼|
+        |APPROVE_REQUEST|承認依頼|
+        |CONFIRM_REQUEST|報告依頼|
+        |PREPARE|下書き|
+        |REMANDED|差戻し|
+        |REMIND_EXIST|督促あり|
+        |REQUEST_POSSIBLE|回付予定|
+      type: string
+      pattern: workflow.EnumWorkflowMessageType
+    
+    EnumObjectTargetType:
+      description: |
+        対象フォームの指定<br>
+        |パラメータ|説明|
+        |----|----|
+        |ALL|全て|
+        |Specify|指定|
+      type: string
+      pattern: org.notadmin.NotAdminEnumObjectTargetType
+    
+    EnumDocViewColumnType:
+      description: |
+        列項目タイプ<br>
+        指定可能な値<br>
+        |パラメータ|値|
+        |----|----|
+        |FIELD|書類のフィールド|
+        |GROUP_FIELD|書類の表明細フィールド|
+        |DOC_ID|書類ID|
+        |DOC_ADMIN_NO|書類管理番号|
+        |DOC_LISTNAME1～20|件名項目１～２０|
+        |DOC_FULL_VERSION|書類バージョン|
+        |DOC_EXIST_ATTACHMENT|添付有無|
+        |DOC_EXIST_COMMENT|コメント有無|
+        |DOC_REFERENCE_STATUS|関連書類有無|
+        |FORM_CODE|フォームコード|
+        |FORM_NAME|フォーム名|
+        |FORM_STATUS|フォームバージョン|
+        |RULE_CODE|回付ルールコード|
+        |RULE_NAME|回付ルール名|
+        |FLOW_STATUS|書類状態|
+        |FLOW_CURRENTSTEP_NAME|現在のステップ|
+        |FLOW_CRITERION_DATE|基準日|
+        |FLOW_FIX_DATE|承認完了日時|
+        |CREATOR_UNIT_CODE|作成者組織コード|
+        |CREATOR_UNIT_NAME|作成者組織名|
+        |CREATOR_ROLE_CODE|作成者ロールコード|
+        |CREATOR_ROLE_NAME|作成者ロール名|
+        |CREATOR_USER_CODE|作成者コード|
+        |CREATOR_USER_NAME|作成者名|
+        |CREATE_DATE|作成日時|
+        |APPLY_UNIT_CODE|申請者組織コード|
+        |APPLY_UNIT_NAME|申請者組織名|
+        |APPLY_ROLE_CODE|申請者ロールコード|
+        |APPLY_ROLE_NAME|申請者ロール名|
+        |APPLY_USER_CODE|申請者コード|
+        |APPLY_USER_NAME|申請者名|
+        |APPLY_DATE|申請日時|
+        |LASTOPERATOR_UNIT_CODE|最終処理者組織コード|
+        |LASTOPERATOR_UNIT_NAME|最終処理者組織名|
+        |LASTOPERATOR_ROLE_CODE|最終処理者ロールコード|
+        |LASTOPERATOR_ROLE_NAME|最終処理者ロール名|
+        |LASTOPERATOR_USER_CODE|最終処理者コード|
+        |LASTOPERATOR_USER_NAME|最終処理者名|
+        |LASTOPERATOR_DATE|最終処理日時|
+      type: string
+      pattern: doc.EnumDocViewColumnType
+    
+    EnumWorkflowStateType:
+      description: |
+        書類状態<br>
+        指定可能な値<br>
+        |パラメータ|説明|
+        |----|----|
+        |PREPARE|下書き|
+        |ACTIVE|回付中|
+        |APPROVED|承認完了|
+        |REJECTED|却下|
+        |CANCELED|取り下げ|
+        |DELETED|削除|
+      type: string
+      pattern: workflow.EnumWorkflowStateType
+    
+    EnumDateConditionType:
+      description: |
+        日付タイプ<br>
+        指定可能な値<br>
+        |パラメータ|説明|
+        |----|----|
+        |APPLY|申請日|
+        |CRITERION|基準日|
+        |APPROVED|承認完了日|
+        |REGISTRATION|作成日|
+        |MODIFY|最終適用終了日|
+      type: string
+      pattern: doc.EnumDateConditionType
+    
+    EnumRangeType:
+      description: |
+        日付範囲タイプ<br>
+        指定可能な値<br>
+        |パラメータ|説明|
+        |----|----|
+        |ABSOLUTE_DATE|日付指定|
+        |RELATIVE_DAY|日付指定(日)|
+        |RELATIVE_MONTH|日付指定(月)|
+      type: string
+      pattern: doc.EnumRangeType
+    
+    EnumRelativeType:
+      description: |
+        関連タイプ<br>
+        指定可能な値<br>
+        |パラメータ|説明|
+        |----|----|
+        |OWNER|書類オーナ|
+        |CREATE|作成|
+        |APPLY|申請|
+        |APPROVE|承認|
+        |PROXY_APPROVE|代理承認|
+        |PRINCIPAL_APPROVE|被代理承認|
+        |REJECT|却下|
+        |CANCEL|取下げ|
+      type: string
+      pattern: EnumRelativeType
+    
+    EnumRelativeUserType:
+      description: |
+        ユーザータイプ<br>
+        指定可能な値<br>
+        |パラメータ|説明|
+        |----|----|
+        |UNIT_APPOINTMENT|組織+ユーザ|
+        |UNIT|組織|
+        |USER|ユーザ|
+        |LOGIN_USER|ログインユーザ(WebAPI実行ユーザ)|
+      type: string
+      pattern: EnumRelativeUserType
+
+    EnumFieldValueType:
+      description: |
+        フィールド値タイプ<br>
+        指定可能な値<br>
+        |パラメータ|説明|
+        |----|----|
+        |FIELD|書類のフィールド|
+        |LISTNAME1～20|件名項目１～２０|
+      type: string
+      pattern: doc.EnumFieldValueType
+    
     targetFormList:
       description: 対象フォーム一覧
       type: object
@@ -10048,6 +11010,23 @@ components:
               formCode:
                 description: フォームコード
                 type: string
+    
+    notAdminTargetFormList:
+      description: 対象フォーム一覧
+      type: object
+      pattern: org.notadmin.NotAdminTargetFormListModel
+      properties:
+        entries:
+          description: フォームコードのリスト
+          type: array
+          items:
+            type: object
+            pattern: org.notadmin.NotAdminTargetFormModel
+            properties:
+              formCode:
+                description: フォームコード
+                type: string
+    
     targetRuleList:
       description: 対象回付ルール一覧
       type: object
@@ -10059,6 +11038,22 @@ components:
           items:
             type: object
             pattern: org.TargetRuleModel
+            properties:
+              ruleCode:
+                description: 回付ルールコード
+                type: string
+    
+    notAdminTargetRuleList:
+      description: 対象回付ルール一覧
+      type: object
+      pattern: org.notadmin.NotAdminTargetRuleListModel
+      properties:
+        entries:
+          description: 回付ルールコードのリスト
+          type: array
+          items:
+            type: object
+            pattern: org.notadmin.NotAdminTargetRuleModel
             properties:
               ruleCode:
                 description: 回付ルールコード
@@ -10095,7 +11090,7 @@ components:
           description: 結果コード
           type: string
     
-    PrepareDocRequestRequest:
+    PrepareDocRequest:
       type: object
       pattern: doc.PrepareDocRequestModel
       properties:
@@ -10124,6 +11119,36 @@ components:
           type: string
           pattern: ^((19|20)[0-9]{2})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) JST$
     
+    NotAdminPrepareDocRequest:
+      type: object
+      pattern: doc.notAdmin.NotAdminPrepareDocRequestModel
+      properties:
+        applyUnitCode:
+          description: |
+            申請組織コード<br>
+            *指定しない場合、API実行ユーザーの主務組織になります。
+          type: string
+        applyUserCode:
+          description: |
+            申請ユーザーコード<br>
+            *指定しない場合、API実行ユーザーになります。
+          type: string
+        referenceDocId:
+          description: 参照元書類ID
+          type: integer
+        formCode:
+          description: フォームコード
+          type: string
+        ruleCode:
+          description: 回付ルールコード
+          type: string
+        criterionDate:
+          description: |
+            基準日<br>
+            *未指定の場合は現在日付
+          type: string
+          pattern: ^((19|20)[0-9]{2})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) JST$
+    
     AddDocRequest:
       type: object
       pattern: doc.DocModel
@@ -10145,12 +11170,13 @@ components:
             entryList:
               description: 各フィールドのデータ
               type: object
-              pattern: doc.DocDataEntryModel
+              pattern: doc.DocDataEntryListModel
               properties:
                 entries:
                   type: array
                   items:
                     type: object
+                    pattern: doc.DocDataEntryModel
                     required:
                       - name
                       - fieldType
@@ -10231,6 +11257,94 @@ components:
             *nullを指定
           type: object
           pattern: doc.DocOwnerModel
+    
+    NotAdminAddDocRequest:
+      type: object
+      pattern: doc.notadmin.NotAdminDocModel
+      properties:
+        publicFormId:
+          description: |
+            書類ID<br>
+            *「新規書類データ作成API」で取得した値を指定
+          type: string
+        docData:
+          description: |
+            書類データ<br>
+            *「新規書類データ作成API」で取得した値に対し、任意の値を指定
+          type: object
+          pattern: doc.notadmin.NotAdminDocDataModel
+          required:
+            - entryList
+          properties:
+            entryList:
+              description: 各フィールドのデータ
+              type: object
+              pattern: doc.notadmin.NotAdminDocDataEntryListModel
+              properties:
+                entries:
+                  type: array
+                  items:
+                    type: object
+                    pattern: doc.notadmin.NotAdminDocDataEntryModel
+                    required:
+                      - name
+                      - fieldType
+                      - fieldId
+                      - dataType
+                    properties:
+                      name:
+                        description: |
+                          フィールド名<br>
+                          *「新規書類データ作成API」で取得した値を指定
+                        type: string
+                      fieldType:
+                        description: |
+                          フィールドタイプ<br>
+                          *「新規書類データ作成API」で取得した値を指定
+                        type: string
+                      fieldId:
+                        description: |
+                          フィールドID<br>
+                          *「新規書類データ作成API」で取得した値を指定
+                        type: string
+                      dataType:
+                        description: |
+                          データタイプ<br>
+                          *「新規書類データ作成API」で取得した値を指定
+                        type: string
+                      dataValue:
+                        description: |
+                          フィールドの値<br>
+                          *任意の値を指定
+                        type: object
+                        pattern: doc.notadmin.NotAdminDocDataValueModel
+                        properties:
+                          value:
+                            description: |
+                              フィールドの値<br>
+                              *任意の値を指定<br>
+                              *通常フィールドの場合のみ
+                          entryList:
+                            description: |
+                              表明細フィールドのリスト<br>
+                              *任意の値を指定<br>
+                              *表明細フィールドの場合のみ
+                            type: object
+                            pattern: doc.notadmin.NotAdminDocDataEntryModel
+        formCode:
+          description: |
+            フォームコード<br>
+            *「新規書類データ作成API」で取得した値を指定
+        criterionDate:
+          description: 基準日
+          type: string
+          pattern: ^((19|20)[0-9]{2})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) JST$
+        listNames:
+          description: |
+            件名項目<br>
+            *「新規書類データ作成API」で取得した値を指定
+          type: object
+          pattern: doc.notadmin.NotAdminDocListNamesModel
     
     UpdateDocRequest:
       type: object
@@ -10350,6 +11464,8 @@ components:
         docView:
           description: 一覧のビュー定義
           type: object
+          required:
+            - formCode
           pattern: doc.DocViewModel
           properties:
             formCode:
@@ -10370,52 +11486,8 @@ components:
                     pattern: doc.DocViewColumnModel
                     properties:
                       type: 
-                        description: |
-                          列項目タイプ<br>
-                          指定可能な値<br>
-                          |パラメータ|値|
-                          |----|----|
-                          |FIELD|書類のフィールド|
-                          |GROUP_FIELD|書類の表明細フィールド|
-                          |DOC_ID|書類ID|
-                          |DOC_ADMIN_NO|書類管理番号|
-                          |DOC_LISTNAME1～20|件名項目１～２０|
-                          |DOC_FULL_VERSION|書類バージョン|
-                          |DOC_EXIST_ATTACHMENT|添付有無|
-                          |DOC_EXIST_COMMENT|コメント有無|
-                          |DOC_REFERENCE_STATUS|関連書類有無|
-                          |FORM_CODE|フォームコード|
-                          |FORM_NAME|フォーム名|
-                          |FORM_STATUS|フォームバージョン|
-                          |RULE_CODE|回付ルールコード|
-                          |RULE_NAME|回付ルール名|
-                          |FLOW_STATUS|書類状態|
-                          |FLOW_CURRENTSTEP_NAME|現在のステップ|
-                          |FLOW_CRITERION_DATE|基準日|
-                          |FLOW_FIX_DATE|承認完了日時|
-                          |CREATOR_UNIT_CODE|作成者組織コード|
-                          |CREATOR_UNIT_NAME|作成者組織名|
-                          |CREATOR_ROLE_CODE|作成者ロールコード|
-                          |CREATOR_ROLE_NAME|作成者ロール名|
-                          |CREATOR_USER_CODE|作成者コード|
-                          |CREATOR_USER_NAME|作成者名|
-                          |CREATE_DATE|作成日時|
-                          |APPLY_UNIT_CODE|申請者組織コード|
-                          |APPLY_UNIT_NAME|申請者組織名|
-                          |APPLY_ROLE_CODE|申請者ロールコード|
-                          |APPLY_ROLE_NAME|申請者ロール名|
-                          |APPLY_USER_CODE|申請者コード|
-                          |APPLY_USER_NAME|申請者名|
-                          |APPLY_DATE|申請日時|
-                          |LASTOPERATOR_UNIT_CODE|最終処理者組織コード|
-                          |LASTOPERATOR_UNIT_NAME|最終処理者組織名|
-                          |LASTOPERATOR_ROLE_CODE|最終処理者ロールコード|
-                          |LASTOPERATOR_ROLE_NAME|最終処理者ロール名|
-                          |LASTOPERATOR_USER_CODE|最終処理者コード|
-                          |LASTOPERATOR_USER_NAME|最終処理者名|
-                          |LASTOPERATOR_DATE|最終処理日時|
-                        type: string
-                        pattern: doc.EnumDocViewColumnType
+                        allOf:
+                        - $ref: "#/components/schemas/EnumDocViewColumnType"
                       fieldId:
                         description: フィールドID
                         type: string
@@ -10447,19 +11519,8 @@ components:
               description: 回付ルールステップコード
               type: string
             workflowState:
-              description: |
-                書類状態<br>
-                指定可能な値<br>
-                |パラメータ|説明|
-                |----|----|
-                |PREPARE|下書き|
-                |ACTIVE|回付中|
-                |APPROVED|承認完了|
-                |REJECTED|却下|
-                |CANCELED|取り下げ|
-                |DELETED|削除|
-              type: string
-              pattern: workflow.EnumWorkflowStateType
+              allOf:
+                - $ref: "#/components/schemas/EnumWorkflowStateType"
             listNameKeyword:
               description: 件名キーワード
               type: string
@@ -10469,29 +11530,11 @@ components:
               pattern: doc.DateConditionModel
               properties:
                 type:
-                  description: |
-                    日付タイプ<br>
-                    指定可能な値<br>
-                    |パラメータ|説明|
-                    |----|----|
-                    |APPLY|申請日|
-                    |CRITERION|基準日|
-                    |APPROVED|承認完了日|
-                    |REGISTRATION|作成日|
-                    |MODIFY|最終適用終了日|
-                  type: string
-                  pattern: doc.EnumDateConditionType
+                  allOf:
+                    - $ref: "#/components/schemas/EnumDateConditionType"
                 rangeType:
-                  description: |
-                    日付範囲タイプ<br>
-                    指定可能な値<br>
-                    |パラメータ|説明|
-                    |----|----|
-                    |ABSOLUTE_DATE|日付指定|
-                    |RELATIVE_DAY|日付指定(日)|
-                    |RELATIVE_MONTH|日付指定(月)|
-                  type: string
-                  pattern: doc.EnumRangeType
+                  allOf:
+                    - $ref: "#/components/schemas/EnumRangeType"
                 from:
                   description: 日付指定の開始日
                   type: string
@@ -10543,21 +11586,8 @@ components:
                     pattern: doc.FieldValueConditionModel
                     properties:
                       type:
-                        description: |
-                          関連タイプ<br>
-                          指定可能な値<br>
-                          |パラメータ|説明|
-                          |----|----|
-                          |OWNER|書類オーナ|
-                          |CREATE|作成|
-                          |APPLY|申請|
-                          |APPROVE|承認|
-                          |PROXY_APPROVE|代理承認|
-                          |PRINCIPAL_APPROVE|被代理承認|
-                          |REJECT|却下|
-                          |CANCEL|取下げ|
-                        type: string
-                        pattern: EnumRelativeType
+                        allOf:
+                          - $ref: "#/components/schemas/EnumRelativeType"
                       unitCode:
                         description: 組織コード
                         type: integer
@@ -10565,17 +11595,8 @@ components:
                         description: ユーザーコード
                         type: integer
                       userType:
-                        description: |
-                          ユーザータイプ<br>
-                          指定可能な値<br>
-                          |パラメータ|説明|
-                          |----|----|
-                          |UNIT_APPOINTMENT|組織+ユーザ|
-                          |UNIT|組織|
-                          |USER|ユーザ|
-                          |LOGIN_USER|ログインユーザ(WebAPI実行ユーザ)|
-                        type: string
-                        pattern: EnumRelativeUserType
+                        allOf:
+                          - $ref: "#/components/schemas/EnumRelativeUserType"
             logicalOperatorType:
               description: |
                 フィールド値条件全体の AND / OR<br>
@@ -10593,15 +11614,8 @@ components:
                     pattern: doc.FieldValueConditionModel
                     properties:
                       type:
-                        description: |
-                          フィールド値タイプ<br>
-                          指定可能な値<br>
-                          |パラメータ|説明|
-                          |----|----|
-                          |FIELD|書類のフィールド|
-                          |LISTNAME1～20|件名項目１～２０|
-                        type: string
-                        pattern: doc.EnumFieldValueType
+                        allOf:
+                          - $ref: "#/components/schemas/EnumFieldValueType"
                       fieldId:
                         description: フィールドID
                         type: string
@@ -10621,6 +11635,196 @@ components:
               description: 全文検索条件
               type: object
               pattern: doc.FulltextSearchConditionModel
+              properties:
+                logicalOperatorType:
+                  description: |
+                    全文検索条件全体の AND / OR<br>
+                    *AND または OR を指定
+                  type: string
+                docContentQuery:
+                  description: 書類内容[全文検索]
+                  type: string
+                attachmentFilenameQuery:
+                  description: 添付ファイルの名称[全文検索]
+                  type: string
+                attachmentContentQuery:
+                  description: 添付ファイルの内容[全文検索]
+    
+    NotAdminSelectDocRequest:
+      type: object
+      pattern: doc.notadmin.NotAdminSelectDocRequestModel
+      properties:
+        docView:
+          description: 一覧のビュー定義
+          type: object
+          pattern: doc.notadmin.NotAdminDocViewModel
+          required:
+            - formCode
+          properties:
+            formCode:
+              description: フォームコード
+              type: string
+            groupFormFieldId:
+              description: 表明細フィールドID
+              type: string
+            columnList:
+              description: 列項目リスト
+              type: object
+              pattern: doc.notadmin.NotAdminDocViewColumnListModel
+              properties:
+                entries:
+                  type: array
+                  items:
+                    type: object
+                    pattern: doc.notadmin.NotAdminDocViewColumnModel
+                    properties:
+                      type: 
+                        allOf:
+                        - $ref: "#/components/schemas/EnumDocViewColumnType"
+                      fieldId:
+                        description: フィールドID
+                        type: string
+        condition:
+          description: 書類の検索条件
+          type: object
+          pattern: doc.notadmin.NotAdminSelectDocConditionModel
+          properties:
+            criterionDate:
+              description: 基準日
+              type: string
+              pattern: ^((19|20)[0-9]{2})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) JST$
+            docid:
+              description: 書類ID
+              type: integer
+            adminNo:
+              description: 書類管理番号
+              type: string
+            formCode:
+              description: フォームコード
+              type: string
+            ruleCode:
+              description: 回付ルールコード
+              type: string
+            ruleStepCode:
+              description: 回付ルールステップコード
+              type: string
+            workflowState:
+              allOf:
+                - $ref: "#/components/schemas/EnumWorkflowStateType"
+            listNameKeyword:
+              description: 件名キーワード
+              type: string
+            dateCondition:
+              description: 日付条件
+              type: object
+              pattern: doc.notadmin.NotAdminDateConditionModel
+              properties:
+                type:
+                  allOf:
+                    - $ref: "#/components/schemas/EnumDateConditionType"
+                rangeType:
+                  allOf:
+                    - $ref: "#/components/schemas/EnumRangeType"
+                from:
+                  description: 日付指定の開始日
+                  type: string
+                  pattern: ^((19|20)[0-9]{2})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) JST$
+                to:
+                  description: 日付指定の終了日
+                  type: string
+                  pattern: ^((19|20)[0-9]{2})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) JST$
+                dayFrom:
+                  description: |
+                    日付指定(日)の開始日数<br>
+                    *0～9999
+                  type: integer
+                dayTo:
+                  description: |
+                    日付指定(日)の終了日数<br>
+                    *0～9999
+                  type: integer
+                monthFrom:
+                  description: |
+                    日付指定(月)の開始月数<br>
+                    *0～999
+                  type: integer
+                monthTo:
+                  description: |
+                    日付指定(月)の終了月数<br>
+                    *0～999
+                  type: integer
+                monthDayFrom:
+                  description: |
+                    日付指定(月)の開始日<br>
+                    *1～31<br>
+                    *存在しない日の場合は月末に丸められます
+                  type: integer
+                monthDayTo:
+                  description: |
+                    日付指定(月)の終了日<br>
+                    *1～31<br>
+                    *存在しない日の場合は月末に丸められます
+            relativeConditionList:
+              description: ユーザー関連条件リスト
+              type: object
+              pattern: doc.notadmin.NotAdminRelativeConditionModel
+              properties:
+                entries:
+                  type: array
+                  items:
+                    type: object
+                    pattern: doc.notadmin.NotAdminFieldValueConditionModel
+                    properties:
+                      type:
+                        allOf:
+                          - $ref: "#/components/schemas/EnumRelativeType"
+                      unitCode:
+                        description: 組織コード
+                        type: integer
+                      userCode:
+                        description: ユーザーコード
+                        type: integer
+                      userType:
+                        allOf:
+                          - $ref: "#/components/schemas/EnumRelativeUserType"
+            logicalOperatorType:
+              description: |
+                フィールド値条件全体の AND / OR<br>
+                *AND または OR を指定
+              type: string
+            fieldValueConditionList:
+              description: フィールド値条件リスト
+              type: object
+              pattern: doc.notadmin.NotAdminFieldValueConditionListModel
+              properties:
+                entries:
+                  type: array
+                  items:
+                    type: object
+                    pattern: doc.notadmin.NotAdminFieldValueConditionModel
+                    properties:
+                      type:
+                        allOf:
+                          - $ref: "#/components/schemas/EnumFieldValueType"
+                      fieldId:
+                        description: フィールドID
+                        type: string
+                      compareOperatorType:
+                        allOf:
+                          - $ref: "#/components/schemas/compareOperatorType"
+                      value:
+                        description: 値
+                        type: string
+                      valueFrom:
+                        description: 値(From)
+                        type: string
+                      valueTo:
+                        description: 値(To)
+                        type: string
+            fulltextSearchCondition:
+              description: 全文検索条件
+              type: object
+              pattern: doc.notadmin.NotAdminFulltextSearchConditionModel
               properties:
                 logicalOperatorType:
                   description: |
@@ -10791,9 +11995,28 @@ components:
           description: ユーザーコード
           type: string
         workflowMessageType:
+          allOf:
+            - $ref: "#/components/schemas/workflowMessageType"
+    
+    NotAdminWorkflowMessageRequest:
+      type: object
+      pattern: workflow.notadmin.NotAdminWorkflowMessageConditionModel
+      required:
+        - workflowMessageType
+      properties:
+        userCode:
+          description: |
+            ユーザーコード<br>
+            下記のいずれかを指定<br>
+            ・API 実行ユーザー<br>
+            ・API 実行ユーザーの代理元承認ユーザー<br>
+            *未指定の場合は、API 実行ユーザー
+          type: string
+        workflowMessageType:
           description: |
             回付情報タイプ<br>
             指定可能な値<br>
+            userCodeがAPI実行ユーザーの場合<br>
             |パラメータ|説明|
             |----|----|
             |APPLY_REQUEST|申請依頼|
@@ -10803,6 +12026,13 @@ components:
             |REMANDED|差戻し|
             |REMIND_EXIST|督促あり|
             |REQUEST_POSSIBLE|回付予定|
+            <br>
+            userCodeがAPI実行ユーザーの代理承認元ユーザーの場合<br>
+            |パラメータ|説明|
+            |----|----|
+            |APPROVE_REQUEST|承認依頼|
+            |CONFIRM_REQUEST|報告依頼|
+            |REMANDED|差戻し|
           type: string
           pattern: workflow.EnumWorkflowMessageType
     
@@ -10832,6 +12062,34 @@ components:
           type: string
         ruleCode:
           description: ルールコード
+          type: string
+    
+    NotAdminDraftRequest:
+      type: object
+      pattern: workflow.notadmin.NotAdminDraftRequestModel
+      properties:
+        docId:
+          description: 書類ID
+          type: integer
+        criterionDate:
+          description: |
+            基準日<br>
+            *未指定の場合は、現在日付
+          type: string
+          pattern: ^((19|20)[0-9]{2})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) JST$
+        applyUnitCode:
+          description: |
+            申請者組織コード<br>
+            *未指定の場合は、申請者ユーザーの主務組織になります。
+          type: string
+        applyUserCode:
+          description: 申請者コード
+          type: string
+        formCode:
+          description: フォームコード
+          type: string
+        ruleCode:
+          description: 回付ルールコード
           type: string
     
     ApproveRequest:
@@ -12470,6 +13728,50 @@ components:
           description: 書類管理番号
           type: string
     
+    NotAdminGetDoc:
+      type: object
+      pattern: doc.notadmin.NotAdminDocHeaderModel
+      properties:
+        owner:
+          description: 書類オーナー
+          type: object
+          pattern: doc.notadmin.NotAdminDocOwnerModel
+          properties:
+            type:
+              description: |
+                書類オーナータイプ<br>
+                指定可能な値<br>
+                |パラメータ|説明|
+                |----|----|
+                |UNIT|組織|
+                |USER|ユーザー|
+              type: string
+              pattern: form.EnumOwnerType
+            code:
+              description: 書類オーナーコード
+              type: string
+        id:
+          description: 書類ID
+          type: integer
+        version:
+          description: |
+            バージョン<br>
+            *書類履歴のバージョン
+          type: string
+        criterionDate:
+          description: 基準日
+          type: string
+          pattern: ^((19|20)[0-9]{2})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) JST$
+        formCode:
+          description: フォームコード
+          type: string
+        listNames:
+          allOf:
+            - $ref: "#/components/schemas/listNames"
+        adminNo:
+          description: 書類管理番号
+          type: string
+
     GetDocHeaderResponse:
       type: object
       pattern: doc.DocHeaderResponseModel
@@ -12553,7 +13855,7 @@ components:
                                   表明細フィールドのリスト<br>
                                   *表明細フィールドの場合のみ
                                 type: object
-                                pattern: doc.DocDataEntryModel
+                                pattern: doc.DocDataEntryListModel
             publicFormId:
               description: 公開フォームID
               type: integer
@@ -12563,6 +13865,68 @@ components:
           allOf:
             - $ref: "#/components/schemas/resultStatus"
     
+    NotAdminDocResponse:
+      type: object
+      pattern: doc.notadmin.NotAdminDocResponseModel
+      properties:
+        doc:
+          description: 書類情報
+          type: object
+          pattern: doc.notadmin.NotAdminDocModel
+          properties:
+            docData:
+              description: 書類データ
+              type: object
+              pattern: doc.notadmin.NotAdminDocDataModel
+              properties:
+                entryList:
+                  description: 各フィールドのデータ
+                  type: object
+                  pattern: doc.notadmin.NotAdminDocDataEntryListModel
+                  properties:
+                    entries:
+                      type: array
+                      pattern: doc.notadmin.NotAdminDocDataEntryModel
+                      items:
+                        type: object
+                        properties:
+                          name:
+                            description: フィールド名
+                            type: string
+                          fieldType:
+                            description: フィールドタイプ
+                            type: string
+                          fieldId:
+                            description: フィールドID
+                            type: string
+                          dataType:
+                            description: データタイプ
+                            type: string
+                          dataValue:
+                            description: フィールドの値
+                            type: object
+                            pattern: doc.notadmin.NotAdminDocDataValueModel
+                            properties:
+                              value:
+                                description: |
+                                  フィールドの値<br>
+                                  *通常フィールドの場合のみ
+                                pattern: dataTypeの型
+                              entryList:
+                                description: |
+                                  表明細フィールドのリスト<br>
+                                  *表明細フィールドの場合のみ
+                                type: object
+                                pattern: doc.notadmin.notAdminDocDataEntryListModel
+            publicFormId:
+              description: 公開フォームID
+              type: integer
+          allOf:
+            - $ref: "#/components/schemas/NotAdminGetDoc"
+        resultStatus:
+          allOf:
+            - $ref: "#/components/schemas/resultStatus"
+
     PrepareDocResponse:
       type: object
       pattern: doc.PrepareDocResponseModel
@@ -12615,7 +13979,7 @@ components:
                                   表明細フィールドのリスト<br>
                                   *表明細フィールドの場合のみ
                                 type: object
-                                pattern: doc.DocDataEntryModel
+                                pattern: doc.DocDataEntryListModel
             publicFormId:
               description: 公開フォームID
               type: integer
@@ -12625,6 +13989,68 @@ components:
           allOf:
             - $ref: "#/components/schemas/resultStatus"
     
+    NotAdminPrepareDocResponse:
+      type: object
+      pattern: doc.notadmin.NotAdminPrepareDocResponseModel
+      properties:
+        doc:
+          description: 書類情報
+          type: object
+          pattern: doc.notadmin.NotAdminDocModel
+          properties:
+            docData:
+              description: 書類データ
+              type: object
+              pattern: doc.notadmin.NotAdminDocDataModel
+              properties:
+                entryList:
+                  description: 各フィールドのデータ
+                  type: object
+                  pattern: doc.notadmin.NotAdminDocDataEntryListModel
+                  properties:
+                    entries:
+                      type: array
+                      items:
+                        type: object
+                        pattern: doc.notadmin.NotAdminDocDataEntryModel
+                        properties:
+                          name:
+                            description: フィールド名
+                            type: string
+                          fieldType:
+                            description: フィールドタイプ
+                            type: string
+                          fieldId:
+                            description: フィールドID
+                            type: string
+                          dataType:
+                            description: データタイプ
+                            type: string
+                          dataValue:
+                            description: フィールドの値
+                            type: object
+                            pattern: doc.notadmin.NotAdminDocDataValueModel
+                            properties:
+                              value:
+                                description: |
+                                  フィールドの値<br>
+                                  *通常フィールドの場合のみ
+                                pattern: dataTypeの型
+                              entryList:
+                                description: |
+                                  表明細フィールドのリスト<br>
+                                  *表明細フィールドの場合のみ
+                                type: object
+                                pattern: doc.notadmin.NotAdminDocDataEntryListModel
+            publicFormId:
+              description: 公開フォームID
+              type: integer
+          allOf:
+            - $ref: "#/components/schemas/NotAdminGetDoc"
+        resultStatus:
+          allOf:
+            - $ref: "#/components/schemas/resultStatus"
+
     SelectDocResponse:
       type: object
       pattern: common.SelectResponseModel
@@ -13071,18 +14497,8 @@ components:
               description: フォームコード
               type: string
             workflowState:
-              description: |
-                状態<br>
-                |パラメータ|説明|
-                |----|----|
-                |PREPARE|下書き|
-                |ACTIVE|回付中|
-                |APPROVED|承認完了|
-                |REJECTED|却下|
-                |CANCELED|取り下げ|
-                |DELETED|削除|
-              type: string
-              pattern: workflow.EnumWorkflowStateType
+              allOf:
+                - $ref: "#/components/schemas/EnumWorkflowStateType"
             proxyApplyOperator:
               description: 代理申請者
               allOf:
@@ -13610,6 +15026,68 @@ components:
           allOf:
             - $ref: "#/components/schemas/resultStatus"
     
+    NotAdminListProxyApplyAppointmentResponse:
+      type: object
+      pattern: org.notadmin.NotAdminListProxyApplicationAppointmentResponseModel
+      properties:
+        proxyApplicationAppointmentList:
+          description: 代理申請権限一覧
+          type: object
+          pattern: org.notadmin.NotAdminProxyApplicationAppointmentListModel
+          properties:
+            entries:
+              description: 代理申請権限
+              type: array
+              items:
+                type: object
+                pattern: org.notadmin.NotAdminProxyApplicationAppointmentModel
+                properties:
+                  id:
+                    description: 代理申請のid
+                    type: integer
+                  proxyUserCode:
+                    description: 代理ユーザーコード
+                    type: string
+                  principalUserCode:
+                    description: 被代理ユーザーコード
+                    type: string
+                  principalUnitCode:
+                    description: 被代理組織コード
+                    type: string
+                  availableDateFrom:
+                    description: 適用開始日
+                    type: string
+                    pattern: ^((19|20)[0-9]{2})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) JST$
+                  availableDateTo:
+                    description: 適用終了日
+                    type: string
+                    pattern: ^((19|20)[0-9]{2})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) JST$
+                  formType:
+                    allOf:
+                      - $ref: "#/components/schemas/EnumObjectTargetType"
+                  targetFormList:
+                    allOf:
+                      - $ref: "#/components/schemas/notAdminTargetFormList"
+                  ruleType:
+                    allOf:
+                      - $ref: "#/components/schemas/EnumObjectTargetType"
+                  targetRuleList:
+                    allOf:
+                      - $ref: "#/components/schemas/notAdminTargetRuleList"
+                  criterionDate:
+                    description: 基準日
+                    type: string
+                    pattern: ^((19|20)[0-9]{2})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) JST$
+                  isDisplayCreateMenu:
+                    description: 書類作成画面に表示するかどうか
+                    type: boolean
+                  sortNo:
+                    description: 表示順序
+                    type: integer
+        resultStatus:
+          allOf:
+            - $ref: "#/components/schemas/resultStatus"
+    
     ProxyAppointmentResponse:
       type: object
       pattern: org.ProxyAppointmentResponseModel
@@ -13664,6 +15142,71 @@ components:
               type: integer
           allOf:
             - $ref: "#/components/schemas/AddDelegationAppointmentRequest"
+        resultStatus:
+          allOf:
+            - $ref: "#/components/schemas/resultStatus"
+    
+    NotAdminListProxyAppointmentResponse:
+      type: object
+      pattern: org.notadmin.NotAdminListProxyAppointmentResponseModel
+      properties:
+        proxyAppointmentList:
+          description: 代理承認権限一覧
+          type: object
+          pattern: org.notadmin.NotAdminProxyAppointmentListModel
+          properties:
+            entries:
+              description: 代理承認権限
+              type: array
+              items:
+                type: object
+                pattern: org.notadmin.NotAdminProxyAppointmentModel
+                properties:
+                  id:
+                    description: 代理承認のid
+                    type: integer
+                  proxyUserCode:
+                    description: 代理ユーザーコード
+                    type: string
+                  principalUserCode:
+                    description: 被代理ユーザーコード
+                    type: string
+                  principalUnitCode:
+                    description: 被代理組織コード
+                    type: string
+                  availableDateFrom:
+                    description: 適用開始日
+                    type: string
+                    pattern: ^((19|20)[0-9]{2})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) JST$
+                  availableDateTo:
+                    description: 適用終了日
+                    type: string
+                    pattern: ^((19|20)[0-9]{2})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) JST$
+                  formType:
+                    allOf:
+                      - $ref: "#/components/schemas/EnumObjectTargetType"
+                  targetFormList:
+                    allOf:
+                      - $ref: "#/components/schemas/notAdminTargetFormList"
+                  ruleType:
+                    allOf:
+                      - $ref: "#/components/schemas/EnumObjectTargetType"
+                  targetRuleList:
+                    allOf:
+                      - $ref: "#/components/schemas/notAdminTargetRuleList"
+                  criterionDate:
+                    description: 基準日
+                    type: string
+                    pattern: ^((19|20)[0-9]{2})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) JST$
+                  isDisplayTodoMenu:
+                    description: 処理待ち画面に表示するかどうか
+                    type: boolean
+                  isSendNotificaion:
+                    description: 代理承認依頼を通知するかどうか
+                    type: boolean
+                  sortNo:
+                    description: 表示順序
+                    type: integer
         resultStatus:
           allOf:
             - $ref: "#/components/schemas/resultStatus"
@@ -14540,6 +16083,180 @@ components:
           allOf:
             - $ref: "#/components/schemas/resultStatus"
     
+    NotAdminListPublicFolderInfoResponse:
+      type: object
+      pattern: publication.notadmin.NotAdminListPublicFolderInfoResponseModel
+      properties:
+        publicFolderList:
+          description: 公開フォルダのリスト
+          type: object
+          pattern: publication.notadmin.NotAdminPublicFolderInfoListModel
+          properties:
+            entries:
+              type: array
+              items:
+                type: object
+                pattern: publication.notadmin.NotAdmonPublicFolderInfoModel
+                properties:
+                  name:
+                    description: 公開フォルダ名称
+                    type: string
+                  id:
+                    description: 公開フォルダID
+                    type: integer
+                  code:
+                    description: 公開フォルダコード
+                    type: string
+                  publicFormList:
+                    description: 公開フォームのリスト
+                    type: object
+                    pattern: publication.notadmin.NotAdminPublicFormListModel
+                    properties:
+                      entries:
+                        type: array
+                        items:
+                          type: object
+                          pattern: publication.notadmin.NotAdminPublicFormLModel
+                          properties:
+                            formCode:
+                              description: フォームコード
+                              type: string
+                            formName:
+                              description: フォーム名称
+                              type: string
+                            ruleCode:
+                              description: 回付ルールコード
+                              type: string
+                            ruleName:
+                              description: 回付ルール名称
+                              type: string
+                  publicFolderList:
+                    description: 公開フォルダのリスト
+                    type: object
+                    pattern: publication.notadmin.NotAdminPublicFolderInfoListModel
+        resultStatus:
+          allOf:
+            - $ref: "#/components/schemas/resultStatus"
+    
+    NotAdminGetUserInfoResponse:
+      type: object
+      pattern: system.notadmin.NotAdminGetUserInfoResponseModel
+      properties:
+        userInfo:
+          description: ユーザー情報のモデル
+          type: object
+          pattern: system.notadmin.NotAdminGetUserInfoModel
+          properties:
+            user:
+              description: ユーザー情報のモデル
+              type: object
+              pattern: system.notadmin.NotAdminUserModel
+              properties:  
+                code:
+                  description: ユーザーコード
+                  type: string
+                name:
+                  description: ユーザー名
+                  type: string
+                loginId:
+                  description: ログインID
+                  type: string
+                diplayLanguage:
+                  description: |
+                    表示言語<br>
+                    |パラメータ|説明|
+                    |----|----|
+                    |ja|日本語|
+                    |en|英語|
+                    |zh_CN|簡体字|
+                    |zh_TW|繁体字|
+                    |auto|ブラウザ設定に従う|
+                  type: string
+                  pattern: system.notadmin.EunmNotAdminDisplayLanguage
+            unit:
+              description: 組織所属情報
+              type: object
+              pattern: system.notadmin.NotAdminUnitAppointmentListModel
+              properties:
+                entries:
+                  type: array
+                  items:
+                    type: object
+                    pattern: system.notadmin.NotAdminUnitAppointmentModel
+                    properties:
+                      code:
+                        description: 組織コード
+                        type: string
+                      name:
+                        description: 組織名
+                        type: string
+                      isMainUnit:
+                        description: 主務組織かどうか
+                        type: boolean
+                      sectionRoleCode:
+                        description: |
+                          セクションロールコード<br>
+                          *組織所属にセクションロールがない場合はnull
+                        type: string
+                      sectionRoleName:
+                        description: |
+                          セクションロール名<br>
+                          *組織所属にセクションロールがない場合はnull
+                        type: string
+            role:
+              description: 公開フォルダ名称
+              type: object
+              pattern: system.notadmin.NotAdminRoleAppointmentListmodel
+              properties:
+                entries:
+                  type: array
+                  items:
+                    type: object
+                    pattern: system.notadmin.NotAdminRoleAppointmentmodel
+                    properties:
+                      type:
+                        description: |
+                          ロール種別<br>
+                          |パラメータ|説明|
+                          |----|----|
+                          |universalRole|ユニバーサルロール|
+                          |privateRole|プライベートロール|
+                        type: string
+                        pattern: system.notadmin.NotAdminRoleType
+                      code:
+                       description: ロールコード
+                       type: string
+                      name:
+                        description: ロール名
+                        type: string
+        systemName:
+          description: |
+            システム名<br>
+            *管理サイト＞サイト管理＞サイト共通設定＞システム＞サイト情報＞で設定するシステム名
+          type: string
+        resultStatus:
+          allOf:
+            - $ref: "#/components/schemas/resultStatus"
+    
+    NotAdminGetVersionResponse:
+      type: object
+      pattern: system.notadmin.NotAdminGetVersionResponseModel
+      properties:
+        versionInfo:
+          description: バージョン情報のモデル
+          type: object
+          pattern: system.notadmin.NotAdminVersionInfoModel
+          properties:
+            versionInfo:
+              description: AgileWorksのリリースバージョン
+              type: string
+            buildNumber:
+              description: AgileWorksのビルド番号
+              type: integer
+        resultStatus:
+          allOf:
+            - $ref: "#/components/schemas/resultStatus"
+    
     SCIMUsersCountResponse:
       type: object
       properties:
@@ -14947,7 +16664,7 @@ components:
           text: 公開APIの実行時にエラーが発生しました。
           code: APIPAP_W0003
     
-    responseSuccessDoc:
+    SuccessDocResponse:
       value:
         doc:
           docData:
@@ -15006,7 +16723,7 @@ components:
           text: 
           code: 
 
-    responseErrorDoc:
+    ErrorDocResponse:
       value:
         doc:
           docData:
@@ -15051,7 +16768,66 @@ components:
           text: サービス実行時にエラーが発生しました。
           code: AWPCMN0000
     
-
+    ListPublicFolderInfoSuccessResponse:
+      value:
+        publicFolderList:
+          entries:
+            - name: 総務・勤怠管理
+              id: 1
+              code: soumu
+              publicFormList:
+                entries:
+                  - formCode: B01
+                    formName: B01身上報告書
+                    ruleCode: soumu
+                    ruleName: 総務汎用ルール
+                  - formCode: B02
+                    formName: B02届出事項変更届
+                    ruleCode: soumu
+                    ruleName: 総務汎用ルール
+              publicFolderList:
+                entries:
+                  - name: 勤怠
+                    id: 3
+                    code: kintai
+                    publicFormList:
+                      entries:
+                        - formCode: A083
+                          formName: A083休暇届
+                          ruleCode: soumu
+                          ruleName: 総務汎用ルール
+                    publicFolderList:
+                      entries: []
+            - name: 財務・経理
+              id: 2
+              code: zaimukanri
+              publicFormList:
+                entries:
+                  - formCode: shutyo_seisan
+                    formName: 出張仮払精算書
+                    ruleCode: shutyo_seisan
+                    ruleName: 出張清算フロー
+              publicFolderList:
+                entries: []
+        resultStatus: 
+          status: SUCCESS
+          messageList: 
+            entries: []
+          text: 
+          code:
+    
+    ListPublicFolderInfoErrorResponse:
+      value:
+        publicFolderList:
+          entries: []
+        resultStatus: 
+          status: FAIL
+          messageList: 
+            entries: 
+              - text: "{エラーメッセージ}"
+                code: "{エラーコード}"
+          text: サービス実行時にエラーが発生しました。
+          code: AWPCMN0000
   
   # -----------------------------------------------
   # パラメータ components/parameters
@@ -15063,7 +16839,9 @@ components:
       description: |
         {名前空間}.{モデル名}<br>
         取得したいモデルオブジェクトに応じて指定してください。<br>
-        ・名前空間：common, doc, workflow, org, site, usermaster, form, publication<br>
+        ・名前空間：<br>
+          （管理者権限必須API）common, doc, workflow, org, site, usermaster, form, publication<br>
+          （管理者権限不要API）doc.notadmin, workflow.notadmin, org.notadmin, publication.notadmin, system.notadmin<br>
         ・モデル名：APIの各ページのスキーマを参照
       name: name
       in: query
@@ -15075,7 +16853,9 @@ components:
       description: |
         {名前空間}.{サービス名}<br>
         使用したいAPIに応じて指定してください。<br>
-        ・名前空間：doc, workflow, org, site, usermaster, form, publication<br>
+        ・名前空間：<br>
+          （管理者権限必須API）doc, workflow, org, site, usermaster, form, publication<br>
+          （管理者権限不要API）userfunc.doc, userfunc.workflow, userfunc.org, userfunc.publication, system<br>
         ・サービス名：Doc, Workflow, Org, Site, UserMaster, Form, Publication
       name: name
       in: query
