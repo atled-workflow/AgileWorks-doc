@@ -4004,7 +4004,7 @@ components:
             type: object
             pattern: doc.DocHeaderModel
             properties:
-              docId:
+              id:
                 description: 書類ID
                 type: integer
                 example: 999
@@ -4023,7 +4023,7 @@ components:
             type: object
             pattern: doc.notadmin.NotAdminDocHeaderModel
             properties:
-              docId:
+              id:
                 description: 書類ID
                 type: integer
                 example: 999
@@ -4222,14 +4222,6 @@ components:
             type: object
             pattern: workflow.notadmin.NotAdminStartRequestModel
             properties:
-              operateUserCode:
-                description: |
-                  処理者ユーザーコード<br>
-                  下記のいずれかを指定<br>
-                  ・API実行ユーザー<br>
-                  ・代理申請ユーザー<br>
-                  *未指定の場合は、API実行ユーザー
-                type: string
               comment:
                 description: コメント
                 type: string
@@ -4240,7 +4232,6 @@ components:
             criterionDate: 2024-10-31 00:00:00 JST
             applyUnitCode: unit01
             applyUserCode: user01
-            operateUserCode: user01
             formCode: form01
             ruleCode: rule01
             comment: 申請
