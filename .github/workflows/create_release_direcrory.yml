@@ -31,7 +31,7 @@ jobs:
         run: |
           NEW_DIR="api/${{ env.branch_name }}"
           cp -r api/main "$NEW_DIR"
-          cp -r api/main api/
+          cp -r api/main/* api/
 
       # 必要なファイルが正しくコピーされているか確認
       - name: List files in new directory
