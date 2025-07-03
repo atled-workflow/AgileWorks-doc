@@ -22466,7 +22466,7 @@ paths:
         新規に作成した書類データを保存します。<br>
         「新規書類データ作成API」で取得したdocの値を雛形として、書類の各フィールドに値をセットし、本APIにより書類データの保存を行います。<br>
         本APIで保存した書類データを画面から参照できるようにするには、さらに「書類作成 / 申請API」を実行する必要があります。
-      operationId: addDoc
+      operationId: notAdminAddDoc
       summary: （管理者権限不要）新規書類データ保存
   /Broker/WebApi/Service?name=userfunc.doc.Doc&method=getDocView:
     post:
@@ -24646,7 +24646,7 @@ paths:
         - NotAdminAPI
       description: |
         API 実行ユーザーが閲覧可能な回付情報の一覧を検索する API です。
-      operationId: selectWorkflowMessage
+      operationId: notAdminSelectWorkflowMessage
       summary: （管理者権限不要）回付情報検索
   /Broker/WebApi/Service?name=userfunc.workflow.Workflow&method=start:
     post:
