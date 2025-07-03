@@ -3,8 +3,7 @@ name: Create Release Directory
 on:
   create:
     # ブランチが作成されたときにトリガー
-    branches:
-      - release/*
+    ref_type: branch
 
 permissions:
   contents: write
@@ -13,6 +12,7 @@ permissions:
 
 jobs:
   copy_and_push_to_main:
+    if: startsWith(github.ref, 'refs/heads/release/')
     runs-on: ubuntu-latest
 
     steps:
