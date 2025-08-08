@@ -2867,18 +2867,18 @@ paths:
         "503":
           $ref: "#/components/responses/SCIMErrorResponses503"
   
-    post:
+    put:
       tags:
         - SCIMAPI/Users
       summary: ユーザー情報更新
       description:
         パスに指定したユーザーIDに紐づくユーザーの情報を更新します。<br>
         *リクエストボディで指定しなかった項目は、更新されません。
-      operationId: SCIMPostUsersId
+      operationId: SCIMPutUsersId
       parameters:
         - $ref: "#/components/parameters/USER_ID"
       requestBody:
-        $ref: "#/components/requestBodies/SCIMPostUsersIdRequest"
+        $ref: "#/components/requestBodies/SCIMPutUsersIdRequest"
       responses:
         "200":
           $ref: "#/components/responses/SCIMUsersResponses200"
@@ -3032,13 +3032,13 @@ paths:
         "503":
           $ref: "#/components/responses/SCIMErrorResponses503"
     
-    post:
+    put:
       tags:
         - SCIMAPI/Groups
       summary: 組織情報更新
       description:
         パスに指定した組織IDに紐づく組織の情報を更新します。
-      operationId: SCIMPostGroupsId
+      operationId: SCIMPutGroupsId
       parameters:
         - $ref: "#/components/parameters/ORG_ID"
       requestBody:
@@ -5478,7 +5478,7 @@ components:
                 - value: 8888
                   display: org001
     
-    SCIMPostUsersIdRequest:
+    SCIMPutUsersIdRequest:
       content:
         application/json:
           schema:
@@ -5487,7 +5487,7 @@ components:
               - userName
               - displayName
             allOf:
-              - $ref: "#/components/schemas/SCIMPostUsersIdRequest"
+              - $ref: "#/components/schemas/SCIMPutUsersIdRequest"
           example:
             externalId: user001
             userName: user001
@@ -12268,9 +12268,9 @@ components:
           description: パスワード
           type: string
       allOf:
-        - $ref: "#/components/schemas/SCIMPostUsersIdRequest"
+        - $ref: "#/components/schemas/SCIMPutUsersIdRequest"
     
-    SCIMPostUsersIdRequest:
+    SCIMPutUsersIdRequest:
       type: object
       properties:
         externalId:
