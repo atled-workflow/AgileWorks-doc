@@ -731,7 +731,7 @@ paths:
       description: パスに指定した組織IDに紐づく組織情報の指定項目のみを更新します。
       operationId: SCIMPatchGroupsId
       summary: 組織情報一部更新
-    post:
+    put:
       consumes:
         - application/json
       produces:
@@ -879,7 +879,7 @@ paths:
       tags:
         - SCIMAPI/Groups
       description: パスに指定した組織IDに紐づく組織の情報を更新します。
-      operationId: SCIMPostGroupsId
+      operationId: SCIMPutGroupsId
       summary: 組織情報更新
   /Broker/SCIM/ResourceTypes:
     get:
@@ -2769,7 +2769,7 @@ paths:
       description: パスに指定したユーザーIDに紐づくユーザー情報の指定項目のみを更新します。
       operationId: SCIMPatchUsersId
       summary: ユーザー情報一部更新
-    post:
+    put:
       consumes:
         - application/json
       produces:
@@ -2783,75 +2783,76 @@ paths:
         - in: body
           name: body
           schema:
-            properties:
-              active:
-                description: |
-                  アカウント状態<br>
-                  true：ログイン可能<br>
-                  false：ログイン不可
-                type: boolean
-              displayName:
-                description: ユーザー名称
-                type: string
-              emails:
-                description: メール情報
-                items:
-                  properties:
-                    primary:
-                      description: 優先フラグ
-                      type: boolean
-                    value:
-                      description: メールアドレス
-                      type: string
-                  type: object
-                type: array
-              externalId:
-                description: ユーザーコード
-                type: string
-              groups:
-                description: グループ情報
-                items:
-                  properties:
-                    display:
-                      description: 表示名
-                      type: string
-                    value:
-                      description: |
-                        グループID<br>
-                        *組織
-                      type: integer
-                  type: object
-                type: array
-              locale:
-                description: 言語
-                type: string
-              roles:
-                description: ロール情報
-                items:
-                  properties:
-                    display:
-                      description: 表示名
-                      type: string
-                    value:
-                      description: |
-                        ロールID<br>
-                        *ユニバーサルロール
-                      type: integer
-                  type: object
-                type: array
-              schemas:
-                description: |
-                  スキーマ<br>
-                  *"urn:ietf:params:scim:schemas:core:2.0:User" 固定
-                type: string
-              userName:
-                description: ログインID
-                type: string
+            allOf:
+              - properties:
+                  active:
+                    description: |
+                      アカウント状態<br>
+                      true：ログイン可能<br>
+                      false：ログイン不可
+                    type: boolean
+                  displayName:
+                    description: ユーザー名称
+                    type: string
+                  emails:
+                    description: メール情報
+                    items:
+                      properties:
+                        primary:
+                          description: 優先フラグ
+                          type: boolean
+                        value:
+                          description: メールアドレス
+                          type: string
+                      type: object
+                    type: array
+                  externalId:
+                    description: ユーザーコード
+                    type: string
+                  groups:
+                    description: グループ情報
+                    items:
+                      properties:
+                        display:
+                          description: 表示名
+                          type: string
+                        value:
+                          description: |
+                            グループID<br>
+                            *組織
+                          type: integer
+                      type: object
+                    type: array
+                  locale:
+                    description: 言語
+                    type: string
+                  roles:
+                    description: ロール情報
+                    items:
+                      properties:
+                        display:
+                          description: 表示名
+                          type: string
+                        value:
+                          description: |
+                            ロールID<br>
+                            *ユニバーサルロール
+                          type: integer
+                      type: object
+                    type: array
+                  schemas:
+                    description: |
+                      スキーマ<br>
+                      *"urn:ietf:params:scim:schemas:core:2.0:User" 固定
+                    type: string
+                  userName:
+                    description: ログインID
+                    type: string
+                type: object
             required:
               - externalId
               - userName
               - displayName
-            type: object
       responses:
         '200':
           description: Successful response
@@ -3035,7 +3036,7 @@ paths:
       tags:
         - SCIMAPI/Users
       description: パスに指定したユーザーIDに紐づくユーザーの情報を更新します。<br> *リクエストボディで指定しなかった項目は、更新されません。
-      operationId: SCIMPostUsersId
+      operationId: SCIMPutUsersId
       summary: ユーザー情報更新
   /Broker/WebApi/Download:
     get:
@@ -37064,72 +37065,6 @@ definitions:
           *"urn:ietf:params:scim:api:messages:2.0:PatchOp" 固定
         type: string
     type: object
-  SCIMPostUsersIdRequest:
-    properties:
-      active:
-        description: |
-          アカウント状態<br>
-          true：ログイン可能<br>
-          false：ログイン不可
-        type: boolean
-      displayName:
-        description: ユーザー名称
-        type: string
-      emails:
-        description: メール情報
-        items:
-          properties:
-            primary:
-              description: 優先フラグ
-              type: boolean
-            value:
-              description: メールアドレス
-              type: string
-          type: object
-        type: array
-      externalId:
-        description: ユーザーコード
-        type: string
-      groups:
-        description: グループ情報
-        items:
-          properties:
-            display:
-              description: 表示名
-              type: string
-            value:
-              description: |
-                グループID<br>
-                *組織
-              type: integer
-          type: object
-        type: array
-      locale:
-        description: 言語
-        type: string
-      roles:
-        description: ロール情報
-        items:
-          properties:
-            display:
-              description: 表示名
-              type: string
-            value:
-              description: |
-                ロールID<br>
-                *ユニバーサルロール
-              type: integer
-          type: object
-        type: array
-      schemas:
-        description: |
-          スキーマ<br>
-          *"urn:ietf:params:scim:schemas:core:2.0:User" 固定
-        type: string
-      userName:
-        description: ログインID
-        type: string
-    type: object
   SCIMPostUsersRequest:
     properties:
       active:
@@ -37175,6 +37110,72 @@ definitions:
         type: string
       password:
         description: パスワード
+        type: string
+      roles:
+        description: ロール情報
+        items:
+          properties:
+            display:
+              description: 表示名
+              type: string
+            value:
+              description: |
+                ロールID<br>
+                *ユニバーサルロール
+              type: integer
+          type: object
+        type: array
+      schemas:
+        description: |
+          スキーマ<br>
+          *"urn:ietf:params:scim:schemas:core:2.0:User" 固定
+        type: string
+      userName:
+        description: ログインID
+        type: string
+    type: object
+  SCIMPutUsersIdRequest:
+    properties:
+      active:
+        description: |
+          アカウント状態<br>
+          true：ログイン可能<br>
+          false：ログイン不可
+        type: boolean
+      displayName:
+        description: ユーザー名称
+        type: string
+      emails:
+        description: メール情報
+        items:
+          properties:
+            primary:
+              description: 優先フラグ
+              type: boolean
+            value:
+              description: メールアドレス
+              type: string
+          type: object
+        type: array
+      externalId:
+        description: ユーザーコード
+        type: string
+      groups:
+        description: グループ情報
+        items:
+          properties:
+            display:
+              description: 表示名
+              type: string
+            value:
+              description: |
+                グループID<br>
+                *組織
+              type: integer
+          type: object
+        type: array
+      locale:
+        description: 言語
         type: string
       roles:
         description: ロール情報
@@ -58553,94 +58554,6 @@ x-components:
               - externalId
               - displayName
             type: object
-    SCIMPostUsersIdRequest:
-      content:
-        application/json:
-          example:
-            active: true
-            displayName: user001
-            emails:
-              - primary: true
-                value: user001@atled.jp
-            externalId: user001
-            groups:
-              - display: org001
-                value: 8888
-            locale: ja
-            roles:
-              - display: UR_001
-                value: 9999
-            userName: user001
-          schema:
-            properties:
-              active:
-                description: |
-                  アカウント状態<br>
-                  true：ログイン可能<br>
-                  false：ログイン不可
-                type: boolean
-              displayName:
-                description: ユーザー名称
-                type: string
-              emails:
-                description: メール情報
-                items:
-                  properties:
-                    primary:
-                      description: 優先フラグ
-                      type: boolean
-                    value:
-                      description: メールアドレス
-                      type: string
-                  type: object
-                type: array
-              externalId:
-                description: ユーザーコード
-                type: string
-              groups:
-                description: グループ情報
-                items:
-                  properties:
-                    display:
-                      description: 表示名
-                      type: string
-                    value:
-                      description: |
-                        グループID<br>
-                        *組織
-                      type: integer
-                  type: object
-                type: array
-              locale:
-                description: 言語
-                type: string
-              roles:
-                description: ロール情報
-                items:
-                  properties:
-                    display:
-                      description: 表示名
-                      type: string
-                    value:
-                      description: |
-                        ロールID<br>
-                        *ユニバーサルロール
-                      type: integer
-                  type: object
-                type: array
-              schemas:
-                description: |
-                  スキーマ<br>
-                  *"urn:ietf:params:scim:schemas:core:2.0:User" 固定
-                type: string
-              userName:
-                description: ログインID
-                type: string
-            required:
-              - externalId
-              - userName
-              - displayName
-            type: object
     SCIMPostUsersRequest:
       content:
         application/json:
@@ -58734,6 +58647,95 @@ x-components:
               - userName
               - displayName
             type: object
+    SCIMPutUsersIdRequest:
+      content:
+        application/json:
+          example:
+            active: true
+            displayName: user001
+            emails:
+              - primary: true
+                value: user001@atled.jp
+            externalId: user001
+            groups:
+              - display: org001
+                value: 8888
+            locale: ja
+            roles:
+              - display: UR_001
+                value: 9999
+            userName: user001
+          schema:
+            allOf:
+              - properties:
+                  active:
+                    description: |
+                      アカウント状態<br>
+                      true：ログイン可能<br>
+                      false：ログイン不可
+                    type: boolean
+                  displayName:
+                    description: ユーザー名称
+                    type: string
+                  emails:
+                    description: メール情報
+                    items:
+                      properties:
+                        primary:
+                          description: 優先フラグ
+                          type: boolean
+                        value:
+                          description: メールアドレス
+                          type: string
+                      type: object
+                    type: array
+                  externalId:
+                    description: ユーザーコード
+                    type: string
+                  groups:
+                    description: グループ情報
+                    items:
+                      properties:
+                        display:
+                          description: 表示名
+                          type: string
+                        value:
+                          description: |
+                            グループID<br>
+                            *組織
+                          type: integer
+                      type: object
+                    type: array
+                  locale:
+                    description: 言語
+                    type: string
+                  roles:
+                    description: ロール情報
+                    items:
+                      properties:
+                        display:
+                          description: 表示名
+                          type: string
+                        value:
+                          description: |
+                            ロールID<br>
+                            *ユニバーサルロール
+                          type: integer
+                      type: object
+                    type: array
+                  schemas:
+                    description: |
+                      スキーマ<br>
+                      *"urn:ietf:params:scim:schemas:core:2.0:User" 固定
+                    type: string
+                  userName:
+                    description: ログインID
+                    type: string
+                type: object
+            required:
+              - externalId
+              - userName
+              - displayName
     SelectDocRequest:
       content:
         application/json:
