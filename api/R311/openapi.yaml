@@ -2859,14 +2859,14 @@ paths:
           $ref: "#/components/responses/ErrorResponses503"
   
   # --------------------------------------------------------------------------------------------------
-  /Broker/WebApi/Service?name=userfunc.doc.Doc&method=getDocView:
+  /Broker/WebApi/Service?name=userfunc.doc.Doc&method=openDoc:
     post:
       tags:
         - NotAdminAPI
       summary: (管理者権限不要) 書類表示
       description:
         API 実行ユーザーが閲覧可能な書類を表示する HTML を取得する API です。
-      operationId: notAdminGetDocView
+      operationId: notAdminOpenDoc
       requestBody:
         $ref: "#/components/requestBodies/NotAdminOpenDocRequest"
       responses:
