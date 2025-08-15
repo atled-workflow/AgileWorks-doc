@@ -22469,7 +22469,7 @@ paths:
         本APIで保存した書類データを画面から参照できるようにするには、さらに「書類作成 / 申請API」を実行する必要があります。
       operationId: notAdminAddDoc
       summary: （管理者権限不要）新規書類データ保存
-  /Broker/WebApi/Service?name=userfunc.doc.Doc&method=getDocView:
+  /Broker/WebApi/Service?name=userfunc.doc.Doc&method=openDoc:
     post:
       consumes:
         - application/json
@@ -22555,7 +22555,7 @@ paths:
       tags:
         - NotAdminAPI
       description: API 実行ユーザーが閲覧可能な書類を表示する HTML を取得する API です。
-      operationId: notAdminGetDocView
+      operationId: notAdminOpenDoc
       summary: (管理者権限不要) 書類表示
   /Broker/WebApi/Service?name=userfunc.doc.Doc&method=prepareDocRequest:
     post:
