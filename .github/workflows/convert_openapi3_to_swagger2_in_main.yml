@@ -35,28 +35,28 @@ jobs:
       # `openapi.yaml` の内容を `openapi_303.yaml` にコピー
       - name: Copy openapi.yaml to openapi_303.yaml
         run: |
-          cp api/main/openapi.yaml api/main/openapi_303.yaml
+          cp api/R310/openapi.yaml api/R310/openapi_303.yaml
 
       # `openapi_303.yaml` の1行目を変更
       - name: Update first line in openapi_303.yaml
         run: |
-          sed -i '1s/openapi: 3.1.1/openapi: 3.0.3/' api/main/openapi_303.yaml
+          sed -i '1s/openapi: 3.1.1/openapi: 3.0.3/' api/R310/openapi_303.yaml
       
       # OpenAPI3仕様ドキュメントをフラット化
       - name: Flatten the OpenAPI3 document
-        run: npx openapi-flattener -s api/main/openapi_303.yaml -o api/main/openapi_flat.yaml
+        run: npx openapi-flattener -s api/R310/openapi_303.yaml -o api/R310/openapi_flat.yaml
       
       # OpenAPI3からSwagger2へ変換
       - name: Convert OpenAPI3 to Swagger2
-        run: npx api-spec-converter --from=openapi_3 --to=swagger_2 --syntax=yaml api/main/openapi_flat.yaml > api/main/swagger.yaml
+        run: npx api-spec-converter --from=openapi_3 --to=swagger_2 --syntax=yaml api/R310/openapi_flat.yaml > api/R310/swagger.yaml
 
       # 変換したファイルをコミットしてプッシュ
       - name: Commit and Push changes
         run: |
           git config --global user.email "actions@github.com"
           git config --global user.name "GitHub Actions"
-          git add api/main/openapi_303.yaml
-          git add api/main/swagger.yaml
+          git add api/R310/openapi_303.yaml
+          git add api/R310/swagger.yaml
           git commit -m "Convert OpenAPI3 to Swagger2" || echo "No changes to commit"
           git push origin main
 
