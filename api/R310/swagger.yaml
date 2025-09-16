@@ -52494,12 +52494,11 @@ x-components:
       content:
         application/json:
           example:
-            conditionList:
-              entries:
-                - userCode: user01
-                  workflowMessageType: APPROVE_REQUEST
-                - userCode: user01
-                  workflowMessageType: CONFIRM_REQUEST
+            condition:
+              - userCode: user01
+                workflowMessageType: APPROVE_REQUEST
+              - userCode: user01
+                workflowMessageType: CONFIRM_REQUEST
           schema:
             pattern: workflow.SelectWorkflowMessageConditionModel
             properties:
