@@ -2,9 +2,6 @@ openapi: 3.1.1
 info:
   title: 'AgileWorks WebAPI (R3.1.1)'
   version: 1.0.0
-  x-available-version:
-    - R3.1.0-
-    - R3.1.1-
 servers:
   - url: https://sample.atled.jp/AgileWorks
   
@@ -30,7 +27,6 @@ paths:
       tags:
         - common
       summary: モデルオブジェクト取得
-      x-available-version: R3.1.0-
       description: 
         指定のモデルオブジェクトを初期化した状態で取得します。
       operationId: model
