@@ -4151,6 +4151,14 @@ components:
               - applyUserCode
               - formCode
               - ruleCode
+            type: object
+            pattern: workflow.DraftRequestModel
+            properties:
+              operateUserCode:
+                description: 
+                  処理者ユーザーコード<br>
+                  *書類作成/申請APIを行うとき、本APIで指定したユーザーをoperateUserCodeに指定するか、指定したユーザーで実行する必要があります。
+                type: string
             allOf:
               - $ref: "#/components/schemas/DraftRequest"
           example:
@@ -4160,6 +4168,7 @@ components:
             applyUserCode: user01
             formCode: form01
             ruleCode: rule01
+            operateUserCode: user01
     
     StartRequest:
       content:
@@ -4175,7 +4184,10 @@ components:
             pattern: workflow.StartRequestModel
             properties:
               operateUserCode:
-                description: 処理者ユーザーコード
+                description: 
+                  処理者ユーザーコード<br>
+                  *書類下書き保存APIを実行していた場合、同じ値を指定する必要があります。<br>
+                  *指定なしの場合は実行ユーザー
                 type: string
               comment:
                 description: コメント

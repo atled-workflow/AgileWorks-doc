@@ -25824,6 +25824,11 @@ paths:
                   フォームコード<br>
                   *「書類データ取得API」、「新規書類データ保存API」、「書類データ更新API」で取得した値を指定
                 type: string
+              operateUserCode:
+                description: >-
+                  処理者ユーザーコード<br>
+                  *書類作成/申請APIを行うとき、本APIで指定したユーザーをoperateUserCodeに指定するか、指定したユーザーで実行する必要があります。
+                type: string
               ruleCode:
                 description: ルールコード
                 type: string
@@ -27902,7 +27907,9 @@ paths:
                   *「書類データ取得API」、「新規書類データ保存API」、「書類データ更新API」で取得した値を指定
                 type: string
               operateUserCode:
-                description: 処理者ユーザーコード
+                description: >-
+                  処理者ユーザーコード<br> *書類下書き保存APIを実行していた場合、同じ値を指定する必要があります。<br>
+                  *指定なしの場合は実行ユーザー
                 type: string
               ruleCode:
                 description: ルールコード
@@ -56069,6 +56076,7 @@ x-components:
             criterionDate: '2024-10-31 00:00:00 JST'
             docId: 999
             formCode: form01
+            operateUserCode: user01
             ruleCode: rule01
           schema:
             pattern: workflow.DraftRequestModel
@@ -56094,6 +56102,11 @@ x-components:
                 description: |
                   フォームコード<br>
                   *「書類データ取得API」、「新規書類データ保存API」、「書類データ更新API」で取得した値を指定
+                type: string
+              operateUserCode:
+                description: >-
+                  処理者ユーザーコード<br>
+                  *書類作成/申請APIを行うとき、本APIで指定したユーザーをoperateUserCodeに指定するか、指定したユーザーで実行する必要があります。
                 type: string
               ruleCode:
                 description: ルールコード
@@ -59168,7 +59181,9 @@ x-components:
                   *「書類データ取得API」、「新規書類データ保存API」、「書類データ更新API」で取得した値を指定
                 type: string
               operateUserCode:
-                description: 処理者ユーザーコード
+                description: >-
+                  処理者ユーザーコード<br> *書類下書き保存APIを実行していた場合、同じ値を指定する必要があります。<br>
+                  *指定なしの場合は実行ユーザー
                 type: string
               ruleCode:
                 description: ルールコード
