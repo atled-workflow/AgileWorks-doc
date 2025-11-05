@@ -1,4 +1,4 @@
-name: Convert OpenAPI3 to Swagger2 in branch
+name: Convert OpenAPI3 to Swagger2 in main
 
 on:
   workflow_dispatch:  # 手動実行
@@ -21,10 +21,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # ブランチ名の末尾を取得（main → main, release/R310 → R310）
-      - name: Set short branch name
-        run: echo "SHORT_BRANCH_NAME=$(basename ${{ github.ref_name }})" >> $GITHUB_ENV
-
       # node_modulesのインストールをキャッシュする
       - name: Cache dependencies
         uses: actions/cache@v4
@@ -39,32 +35,27 @@ jobs:
       # `openapi.yaml` の内容を `openapi_303.yaml` にコピー
       - name: Copy openapi.yaml to openapi_303.yaml
         run: |
-          cp api/${{ env.SHORT_BRANCH_NAME }}/openapi.yaml api/${{ env.SHORT_BRANCH_NAME }}/openapi_303.yaml
+          cp api/main/openapi.yaml api/main/openapi_303.yaml
 
       # `openapi_303.yaml` の1行目を変更
       - name: Update first line in openapi_303.yaml
         run: |
-          sed -i '1s/openapi: 3.1.1/openapi: 3.0.3/' api/${{ env.SHORT_BRANCH_NAME }}/openapi_303.yaml
+          sed -i '1s/openapi: 3.1.1/openapi: 3.0.3/' api/main/openapi_303.yaml
       
       # OpenAPI3仕様ドキュメントをフラット化
       - name: Flatten the OpenAPI3 document
-        run: npx openapi-flattener -s api/${{ env.SHORT_BRANCH_NAME }}/openapi_303.yaml -o api/${{ env.SHORT_BRANCH_NAME }}/openapi_flat.yaml
+        run: npx openapi-flattener -s api/main/openapi_303.yaml -o api/main/openapi_flat.yaml
       
       # OpenAPI3からSwagger2へ変換
       - name: Convert OpenAPI3 to Swagger2
-        run: npx api-spec-converter --from=openapi_3 --to=swagger_2 --syntax=yaml api/${{ env.SHORT_BRANCH_NAME }}/openapi_flat.yaml > api/${{ env.SHORT_BRANCH_NAME }}/swagger.yaml
-      
+        run: npx api-spec-converter --from=openapi_3 --to=swagger_2 --syntax=yaml api/main/openapi_flat.yaml > api/main/swagger.yaml
+
       # 変換したファイルをコミットしてプッシュ
       - name: Commit and Push changes
         run: |
           git config --global user.email "actions@github.com"
           git config --global user.name "GitHub Actions"
-          git fetch origin main
-          git checkout main
-          git pull origin main
-          git add api/${{ env.SHORT_BRANCH_NAME }}/openapi_303.yaml
-          git add api/${{ env.SHORT_BRANCH_NAME }}/swagger.yaml
-          git commit -m "Convert OpenAPI3 to Swagger2 from ${{ github.ref_name }}" || echo "No changes to commit"
+          git add api/main/openapi_303.yaml
+          git add api/main/swagger.yaml
+          git commit -m "Convert OpenAPI3 to Swagger2" || echo "No changes to commit"
           git push origin main
-
-      
