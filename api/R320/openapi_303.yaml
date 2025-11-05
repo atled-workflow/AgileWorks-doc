@@ -4110,10 +4110,9 @@ components:
                   - $ref: "#/components/schemas/WorkflowMessageRequest"
           example:
             condition:
-              - userCode: user01
-                workflowMessageType: APPROVE_REQUEST
-              - userCode: user01
-                workflowMessageType: CONFIRM_REQUEST
+              userCode: user01
+              workflowMessageType: APPROVE_REQUEST
+              formCode: form01
     
     NotAdminSelectWorkflowMessageRequest:
       content:
@@ -4136,10 +4135,9 @@ components:
                   - $ref: "#/components/schemas/NotAdminWorkflowMessageRequest"
           example:
             condition:
-              - userCode: user01
-                workflowMessageType: APPROVE_REQUEST
-              - userCode: user01
-                workflowMessageType: CONFIRM_REQUEST
+              userCode: user01
+              workflowMessageType: APPROVE_REQUEST
+              formCode: form01
     
     DraftRequest:
       content:
@@ -4249,11 +4247,11 @@ components:
         application/json:
           schema:
             required:
-              - id
+              - docId
             type: object
             pattern: workflow.DeleteRequestModel
             properties:
-              id:
+              docId:
                 description: 書類ID
                 type: integer
                 example: 999
