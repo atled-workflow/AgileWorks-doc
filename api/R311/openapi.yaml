@@ -4235,11 +4235,11 @@ components:
         application/json:
           schema:
             required:
-              - id
+              - docId
             type: object
             pattern: workflow.DeleteRequestModel
             properties:
-              id:
+              docId:
                 description: 書類ID
                 type: integer
                 example: 999
