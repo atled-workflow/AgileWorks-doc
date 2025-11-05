@@ -25685,12 +25685,12 @@ paths:
           schema:
             pattern: workflow.DeleteRequestModel
             properties:
-              id:
+              docId:
                 description: 書類ID
                 example: 999
                 type: integer
             required:
-              - id
+              - docId
             type: object
       responses:
         '200':
@@ -55693,12 +55693,12 @@ x-components:
           schema:
             pattern: workflow.DeleteRequestModel
             properties:
-              id:
+              docId:
                 description: 書類ID
                 example: 999
                 type: integer
             required:
-              - id
+              - docId
             type: object
     DeleteSectionRoleGroupRequest:
       content:
@@ -58153,10 +58153,9 @@ x-components:
         application/json:
           example:
             condition:
-              - userCode: user01
-                workflowMessageType: APPROVE_REQUEST
-              - userCode: user01
-                workflowMessageType: CONFIRM_REQUEST
+              formCode: form01
+              userCode: user01
+              workflowMessageType: APPROVE_REQUEST
           schema:
             pattern: workflow.notAdminSelectWorkflowMessageConditionModel
             properties:
@@ -59100,10 +59099,9 @@ x-components:
         application/json:
           example:
             condition:
-              - userCode: user01
-                workflowMessageType: APPROVE_REQUEST
-              - userCode: user01
-                workflowMessageType: CONFIRM_REQUEST
+              formCode: form01
+              userCode: user01
+              workflowMessageType: APPROVE_REQUEST
           schema:
             pattern: workflow.SelectWorkflowMessageConditionModel
             properties:
