@@ -60,7 +60,24 @@ jobs:
         run: |
           git config --global user.email "actions@github.com"
           git config --global user.name "GitHub Actions"
-          git add api/**/openapi_303.yaml
-          git add api/**/swagger.yaml
-          git commit -m "Convert OpenAPI3 to Swagger2 for all directories" || echo "No changes to commit"
-          git push origin main
+          # 変更状況を確認
+          echo "=== Git Status ==="
+          git status
+          
+          # 特定のファイルのみを追加（パターンマッチを使用）
+          find api -name "openapi_303.yaml" -o -name "swagger.yaml" | while read file; do
+            git add "$file"
+            echo "Added: $file"
+          done
+          
+          # 変更がある場合のみコミット・プッシュ
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            echo "=== Files to be committed ==="
+            git diff --staged --name-only
+            
+            git commit -m "Convert OpenAPI3 to Swagger2 for all directories"
+            git push origin main
+            echo "Successfully pushed changes"
+          fi
