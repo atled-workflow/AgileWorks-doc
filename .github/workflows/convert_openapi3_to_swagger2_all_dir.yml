@@ -1,0 +1,66 @@
+name: Convert OpenAPI3 to Swagger2 (All Directories)
+
+on:
+  workflow_dispatch:  # 手動実行
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  convert_and_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # リポジトリをチェックアウト
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      # node_modulesのインストールをキャッシュする
+      - name: Cache dependencies
+        uses: actions/cache@v4
+        with:
+          path: '**/node_modules'
+          key: node-modules-${{ hashFiles('**/package-lock.json') }}
+      
+      # 必要な依存関係をインストール
+      - name: Install dependencies
+        run: npm ci
+      
+      # openapi.yamlが存在するディレクトリを検出して変換
+      - name: Convert all OpenAPI files to Swagger2
+        run: |
+          # openapi.yamlが存在するすべてのディレクトリを検索
+          find api -name "openapi.yaml" -type f | while read -r filepath; do
+            # ディレクトリパスを取得
+            dir=$(dirname "$filepath")
+            echo "Processing: $dir/openapi.yaml"
+            
+            # openapi.yamlをopenapi_303.yamlにコピー
+            cp "$dir/openapi.yaml" "$dir/openapi_303.yaml"
+            
+            # OpenAPI 3.1.1 を 3.0.3 に変更
+            sed -i '1s/openapi: 3\.1\.[0-9]/openapi: 3.0.3/' "$dir/openapi_303.yaml"
+            
+            # フラット化
+            npx openapi-flattener -s "$dir/openapi_303.yaml" -o "$dir/openapi_flat.yaml"
+            
+            # Swagger2に変換
+            npx api-spec-converter --from=openapi_3 --to=swagger_2 --syntax=yaml "$dir/openapi_flat.yaml" > "$dir/swagger.yaml"
+            
+            echo "Completed: $dir"
+          done
+      
+      # 変換したファイルをコミットしてプッシュ
+      - name: Commit and Push changes
+        run: |
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Actions"
+          git add api/**/openapi_303.yaml
+          git add api/**/swagger.yaml
+          git commit -m "Convert OpenAPI3 to Swagger2 for all directories" || echo "No changes to commit"
+          git push origin main
