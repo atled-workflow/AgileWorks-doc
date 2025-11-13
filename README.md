@@ -84,10 +84,11 @@ api/
 #### 📌 例1: R310から存在するユーザー作成APIに誤りがあった場合
 ```diff
 修正対象:
-+ R310/openapi.yaml
-+ R311/openapi.yaml
-+ R320/openapi.yaml
-+ main/openapi.yaml
++ api/R310/openapi.yaml
++ api/R311/openapi.yaml
++ api/R320/openapi.yaml
++ api/main/openapi.yaml
++ api/openapi.yaml
 ```
 
 <details>
@@ -102,9 +103,10 @@ R310から存在するAPIの場合、そのバージョン以降のすべての�
 #### 📌 例2: R311から追加された管理者不要 書類表示APIに誤りがあった場合
 ```diff
 修正対象:
-+ R311/openapi.yaml
-+ R320/openapi.yaml
-+ main/openapi.yaml
++ api/R311/openapi.yaml
++ api/R320/openapi.yaml
++ api/main/openapi.yaml
++ api/openapi.yaml
 ```
 
 <details>
