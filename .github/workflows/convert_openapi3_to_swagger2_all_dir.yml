@@ -1,7 +1,11 @@
-name: Convert OpenAPI3 to Swagger2 (All Directories)
+name: Convert OpenAPI3 to Swagger2
 
 on:
   workflow_dispatch:  # 手動実行
+  pull_request:
+    types: [closed]  # プルリクエストがクローズされた時
+    branches:
+      - main  # mainブランチへのマージ時
 
 permissions:
   contents: write
@@ -15,6 +19,8 @@ concurrency:
 jobs:
   convert_and_deploy:
     runs-on: ubuntu-latest
+    # プルリクエストがマージされた場合、または手動実行の場合のみ実行
+    if: github.event_name == 'workflow_dispatch' || (github.event.pull_request.merged == true)
     steps:
       # リポジトリをチェックアウト
       - name: Checkout repository
@@ -34,25 +40,36 @@ jobs:
       # openapi.yamlが存在するディレクトリを検出して変換
       - name: Convert all OpenAPI files to Swagger2
         run: |
-          # openapi.yamlが存在するすべてのディレクトリを検索
-          find api -name "openapi.yaml" -type f | while read -r filepath; do
-            # ディレクトリパスを取得
-            dir=$(dirname "$filepath")
-            echo "Processing: $dir/openapi.yaml"
-            
-            # openapi.yamlをopenapi_303.yamlにコピー
-            cp "$dir/openapi.yaml" "$dir/openapi_303.yaml"
-            
-            # OpenAPI 3.1.1 を 3.0.3 に変更
-            sed -i '1s/openapi: 3\.1\.[0-9]/openapi: 3.0.3/' "$dir/openapi_303.yaml"
-            
-            # フラット化
-            npx openapi-flattener -s "$dir/openapi_303.yaml" -o "$dir/openapi_flat.yaml"
-            
-            # Swagger2に変換
-            npx api-spec-converter --from=openapi_3 --to=swagger_2 --syntax=yaml "$dir/openapi_flat.yaml" > "$dir/swagger.yaml"
-            
-            echo "Completed: $dir"
+          # 処理対象のディレクトリを列挙
+          # 1. api直下のopenapi.yaml
+          # 2. api/*/openapi.yaml (R310, R311, R320, main など)
+          
+          for filepath in api/openapi.yaml api/*/openapi.yaml; do
+            # ファイルが実際に存在するかチェック
+            if [ -f "$filepath" ]; then
+              # ディレクトリパスを取得
+              dir=$(dirname "$filepath")
+              echo "Processing: $filepath"
+              
+              # openapi.yamlをopenapi_303.yamlにコピー
+              cp "$filepath" "$dir/openapi_303.yaml"
+              
+              # OpenAPI 3.1.x を 3.0.3 に変更
+              sed -i '1s/openapi: 3\.1\.[0-9]/openapi: 3.0.3/' "$dir/openapi_303.yaml"
+              
+              # フラット化
+              npx openapi-flattener -s "$dir/openapi_303.yaml" -o "$dir/openapi_flat.yaml"
+              
+              # Swagger2に変換
+              npx api-spec-converter --from=openapi_3 --to=swagger_2 --syntax=yaml "$dir/openapi_flat.yaml" > "$dir/swagger.yaml"
+              
+              # 中間ファイルを削除（オプション）
+              # rm "$dir/openapi_flat.yaml"
+              
+              echo "Completed: $dir"
+            else
+              echo "Skipped: $filepath (not found)"
+            fi
           done
       
       # 変換したファイルをコミットしてプッシュ
@@ -60,6 +77,7 @@ jobs:
         run: |
           git config --global user.email "actions@github.com"
           git config --global user.name "GitHub Actions"
+          
           # 変更状況を確認
           echo "=== Git Status ==="
           git status
