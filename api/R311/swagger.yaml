@@ -20701,7 +20701,6 @@ paths:
             required:
               - id
               - code
-              - parentCode
               - name
               - validityDateFrom
             type: object
@@ -60314,7 +60313,6 @@ x-components:
             required:
               - id
               - code
-              - parentCode
               - name
               - validityDateFrom
             type: object
