@@ -6020,7 +6020,7 @@ components:
                     type: string
                     example: rule01
                   projectCode: 
-                    description: カテゴリコード
+                    description: 業務カテゴリコード
                     type: string
                     example: C001
     
@@ -13657,7 +13657,7 @@ components:
           type: string
           example: rule01
         projectCode: 
-          description: カテゴリコード
+          description: 業務カテゴリコード
           type: string
           example: C001
     
@@ -16259,7 +16259,7 @@ components:
                     description: 適用終了日
                     type: string
                   projectCode:
-                    description: カテゴリコード
+                    description: 業務カテゴリコード
                     type: string
         resultStatus:
           allOf:
