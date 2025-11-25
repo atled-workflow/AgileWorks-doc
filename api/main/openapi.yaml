@@ -16259,7 +16259,7 @@ components:
                     description: 適用終了日
                     type: string
                   projectCode:
-                    description: カテゴリ名
+                    description: カテゴリコード
                     type: string
         resultStatus:
           allOf:
