@@ -13,6 +13,7 @@ tags:
   - name: SiteAPI
   - name: UserMasterAPI
   - name: FormAPI
+  - name: RuleAPI
   - name: PublicationAPI
   - name: NotAdminAPI
   - name: SCIMAPI/Users
@@ -615,6 +616,31 @@ paths:
       responses:
         "200":
           $ref: "#/components/responses/TextHtmlResponses200"
+        "400":
+          $ref: "#/components/responses/ErrorResponses400"
+        "401":
+          $ref: "#/components/responses/ErrorResponses401"
+        "404":
+          $ref: "#/components/responses/ErrorResponses404"
+        "500":
+          $ref: "#/components/responses/ErrorResponses500"
+        "503":
+          $ref: "#/components/responses/ErrorResponses503"
+ 
+# --------------------------------------------------------------------------------------------------------
+  /Broker/WebApi/Service?name=rule.Rule&method=findRuleHeader:
+    post:
+      tags:
+        - RuleAPI
+      summary: 回付ルール一覧取得
+      description: 
+        回付ルールの情報の一覧を取得します。
+      operationId: findRuleHeader
+      requestBody:
+        $ref: "#/components/requestBodies/FindRuleHeaderRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/FindRuleHeaderResponses200"
         "400":
           $ref: "#/components/responses/ErrorResponses400"
         "401":
@@ -5966,6 +5992,38 @@ components:
                 pattern: ^((19|20)[0-9]{2})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) JST$
                 example: 2024-10-31 00:00:00 JST
     
+    FindRuleHeaderRequest:
+      content:
+        application/json:
+          schema:
+            required:
+              - condition
+            type: object
+            properties:
+              condition:
+                description: 回付ルールの検索条件
+                type: object
+                properties:
+                  code:
+                    description: 回付ルールコード
+                    type: string
+                    example: R001
+                  criterionDate:
+                    description: |
+                      基準日<br>
+                      *未指定の場合は現在日付
+                    type: string
+                    pattern: ^((19|20)[0-9]{2})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) JST$
+                    example: 2024-12-31 00:00:00 JST
+                  name:
+                    description: 回付ルール名
+                    type: string
+                    example: rule01
+                  projectCode: 
+                    description: 業務カテゴリコード
+                    type: string
+                    example: C001
+    
     ListPublicFolderInfoRequest:
       content:
         application/json:
@@ -10214,6 +10272,51 @@ components:
             リクエストが不正:
               $ref: "#/components/examples/responseErrorRequest"
     
+    FindRuleHeaderResponses200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/FindRuleHeaderResponse"
+          examples:
+            正常:
+              value:
+                ruleHeaderList:
+                    entries:
+                      - name: rule01
+                        localeName: ja
+                        validityDateFrom: 2024-10-31 00:00:00 JST
+                        code: R001
+                        minorVersion: 0
+                        majorVersion: 1
+                        latestMajorVersion: 1
+                        latestMinorVersion: 0
+                        validityDateTo: 2025-10-31 00:00:00 JST
+                        projectCode: C001
+                resultStatus: 
+                  status: SUCCESS
+                  messageList: 
+                    entries: []
+                  text: 
+                  code: 
+            パラメータが不正:
+              value:
+                resultSet:
+                  fieldList:
+                    entries: []
+                  recordList:
+                    entries: []
+                  status: FAIL
+                  messageList: 
+                    entries: 
+                      - text: "{エラーメッセージ}"
+                        code: "{エラーコード}"
+                  text: サービス実行時にエラーが発生しました。
+                  code: AWPCMN0000
+            リクエストが不正:
+              $ref: "#/components/examples/responseErrorRequest"
+    
     ListPublicFolderInfoResponses200:
       description: Successful response
       content:
@@ -13535,6 +13638,29 @@ components:
       allOf:
         - $ref: "#/components/schemas/SCIMPutUsersIdRequest"
     
+    FindRuleHeaderRequest:
+      type: object
+      properties:
+        code:
+          description: 回付ルールコード
+          type: string
+          example: R001
+        criterionDate:
+          description: |
+            基準日<br>
+            *未指定の場合は現在日付
+          type: string
+          pattern: ^((19|20)[0-9]{2})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9]) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) JST$
+          example: 2024-12-31 00:00:00 JST
+        name:
+          description: 回付ルール名
+          type: string
+          example: rule01
+        projectCode: 
+          description: 業務カテゴリコード
+          type: string
+          example: C001
+    
     SCIMPutUsersIdRequest:
       type: object
       properties:
@@ -16086,6 +16212,55 @@ components:
                     description: 公開フォルダのリスト
                     type: object
                     pattern: publication.PublicFolderInfoListModel
+        resultStatus:
+          allOf:
+            - $ref: "#/components/schemas/resultStatus"
+    
+    FindRuleHeaderResponse:
+      type: object
+      pattern: rule.FindRuleHeaderResponseModel
+      properties:
+        ruleHeaderList:
+          description: 回付ルール一覧
+          type: object
+          pattern: rule.RuleHeaderListModel
+          properties:
+            entries:
+              type: array
+              items:
+                type: object
+                pattern: rule.RuleHeaderModel
+                properties:
+                  name:
+                    description: 回付ルール名
+                    type: string
+                  localeName:
+                    description: ロケール名
+                    type: string
+                  validityDateFrom:
+                    description: 適用開始日
+                    type: string
+                  code:
+                    description: 回付ルールコード
+                    type: string
+                  minorVersion:
+                    description: マイナーバージョン
+                    type: integer
+                  majorVersion:
+                    description: メジャーバージョン
+                    type: integer
+                  latestMajorVersion:
+                    description: 最新メジャーバージョン
+                    type: integer
+                  latestMinorVersion:
+                    description: 最新マイナーバージョン
+                    type: integer
+                  validityDateTo:
+                    description: 適用終了日
+                    type: string
+                  projectCode:
+                    description: 業務カテゴリコード
+                    type: string
         resultStatus:
           allOf:
             - $ref: "#/components/schemas/resultStatus"
