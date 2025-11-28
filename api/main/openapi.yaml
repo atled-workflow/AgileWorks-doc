@@ -14633,8 +14633,8 @@ components:
           pattern: common.ResultSetModel
           properties:
             totalCount:
-                  description: 検索結果の全体件数
-                  type: integer
+              description: 検索結果の全体件数
+              type: integer
             fieldList:
               description: フィールド情報一覧
               type: object
