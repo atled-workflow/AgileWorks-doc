@@ -7224,6 +7224,29 @@ paths:
                 required:
                   - formCode
                 type: object
+              pagination:
+                description: ページング条件
+                pattern: common.PaginationModel
+                properties:
+                  offset:
+                    description: |
+                      オフセット<br>
+                      *offsetが指定されている場合、pageNoは無視される<br>
+                      *0以上である必要がある
+                    type: integer
+                  pageNo:
+                    description: |
+                      ページ番号<br>
+                      *pageNoを設定する場合、pageSizeを設定する必要がある<br>
+                      *1以上である必要がある
+                    type: integer
+                  pageSize:
+                    description: |
+                      1ページの表示件数<br>
+                      *pageSizeを設定する場合、pageNoを設定する必要がある<br>
+                      *1以上である必要がある
+                    type: integer
+                type: object
             type: object
       responses:
         '200':
@@ -7297,6 +7320,9 @@ paths:
                           type: object
                         type: array
                     type: object
+                  totalCount:
+                    description: 検索結果の全体件数
+                    type: integer
                 type: object
               resultStatus:
                 description: APIの実行結果
@@ -23333,6 +23359,29 @@ paths:
                 required:
                   - formCode
                 type: object
+              pagination:
+                description: ページング条件
+                pattern: common.PaginationModel
+                properties:
+                  offset:
+                    description: |
+                      オフセット<br>
+                      *offsetが指定されている場合、pageNoは無視される<br>
+                      *0以上である必要がある
+                    type: integer
+                  pageNo:
+                    description: |
+                      ページ番号<br>
+                      *pageNoを設定する場合、pageSizeを設定する必要がある<br>
+                      *1以上である必要がある
+                    type: integer
+                  pageSize:
+                    description: |
+                      1ページの表示件数<br>
+                      *pageSizeを設定する場合、pageNoを設定する必要がある<br>
+                      *1以上である必要がある
+                    type: integer
+                type: object
             type: object
       responses:
         '200':
@@ -23406,6 +23455,9 @@ paths:
                           type: object
                         type: array
                     type: object
+                  totalCount:
+                    description: 検索結果の全体件数
+                    type: integer
                 type: object
               resultStatus:
                 description: APIの実行結果
@@ -24657,6 +24709,28 @@ paths:
                 required:
                   - workflowMessageType
                 type: object
+              pagination:
+                description: ページング条件
+                properties:
+                  offset:
+                    description: |
+                      オフセット<br>
+                      *offsetが指定されている場合、pageNoは無視される<br>
+                      *0以上である必要がある
+                    type: integer
+                  pageNo:
+                    description: |
+                      ページ番号<br>
+                      *pageNoを設定する場合、pageSizeを設定する必要がある<br>
+                      *1以上である必要がある
+                    type: integer
+                  pageSize:
+                    description: |
+                      1ページの表示件数<br>
+                      *pageSizeを設定する場合、pageNoを設定する必要がある<br>
+                      *1以上である必要がある
+                    type: integer
+                type: object
             required:
               - condition
             type: object
@@ -24732,6 +24806,9 @@ paths:
                           type: object
                         type: array
                     type: object
+                  totalCount:
+                    description: 検索結果の全体件数
+                    type: integer
                 type: object
               resultStatus:
                 description: APIの実行結果
@@ -27877,6 +27954,28 @@ paths:
                   - userCode
                   - workflowMessageType
                 type: object
+              pagination:
+                description: ページング条件
+                properties:
+                  offset:
+                    description: |
+                      オフセット<br>
+                      *offsetが指定されている場合、pageNoは無視される<br>
+                      *0以上である必要がある
+                    type: integer
+                  pageNo:
+                    description: |
+                      ページ番号<br>
+                      *pageNoを設定する場合、pageSizeを設定する必要がある<br>
+                      *1以上である必要がある
+                    type: integer
+                  pageSize:
+                    description: |
+                      1ページの表示件数<br>
+                      *pageSizeを設定する場合、pageNoを設定する必要がある<br>
+                      *1以上である必要がある
+                    type: integer
+                type: object
             required:
               - condition
             type: object
@@ -27952,6 +28051,9 @@ paths:
                           type: object
                         type: array
                     type: object
+                  totalCount:
+                    description: 検索結果の全体件数
+                    type: integer
                 type: object
               resultStatus:
                 description: APIの実行結果
@@ -36494,6 +36596,29 @@ definitions:
         required:
           - formCode
         type: object
+      pagination:
+        description: ページング条件
+        pattern: common.PaginationModel
+        properties:
+          offset:
+            description: |
+              オフセット<br>
+              *offsetが指定されている場合、pageNoは無視される<br>
+              *0以上である必要がある
+            type: integer
+          pageNo:
+            description: |
+              ページ番号<br>
+              *pageNoを設定する場合、pageSizeを設定する必要がある<br>
+              *1以上である必要がある
+            type: integer
+          pageSize:
+            description: |
+              1ページの表示件数<br>
+              *pageSizeを設定する場合、pageNoを設定する必要がある<br>
+              *1以上である必要がある
+            type: integer
+        type: object
     type: object
   NotAdminWorkflowMessageRequest:
     pattern: workflow.notadmin.NotAdminWorkflowMessageConditionModel
@@ -38350,6 +38475,29 @@ definitions:
         required:
           - formCode
         type: object
+      pagination:
+        description: ページング条件
+        pattern: common.PaginationModel
+        properties:
+          offset:
+            description: |
+              オフセット<br>
+              *offsetが指定されている場合、pageNoは無視される<br>
+              *0以上である必要がある
+            type: integer
+          pageNo:
+            description: |
+              ページ番号<br>
+              *pageNoを設定する場合、pageSizeを設定する必要がある<br>
+              *1以上である必要がある
+            type: integer
+          pageSize:
+            description: |
+              1ページの表示件数<br>
+              *pageSizeを設定する場合、pageNoを設定する必要がある<br>
+              *1以上である必要がある
+            type: integer
+        type: object
     type: object
   SelectDocResponse:
     pattern: common.SelectResponseModel
@@ -38420,6 +38568,9 @@ definitions:
                   type: object
                 type: array
             type: object
+          totalCount:
+            description: 検索結果の全体件数
+            type: integer
         type: object
       resultStatus:
         description: APIの実行結果
@@ -38521,6 +38672,9 @@ definitions:
                   type: object
                 type: array
             type: object
+          totalCount:
+            description: 検索結果の全体件数
+            type: integer
         type: object
       resultStatus:
         description: APIの実行結果
@@ -53111,6 +53265,7 @@ x-components:
                     entries: []
                   recordList:
                     entries: []
+                  totalCount: null
                 resultStatus:
                   code: AWPCMN0000
                   messageList:
@@ -53152,6 +53307,7 @@ x-components:
                             - name: textfield1
                               value: delete
                         index: null
+                  totalCount: 2
                 resultStatus:
                   code: null
                   messageList:
@@ -53227,6 +53383,9 @@ x-components:
                           type: object
                         type: array
                     type: object
+                  totalCount:
+                    description: 検索結果の全体件数
+                    type: integer
                 type: object
               resultStatus:
                 description: APIの実行結果
@@ -53278,6 +53437,7 @@ x-components:
                     entries: []
                   status: FAIL
                   text: サービス実行時にエラーが発生しました。
+                  totalCount: null
             リクエストが不正:
               value:
                 resultStatus:
@@ -53344,6 +53504,7 @@ x-components:
                             - name: DocExistAttachment
                               value: false
                         index: null
+                  totalCount: 1
                 resultStatus:
                   code: null
                   messageList:
@@ -53419,6 +53580,9 @@ x-components:
                           type: object
                         type: array
                     type: object
+                  totalCount:
+                    description: 検索結果の全体件数
+                    type: integer
                 type: object
               resultStatus:
                 description: APIの実行結果
@@ -58264,6 +58428,10 @@ x-components:
                   - fieldId: textfield1
                     type: FIELD
               formCode: form01
+            pagination:
+              offset: 10
+              pageNo: 2
+              pageSize: 50
           schema:
             pattern: doc.notadmin.NotAdminSelectDocRequestModel
             properties:
@@ -58578,6 +58746,29 @@ x-components:
                 required:
                   - formCode
                 type: object
+              pagination:
+                description: ページング条件
+                pattern: common.PaginationModel
+                properties:
+                  offset:
+                    description: |
+                      オフセット<br>
+                      *offsetが指定されている場合、pageNoは無視される<br>
+                      *0以上である必要がある
+                    type: integer
+                  pageNo:
+                    description: |
+                      ページ番号<br>
+                      *pageNoを設定する場合、pageSizeを設定する必要がある<br>
+                      *1以上である必要がある
+                    type: integer
+                  pageSize:
+                    description: |
+                      1ページの表示件数<br>
+                      *pageSizeを設定する場合、pageNoを設定する必要がある<br>
+                      *1以上である必要がある
+                    type: integer
+                type: object
             type: object
     NotAdminSelectWorkflowMessageRequest:
       content:
@@ -58587,6 +58778,10 @@ x-components:
               formCode: form01
               userCode: user01
               workflowMessageType: APPROVE_REQUEST
+            pagination:
+              offset: 10
+              pageNo: 2
+              pageSize: 50
           schema:
             pattern: workflow.notAdminSelectWorkflowMessageConditionModel
             properties:
@@ -58631,6 +58826,28 @@ x-components:
                     type: string
                 required:
                   - workflowMessageType
+                type: object
+              pagination:
+                description: ページング条件
+                properties:
+                  offset:
+                    description: |
+                      オフセット<br>
+                      *offsetが指定されている場合、pageNoは無視される<br>
+                      *0以上である必要がある
+                    type: integer
+                  pageNo:
+                    description: |
+                      ページ番号<br>
+                      *pageNoを設定する場合、pageSizeを設定する必要がある<br>
+                      *1以上である必要がある
+                    type: integer
+                  pageSize:
+                    description: |
+                      1ページの表示件数<br>
+                      *pageSizeを設定する場合、pageNoを設定する必要がある<br>
+                      *1以上である必要がある
+                    type: integer
                 type: object
             required:
               - condition
@@ -59207,6 +59424,10 @@ x-components:
                   - fieldId: textfield1
                     type: FIELD
               formCode: form01
+            pagination:
+              offset: 10
+              pageNo: 2
+              pageSize: 50
           schema:
             pattern: doc.SelectDocRequestModel
             properties:
@@ -59524,6 +59745,29 @@ x-components:
                 required:
                   - formCode
                 type: object
+              pagination:
+                description: ページング条件
+                pattern: common.PaginationModel
+                properties:
+                  offset:
+                    description: |
+                      オフセット<br>
+                      *offsetが指定されている場合、pageNoは無視される<br>
+                      *0以上である必要がある
+                    type: integer
+                  pageNo:
+                    description: |
+                      ページ番号<br>
+                      *pageNoを設定する場合、pageSizeを設定する必要がある<br>
+                      *1以上である必要がある
+                    type: integer
+                  pageSize:
+                    description: |
+                      1ページの表示件数<br>
+                      *pageSizeを設定する場合、pageNoを設定する必要がある<br>
+                      *1以上である必要がある
+                    type: integer
+                type: object
             type: object
     SelectWorkflowMessageRequest:
       content:
@@ -59533,6 +59777,10 @@ x-components:
               formCode: form01
               userCode: user01
               workflowMessageType: APPROVE_REQUEST
+            pagination:
+              offset: 10
+              pageNo: 2
+              pageSize: 50
           schema:
             pattern: workflow.SelectWorkflowMessageConditionModel
             properties:
@@ -59565,6 +59813,28 @@ x-components:
                 required:
                   - userCode
                   - workflowMessageType
+                type: object
+              pagination:
+                description: ページング条件
+                properties:
+                  offset:
+                    description: |
+                      オフセット<br>
+                      *offsetが指定されている場合、pageNoは無視される<br>
+                      *0以上である必要がある
+                    type: integer
+                  pageNo:
+                    description: |
+                      ページ番号<br>
+                      *pageNoを設定する場合、pageSizeを設定する必要がある<br>
+                      *1以上である必要がある
+                    type: integer
+                  pageSize:
+                    description: |
+                      1ページの表示件数<br>
+                      *pageSizeを設定する場合、pageNoを設定する必要がある<br>
+                      *1以上である必要がある
+                    type: integer
                 type: object
             required:
               - condition
