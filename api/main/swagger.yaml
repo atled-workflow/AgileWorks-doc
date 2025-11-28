@@ -21988,6 +21988,183 @@ paths:
       description: 公開フォルダ・公開フォーム一覧を取得します。
       operationId: listPublicFolderInfo
       summary: 公開フォルダ・公開フォーム取得
+  /Broker/WebApi/Service?name=rule.Rule&method=findRuleHeader:
+    post:
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          schema:
+            properties:
+              condition:
+                description: 回付ルールの検索条件
+                properties:
+                  code:
+                    description: 回付ルールコード
+                    example: R001
+                    type: string
+                  criterionDate:
+                    description: |
+                      基準日<br>
+                      *未指定の場合は現在日付
+                    example: '2024-12-31 00:00:00 JST'
+                    pattern: >-
+                      ^((19|20)[0-9]{2})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])
+                      (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) JST$
+                    type: string
+                  name:
+                    description: 回付ルール名
+                    example: rule01
+                    type: string
+                  projectCode:
+                    description: 業務カテゴリコード
+                    example: C001
+                    type: string
+                type: object
+            required:
+              - condition
+            type: object
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            pattern: rule.FindRuleHeaderResponseModel
+            properties:
+              resultStatus:
+                description: APIの実行結果
+                pattern: common.ResultStatusModel
+                properties:
+                  code:
+                    description: 結果コード
+                    type: string
+                  messageList:
+                    description: メッセージ詳細
+                    pattern: common.MessageModel
+                    properties:
+                      entries:
+                        items:
+                          properties:
+                            code:
+                              description: 結果コード
+                              type: string
+                            text:
+                              description: 結果説明
+                              type: string
+                          type: object
+                        type: array
+                    type: object
+                  status:
+                    description: 結果ステータス
+                    type: string
+                  text:
+                    description: 結果説明
+                    type: string
+                type: object
+              ruleHeaderList:
+                description: 回付ルール一覧
+                pattern: rule.RuleHeaderListModel
+                properties:
+                  entries:
+                    items:
+                      pattern: rule.RuleHeaderModel
+                      properties:
+                        code:
+                          description: 回付ルールコード
+                          type: string
+                        latestMajorVersion:
+                          description: 最新メジャーバージョン
+                          type: integer
+                        latestMinorVersion:
+                          description: 最新マイナーバージョン
+                          type: integer
+                        localeName:
+                          description: ロケール名
+                          type: string
+                        majorVersion:
+                          description: メジャーバージョン
+                          type: integer
+                        minorVersion:
+                          description: マイナーバージョン
+                          type: integer
+                        name:
+                          description: 回付ルール名
+                          type: string
+                        projectCode:
+                          description: 業務カテゴリコード
+                          type: string
+                        validityDateFrom:
+                          description: 適用開始日
+                          type: string
+                        validityDateTo:
+                          description: 適用終了日
+                          type: string
+                      type: object
+                    type: array
+                type: object
+            type: object
+        '400':
+          description: Error response(Bad Request)
+          schema:
+            properties:
+              error_code:
+                example: 400
+                type: integer
+              error_message:
+                example: '{エラーメッセージ}'
+                type: string
+            type: object
+        '401':
+          description: Error response(Unauthorized)
+          schema:
+            properties:
+              error_code:
+                example: 401
+                type: integer
+              error_message:
+                example: '{エラーメッセージ}'
+                type: string
+            type: object
+        '404':
+          description: Error response(Not Found)
+          schema:
+            properties:
+              error_code:
+                example: 404
+                type: integer
+              error_message:
+                example: '{エラーメッセージ}'
+                type: string
+            type: object
+        '500':
+          description: Error response(Internal Server Error)
+          schema:
+            properties:
+              error_code:
+                example: 500
+                type: integer
+              error_message:
+                example: '{エラーメッセージ}'
+                type: string
+            type: object
+        '503':
+          description: Error response(Service unavailable)
+          schema:
+            properties:
+              error_code:
+                example: 503
+                type: integer
+              error_message:
+                example: '{エラーメッセージ}'
+                type: string
+            type: object
+      tags:
+        - RuleAPI
+      description: 回付ルールの情報の一覧を取得します。
+      operationId: findRuleHeader
+      summary: 回付ルール一覧取得
   /Broker/WebApi/Service?name=site.Site&method=findProject:
     post:
       consumes:
@@ -31268,6 +31445,105 @@ definitions:
             type: string
         type: object
     type: object
+  FindRuleHeaderRequest:
+    properties:
+      code:
+        description: 回付ルールコード
+        example: R001
+        type: string
+      criterionDate:
+        description: |
+          基準日<br>
+          *未指定の場合は現在日付
+        example: '2024-12-31 00:00:00 JST'
+        pattern: >-
+          ^((19|20)[0-9]{2})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])
+          (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) JST$
+        type: string
+      name:
+        description: 回付ルール名
+        example: rule01
+        type: string
+      projectCode:
+        description: 業務カテゴリコード
+        example: C001
+        type: string
+    type: object
+  FindRuleHeaderResponse:
+    pattern: rule.FindRuleHeaderResponseModel
+    properties:
+      resultStatus:
+        description: APIの実行結果
+        pattern: common.ResultStatusModel
+        properties:
+          code:
+            description: 結果コード
+            type: string
+          messageList:
+            description: メッセージ詳細
+            pattern: common.MessageModel
+            properties:
+              entries:
+                items:
+                  properties:
+                    code:
+                      description: 結果コード
+                      type: string
+                    text:
+                      description: 結果説明
+                      type: string
+                  type: object
+                type: array
+            type: object
+          status:
+            description: 結果ステータス
+            type: string
+          text:
+            description: 結果説明
+            type: string
+        type: object
+      ruleHeaderList:
+        description: 回付ルール一覧
+        pattern: rule.RuleHeaderListModel
+        properties:
+          entries:
+            items:
+              pattern: rule.RuleHeaderModel
+              properties:
+                code:
+                  description: 回付ルールコード
+                  type: string
+                latestMajorVersion:
+                  description: 最新メジャーバージョン
+                  type: integer
+                latestMinorVersion:
+                  description: 最新マイナーバージョン
+                  type: integer
+                localeName:
+                  description: ロケール名
+                  type: string
+                majorVersion:
+                  description: メジャーバージョン
+                  type: integer
+                minorVersion:
+                  description: マイナーバージョン
+                  type: integer
+                name:
+                  description: 回付ルール名
+                  type: string
+                projectCode:
+                  description: 業務カテゴリコード
+                  type: string
+                validityDateFrom:
+                  description: 適用開始日
+                  type: string
+                validityDateTo:
+                  description: 適用終了日
+                  type: string
+              type: object
+            type: array
+        type: object
+    type: object
   FindSectionRoleGroupRequest:
     pattern: org.FindSectionRoleGroupRequestModel
     properties:
@@ -39857,6 +40133,7 @@ tags:
   - name: SiteAPI
   - name: UserMasterAPI
   - name: FormAPI
+  - name: RuleAPI
   - name: PublicationAPI
   - name: NotAdminAPI
   - name: SCIMAPI/Users
@@ -44823,6 +45100,128 @@ x-components:
                   text:
                     description: 結果説明
                     type: string
+                type: object
+            type: object
+      description: Successful response
+    FindRuleHeaderResponses200:
+      content:
+        application/json:
+          examples:
+            パラメータが不正:
+              value:
+                resultSet:
+                  code: AWPCMN0000
+                  fieldList:
+                    entries: []
+                  messageList:
+                    entries:
+                      - code: '{エラーコード}'
+                        text: '{エラーメッセージ}'
+                  recordList:
+                    entries: []
+                  status: FAIL
+                  text: サービス実行時にエラーが発生しました。
+            リクエストが不正:
+              value:
+                resultStatus:
+                  code: APIPAP_W0003
+                  messageList:
+                    entries: []
+                  status: FAIL
+                  text: 公開APIの実行時にエラーが発生しました。
+            正常:
+              value:
+                resultStatus:
+                  code: null
+                  messageList:
+                    entries: []
+                  status: SUCCESS
+                  text: null
+                ruleHeaderList:
+                  entries:
+                    - code: R001
+                      latestMajorVersion: 1
+                      latestMinorVersion: 0
+                      localeName: ja
+                      majorVersion: 1
+                      minorVersion: 0
+                      name: rule01
+                      projectCode: C001
+                      validityDateFrom: '2024-10-31 00:00:00 JST'
+                      validityDateTo: '2025-10-31 00:00:00 JST'
+          schema:
+            pattern: rule.FindRuleHeaderResponseModel
+            properties:
+              resultStatus:
+                description: APIの実行結果
+                pattern: common.ResultStatusModel
+                properties:
+                  code:
+                    description: 結果コード
+                    type: string
+                  messageList:
+                    description: メッセージ詳細
+                    pattern: common.MessageModel
+                    properties:
+                      entries:
+                        items:
+                          properties:
+                            code:
+                              description: 結果コード
+                              type: string
+                            text:
+                              description: 結果説明
+                              type: string
+                          type: object
+                        type: array
+                    type: object
+                  status:
+                    description: 結果ステータス
+                    type: string
+                  text:
+                    description: 結果説明
+                    type: string
+                type: object
+              ruleHeaderList:
+                description: 回付ルール一覧
+                pattern: rule.RuleHeaderListModel
+                properties:
+                  entries:
+                    items:
+                      pattern: rule.RuleHeaderModel
+                      properties:
+                        code:
+                          description: 回付ルールコード
+                          type: string
+                        latestMajorVersion:
+                          description: 最新メジャーバージョン
+                          type: integer
+                        latestMinorVersion:
+                          description: 最新マイナーバージョン
+                          type: integer
+                        localeName:
+                          description: ロケール名
+                          type: string
+                        majorVersion:
+                          description: メジャーバージョン
+                          type: integer
+                        minorVersion:
+                          description: マイナーバージョン
+                          type: integer
+                        name:
+                          description: 回付ルール名
+                          type: string
+                        projectCode:
+                          description: 業務カテゴリコード
+                          type: string
+                        validityDateFrom:
+                          description: 適用開始日
+                          type: string
+                        validityDateTo:
+                          description: 適用終了日
+                          type: string
+                      type: object
+                    type: array
                 type: object
             type: object
       description: Successful response
@@ -56553,6 +56952,39 @@ x-components:
                     description: 対象回付ルールコード
                     type: string
                 type: object
+            type: object
+    FindRuleHeaderRequest:
+      content:
+        application/json:
+          schema:
+            properties:
+              condition:
+                description: 回付ルールの検索条件
+                properties:
+                  code:
+                    description: 回付ルールコード
+                    example: R001
+                    type: string
+                  criterionDate:
+                    description: |
+                      基準日<br>
+                      *未指定の場合は現在日付
+                    example: '2024-12-31 00:00:00 JST'
+                    pattern: >-
+                      ^((19|20)[0-9]{2})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])
+                      (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) JST$
+                    type: string
+                  name:
+                    description: 回付ルール名
+                    example: rule01
+                    type: string
+                  projectCode:
+                    description: 業務カテゴリコード
+                    example: C001
+                    type: string
+                type: object
+            required:
+              - condition
             type: object
     FindSectionRoleGroupRequest:
       content:
